@@ -1,0 +1,197 @@
+\documentclass[10pt,a4paper,ragged2e,withhyper]{cvclass}
+\geometry{left=0cm,right=0cm,top=0cm,bottom=0cm,columnsep=0.0cm}
+
+\usepackage{paracol}
+
+\ifxetexorluatex
+  % If using xelatex or lualatex:
+  \setmainfont{Roboto Slab}
+  \setsansfont{Lato}
+  \renewcommand{\familydefault}{\sfdefault}
+\else
+  % If using pdflatex:
+  \usepackage[rm]{roboto}
+  \usepackage[defaultsans]{lato}
+  % \usepackage{sourcesanspro}
+  \renewcommand{\familydefault}{\sfdefault}
+\fi
+
+% Change the colours if you want to
+\definecolor{SlateGrey}{HTML}{2E2E2E}
+\definecolor{LightGrey}{HTML}{DDDDDD}
+% \definecolor{Blue}{HTML}{003D74}
+\definecolor{Blue}{HTML}{473D8F}
+\definecolor{DarkBlue}{HTML}{2E284E}
+\colorlet{name}{white}
+\colorlet{tagline}{white}
+\colorlet{heading}{Blue}
+\colorlet{headingrule}{black}
+\colorlet{subheading}{black}
+\colorlet{accent}{black}
+\colorlet{emphasis}{Blue}
+\colorlet{body}{white}
+\colorlet{headingbg}{DarkBlue}
+
+% Change some fonts, if necessary
+\renewcommand{\namefont}{\Huge\rmfamily\bfseries}
+\renewcommand{\personalinfofont}{\small}
+\renewcommand{\cvsectionfont}{\LARGE\rmfamily\bfseries}
+\renewcommand{\cvsubsectionfont}{\bfseries}
+
+\renewcommand{\itemmarker}{{\small\textbullet}}
+\renewcommand{\ratingmarker}{\faSquareFull}
+\newcommand{\dt}{ $\cdot$~}
+
+%% sample.bib contains your publications
+\addbibresource{main.bib}
+
+\begin{document}
+
+\name{Trey Wilkinson}
+\tagline{Full Stack Developer}
+
+\personalinfo{%
+  \email{winston.trey.wilkinson@gmail.com}
+  \homepage{treywilkinson.com}
+  \github{t-wilkinson}
+  % \mailaddress{6402, Tisdale Ter}
+  \location{Bethesda MD, 20817}
+  % \linkedin{your_id}
+  % \phone{000-000-0000}
+}
+
+\columnratio{0.3}
+\begin{paracol}{2}
+
+\newtcolorbox{mycolumn}[1][]{height=845pt, arc=0mm, boxrule=0mm, #1}
+
+\begin{mycolumn}[colback=Blue]
+\colorlet{body}{white}
+\colorlet{emphasis}{white}
+\colorlet{accent}{white}
+
+\renewcommand{\cvsection}[2][]{%
+  \medskip%
+  \ifstrequal{#1}{}{}{\marginpar{\vspace*{\dimexpr1pt-\baselineskip}\raggedright\input{#1}}}%
+  {\color{heading}\cvsectionheading{#2}}
+  \color{body}
+}
+
+\makecvheader
+
+\cvsection{Skills}
+
+    \begin{cvskillsection}{Frontend}{0.8}
+        \item JavaScript\dt TypeScript
+        \item React\dt React Native
+        \item CSS3\dt SCSS\dt HTML5
+        \item Responsive
+    \end{cvskillsection}
+
+    \begin{cvskillsection}{Backend}{0.8}
+        \item Node.js\dt Next.js\dt Express
+        \item REST\dt GraphQL
+        \item SQL\dt MongoDB\dt Redis
+        \item Nginx\dt Strapi
+    \end{cvskillsection}
+
+    \begin{cvskillsection}{Others}{}
+        \item AWS
+        \item Git\dt Nix
+        \item Linux\dt Bash
+        \item CI\dt CD
+        \item Python\dt Haskell\dt Go\dt Rust
+    \end{cvskillsection}
+
+\cvsection{Interests}
+    \begin{cvskillsection}{Computers}{}
+        \item Machine Learning
+        \item Information Security
+        \item System Administration
+    \end{cvskillsection}
+
+    \begin{cvskillsection}{Math}{}
+        \item Category Theory
+        \item Homotopy Type Theory
+        \item Calculus
+        \item Linear Algebra
+    \end{cvskillsection}
+
+    \begin{cvskillsection}{Others}{}
+        \item Electric Guitar
+    \end{cvskillsection}
+
+\cvsection{Education}
+    \cvevent{Mary Baldwin University}{}{2018 -- 2019}{}3.6 GPA
+
+    \medskip
+    \cvevent{Walter Johnson High School}{}{2013 -- 2018}{}
+
+\end{mycolumn}
+
+\switchcolumn
+
+\begin{mycolumn}
+\colorlet{body}{black}
+    A focused, driven, and adaptable individual with a passion for learning, creating, and problem-solving. A natural and proactive leader. Three years of experience in web development.
+
+\cvsection{Projects}
+    \begin{cvdateevent}{2021--01}{20201-01}{\href{http://ai.treywilkinson.com}{Neural Style Transfer}}{NST Implementation}
+        \begin{itemize}
+            \item NST uses a trained deep neural network to combine the style of one image and the content of another.
+            \item Used React to quickly develop an interesting UI.
+            \item Used Next.js to power both the frontend and backend.
+            \item Wrote a script in Python using PyTorch to implement a NST algorithm which is applied to user-provided images.
+        \end{itemize}
+    \end{cvdateevent}
+    \divider\\
+
+    \begin{cvdateevent}{2020--06}{2020--12}{\href{https://kleanstudio.com}{Klean Studios}}{Music recording studio}
+        \begin{itemize}
+            \item Used React, TypeScript, and Tailwind to develop a tailored UI and UX.
+            \item Used Node.js and Express to develop a REST compliant architecture.
+            \item Created a user dashboard, integrated with Stripe, and an admin dashboard, to automate most business and site functionality.
+            \item Used PostgreSQL to provide searching functionality for the dashboard.
+            \item Automated hosting on an EC2 instance running Nginx with Jenkins and my Linux knowledge.
+        \end{itemize}
+    \end{cvdateevent}
+    \divider\\
+
+    \begin{cvdateevent}{2020--12}{2021--01}{\href{http://penguins.treywilkinson.com}{Penguin Sweaters}}{Promote penguin conservation efforts}
+        \begin{itemize}
+            \item Drove the UI and UX with React, TypeScript, and SCSS.
+            \item Used a Next.js server to query Strapi endpoints using GraphQL.
+            \item Hosted site on an EC2 instance running Nginx.
+        \end{itemize}
+    \end{cvdateevent}
+
+\cvsection{Experience}
+    \begin{cvdateevent}{2015}{2020}{Window Cleaning}{Wells Window Cleaning}
+        \begin{itemize}
+            \item Professionally cleaned windows with a small team at residences of high portfolio individuals in the Washington DC area.
+            \item Developed attention to detail and strong work ethic as I strived to provide only the best results for clients.
+            \item Learned risk management and communication in order to work safely and effectively.
+            \item Developed problem-solving techniques and creative thinking as I accomplished difficult tasks even when lacking the necessary tools.
+        \end{itemize}
+    \end{cvdateevent}
+    \divider\\
+
+    \begin{cvdateevent}{2014}{2015}{Entrepreneurial Art Internship}{Arts on the Block}
+        \begin{itemize}
+            \item Created commissioned artwork at a non-profit business for companies in the Washington DC area.
+            \item Worked with a group of individuals to design, create, and install commissioned artwork, which required time management, communication, planning, and resourcefulness.
+        \end{itemize}
+    \end{cvdateevent}
+    \divider\\
+
+    \begin{cvdateevent}{2008}{2016}{Eagle Scout}{Award earned in 2016}
+        \begin{itemize}
+            \item Conceptualized personal community service project, fundraised from local organizations. Lead, organized, and collaborated with ten volunteers over two weeks to provide lasting services for a local, under-funded elementary school.
+            \item Consistently lead and managed activities with over 15 individuals, requiring organization, communication, and risk management.
+        \end{itemize}
+    \end{cvdateevent}
+
+\end{mycolumn}
+\end{paracol}
+
+\end{document}

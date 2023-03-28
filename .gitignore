@@ -1,0 +1,63 @@
+#########################################
+#               LANGUAGES               #
+#########################################
+
+# python
+*.pyc
+__pycache__/
+.venv/
+env/
+
+# rust
+target
+
+# javascript
+node_modules
+gsap-bonus.tgz
+backend.new
+
+# next.js
+.next/
+out/
+
+# haskell
+.stack-work
+dist-newstyle/
+
+##############################################
+#               DEVELOPMENT                  #
+##############################################
+
+build
+*.o
+*.out
+
+# local env files
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# debug
+db.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# testing
+coverage
+
+#########################################
+#                 MISC                  #
+#########################################
+
+uploads/*
+db.sqlite
+.DS_Store
+*.pem
+data.json
+datasets/
+
+# zortex
+notes/resources

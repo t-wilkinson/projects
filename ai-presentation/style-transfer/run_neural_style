@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+
+source env/bin/activate
+if [[ $1 == 'demo' ]]; then
+    python neural_style.py -c images/dancing.jpg -s images/picasso.jpg -o test1.jpg --image-size 256 --style-weight 10000000
+else
+    python neural_style.py "$@"
+fi

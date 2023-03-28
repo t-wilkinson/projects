@@ -1,0 +1,12 @@
+NAME
+       ghc - the Glasgow Haskell Compiler
+
+SYNOPSIS
+          ghc [option|filename]
+          ghci [option|filename]
+
+DESCRIPTION
+       This  manual page documents briefly the ghc and ghci commands. Note that ghci is not yet available on all architec‐
+       tures. Extensive documentation is available in various other formats including PDF and HTML.
+
+       Each of GH

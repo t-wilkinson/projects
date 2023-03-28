@@ -1,0 +1,56 @@
+
+==================== Tidy Core ====================
+2020-08-02 11:37:22.197630301 UTC
+
+Result size of Tidy Core
+  = {terms: 32, types: 28, coercions: 0, joins: 0/0}
+
+-- RHS size: {terms: 7, types: 6, coercions: 0, joins: 0/0}
+f_rge :: forall a. Eq a => a -> Bool
+[GblId, Arity=2, Caf=NoCafRefs, Unf=OtherCon []]
+f_rge
+  = \ (@ a_a1k5) ($dEq_a1k7 :: Eq a_a1k5) (x_a1eA :: a_a1k5) ->
+      == @ a_a1k5 $dEq_a1k7 x_a1eA x_a1eA
+
+-- RHS size: {terms: 6, types: 6, coercions: 0, joins: 0/0}
+main :: IO ()
+[GblId]
+main
+  = $ @ 'GHC.Types.LiftedRep
+      @ Bool
+      @ (IO ())
+      (print @ Bool GHC.Show.$fShowBool)
+      (f_rge
+         @ Integer integer-gmp-1.0.3.0:GHC.Integer.Type.$fEqInteger 0)
+
+-- RHS size: {terms: 2, types: 1, coercions: 0, joins: 0/0}
+:Main.main :: IO ()
+[GblId]
+:Main.main = GHC.TopHandler.runMainIO @ () main
+
+-- RHS size: {terms: 1, types: 0, coercions: 0, joins: 0/0}
+$trModule1_r1zi :: GHC.Prim.Addr#
+[GblId, Caf=NoCafRefs, Unf=OtherCon []]
+$trModule1_r1zi = "main"#
+
+-- RHS size: {terms: 2, types: 0, coercions: 0, joins: 0/0}
+$trModule2_r1zq :: GHC.Types.TrName
+[GblId, Caf=NoCafRefs, Unf=OtherCon []]
+$trModule2_r1zq = GHC.Types.TrNameS $trModule1_r1zi
+
+-- RHS size: {terms: 1, types: 0, coercions: 0, joins: 0/0}
+$trModule3_r1zr :: GHC.Prim.Addr#
+[GblId, Caf=NoCafRefs, Unf=OtherCon []]
+$trModule3_r1zr = "Main"#
+
+-- RHS size: {terms: 2, types: 0, coercions: 0, joins: 0/0}
+$trModule4_r1zs :: GHC.Types.TrName
+[GblId, Caf=NoCafRefs, Unf=OtherCon []]
+$trModule4_r1zs = GHC.Types.TrNameS $trModule3_r1zr
+
+-- RHS size: {terms: 3, types: 0, coercions: 0, joins: 0/0}
+Main.$trModule :: GHC.Types.Module
+[GblId, Caf=NoCafRefs, Unf=OtherCon []]
+Main.$trModule = GHC.Types.Module $trModule2_r1zq $trModule4_r1zs
+
+

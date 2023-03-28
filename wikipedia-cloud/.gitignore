@@ -1,0 +1,7 @@
+articles
+redis-6.0.9
+redox
+*.out
+store-titles
+dump.rdb
+store-titles.json*

@@ -1,0 +1,11 @@
+@@Resource
+@[Attention is All You Need - Google Brain](/home/trey/reading/Attention-is-All-You-Need-by-Google-Brain.pdf)
+@Paper
+@AI
+
+- Most Seq2Seq implementations use recurrent neural networks or CNNs which are sequential and slow.
+- Most architectures include an encoder and decoder.
+- This paper proposes a new architecture relying purely on attention mechanisms.
+- Attention mechanisms identify dependencies among items regardless of distance
+- Most attention models have non-constant dependency mapping compared to distance.
+- How does multi-head attention conteract the reduce effection resolution due to averaging attention-weighted positions
