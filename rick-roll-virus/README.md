@@ -1,3 +1,9 @@
+## Resources
+- https://serverfault.com/questions/318960/easy-way-to-edit-the-traffic-coming-from-a-tcp-host-linux
+- https://github.com/rgerganov/nfqsed/blob/master/nfqsed.c
+- https://superuser.com/questions/661772/iptables-redirect-to-localhost
+- https://docs.kernel.org/kbuild/modules.html
+
 ## Goals
 - Intercept linking process to insert code that writes the actual virus. Or... add a binary onto path that hides gcc, calls gcc with arguments, gets the output binary, and rewrite it there.
 - In terms of places to insert virus code, we can insert it into gcc, which would require sudo privaleges, or we can listen to calls.
