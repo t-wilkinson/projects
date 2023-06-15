@@ -1,7 +1,9 @@
 #![allow(unused)]
+// use reqwest; // TODO: remove dependency and just make simple http tcp request
 use std::env;
+use std::fs::File;
 use std::io::{self, Read, Write};
-use std::net::TcpListener;
+use std::net::{TcpListener, TcpStream};
 use std::process;
 
 fn help() {
@@ -58,25 +60,42 @@ impl NetEdit {
         Ok(())
     }
 
-    fn tcp_listener(&self) -> std::io::Result<()> {
+    fn tcp_listener(&self) -> Result<(), Box<dyn std::error::Error>> {
         let mut listener = TcpListener::bind(format!("127.0.0.1:{}", self.port))?;
+        io::stdout().write_all(
+            format!("Running on port {} with pid {}\n", self.port, process::id()).as_bytes(),
+        );
+        let never_gonna_give_you_up_never_gonna_let_you_down_never_gonna_run_around_and_desert_you =
+        //     reqwest::blocking::get("https://www.youtube.com/watch?v=dQw4w9WgXcQ")?.bytes()?;
+            b"https://www.youtube.com/watch?v=dQw4w9WgXcQ";
 
         for stream in listener.incoming() {
             match stream {
                 Ok(mut stream) => {
-                    let mut buf;
-                    loop {
-                        buf = [0; 128];
-                        match stream.read(&mut buf) {
-                            Ok(n) => {
-                                io::stdout().write_all(&buf);
-                                if n == 0 {
-                                    break;
-                                }
-                            }
-                            Err(e) => return Err(e),
-                        };
-                    }
+                    // Return data
+                    stream.write_all(b"HTTP/1.1 301 Moved Permanently\r\n")?;
+                    stream.write_all(format!("Location: {}\r\n", never_gonna_give_you_up_never_gonna_let_you_down_never_gonna_run_around_and_desert_you))?;
+                    stream.flush().unwrap();
+
+                    // let mut outgoing_stream = TcpStream::connect();
+
+                    // // Read incoming data
+                    // let mut buf;
+                    // loop {
+                    //     buf = [0; 128];
+                    //     match stream.read(&mut buf) {
+                    //         Ok(n) => {
+                    //             // Break if reached EOF
+                    //             if n == 0 {
+                    //                 break;
+                    //             }
+
+                    //             // Forward to outgoing tcp connection
+                    //             // outgoing_stream.write(buf);
+                    //         }
+                    //         Err(e) => return Err(Box::new(e)),
+                    //     };
+                    // }
                 }
                 Err(stream) => {}
             }
@@ -85,13 +104,13 @@ impl NetEdit {
         Ok(())
     }
 
-    fn listen(&self) -> std::io::Result<()> {
+    fn listen(&self) -> Result<(), Box<dyn std::error::Error>> {
         self.tcp_listener()
     }
 }
 
 /// netedit <protocol> <port> <dst-host:dst-port>
-fn main() {
+fn main() -> std::io::Result<()> {
     let args: Vec<String> = env::args().collect();
 
     match parse_args(args) {

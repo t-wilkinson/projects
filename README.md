@@ -16,5 +16,5 @@
 | [./remote-note-server](remote-note-server) | `javascript` | `webserver` |
 | [./resume](resume) | `tex` | `resume` |
 | [./l-system](l-system) | `python` | `fractal` `graphics` `lindenmayer-system` |
-| [./rick-roll-detector](https://www.youtube.com/watch?v=dQw4w9WgXcQ&ab_channel=RickAstley) | `react` `c` `go` | `database` `rick-astley` |
+| [./rick-roll-detector](https://www.youtube.com/watch?v=dQw4w9WgXcQ) | `react` `c` `go` | `database` `rick-astley` |
 | [./wikipedia-cloud](wikipedia-cloud) | `c` `javascript` `redis` | `webscraping` |

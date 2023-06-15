@@ -1,32 +1,36 @@
-## Resources
-- https://serverfault.com/questions/318960/easy-way-to-edit-the-traffic-coming-from-a-tcp-host-linux
-- https://github.com/rgerganov/nfqsed/blob/master/nfqsed.c
-- https://superuser.com/questions/661772/iptables-redirect-to-localhost
-- https://docs.kernel.org/kbuild/modules.html
-
 ## Goals
+Create an obnoxious program which will return any http request with one 'never gonna give you up' youtube video. To make this more obnoxious, overtime the program should further embed itself in the host system. To counteract this, create a second program which can systematically remove all traces of the adversary program.
+
+Assumptions for this program to run
+- The seed program is run with root
+
 - Intercept linking process to insert code that writes the actual virus. Or... add a binary onto path that hides gcc, calls gcc with arguments, gets the output binary, and rewrite it there.
 - In terms of places to insert virus code, we can insert it into gcc, which would require sudo privaleges, or we can listen to calls.
 - Virus should be difficult to disable. IE removing a file, stopping a server, etc. shouldn't stop the virus from working.
 - The virus should intercept every http get request and return a rick-roll link. ways we can achieve this:
     - Assume we have sudo privaleges run running the virus. We can add all users to some group that can run the virus without sudo.
     - Can't listen to already listening ports.
-    1. Custom interface
-        - Forward all traffic to custom interface.
-        - Would require a lot of work
-    2. Iptables
-        - Probably want to back this up before messing with it. `iptables-save > iptables-restore`
-        - Need to forward packets to a listening process. Write this in Rust.
-    3. Create custom dns resolver that forwards requests to custom server handler
-        - Messing with iptables is lowerlevel and more flexible
-    4. nfqueues
-        - No. Seems to mostly be installed by default on RedHat distributions. Others one must install it first. Small population.
 
 ## netedit
-Rust progam which iptables will forward new connections to.
+Rust progam which iptables will forward new connections to which can modify connections.
+
+## Design decisions
+### What is the best way to actually intercept web traffic?
+1. Custom interface
+    - Forward all traffic to custom interface.
+    - Would require a lot of work
+2. Iptables
+    - Probably want to back this up before messing with it. `iptables-save > iptables-restore`
+    - Need to forward packets to a listening process. Write this in Rust.
+    - `sysctl net.ipv4.ip_forward=1`
+    - `iptables -t nat -I PREROUTING 1 -p tcp --dport 80 -j DNAT --to-destination 127.0.0.1:11110`
+3. Create custom dns resolver that forwards requests to custom server handler
+    - Messing with iptables is lowerlevel and more flexible
+4. nfqueues
+    - No. Seems to mostly be installed by default on RedHat distributions. Others one must install it first. Small population.
 
 
-### Steps
+### Steps to create self-replicating code that is difficult to remove
 The first goal is to find the code that is writing the file, so we can insert virus code in there.
 1.
 ```bash
@@ -71,3 +75,7 @@ I want to follow system calls to see where `m-static` is being written. I saw a 
 2. `gdb`
 
 Now that I know which syscall and its arguments is probably writing the file, I can use gdb to step through to see what exactly happening.
+
+### TODO
+- Limit the redirects to something like 30% of the time on youtube videos
+- Right now only works on the host system. What about infecting the router (which are usually linux based), allows messing with a lot more people more efficiently.
