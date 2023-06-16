@@ -76,5 +76,6 @@ I want to follow system calls to see where `m-static` is being written. I saw a 
 Now that I know which syscall and its arguments is probably writing the file, I can use gdb to step through to see what exactly happening.
 
 ### TODO
+- Test in docker container in order to isolate iptables?
 - Limit the redirects to something like 30% of the time on youtube videos
 - Right now only works on the host system. What about infecting the router (which are usually linux based), allows messing with a lot more people more efficiently.
