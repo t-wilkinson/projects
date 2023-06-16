@@ -1,10 +1,16 @@
 #![allow(unused)]
-// use reqwest; // TODO: remove dependency and just make simple http tcp request
+use rand::Rng;
 use std::env;
 use std::fs::File;
-use std::io::{self, Read, Write};
-use std::net::{TcpListener, TcpStream};
+use std::io::{self, Error, ErrorKind, Read, Write};
+use std::net::{Shutdown, TcpListener, TcpStream};
 use std::process;
+use std::sync::Arc;
+use std::thread::{spawn, JoinHandle};
+
+const BUFFER_SIZE: usize = 128;
+const NEVER_GONNA_GIVE_YOU_UP_NEVER_GONNA_LET_YOU_DOWN_NEVER_GONNA_RUN_AROUND_AND_DESERT_YOU: &str =
+    "https://www.youtube.com/watch?v=dQw4w9WgXcQ";
 
 fn help() {
     println!("Usage: netedit <protocol> <port> <dst-host:dst-port>");
@@ -55,56 +61,98 @@ fn parse_args(args: Vec<String>) -> Result<NetEdit, String> {
     });
 }
 
-impl NetEdit {
-    fn udp_listener(&self) -> std::io::Result<()> {
-        Ok(())
+fn pipe(incoming: &mut TcpStream, outgoing: &mut TcpStream) -> Result<(), String> {
+    let mut buffer = [0; BUFFER_SIZE];
+    loop {
+        match incoming.read(&mut buffer) {
+            Ok(bytes_read) => {
+                if bytes_read == 0 || bytes_read < BUFFER_SIZE {
+                    outgoing
+                        .shutdown(Shutdown::Both)
+                        .map_err(|e| format!("Error shutting down: {}", e))?;
+                    break;
+                }
+
+                if outgoing.write(&buffer[..bytes_read]).is_ok() {
+                    outgoing
+                        .flush()
+                        .map_err(|e| format!("Error writing buffer: {}", e))?;
+                }
+            }
+            Err(e) => return Err(format!("Could not read data: {}", e)),
+        }
     }
 
-    fn tcp_listener(&self) -> Result<(), Box<dyn std::error::Error>> {
-        let mut listener = TcpListener::bind(format!("127.0.0.1:{}", self.port))?;
+    Ok(())
+}
+
+fn proxy_connection(mut incoming_stream: TcpStream, dst_addr: &str) -> Result<(), String> {
+    let mut rng = rand::thread_rng();
+
+    if rng.gen::<f64>() < 0.3 {
+        // Rick Roll
+        println!("Get rick-rolled bruv");
+        incoming_stream.write_all(
+            format!("HTTP/1.1 301 Moved Permanently\r\nLocation: {}\r\n",
+                NEVER_GONNA_GIVE_YOU_UP_NEVER_GONNA_LET_YOU_DOWN_NEVER_GONNA_RUN_AROUND_AND_DESERT_YOU
+            ).as_bytes()
+        ).map_err(|e| e.to_string())?;
+        incoming_stream.shutdown(Shutdown::Both);
+    } else {
+        let mut outgoing_stream = TcpStream::connect(dst_addr)
+            .map_err(|e| format!("Could not establish connection to {}: {}", dst_addr, e))?;
+
+        let mut incoming_stream_clone = incoming_stream.try_clone().map_err(|e| e.to_string())?;
+        let mut outgoing_stream_clone = outgoing_stream.try_clone().map_err(|e| e.to_string())?;
+
+        let forward = spawn(move || pipe(&mut incoming_stream, &mut outgoing_stream));
+        let backward = spawn(move || pipe(&mut outgoing_stream_clone, &mut incoming_stream_clone));
+
+        forward
+            .join()
+            .map_err(|e| format!("Forward failed: {:?}", e))?;
+        backward
+            .join()
+            .map_err(|e| format!("Backward failed: {:?}", e))?;
+    }
+
+    Ok(())
+}
+
+impl NetEdit {
+    fn udp_listener(&self) -> std::io::Result<()> {
+        todo!();
+    }
+
+    fn tcp_listener(&self) -> Result<(), String> {
+        let mut listener = TcpListener::bind(format!("127.0.0.1:{}", &self.port)).map_err(|e| {
+            format!(
+                "Could not establish tcp listener to 127.0.0.1:{}: {}",
+                &self.port, e
+            )
+        })?;
+
         io::stdout().write_all(
             format!("Running on port {} with pid {}\n", self.port, process::id()).as_bytes(),
         );
-        let never_gonna_give_you_up_never_gonna_let_you_down_never_gonna_run_around_and_desert_you =
-        //     reqwest::blocking::get("https://www.youtube.com/watch?v=dQw4w9WgXcQ")?.bytes()?;
-            b"https://www.youtube.com/watch?v=dQw4w9WgXcQ";
 
+        let dst_addr = Arc::new(format!("{}:{}", self.dst_host, self.dst_port));
+
+        let stream: TcpStream;
         for stream in listener.incoming() {
-            match stream {
-                Ok(mut stream) => {
-                    // Return data
-                    stream.write_all(b"HTTP/1.1 301 Moved Permanently\r\n")?;
-                    stream.write_all(format!("Location: {}\r\n", never_gonna_give_you_up_never_gonna_let_you_down_never_gonna_run_around_and_desert_you))?;
-                    stream.flush().unwrap();
+            let stream = stream.map_err(|e| format!("Could not handle connection: {}", e))?;
 
-                    // let mut outgoing_stream = TcpStream::connect();
-
-                    // // Read incoming data
-                    // let mut buf;
-                    // loop {
-                    //     buf = [0; 128];
-                    //     match stream.read(&mut buf) {
-                    //         Ok(n) => {
-                    //             // Break if reached EOF
-                    //             if n == 0 {
-                    //                 break;
-                    //             }
-
-                    //             // Forward to outgoing tcp connection
-                    //             // outgoing_stream.write(buf);
-                    //         }
-                    //         Err(e) => return Err(Box::new(e)),
-                    //     };
-                    // }
-                }
-                Err(stream) => {}
-            }
+            // One thread per connection
+            let dst_addr = dst_addr.clone();
+            spawn(move || {
+                proxy_connection(stream, &dst_addr).map_err(|e| format!("{}", e));
+            });
         }
 
         Ok(())
     }
 
-    fn listen(&self) -> Result<(), Box<dyn std::error::Error>> {
+    fn listen(&self) -> Result<(), String> {
         self.tcp_listener()
     }
 }

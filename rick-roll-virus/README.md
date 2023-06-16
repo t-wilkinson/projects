@@ -1,8 +1,6 @@
 ## Goals
 Create an obnoxious program which will return any http request with one 'never gonna give you up' youtube video. To make this more obnoxious, overtime the program should further embed itself in the host system. To counteract this, create a second program which can systematically remove all traces of the adversary program.
-
-Assumptions for this program to run
-- The seed program is run with root
+Makes getting rid of this program game-like. Progressively increase the change that infected computer gets rick rolled over time. Also progressively embed code into more files and create more ways that program will update iptables. For "ultimate" fun, also make it rewrite files with rick-roll lyrics.
 
 - Intercept linking process to insert code that writes the actual virus. Or... add a binary onto path that hides gcc, calls gcc with arguments, gets the output binary, and rewrite it there.
 - In terms of places to insert virus code, we can insert it into gcc, which would require sudo privaleges, or we can listen to calls.
@@ -33,6 +31,7 @@ Rust progam which iptables will forward new connections to which can modify conn
 ### Steps to create self-replicating code that is difficult to remove
 The first goal is to find the code that is writing the file, so we can insert virus code in there.
 1.
+
 ```bash
 $ strace -f gcc main.c -o build/m-static 2>&1 > /dev/null | grep m-static -C 5
 [pid 1379643] readlink("/usr/lib/gcc/x86_64-pc-linux-gnu/12.2.1", 0x7ffc54f65390, 1023) = -1 EINVAL (Invalid argument)

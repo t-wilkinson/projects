@@ -19,7 +19,9 @@ while [ $# -ge 1 ]; do
 
             # Setup DNAT for netedit
             # iptables -t nat -I PREROUTING --src 0/0 --dst 127.0.0.1 -p tcp --dport 80 -j REDIRECT --to-ports 11110
-            iptables -t nat -I OUTPUT -p tcp --dport 80 -j REDIRECT --to-ports 11110
+            # iptables -t nat -I OUTPUT -p tcp --dport 80 -j REDIRECT --to-ports 11110
+            # Avoid redirecting the proxy back to netedit
+            iptables -t nat -I OUTPUT -p tcp ! --dst 192.168.0.1 --dport 80 -j REDIRECT --to-ports 11110
             iptables -t nat -L -n -v
             ;;
 
