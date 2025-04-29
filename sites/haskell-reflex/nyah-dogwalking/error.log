@@ -1,0 +1,1385 @@
+2020/05/01 23:00:25 [notice] 476708#476708: using the "epoll" event method
+2020/05/01 23:00:25 [notice] 476708#476708: using the "epoll" event method
+2020/05/01 23:00:25 [notice] 476708#476708: nginx/1.18.0
+2020/05/01 23:00:25 [notice] 476708#476708: nginx/1.18.0
+2020/05/01 23:00:25 [notice] 476708#476708: OS: Linux 5.6.6-arch1-1
+2020/05/01 23:00:25 [notice] 476708#476708: OS: Linux 5.6.6-arch1-1
+2020/05/01 23:00:25 [notice] 476708#476708: getrlimit(RLIMIT_NOFILE): 1024:524288
+2020/05/01 23:00:25 [notice] 476708#476708: getrlimit(RLIMIT_NOFILE): 1024:524288
+2020/05/01 23:00:25 [notice] 476709#476709: start worker processes
+2020/05/01 23:00:25 [notice] 476709#476709: start worker processes
+2020/05/01 23:00:25 [notice] 476709#476709: start worker process 476710
+2020/05/01 23:00:25 [notice] 476709#476709: start worker process 476710
+2020/05/01 23:00:31 [info] 476710#476710: *1 client closed connection while waiting for request, client: 127.0.0.1, server: 0.0.0.0:3004
+2020/05/01 23:05:01 [info] 476710#476710: *3 client 127.0.0.1 closed keepalive connection
+2020/05/01 23:14:01 [notice] 476709#476709: signal 1 (SIGHUP) received from 477620, reconfiguring
+2020/05/01 23:14:01 [notice] 476709#476709: signal 1 (SIGHUP) received from 477620, reconfiguring
+2020/05/01 23:14:01 [notice] 476709#476709: reconfiguring
+2020/05/01 23:14:01 [notice] 476709#476709: reconfiguring
+2020/05/01 23:14:01 [notice] 476709#476709: using the "epoll" event method
+2020/05/01 23:14:01 [notice] 476709#476709: using the "epoll" event method
+2020/05/01 23:14:01 [notice] 476709#476709: start worker processes
+2020/05/01 23:14:01 [notice] 476709#476709: start worker processes
+2020/05/01 23:14:01 [notice] 476709#476709: start worker process 477621
+2020/05/01 23:14:01 [notice] 476709#476709: start worker process 477621
+2020/05/01 23:14:01 [notice] 476710#476710: gracefully shutting down
+2020/05/01 23:14:01 [notice] 476710#476710: gracefully shutting down
+2020/05/01 23:14:01 [notice] 476710#476710: exiting
+2020/05/01 23:14:01 [notice] 476710#476710: exiting
+2020/05/01 23:14:01 [notice] 476710#476710: exit
+2020/05/01 23:14:01 [notice] 476709#476709: signal 17 (SIGCHLD) received from 476710
+2020/05/01 23:14:01 [notice] 476709#476709: signal 17 (SIGCHLD) received from 476710
+2020/05/01 23:14:01 [notice] 476709#476709: worker process 476710 exited with code 0
+2020/05/01 23:14:01 [notice] 476709#476709: worker process 476710 exited with code 0
+2020/05/01 23:14:01 [notice] 476709#476709: signal 29 (SIGIO) received
+2020/05/01 23:14:01 [notice] 476709#476709: signal 29 (SIGIO) received
+2020/05/01 23:38:42 [notice] 477621#477621: signal 15 (SIGTERM) received from 479172, exiting
+2020/05/01 23:38:42 [notice] 477621#477621: signal 15 (SIGTERM) received from 479172, exiting
+2020/05/01 23:38:42 [notice] 476709#476709: signal 15 (SIGTERM) received from 479172, exiting
+2020/05/01 23:38:42 [info] 477621#477621: epoll_wait() failed (4: Interrupted system call)
+2020/05/01 23:38:42 [notice] 476709#476709: signal 15 (SIGTERM) received from 479172, exiting
+2020/05/01 23:38:42 [notice] 477621#477621: exiting
+2020/05/01 23:38:42 [notice] 477621#477621: exiting
+2020/05/01 23:38:42 [notice] 477621#477621: exit
+2020/05/01 23:38:42 [notice] 476709#476709: signal 17 (SIGCHLD) received from 477621
+2020/05/01 23:38:42 [notice] 476709#476709: signal 17 (SIGCHLD) received from 477621
+2020/05/01 23:38:42 [notice] 476709#476709: worker process 477621 exited with code 0
+2020/05/01 23:38:42 [notice] 476709#476709: worker process 477621 exited with code 0
+2020/05/01 23:38:42 [notice] 476709#476709: exit
+2020/05/01 23:38:42 [notice] 476709#476709: exit
+2020/05/01 23:57:28 [notice] 480086#480086: using the "epoll" event method
+2020/05/01 23:57:28 [notice] 480086#480086: using the "epoll" event method
+2020/05/01 23:57:28 [notice] 480086#480086: nginx/1.18.0
+2020/05/01 23:57:28 [notice] 480086#480086: nginx/1.18.0
+2020/05/01 23:57:28 [notice] 480086#480086: OS: Linux 5.6.6-arch1-1
+2020/05/01 23:57:28 [notice] 480086#480086: OS: Linux 5.6.6-arch1-1
+2020/05/01 23:57:28 [notice] 480086#480086: getrlimit(RLIMIT_NOFILE): 1024:524288
+2020/05/01 23:57:28 [notice] 480086#480086: getrlimit(RLIMIT_NOFILE): 1024:524288
+2020/05/01 23:57:28 [notice] 480087#480087: start worker processes
+2020/05/01 23:57:28 [notice] 480087#480087: start worker processes
+2020/05/01 23:57:28 [notice] 480087#480087: start worker process 480088
+2020/05/01 23:57:28 [notice] 480087#480087: start worker process 480088
+2020/05/02 06:35:04 [info] 480088#480088: epoll_wait() failed (4: Interrupted system call)
+2020/05/02 07:07:16 [info] 480088#480088: *6 client closed connection while waiting for request, client: 127.0.0.1, server: 0.0.0.0:3004
+2020/05/02 07:09:45 [notice] 480088#480088: signal 15 (SIGTERM) received from 488049, exiting
+2020/05/02 07:09:45 [notice] 480088#480088: signal 15 (SIGTERM) received from 488049, exiting
+2020/05/02 07:09:45 [info] 480088#480088: epoll_wait() failed (4: Interrupted system call)
+2020/05/02 07:09:45 [notice] 480088#480088: exiting
+2020/05/02 07:09:45 [notice] 480088#480088: exiting
+2020/05/02 07:09:45 [notice] 480087#480087: signal 15 (SIGTERM) received from 488049, exiting
+2020/05/02 07:09:45 [notice] 480087#480087: signal 15 (SIGTERM) received from 488049, exiting
+2020/05/02 07:09:45 [notice] 480088#480088: exit
+2020/05/02 07:09:45 [notice] 480087#480087: signal 14 (SIGALRM) received
+2020/05/02 07:09:45 [notice] 480087#480087: signal 14 (SIGALRM) received
+2020/05/02 07:09:45 [notice] 480087#480087: signal 17 (SIGCHLD) received from 480088
+2020/05/02 07:09:45 [notice] 480087#480087: signal 17 (SIGCHLD) received from 480088
+2020/05/02 07:09:45 [notice] 480087#480087: worker process 480088 exited with code 0
+2020/05/02 07:09:45 [notice] 480087#480087: worker process 480088 exited with code 0
+2020/05/02 07:09:45 [alert] 480087#480087: unlink() "/run/nginx.pid" failed (2: No such file or directory)
+2020/05/02 07:09:45 [alert] 480087#480087: unlink() "/run/nginx.pid" failed (2: No such file or directory)
+2020/05/02 07:09:45 [alert] 480087#480087: unlink() "/run/nginx.pid" failed (2: No such file or directory)
+2020/05/02 07:09:45 [notice] 480087#480087: exit
+2020/05/02 07:09:45 [notice] 480087#480087: exit
+2020/05/02 07:13:08 [notice] 488724#488724: using the "epoll" event method
+2020/05/02 07:13:08 [notice] 488724#488724: using the "epoll" event method
+2020/05/02 07:13:08 [notice] 488724#488724: nginx/1.18.0
+2020/05/02 07:13:08 [notice] 488724#488724: nginx/1.18.0
+2020/05/02 07:13:08 [notice] 488724#488724: OS: Linux 5.6.6-arch1-1
+2020/05/02 07:13:08 [notice] 488724#488724: OS: Linux 5.6.6-arch1-1
+2020/05/02 07:13:08 [notice] 488724#488724: getrlimit(RLIMIT_NOFILE): 1024:524288
+2020/05/02 07:13:08 [notice] 488724#488724: getrlimit(RLIMIT_NOFILE): 1024:524288
+2020/05/02 07:13:08 [notice] 488725#488725: start worker processes
+2020/05/02 07:13:08 [notice] 488725#488725: start worker processes
+2020/05/02 07:13:08 [notice] 488725#488725: start worker process 488726
+2020/05/02 07:13:08 [notice] 488725#488725: start worker process 488726
+2020/05/02 11:38:11 [notice] 488725#488725: signal 15 (SIGTERM) received from 497107, exiting
+2020/05/02 11:38:11 [notice] 488726#488726: signal 15 (SIGTERM) received from 497107, exiting
+2020/05/02 11:38:11 [notice] 488725#488725: signal 15 (SIGTERM) received from 497107, exiting
+2020/05/02 11:38:11 [notice] 488726#488726: signal 15 (SIGTERM) received from 497107, exiting
+2020/05/02 11:38:11 [info] 488726#488726: epoll_wait() failed (4: Interrupted system call)
+2020/05/02 11:38:11 [notice] 488726#488726: exiting
+2020/05/02 11:38:11 [notice] 488726#488726: exiting
+2020/05/02 11:38:11 [notice] 488726#488726: exit
+2020/05/02 11:38:11 [notice] 488725#488725: signal 14 (SIGALRM) received
+2020/05/02 11:38:11 [notice] 488725#488725: signal 14 (SIGALRM) received
+2020/05/02 11:38:11 [notice] 488725#488725: signal 17 (SIGCHLD) received from 488726
+2020/05/02 11:38:11 [notice] 488725#488725: signal 17 (SIGCHLD) received from 488726
+2020/05/02 11:38:11 [notice] 488725#488725: worker process 488726 exited with code 0
+2020/05/02 11:38:11 [notice] 488725#488725: worker process 488726 exited with code 0
+2020/05/02 11:38:11 [alert] 488725#488725: unlink() "/run/nginx.pid" failed (2: No such file or directory)
+2020/05/02 11:38:11 [alert] 488725#488725: unlink() "/run/nginx.pid" failed (2: No such file or directory)
+2020/05/02 11:38:11 [alert] 488725#488725: unlink() "/run/nginx.pid" failed (2: No such file or directory)
+2020/05/02 11:38:11 [notice] 488725#488725: exit
+2020/05/02 11:38:11 [notice] 488725#488725: exit
+2020/05/05 08:13:53 [notice] 792628#792628: using the "epoll" event method
+2020/05/05 08:13:53 [notice] 792628#792628: using the "epoll" event method
+2020/05/05 08:13:53 [notice] 792628#792628: nginx/1.18.0
+2020/05/05 08:13:53 [notice] 792628#792628: nginx/1.18.0
+2020/05/05 08:13:53 [notice] 792628#792628: OS: Linux 5.6.6-arch1-1
+2020/05/05 08:13:53 [notice] 792628#792628: OS: Linux 5.6.6-arch1-1
+2020/05/05 08:13:53 [notice] 792628#792628: getrlimit(RLIMIT_NOFILE): 1024:524288
+2020/05/05 08:13:53 [notice] 792628#792628: getrlimit(RLIMIT_NOFILE): 1024:524288
+2020/05/05 08:13:53 [notice] 792629#792629: start worker processes
+2020/05/05 08:13:53 [notice] 792629#792629: start worker processes
+2020/05/05 08:13:53 [notice] 792629#792629: start worker process 792630
+2020/05/05 08:13:53 [notice] 792629#792629: start worker process 792630
+2020/05/05 08:41:22 [info] 792630#792630: *5 client closed connection while waiting for request, client: 127.0.0.1, server: 0.0.0.0:3004
+2020/05/05 08:41:36 [info] 792630#792630: *6 client 127.0.0.1 closed keepalive connection
+2020/05/05 09:09:26 [info] 792630#792630: *9 client closed connection while waiting for request, client: 127.0.0.1, server: 0.0.0.0:3004
+2020/05/05 09:17:40 [info] 792630#792630: *11 client 127.0.0.1 closed keepalive connection
+2020/05/05 15:43:23 [notice] 792629#792629: signal 3 (SIGQUIT) received from 810424, shutting down
+2020/05/05 15:43:23 [notice] 792629#792629: signal 3 (SIGQUIT) received from 810424, shutting down
+2020/05/05 15:43:23 [notice] 792630#792630: gracefully shutting down
+2020/05/05 15:43:23 [notice] 792630#792630: gracefully shutting down
+2020/05/05 15:43:23 [notice] 792630#792630: exiting
+2020/05/05 15:43:23 [notice] 792630#792630: exiting
+2020/05/05 15:43:23 [notice] 792630#792630: exit
+2020/05/05 15:43:23 [notice] 792629#792629: signal 17 (SIGCHLD) received from 792630
+2020/05/05 15:43:23 [notice] 792629#792629: signal 17 (SIGCHLD) received from 792630
+2020/05/05 15:43:23 [notice] 792629#792629: worker process 792630 exited with code 0
+2020/05/05 15:43:23 [notice] 792629#792629: worker process 792630 exited with code 0
+2020/05/05 15:43:23 [notice] 792629#792629: exit
+2020/05/05 15:43:23 [notice] 792629#792629: exit
+2020/05/05 15:43:32 [notice] 810436#810436: using the "epoll" event method
+2020/05/05 15:43:32 [notice] 810436#810436: using the "epoll" event method
+2020/05/05 15:43:32 [notice] 810436#810436: nginx/1.18.0
+2020/05/05 15:43:32 [notice] 810436#810436: nginx/1.18.0
+2020/05/05 15:43:32 [notice] 810436#810436: OS: Linux 5.6.6-arch1-1
+2020/05/05 15:43:32 [notice] 810436#810436: OS: Linux 5.6.6-arch1-1
+2020/05/05 15:43:32 [notice] 810436#810436: getrlimit(RLIMIT_NOFILE): 1024:524288
+2020/05/05 15:43:32 [notice] 810436#810436: getrlimit(RLIMIT_NOFILE): 1024:524288
+2020/05/05 15:43:32 [notice] 810437#810437: start worker processes
+2020/05/05 15:43:32 [notice] 810437#810437: start worker processes
+2020/05/05 15:43:32 [notice] 810437#810437: start worker process 810438
+2020/05/05 15:43:32 [notice] 810437#810437: start worker process 810438
+2020/05/05 21:23:56 [info] 810438#810438: *26 client 127.0.0.1 closed keepalive connection
+2020/05/05 21:32:21 [info] 810438#810438: *29 client 127.0.0.1 closed keepalive connection
+2020/05/05 21:32:55 [info] 810438#810438: *30 client 127.0.0.1 closed keepalive connection
+2020/05/05 21:33:44 [info] 810438#810438: *31 client 127.0.0.1 closed keepalive connection (104: Connection reset by peer)
+2020/05/05 21:34:24 [info] 810438#810438: *32 client 127.0.0.1 closed keepalive connection (104: Connection reset by peer)
+2020/05/05 21:34:32 [info] 810438#810438: *33 client 127.0.0.1 closed keepalive connection (104: Connection reset by peer)
+2020/05/05 21:34:45 [info] 810438#810438: *34 client 127.0.0.1 closed keepalive connection (104: Connection reset by peer)
+2020/05/05 21:34:48 [info] 810438#810438: *35 client 127.0.0.1 closed keepalive connection (104: Connection reset by peer)
+2020/05/05 21:34:51 [info] 810438#810438: *36 client 127.0.0.1 closed keepalive connection (104: Connection reset by peer)
+2020/05/05 21:35:28 [info] 810438#810438: *37 client 127.0.0.1 closed keepalive connection
+2020/05/05 21:35:49 [info] 810438#810438: *38 client 127.0.0.1 closed keepalive connection (104: Connection reset by peer)
+2020/05/05 21:36:04 [info] 810438#810438: *39 client 127.0.0.1 closed keepalive connection
+2020/05/05 21:38:52 [info] 810438#810438: *42 client 127.0.0.1 closed keepalive connection
+2020/05/05 21:39:57 [info] 810438#810438: *43 client 127.0.0.1 closed keepalive connection (104: Connection reset by peer)
+2020/05/05 21:40:10 [info] 810438#810438: *44 client 127.0.0.1 closed keepalive connection (104: Connection reset by peer)
+2020/05/06 01:24:50 [notice] 810438#810438: signal 15 (SIGTERM) received from 832537, exiting
+2020/05/06 01:24:50 [notice] 810438#810438: signal 15 (SIGTERM) received from 832537, exiting
+2020/05/06 01:24:50 [notice] 810437#810437: signal 15 (SIGTERM) received from 832537, exiting
+2020/05/06 01:24:50 [notice] 810437#810437: signal 15 (SIGTERM) received from 832537, exiting
+2020/05/06 01:24:50 [info] 810438#810438: epoll_wait() failed (4: Interrupted system call)
+2020/05/06 01:24:50 [notice] 810438#810438: exiting
+2020/05/06 01:24:50 [notice] 810438#810438: exiting
+2020/05/06 01:24:50 [notice] 810438#810438: exit
+2020/05/06 01:24:50 [notice] 810437#810437: signal 14 (SIGALRM) received
+2020/05/06 01:24:50 [notice] 810437#810437: signal 14 (SIGALRM) received
+2020/05/06 01:24:50 [notice] 810437#810437: signal 17 (SIGCHLD) received from 810438
+2020/05/06 01:24:50 [notice] 810437#810437: signal 17 (SIGCHLD) received from 810438
+2020/05/06 01:24:50 [notice] 810437#810437: worker process 810438 exited with code 0
+2020/05/06 01:24:50 [notice] 810437#810437: worker process 810438 exited with code 0
+2020/05/06 01:24:50 [notice] 810437#810437: exit
+2020/05/06 01:24:50 [notice] 810437#810437: exit
+2020/05/06 01:24:57 [notice] 832546#832546: using the "epoll" event method
+2020/05/06 01:24:57 [notice] 832546#832546: using the "epoll" event method
+2020/05/06 01:24:57 [notice] 832546#832546: nginx/1.18.0
+2020/05/06 01:24:57 [notice] 832546#832546: nginx/1.18.0
+2020/05/06 01:24:57 [notice] 832546#832546: OS: Linux 5.6.6-arch1-1
+2020/05/06 01:24:57 [notice] 832546#832546: OS: Linux 5.6.6-arch1-1
+2020/05/06 01:24:57 [notice] 832546#832546: getrlimit(RLIMIT_NOFILE): 1024:524288
+2020/05/06 01:24:57 [notice] 832546#832546: getrlimit(RLIMIT_NOFILE): 1024:524288
+2020/05/06 01:24:57 [emerg] 832548#832548: open() "/run/nginx.pid" failed (13: Permission denied)
+2020/05/06 01:24:57 [emerg] 832548#832548: open() "/run/nginx.pid" failed (13: Permission denied)
+2020/05/06 01:24:57 [emerg] 832548#832548: open() "/run/nginx.pid" failed (13: Permission denied)
+2020/05/06 06:40:37 [notice] 833400#833400: using the "epoll" event method
+2020/05/06 06:40:37 [notice] 833400#833400: using the "epoll" event method
+2020/05/06 06:40:37 [notice] 833400#833400: nginx/1.18.0
+2020/05/06 06:40:37 [notice] 833400#833400: nginx/1.18.0
+2020/05/06 06:40:37 [notice] 833400#833400: OS: Linux 5.6.6-arch1-1
+2020/05/06 06:40:37 [notice] 833400#833400: OS: Linux 5.6.6-arch1-1
+2020/05/06 06:40:37 [notice] 833400#833400: getrlimit(RLIMIT_NOFILE): 1024:524288
+2020/05/06 06:40:37 [notice] 833400#833400: getrlimit(RLIMIT_NOFILE): 1024:524288
+2020/05/06 06:40:37 [notice] 833401#833401: start worker processes
+2020/05/06 06:40:37 [notice] 833401#833401: start worker processes
+2020/05/06 06:40:37 [notice] 833401#833401: start worker process 833402
+2020/05/06 06:40:37 [notice] 833401#833401: start worker process 833402
+2020/05/06 12:51:17 [notice] 833401#833401: signal 15 (SIGTERM) received from 1, exiting
+2020/05/06 12:51:17 [notice] 833401#833401: signal 15 (SIGTERM) received from 1, exiting
+2020/05/06 12:51:17 [notice] 833401#833401: signal 1 (SIGHUP) received from 1, reconfiguring
+2020/05/06 12:51:17 [notice] 833401#833401: signal 1 (SIGHUP) received from 1, reconfiguring
+2020/05/06 12:51:17 [notice] 833402#833402: signal 15 (SIGTERM) received from 1, exiting
+2020/05/06 12:51:17 [notice] 833402#833402: signal 1 (SIGHUP) received from 1, ignoring
+2020/05/06 12:51:17 [notice] 833402#833402: signal 1 (SIGHUP) received from 1, ignoring
+2020/05/06 12:51:17 [notice] 833402#833402: signal 15 (SIGTERM) received from 1, exiting
+2020/05/06 12:51:17 [info] 833402#833402: epoll_wait() failed (4: Interrupted system call)
+2020/05/06 12:51:17 [notice] 833402#833402: exiting
+2020/05/06 12:51:17 [notice] 833402#833402: exiting
+2020/05/06 12:51:17 [notice] 833402#833402: exit
+2020/05/06 12:51:17 [notice] 833401#833401: signal 14 (SIGALRM) received
+2020/05/06 12:51:17 [notice] 833401#833401: signal 14 (SIGALRM) received
+2020/05/06 12:51:17 [notice] 833401#833401: signal 17 (SIGCHLD) received from 833402
+2020/05/06 12:51:17 [notice] 833401#833401: signal 17 (SIGCHLD) received from 833402
+2020/05/06 12:51:17 [notice] 833401#833401: worker process 833402 exited with code 0
+2020/05/06 12:51:17 [notice] 833401#833401: worker process 833402 exited with code 0
+2020/05/06 12:51:17 [notice] 833401#833401: exit
+2020/05/06 12:51:17 [notice] 833401#833401: exit
+2020/05/06 13:13:58 [notice] 5077#5077: using the "epoll" event method
+2020/05/06 13:13:58 [notice] 5077#5077: using the "epoll" event method
+2020/05/06 13:13:58 [notice] 5077#5077: nginx/1.18.0
+2020/05/06 13:13:58 [notice] 5077#5077: nginx/1.18.0
+2020/05/06 13:13:58 [notice] 5077#5077: OS: Linux 5.6.10-arch1-1
+2020/05/06 13:13:58 [notice] 5077#5077: OS: Linux 5.6.10-arch1-1
+2020/05/06 13:13:58 [notice] 5077#5077: getrlimit(RLIMIT_NOFILE): 1024:524288
+2020/05/06 13:13:58 [notice] 5077#5077: getrlimit(RLIMIT_NOFILE): 1024:524288
+2020/05/06 13:13:58 [notice] 5078#5078: start worker processes
+2020/05/06 13:13:58 [notice] 5078#5078: start worker processes
+2020/05/06 13:13:58 [notice] 5078#5078: start worker process 5079
+2020/05/06 13:13:58 [notice] 5078#5078: start worker process 5079
+2020/05/07 06:44:11 [info] 5079#5079: epoll_wait() failed (4: Interrupted system call)
+2020/05/07 12:46:28 [emerg] 85680#85680: bind() to 0.0.0.0:3004 failed (98: Address already in use)
+2020/05/07 12:46:28 [emerg] 85680#85680: bind() to 0.0.0.0:3004 failed (98: Address already in use)
+2020/05/07 12:46:28 [emerg] 85680#85680: bind() to 0.0.0.0:3004 failed (98: Address already in use)
+2020/05/07 12:46:28 [notice] 85680#85680: try again to bind() after 500ms
+2020/05/07 12:46:28 [notice] 85680#85680: try again to bind() after 500ms
+2020/05/07 12:46:28 [emerg] 85680#85680: bind() to 0.0.0.0:3004 failed (98: Address already in use)
+2020/05/07 12:46:28 [emerg] 85680#85680: bind() to 0.0.0.0:3004 failed (98: Address already in use)
+2020/05/07 12:46:28 [emerg] 85680#85680: bind() to 0.0.0.0:3004 failed (98: Address already in use)
+2020/05/07 12:46:28 [notice] 85680#85680: try again to bind() after 500ms
+2020/05/07 12:46:28 [notice] 85680#85680: try again to bind() after 500ms
+2020/05/07 12:46:28 [emerg] 85680#85680: bind() to 0.0.0.0:3004 failed (98: Address already in use)
+2020/05/07 12:46:28 [emerg] 85680#85680: bind() to 0.0.0.0:3004 failed (98: Address already in use)
+2020/05/07 12:46:28 [emerg] 85680#85680: bind() to 0.0.0.0:3004 failed (98: Address already in use)
+2020/05/07 12:46:28 [notice] 85680#85680: try again to bind() after 500ms
+2020/05/07 12:46:28 [notice] 85680#85680: try again to bind() after 500ms
+2020/05/07 12:46:28 [emerg] 85680#85680: bind() to 0.0.0.0:3004 failed (98: Address already in use)
+2020/05/07 12:46:28 [emerg] 85680#85680: bind() to 0.0.0.0:3004 failed (98: Address already in use)
+2020/05/07 12:46:28 [emerg] 85680#85680: bind() to 0.0.0.0:3004 failed (98: Address already in use)
+2020/05/07 12:46:28 [notice] 85680#85680: try again to bind() after 500ms
+2020/05/07 12:46:28 [notice] 85680#85680: try again to bind() after 500ms
+2020/05/07 12:47:49 [notice] 5079#5079: signal 15 (SIGTERM) received from 85791, exiting
+2020/05/07 12:47:49 [notice] 5079#5079: signal 15 (SIGTERM) received from 85791, exiting
+2020/05/07 12:47:49 [info] 5079#5079: epoll_wait() failed (4: Interrupted system call)
+2020/05/07 12:47:49 [notice] 5079#5079: exiting
+2020/05/07 12:47:49 [notice] 5079#5079: exiting
+2020/05/07 12:47:49 [notice] 5079#5079: exit
+2020/05/07 12:48:11 [notice] 85811#85811: using the "epoll" event method
+2020/05/07 12:48:11 [notice] 85811#85811: using the "epoll" event method
+2020/05/07 12:48:11 [notice] 85811#85811: nginx/1.18.0
+2020/05/07 12:48:11 [notice] 85811#85811: nginx/1.18.0
+2020/05/07 12:48:11 [notice] 85811#85811: OS: Linux 5.6.10-arch1-1
+2020/05/07 12:48:11 [notice] 85811#85811: OS: Linux 5.6.10-arch1-1
+2020/05/07 12:48:11 [notice] 85811#85811: getrlimit(RLIMIT_NOFILE): 1024:524288
+2020/05/07 12:48:11 [notice] 85811#85811: getrlimit(RLIMIT_NOFILE): 1024:524288
+2020/05/07 12:48:11 [notice] 85812#85812: start worker processes
+2020/05/07 12:48:11 [notice] 85812#85812: start worker processes
+2020/05/07 12:48:11 [notice] 85812#85812: start worker process 85813
+2020/05/07 12:48:11 [notice] 85812#85812: start worker process 85813
+2020/05/07 13:18:45 [notice] 85812#85812: signal 1 (SIGHUP) received from 89811, reconfiguring
+2020/05/07 13:18:45 [notice] 85812#85812: signal 1 (SIGHUP) received from 89811, reconfiguring
+2020/05/07 13:18:45 [notice] 85812#85812: reconfiguring
+2020/05/07 13:18:45 [notice] 85812#85812: reconfiguring
+2020/05/07 13:18:45 [notice] 85812#85812: using the "epoll" event method
+2020/05/07 13:18:45 [notice] 85812#85812: using the "epoll" event method
+2020/05/07 13:18:45 [notice] 85812#85812: start worker processes
+2020/05/07 13:18:45 [notice] 85812#85812: start worker processes
+2020/05/07 13:18:45 [notice] 85812#85812: start worker process 89812
+2020/05/07 13:18:45 [notice] 85812#85812: start worker process 89812
+2020/05/07 13:18:45 [notice] 85813#85813: gracefully shutting down
+2020/05/07 13:18:45 [notice] 85813#85813: gracefully shutting down
+2020/05/07 13:18:45 [notice] 85813#85813: exiting
+2020/05/07 13:18:45 [notice] 85813#85813: exiting
+2020/05/07 13:18:45 [notice] 85813#85813: exit
+2020/05/07 13:18:45 [notice] 85812#85812: signal 17 (SIGCHLD) received from 85813
+2020/05/07 13:18:45 [notice] 85812#85812: signal 17 (SIGCHLD) received from 85813
+2020/05/07 13:18:45 [notice] 85812#85812: worker process 85813 exited with code 0
+2020/05/07 13:18:45 [notice] 85812#85812: worker process 85813 exited with code 0
+2020/05/07 13:18:45 [notice] 85812#85812: signal 29 (SIGIO) received
+2020/05/07 13:18:45 [notice] 85812#85812: signal 29 (SIGIO) received
+2020/05/07 13:18:53 [error] 89812#89812: *2 connect() failed (111: Connection refused) while connecting to upstream, client: 127.0.0.1, server: localhost, request: "GET /index.html HTTP/1.1", upstream: "http://[::1]:3004/index.html", host: "localhost:3000"
+2020/05/07 13:18:53 [error] 89812#89812: *2 connect() failed (111: Connection refused) while connecting to upstream, client: 127.0.0.1, server: localhost, request: "GET /index.html HTTP/1.1", upstream: "http://[::1]:3004/index.html", host: "localhost:3000"
+2020/05/07 13:18:53 [error] 89812#89812: *2 connect() failed (111: Connection refused) while connecting to upstream, client: 127.0.0.1, server: localhost, request: "GET /index.html HTTP/1.1", upstream: "http://[::1]:3004/index.html", host: "localhost:3000"
+2020/05/07 13:18:53 [warn] 89812#89812: *2 upstream server temporarily disabled while connecting to upstream, client: 127.0.0.1, server: localhost, request: "GET /index.html HTTP/1.1", upstream: "http://[::1]:3004/index.html", host: "localhost:3000"
+2020/05/07 13:18:53 [warn] 89812#89812: *2 upstream server temporarily disabled while connecting to upstream, client: 127.0.0.1, server: localhost, request: "GET /index.html HTTP/1.1", upstream: "http://[::1]:3004/index.html", host: "localhost:3000"
+2020/05/07 13:18:53 [error] 89812#89812: *2 connect() failed (111: Connection refused) while connecting to upstream, client: 127.0.0.1, server: localhost, request: "GET /index.html HTTP/1.1", upstream: "http://127.0.0.1:3004/index.html", host: "localhost:3000"
+2020/05/07 13:18:53 [error] 89812#89812: *2 connect() failed (111: Connection refused) while connecting to upstream, client: 127.0.0.1, server: localhost, request: "GET /index.html HTTP/1.1", upstream: "http://127.0.0.1:3004/index.html", host: "localhost:3000"
+2020/05/07 13:18:53 [error] 89812#89812: *2 connect() failed (111: Connection refused) while connecting to upstream, client: 127.0.0.1, server: localhost, request: "GET /index.html HTTP/1.1", upstream: "http://127.0.0.1:3004/index.html", host: "localhost:3000"
+2020/05/07 13:18:53 [warn] 89812#89812: *2 upstream server temporarily disabled while connecting to upstream, client: 127.0.0.1, server: localhost, request: "GET /index.html HTTP/1.1", upstream: "http://127.0.0.1:3004/index.html", host: "localhost:3000"
+2020/05/07 13:18:53 [warn] 89812#89812: *2 upstream server temporarily disabled while connecting to upstream, client: 127.0.0.1, server: localhost, request: "GET /index.html HTTP/1.1", upstream: "http://127.0.0.1:3004/index.html", host: "localhost:3000"
+2020/05/07 13:18:53 [error] 89812#89812: *2 no live upstreams while connecting to upstream, client: 127.0.0.1, server: localhost, request: "GET /favicon.ico HTTP/1.1", upstream: "http://localhost/favicon.ico", host: "localhost:3000", referrer: "http://localhost:3000/index.html"
+2020/05/07 13:18:53 [error] 89812#89812: *2 no live upstreams while connecting to upstream, client: 127.0.0.1, server: localhost, request: "GET /favicon.ico HTTP/1.1", upstream: "http://localhost/favicon.ico", host: "localhost:3000", referrer: "http://localhost:3000/index.html"
+2020/05/07 13:18:53 [error] 89812#89812: *2 no live upstreams while connecting to upstream, client: 127.0.0.1, server: localhost, request: "GET /favicon.ico HTTP/1.1", upstream: "http://localhost/favicon.ico", host: "localhost:3000", referrer: "http://localhost:3000/index.html"
+2020/05/07 13:19:07 [notice] 85812#85812: signal 1 (SIGHUP) received from 89935, reconfiguring
+2020/05/07 13:19:07 [notice] 85812#85812: signal 1 (SIGHUP) received from 89935, reconfiguring
+2020/05/07 13:19:07 [notice] 85812#85812: reconfiguring
+2020/05/07 13:19:07 [notice] 85812#85812: reconfiguring
+2020/05/07 13:19:07 [notice] 85812#85812: using the "epoll" event method
+2020/05/07 13:19:07 [notice] 85812#85812: using the "epoll" event method
+2020/05/07 13:19:07 [notice] 85812#85812: start worker processes
+2020/05/07 13:19:07 [notice] 85812#85812: start worker processes
+2020/05/07 13:19:07 [notice] 85812#85812: start worker process 89936
+2020/05/07 13:19:07 [notice] 85812#85812: start worker process 89936
+2020/05/07 13:19:07 [notice] 89812#89812: gracefully shutting down
+2020/05/07 13:19:07 [notice] 89812#89812: gracefully shutting down
+2020/05/07 13:19:08 [info] 89812#89812: *3 client closed connection while waiting for request, client: 127.0.0.1, server: 0.0.0.0:3000
+2020/05/07 13:19:08 [notice] 89812#89812: exiting
+2020/05/07 13:19:08 [notice] 89812#89812: exiting
+2020/05/07 13:19:08 [notice] 89812#89812: exit
+2020/05/07 13:19:08 [error] 89936#89936: *6 connect() failed (111: Connection refused) while connecting to upstream, client: 127.0.0.1, server: localhost, request: "GET /index.html HTTP/1.1", upstream: "http://[::1]:3003/index.html", host: "localhost:3000"
+2020/05/07 13:19:08 [error] 89936#89936: *6 connect() failed (111: Connection refused) while connecting to upstream, client: 127.0.0.1, server: localhost, request: "GET /index.html HTTP/1.1", upstream: "http://[::1]:3003/index.html", host: "localhost:3000"
+2020/05/07 13:19:08 [error] 89936#89936: *6 connect() failed (111: Connection refused) while connecting to upstream, client: 127.0.0.1, server: localhost, request: "GET /index.html HTTP/1.1", upstream: "http://[::1]:3003/index.html", host: "localhost:3000"
+2020/05/07 13:19:08 [warn] 89936#89936: *6 upstream server temporarily disabled while connecting to upstream, client: 127.0.0.1, server: localhost, request: "GET /index.html HTTP/1.1", upstream: "http://[::1]:3003/index.html", host: "localhost:3000"
+2020/05/07 13:19:08 [warn] 89936#89936: *6 upstream server temporarily disabled while connecting to upstream, client: 127.0.0.1, server: localhost, request: "GET /index.html HTTP/1.1", upstream: "http://[::1]:3003/index.html", host: "localhost:3000"
+2020/05/07 13:19:08 [notice] 85812#85812: signal 17 (SIGCHLD) received from 89812
+2020/05/07 13:19:08 [notice] 85812#85812: signal 17 (SIGCHLD) received from 89812
+2020/05/07 13:19:08 [notice] 85812#85812: worker process 89812 exited with code 0
+2020/05/07 13:19:08 [notice] 85812#85812: worker process 89812 exited with code 0
+2020/05/07 13:19:08 [notice] 85812#85812: signal 29 (SIGIO) received
+2020/05/07 13:19:08 [notice] 85812#85812: signal 29 (SIGIO) received
+2020/05/07 13:19:19 [info] 89936#89936: *7 client closed connection while waiting for request, client: 127.0.0.1, server: 0.0.0.0:3000
+2020/05/07 13:19:24 [error] 89936#89936: *6 connect() failed (111: Connection refused) while connecting to upstream, client: 127.0.0.1, server: localhost, request: "GET / HTTP/1.1", upstream: "http://[::1]:3003/", host: "localhost:3000"
+2020/05/07 13:19:24 [error] 89936#89936: *6 connect() failed (111: Connection refused) while connecting to upstream, client: 127.0.0.1, server: localhost, request: "GET / HTTP/1.1", upstream: "http://[::1]:3003/", host: "localhost:3000"
+2020/05/07 13:19:24 [error] 89936#89936: *6 connect() failed (111: Connection refused) while connecting to upstream, client: 127.0.0.1, server: localhost, request: "GET / HTTP/1.1", upstream: "http://[::1]:3003/", host: "localhost:3000"
+2020/05/07 13:19:24 [warn] 89936#89936: *6 upstream server temporarily disabled while connecting to upstream, client: 127.0.0.1, server: localhost, request: "GET / HTTP/1.1", upstream: "http://[::1]:3003/", host: "localhost:3000"
+2020/05/07 13:19:24 [warn] 89936#89936: *6 upstream server temporarily disabled while connecting to upstream, client: 127.0.0.1, server: localhost, request: "GET / HTTP/1.1", upstream: "http://[::1]:3003/", host: "localhost:3000"
+2020/05/07 13:19:24 [info] 89936#89936: *17 client 127.0.0.1 closed keepalive connection
+2020/05/07 13:19:25 [info] 89936#89936: *20 client 127.0.0.1 closed keepalive connection
+2020/05/07 13:19:26 [info] 89936#89936: *22 client 127.0.0.1 closed keepalive connection
+2020/05/07 13:19:27 [info] 89936#89936: *24 client 127.0.0.1 closed keepalive connection
+2020/05/07 13:19:28 [info] 89936#89936: *26 client 127.0.0.1 closed keepalive connection
+2020/05/07 13:19:29 [info] 89936#89936: *28 client 127.0.0.1 closed keepalive connection
+2020/05/07 13:19:30 [info] 89936#89936: *30 client 127.0.0.1 closed keepalive connection
+2020/05/07 13:19:31 [info] 89936#89936: *32 client 127.0.0.1 closed keepalive connection
+2020/05/07 13:19:32 [info] 89936#89936: *34 client 127.0.0.1 closed keepalive connection
+2020/05/07 13:19:33 [info] 89936#89936: *36 client 127.0.0.1 closed keepalive connection
+2020/05/07 13:19:35 [info] 89936#89936: *38 client 127.0.0.1 closed keepalive connection
+2020/05/07 13:19:36 [info] 89936#89936: *40 client 127.0.0.1 closed keepalive connection
+2020/05/07 13:19:37 [error] 89936#89936: *42 connect() failed (111: Connection refused) while connecting to upstream, client: 127.0.0.1, server: localhost, request: "GET / HTTP/1.1", upstream: "http://[::1]:3003/", host: "localhost:3000"
+2020/05/07 13:19:37 [error] 89936#89936: *42 connect() failed (111: Connection refused) while connecting to upstream, client: 127.0.0.1, server: localhost, request: "GET / HTTP/1.1", upstream: "http://[::1]:3003/", host: "localhost:3000"
+2020/05/07 13:19:37 [error] 89936#89936: *42 connect() failed (111: Connection refused) while connecting to upstream, client: 127.0.0.1, server: localhost, request: "GET / HTTP/1.1", upstream: "http://[::1]:3003/", host: "localhost:3000"
+2020/05/07 13:19:37 [warn] 89936#89936: *42 upstream server temporarily disabled while connecting to upstream, client: 127.0.0.1, server: localhost, request: "GET / HTTP/1.1", upstream: "http://[::1]:3003/", host: "localhost:3000"
+2020/05/07 13:19:37 [warn] 89936#89936: *42 upstream server temporarily disabled while connecting to upstream, client: 127.0.0.1, server: localhost, request: "GET / HTTP/1.1", upstream: "http://[::1]:3003/", host: "localhost:3000"
+2020/05/07 13:19:37 [info] 89936#89936: *42 client 127.0.0.1 closed keepalive connection
+2020/05/07 13:19:38 [info] 89936#89936: *45 client 127.0.0.1 closed keepalive connection
+2020/05/07 13:19:39 [info] 89936#89936: *47 client 127.0.0.1 closed keepalive connection
+2020/05/07 13:19:40 [info] 89936#89936: *49 client 127.0.0.1 closed keepalive connection
+2020/05/07 13:19:41 [info] 89936#89936: *51 client 127.0.0.1 closed keepalive connection
+2020/05/07 13:19:42 [info] 89936#89936: *53 client 127.0.0.1 closed keepalive connection
+2020/05/07 13:19:43 [info] 89936#89936: *55 client 127.0.0.1 closed keepalive connection
+2020/05/07 13:19:45 [info] 89936#89936: *57 client 127.0.0.1 closed keepalive connection
+2020/05/07 13:19:47 [info] 89936#89936: *59 client 127.0.0.1 closed keepalive connection
+2020/05/07 13:19:49 [info] 89936#89936: *61 client 127.0.0.1 closed keepalive connection
+2020/05/07 13:19:51 [info] 89936#89936: *63 client 127.0.0.1 closed keepalive connection
+2020/05/07 13:19:53 [error] 89936#89936: *65 connect() failed (111: Connection refused) while connecting to upstream, client: 127.0.0.1, server: localhost, request: "GET / HTTP/1.1", upstream: "http://[::1]:3003/", host: "localhost:3000"
+2020/05/07 13:19:53 [error] 89936#89936: *65 connect() failed (111: Connection refused) while connecting to upstream, client: 127.0.0.1, server: localhost, request: "GET / HTTP/1.1", upstream: "http://[::1]:3003/", host: "localhost:3000"
+2020/05/07 13:19:53 [error] 89936#89936: *65 connect() failed (111: Connection refused) while connecting to upstream, client: 127.0.0.1, server: localhost, request: "GET / HTTP/1.1", upstream: "http://[::1]:3003/", host: "localhost:3000"
+2020/05/07 13:19:53 [warn] 89936#89936: *65 upstream server temporarily disabled while connecting to upstream, client: 127.0.0.1, server: localhost, request: "GET / HTTP/1.1", upstream: "http://[::1]:3003/", host: "localhost:3000"
+2020/05/07 13:19:53 [warn] 89936#89936: *65 upstream server temporarily disabled while connecting to upstream, client: 127.0.0.1, server: localhost, request: "GET / HTTP/1.1", upstream: "http://[::1]:3003/", host: "localhost:3000"
+2020/05/07 13:19:53 [info] 89936#89936: *65 client 127.0.0.1 closed keepalive connection
+2020/05/07 13:19:56 [info] 89936#89936: *68 client 127.0.0.1 closed keepalive connection
+2020/05/07 13:19:57 [info] 89936#89936: *70 client 127.0.0.1 closed keepalive connection
+2020/05/07 13:20:01 [info] 89936#89936: *72 client 127.0.0.1 closed keepalive connection
+2020/05/07 13:20:02 [notice] 85812#85812: signal 1 (SIGHUP) received from 90211, reconfiguring
+2020/05/07 13:20:02 [notice] 85812#85812: signal 1 (SIGHUP) received from 90211, reconfiguring
+2020/05/07 13:20:02 [notice] 85812#85812: reconfiguring
+2020/05/07 13:20:02 [notice] 85812#85812: reconfiguring
+2020/05/07 13:20:02 [notice] 85812#85812: using the "epoll" event method
+2020/05/07 13:20:02 [notice] 85812#85812: using the "epoll" event method
+2020/05/07 13:20:02 [notice] 85812#85812: start worker processes
+2020/05/07 13:20:02 [notice] 85812#85812: start worker processes
+2020/05/07 13:20:02 [notice] 85812#85812: start worker process 90212
+2020/05/07 13:20:02 [notice] 85812#85812: start worker process 90212
+2020/05/07 13:20:02 [notice] 89936#89936: gracefully shutting down
+2020/05/07 13:20:02 [notice] 89936#89936: gracefully shutting down
+2020/05/07 13:20:04 [error] 90212#90212: *74 connect() failed (111: Connection refused) while connecting to upstream, client: 127.0.0.1, server: localhost, request: "GET / HTTP/1.1", upstream: "http://[::1]:3003/", host: "localhost:3000"
+2020/05/07 13:20:04 [error] 90212#90212: *74 connect() failed (111: Connection refused) while connecting to upstream, client: 127.0.0.1, server: localhost, request: "GET / HTTP/1.1", upstream: "http://[::1]:3003/", host: "localhost:3000"
+2020/05/07 13:20:04 [error] 90212#90212: *74 connect() failed (111: Connection refused) while connecting to upstream, client: 127.0.0.1, server: localhost, request: "GET / HTTP/1.1", upstream: "http://[::1]:3003/", host: "localhost:3000"
+2020/05/07 13:20:04 [warn] 90212#90212: *74 upstream server temporarily disabled while connecting to upstream, client: 127.0.0.1, server: localhost, request: "GET / HTTP/1.1", upstream: "http://[::1]:3003/", host: "localhost:3000"
+2020/05/07 13:20:04 [warn] 90212#90212: *74 upstream server temporarily disabled while connecting to upstream, client: 127.0.0.1, server: localhost, request: "GET / HTTP/1.1", upstream: "http://[::1]:3003/", host: "localhost:3000"
+2020/05/07 13:20:04 [info] 90212#90212: *74 client 127.0.0.1 closed keepalive connection
+2020/05/07 13:20:08 [info] 90212#90212: *77 client 127.0.0.1 closed keepalive connection
+2020/05/07 13:20:08 [info] 89936#89936: *11 client closed connection while waiting for request, client: 127.0.0.1, server: 0.0.0.0:3000
+2020/05/07 13:20:08 [notice] 89936#89936: exiting
+2020/05/07 13:20:08 [notice] 89936#89936: exiting
+2020/05/07 13:20:08 [notice] 89936#89936: exit
+2020/05/07 13:20:08 [notice] 85812#85812: signal 17 (SIGCHLD) received from 89936
+2020/05/07 13:20:08 [notice] 85812#85812: signal 17 (SIGCHLD) received from 89936
+2020/05/07 13:20:08 [notice] 85812#85812: worker process 89936 exited with code 0
+2020/05/07 13:20:08 [notice] 85812#85812: worker process 89936 exited with code 0
+2020/05/07 13:20:08 [notice] 85812#85812: signal 29 (SIGIO) received
+2020/05/07 13:20:08 [notice] 85812#85812: signal 29 (SIGIO) received
+2020/05/07 13:20:12 [info] 90212#90212: *84 client 127.0.0.1 closed keepalive connection
+2020/05/07 13:20:18 [info] 90212#90212: *86 client 127.0.0.1 closed keepalive connection
+2020/05/07 13:20:21 [info] 90212#90212: *88 client 127.0.0.1 closed keepalive connection
+2020/05/07 13:20:27 [error] 90212#90212: *90 connect() failed (111: Connection refused) while connecting to upstream, client: 127.0.0.1, server: localhost, request: "GET / HTTP/1.1", upstream: "http://[::1]:3003/", host: "localhost:3000"
+2020/05/07 13:20:27 [error] 90212#90212: *90 connect() failed (111: Connection refused) while connecting to upstream, client: 127.0.0.1, server: localhost, request: "GET / HTTP/1.1", upstream: "http://[::1]:3003/", host: "localhost:3000"
+2020/05/07 13:20:27 [error] 90212#90212: *90 connect() failed (111: Connection refused) while connecting to upstream, client: 127.0.0.1, server: localhost, request: "GET / HTTP/1.1", upstream: "http://[::1]:3003/", host: "localhost:3000"
+2020/05/07 13:20:27 [warn] 90212#90212: *90 upstream server temporarily disabled while connecting to upstream, client: 127.0.0.1, server: localhost, request: "GET / HTTP/1.1", upstream: "http://[::1]:3003/", host: "localhost:3000"
+2020/05/07 13:20:27 [warn] 90212#90212: *90 upstream server temporarily disabled while connecting to upstream, client: 127.0.0.1, server: localhost, request: "GET / HTTP/1.1", upstream: "http://[::1]:3003/", host: "localhost:3000"
+2020/05/07 13:20:27 [info] 90212#90212: *90 client 127.0.0.1 closed keepalive connection
+2020/05/07 13:20:29 [info] 90212#90212: *93 client 127.0.0.1 closed keepalive connection
+2020/05/07 13:20:32 [info] 90212#90212: *95 client 127.0.0.1 closed keepalive connection
+2020/05/07 13:20:36 [info] 90212#90212: *97 client 127.0.0.1 closed keepalive connection
+2020/05/07 13:20:39 [info] 90212#90212: *99 client 127.0.0.1 closed keepalive connection
+2020/05/07 13:20:43 [info] 90212#90212: *101 client 127.0.0.1 closed keepalive connection
+2020/05/07 13:20:46 [error] 90212#90212: *103 connect() failed (111: Connection refused) while connecting to upstream, client: 127.0.0.1, server: localhost, request: "GET / HTTP/1.1", upstream: "http://[::1]:3003/", host: "localhost:3000"
+2020/05/07 13:20:46 [error] 90212#90212: *103 connect() failed (111: Connection refused) while connecting to upstream, client: 127.0.0.1, server: localhost, request: "GET / HTTP/1.1", upstream: "http://[::1]:3003/", host: "localhost:3000"
+2020/05/07 13:20:46 [error] 90212#90212: *103 connect() failed (111: Connection refused) while connecting to upstream, client: 127.0.0.1, server: localhost, request: "GET / HTTP/1.1", upstream: "http://[::1]:3003/", host: "localhost:3000"
+2020/05/07 13:20:46 [warn] 90212#90212: *103 upstream server temporarily disabled while connecting to upstream, client: 127.0.0.1, server: localhost, request: "GET / HTTP/1.1", upstream: "http://[::1]:3003/", host: "localhost:3000"
+2020/05/07 13:20:46 [warn] 90212#90212: *103 upstream server temporarily disabled while connecting to upstream, client: 127.0.0.1, server: localhost, request: "GET / HTTP/1.1", upstream: "http://[::1]:3003/", host: "localhost:3000"
+2020/05/07 13:20:46 [info] 90212#90212: *103 client 127.0.0.1 closed keepalive connection
+2020/05/07 13:20:51 [info] 90212#90212: *106 client 127.0.0.1 closed keepalive connection
+2020/05/07 13:20:53 [info] 90212#90212: *108 client 127.0.0.1 closed keepalive connection
+2020/05/07 13:20:58 [info] 90212#90212: *110 client 127.0.0.1 closed keepalive connection
+2020/05/07 13:21:03 [info] 90212#90212: *112 client 127.0.0.1 closed keepalive connection
+2020/05/07 13:21:07 [error] 90212#90212: *114 connect() failed (111: Connection refused) while connecting to upstream, client: 127.0.0.1, server: localhost, request: "GET / HTTP/1.1", upstream: "http://[::1]:3003/", host: "localhost:3000"
+2020/05/07 13:21:07 [error] 90212#90212: *114 connect() failed (111: Connection refused) while connecting to upstream, client: 127.0.0.1, server: localhost, request: "GET / HTTP/1.1", upstream: "http://[::1]:3003/", host: "localhost:3000"
+2020/05/07 13:21:07 [error] 90212#90212: *114 connect() failed (111: Connection refused) while connecting to upstream, client: 127.0.0.1, server: localhost, request: "GET / HTTP/1.1", upstream: "http://[::1]:3003/", host: "localhost:3000"
+2020/05/07 13:21:07 [warn] 90212#90212: *114 upstream server temporarily disabled while connecting to upstream, client: 127.0.0.1, server: localhost, request: "GET / HTTP/1.1", upstream: "http://[::1]:3003/", host: "localhost:3000"
+2020/05/07 13:21:07 [warn] 90212#90212: *114 upstream server temporarily disabled while connecting to upstream, client: 127.0.0.1, server: localhost, request: "GET / HTTP/1.1", upstream: "http://[::1]:3003/", host: "localhost:3000"
+2020/05/07 13:21:07 [info] 90212#90212: *114 client 127.0.0.1 closed keepalive connection
+2020/05/07 13:21:09 [info] 90212#90212: *80 client timed out (110: Connection timed out) while waiting for request, client: 127.0.0.1, server: 0.0.0.0:3000
+2020/05/07 13:21:11 [notice] 85812#85812: signal 1 (SIGHUP) received from 90279, reconfiguring
+2020/05/07 13:21:11 [notice] 85812#85812: signal 1 (SIGHUP) received from 90279, reconfiguring
+2020/05/07 13:21:11 [notice] 85812#85812: reconfiguring
+2020/05/07 13:21:11 [notice] 85812#85812: reconfiguring
+2020/05/07 13:21:11 [notice] 85812#85812: using the "epoll" event method
+2020/05/07 13:21:11 [notice] 85812#85812: using the "epoll" event method
+2020/05/07 13:21:11 [notice] 85812#85812: start worker processes
+2020/05/07 13:21:11 [notice] 85812#85812: start worker processes
+2020/05/07 13:21:11 [notice] 85812#85812: start worker process 90280
+2020/05/07 13:21:11 [notice] 85812#85812: start worker process 90280
+2020/05/07 13:21:11 [notice] 90212#90212: gracefully shutting down
+2020/05/07 13:21:11 [notice] 90212#90212: gracefully shutting down
+2020/05/07 13:21:11 [notice] 90212#90212: exiting
+2020/05/07 13:21:11 [notice] 90212#90212: exiting
+2020/05/07 13:21:11 [notice] 90212#90212: exit
+2020/05/07 13:21:11 [error] 90280#90280: *117 connect() failed (111: Connection refused) while connecting to upstream, client: 127.0.0.1, server: localhost, request: "GET / HTTP/1.1", upstream: "http://[::1]:3003/", host: "localhost:3000"
+2020/05/07 13:21:11 [error] 90280#90280: *117 connect() failed (111: Connection refused) while connecting to upstream, client: 127.0.0.1, server: localhost, request: "GET / HTTP/1.1", upstream: "http://[::1]:3003/", host: "localhost:3000"
+2020/05/07 13:21:11 [error] 90280#90280: *117 connect() failed (111: Connection refused) while connecting to upstream, client: 127.0.0.1, server: localhost, request: "GET / HTTP/1.1", upstream: "http://[::1]:3003/", host: "localhost:3000"
+2020/05/07 13:21:11 [warn] 90280#90280: *117 upstream server temporarily disabled while connecting to upstream, client: 127.0.0.1, server: localhost, request: "GET / HTTP/1.1", upstream: "http://[::1]:3003/", host: "localhost:3000"
+2020/05/07 13:21:11 [warn] 90280#90280: *117 upstream server temporarily disabled while connecting to upstream, client: 127.0.0.1, server: localhost, request: "GET / HTTP/1.1", upstream: "http://[::1]:3003/", host: "localhost:3000"
+2020/05/07 13:21:11 [info] 90280#90280: *117 client 127.0.0.1 closed keepalive connection
+2020/05/07 13:21:11 [notice] 85812#85812: signal 17 (SIGCHLD) received from 90212
+2020/05/07 13:21:11 [notice] 85812#85812: signal 17 (SIGCHLD) received from 90212
+2020/05/07 13:21:11 [notice] 85812#85812: worker process 90212 exited with code 0
+2020/05/07 13:21:11 [notice] 85812#85812: worker process 90212 exited with code 0
+2020/05/07 13:21:11 [notice] 85812#85812: signal 29 (SIGIO) received
+2020/05/07 13:21:11 [notice] 85812#85812: signal 29 (SIGIO) received
+2020/05/07 13:21:14 [info] 90280#90280: *125 client 127.0.0.1 closed keepalive connection
+2020/05/07 13:21:21 [info] 90280#90280: *129 client 127.0.0.1 closed keepalive connection
+2020/05/07 13:21:22 [info] 90280#90280: *132 client 127.0.0.1 closed keepalive connection
+2020/05/07 13:21:23 [info] 90280#90280: *134 client 127.0.0.1 closed keepalive connection
+2020/05/07 13:21:24 [error] 90280#90280: *136 connect() failed (111: Connection refused) while connecting to upstream, client: 127.0.0.1, server: localhost, request: "GET / HTTP/1.1", upstream: "http://[::1]:3003/", host: "localhost:3000"
+2020/05/07 13:21:24 [error] 90280#90280: *136 connect() failed (111: Connection refused) while connecting to upstream, client: 127.0.0.1, server: localhost, request: "GET / HTTP/1.1", upstream: "http://[::1]:3003/", host: "localhost:3000"
+2020/05/07 13:21:24 [error] 90280#90280: *136 connect() failed (111: Connection refused) while connecting to upstream, client: 127.0.0.1, server: localhost, request: "GET / HTTP/1.1", upstream: "http://[::1]:3003/", host: "localhost:3000"
+2020/05/07 13:21:24 [warn] 90280#90280: *136 upstream server temporarily disabled while connecting to upstream, client: 127.0.0.1, server: localhost, request: "GET / HTTP/1.1", upstream: "http://[::1]:3003/", host: "localhost:3000"
+2020/05/07 13:21:24 [warn] 90280#90280: *136 upstream server temporarily disabled while connecting to upstream, client: 127.0.0.1, server: localhost, request: "GET / HTTP/1.1", upstream: "http://[::1]:3003/", host: "localhost:3000"
+2020/05/07 13:21:24 [info] 90280#90280: *136 client 127.0.0.1 closed keepalive connection
+2020/05/07 13:21:25 [info] 90280#90280: *139 client 127.0.0.1 closed keepalive connection
+2020/05/07 13:21:26 [info] 90280#90280: *141 client 127.0.0.1 closed keepalive connection
+2020/05/07 13:21:27 [info] 90280#90280: *143 client 127.0.0.1 closed keepalive connection
+2020/05/07 13:21:28 [info] 90280#90280: *145 client 127.0.0.1 closed keepalive connection
+2020/05/07 13:21:29 [info] 90280#90280: *147 client 127.0.0.1 closed keepalive connection
+2020/05/07 13:21:30 [info] 90280#90280: *149 client 127.0.0.1 closed keepalive connection
+2020/05/07 13:21:31 [info] 90280#90280: *151 client 127.0.0.1 closed keepalive connection
+2020/05/07 13:21:32 [info] 90280#90280: *153 client 127.0.0.1 closed keepalive connection
+2020/05/07 13:21:34 [info] 90280#90280: *155 client 127.0.0.1 closed keepalive connection
+2020/05/07 13:21:36 [info] 90280#90280: *157 client 127.0.0.1 closed keepalive connection
+2020/05/07 13:21:37 [info] 90280#90280: *159 client 127.0.0.1 closed keepalive connection
+2020/05/07 13:21:38 [error] 90280#90280: *161 connect() failed (111: Connection refused) while connecting to upstream, client: 127.0.0.1, server: localhost, request: "GET / HTTP/1.1", upstream: "http://[::1]:3003/", host: "localhost:3000"
+2020/05/07 13:21:38 [error] 90280#90280: *161 connect() failed (111: Connection refused) while connecting to upstream, client: 127.0.0.1, server: localhost, request: "GET / HTTP/1.1", upstream: "http://[::1]:3003/", host: "localhost:3000"
+2020/05/07 13:21:38 [error] 90280#90280: *161 connect() failed (111: Connection refused) while connecting to upstream, client: 127.0.0.1, server: localhost, request: "GET / HTTP/1.1", upstream: "http://[::1]:3003/", host: "localhost:3000"
+2020/05/07 13:21:38 [warn] 90280#90280: *161 upstream server temporarily disabled while connecting to upstream, client: 127.0.0.1, server: localhost, request: "GET / HTTP/1.1", upstream: "http://[::1]:3003/", host: "localhost:3000"
+2020/05/07 13:21:38 [warn] 90280#90280: *161 upstream server temporarily disabled while connecting to upstream, client: 127.0.0.1, server: localhost, request: "GET / HTTP/1.1", upstream: "http://[::1]:3003/", host: "localhost:3000"
+2020/05/07 13:21:38 [info] 90280#90280: *161 client 127.0.0.1 closed keepalive connection
+2020/05/07 13:21:39 [info] 90280#90280: *164 client 127.0.0.1 closed keepalive connection
+2020/05/07 13:21:40 [info] 90280#90280: *166 client 127.0.0.1 closed keepalive connection
+2020/05/07 13:21:41 [info] 90280#90280: *168 client 127.0.0.1 closed keepalive connection
+2020/05/07 13:21:42 [info] 90280#90280: *170 client 127.0.0.1 closed keepalive connection
+2020/05/07 13:21:43 [info] 90280#90280: *172 client 127.0.0.1 closed keepalive connection
+2020/05/07 13:21:44 [info] 90280#90280: *174 client 127.0.0.1 closed keepalive connection
+2020/05/07 13:21:45 [info] 90280#90280: *176 client 127.0.0.1 closed keepalive connection
+2020/05/07 13:21:46 [info] 90280#90280: *178 client 127.0.0.1 closed keepalive connection
+2020/05/07 13:21:47 [info] 90280#90280: *180 client 127.0.0.1 closed keepalive connection
+2020/05/07 13:21:48 [info] 90280#90280: *182 client 127.0.0.1 closed keepalive connection
+2020/05/07 13:21:50 [info] 90280#90280: *184 client 127.0.0.1 closed keepalive connection
+2020/05/07 13:21:52 [info] 90280#90280: *186 client 127.0.0.1 closed keepalive connection
+2020/05/07 13:21:54 [error] 90280#90280: *188 connect() failed (111: Connection refused) while connecting to upstream, client: 127.0.0.1, server: localhost, request: "GET / HTTP/1.1", upstream: "http://[::1]:3003/", host: "localhost:3000"
+2020/05/07 13:21:54 [error] 90280#90280: *188 connect() failed (111: Connection refused) while connecting to upstream, client: 127.0.0.1, server: localhost, request: "GET / HTTP/1.1", upstream: "http://[::1]:3003/", host: "localhost:3000"
+2020/05/07 13:21:54 [error] 90280#90280: *188 connect() failed (111: Connection refused) while connecting to upstream, client: 127.0.0.1, server: localhost, request: "GET / HTTP/1.1", upstream: "http://[::1]:3003/", host: "localhost:3000"
+2020/05/07 13:21:54 [warn] 90280#90280: *188 upstream server temporarily disabled while connecting to upstream, client: 127.0.0.1, server: localhost, request: "GET / HTTP/1.1", upstream: "http://[::1]:3003/", host: "localhost:3000"
+2020/05/07 13:21:54 [warn] 90280#90280: *188 upstream server temporarily disabled while connecting to upstream, client: 127.0.0.1, server: localhost, request: "GET / HTTP/1.1", upstream: "http://[::1]:3003/", host: "localhost:3000"
+2020/05/07 13:21:54 [info] 90280#90280: *188 client 127.0.0.1 closed keepalive connection
+2020/05/07 13:21:57 [info] 90280#90280: *191 client 127.0.0.1 closed keepalive connection
+2020/05/07 13:22:03 [info] 90280#90280: *193 client 127.0.0.1 closed keepalive connection
+2020/05/07 13:22:06 [info] 90280#90280: *195 client 127.0.0.1 closed keepalive connection
+2020/05/07 13:22:08 [info] 90280#90280: *197 client 127.0.0.1 closed keepalive connection
+2020/05/07 13:22:11 [info] 90280#90280: *121 client timed out (110: Connection timed out) while waiting for request, client: 127.0.0.1, server: 0.0.0.0:3000
+2020/05/07 13:22:12 [error] 90280#90280: *199 connect() failed (111: Connection refused) while connecting to upstream, client: 127.0.0.1, server: localhost, request: "GET / HTTP/1.1", upstream: "http://[::1]:3003/", host: "localhost:3000"
+2020/05/07 13:22:12 [error] 90280#90280: *199 connect() failed (111: Connection refused) while connecting to upstream, client: 127.0.0.1, server: localhost, request: "GET / HTTP/1.1", upstream: "http://[::1]:3003/", host: "localhost:3000"
+2020/05/07 13:22:12 [error] 90280#90280: *199 connect() failed (111: Connection refused) while connecting to upstream, client: 127.0.0.1, server: localhost, request: "GET / HTTP/1.1", upstream: "http://[::1]:3003/", host: "localhost:3000"
+2020/05/07 13:22:12 [warn] 90280#90280: *199 upstream server temporarily disabled while connecting to upstream, client: 127.0.0.1, server: localhost, request: "GET / HTTP/1.1", upstream: "http://[::1]:3003/", host: "localhost:3000"
+2020/05/07 13:22:12 [warn] 90280#90280: *199 upstream server temporarily disabled while connecting to upstream, client: 127.0.0.1, server: localhost, request: "GET / HTTP/1.1", upstream: "http://[::1]:3003/", host: "localhost:3000"
+2020/05/07 13:22:12 [info] 90280#90280: *199 client 127.0.0.1 closed keepalive connection
+2020/05/07 13:22:17 [info] 90280#90280: *202 client 127.0.0.1 closed keepalive connection
+2020/05/07 13:22:21 [info] 90280#90280: *204 client 127.0.0.1 closed keepalive connection
+2020/05/07 13:22:24 [info] 90280#90280: *206 client 127.0.0.1 closed keepalive connection
+2020/05/07 13:22:29 [info] 90280#90280: *208 client 127.0.0.1 closed keepalive connection
+2020/05/07 13:22:32 [error] 90280#90280: *210 connect() failed (111: Connection refused) while connecting to upstream, client: 127.0.0.1, server: localhost, request: "GET / HTTP/1.1", upstream: "http://[::1]:3003/", host: "localhost:3000"
+2020/05/07 13:22:32 [error] 90280#90280: *210 connect() failed (111: Connection refused) while connecting to upstream, client: 127.0.0.1, server: localhost, request: "GET / HTTP/1.1", upstream: "http://[::1]:3003/", host: "localhost:3000"
+2020/05/07 13:22:32 [error] 90280#90280: *210 connect() failed (111: Connection refused) while connecting to upstream, client: 127.0.0.1, server: localhost, request: "GET / HTTP/1.1", upstream: "http://[::1]:3003/", host: "localhost:3000"
+2020/05/07 13:22:32 [warn] 90280#90280: *210 upstream server temporarily disabled while connecting to upstream, client: 127.0.0.1, server: localhost, request: "GET / HTTP/1.1", upstream: "http://[::1]:3003/", host: "localhost:3000"
+2020/05/07 13:22:32 [warn] 90280#90280: *210 upstream server temporarily disabled while connecting to upstream, client: 127.0.0.1, server: localhost, request: "GET / HTTP/1.1", upstream: "http://[::1]:3003/", host: "localhost:3000"
+2020/05/07 13:22:32 [info] 90280#90280: *210 client 127.0.0.1 closed keepalive connection
+2020/05/07 13:22:34 [info] 90280#90280: *213 client 127.0.0.1 closed keepalive connection
+2020/05/07 13:22:38 [info] 90280#90280: *215 client 127.0.0.1 closed keepalive connection
+2020/05/07 13:22:43 [info] 90280#90280: *217 client 127.0.0.1 closed keepalive connection
+2020/05/07 13:22:46 [info] 90280#90280: *219 client 127.0.0.1 closed keepalive connection
+2020/05/07 13:22:51 [error] 90280#90280: *221 connect() failed (111: Connection refused) while connecting to upstream, client: 127.0.0.1, server: localhost, request: "GET / HTTP/1.1", upstream: "http://[::1]:3003/", host: "localhost:3000"
+2020/05/07 13:22:51 [error] 90280#90280: *221 connect() failed (111: Connection refused) while connecting to upstream, client: 127.0.0.1, server: localhost, request: "GET / HTTP/1.1", upstream: "http://[::1]:3003/", host: "localhost:3000"
+2020/05/07 13:22:51 [error] 90280#90280: *221 connect() failed (111: Connection refused) while connecting to upstream, client: 127.0.0.1, server: localhost, request: "GET / HTTP/1.1", upstream: "http://[::1]:3003/", host: "localhost:3000"
+2020/05/07 13:22:51 [warn] 90280#90280: *221 upstream server temporarily disabled while connecting to upstream, client: 127.0.0.1, server: localhost, request: "GET / HTTP/1.1", upstream: "http://[::1]:3003/", host: "localhost:3000"
+2020/05/07 13:22:51 [warn] 90280#90280: *221 upstream server temporarily disabled while connecting to upstream, client: 127.0.0.1, server: localhost, request: "GET / HTTP/1.1", upstream: "http://[::1]:3003/", host: "localhost:3000"
+2020/05/07 13:22:51 [info] 90280#90280: *221 client 127.0.0.1 closed keepalive connection
+2020/05/07 13:22:57 [info] 90280#90280: *224 client 127.0.0.1 closed keepalive connection
+2020/05/07 13:23:02 [info] 90280#90280: *226 client 127.0.0.1 closed keepalive connection
+2020/05/07 13:23:07 [info] 90280#90280: *228 client 127.0.0.1 closed keepalive connection
+2020/05/07 13:23:10 [error] 90280#90280: *230 connect() failed (111: Connection refused) while connecting to upstream, client: 127.0.0.1, server: localhost, request: "GET / HTTP/1.1", upstream: "http://[::1]:3003/", host: "localhost:3000"
+2020/05/07 13:23:10 [error] 90280#90280: *230 connect() failed (111: Connection refused) while connecting to upstream, client: 127.0.0.1, server: localhost, request: "GET / HTTP/1.1", upstream: "http://[::1]:3003/", host: "localhost:3000"
+2020/05/07 13:23:10 [error] 90280#90280: *230 connect() failed (111: Connection refused) while connecting to upstream, client: 127.0.0.1, server: localhost, request: "GET / HTTP/1.1", upstream: "http://[::1]:3003/", host: "localhost:3000"
+2020/05/07 13:23:10 [warn] 90280#90280: *230 upstream server temporarily disabled while connecting to upstream, client: 127.0.0.1, server: localhost, request: "GET / HTTP/1.1", upstream: "http://[::1]:3003/", host: "localhost:3000"
+2020/05/07 13:23:10 [warn] 90280#90280: *230 upstream server temporarily disabled while connecting to upstream, client: 127.0.0.1, server: localhost, request: "GET / HTTP/1.1", upstream: "http://[::1]:3003/", host: "localhost:3000"
+2020/05/07 13:23:10 [info] 90280#90280: *230 client 127.0.0.1 closed keepalive connection
+2020/05/07 13:23:13 [info] 90280#90280: *233 client 127.0.0.1 closed keepalive connection
+2020/05/07 13:23:15 [info] 90280#90280: *235 client 127.0.0.1 closed keepalive connection
+2020/05/07 13:23:19 [info] 90280#90280: *237 client 127.0.0.1 closed keepalive connection
+2020/05/07 13:23:24 [info] 90280#90280: *239 client 127.0.0.1 closed keepalive connection
+2020/05/07 13:23:28 [info] 90280#90280: *241 client 127.0.0.1 closed keepalive connection
+2020/05/07 13:23:33 [error] 90280#90280: *243 connect() failed (111: Connection refused) while connecting to upstream, client: 127.0.0.1, server: localhost, request: "GET / HTTP/1.1", upstream: "http://[::1]:3003/", host: "localhost:3000"
+2020/05/07 13:23:33 [error] 90280#90280: *243 connect() failed (111: Connection refused) while connecting to upstream, client: 127.0.0.1, server: localhost, request: "GET / HTTP/1.1", upstream: "http://[::1]:3003/", host: "localhost:3000"
+2020/05/07 13:23:33 [error] 90280#90280: *243 connect() failed (111: Connection refused) while connecting to upstream, client: 127.0.0.1, server: localhost, request: "GET / HTTP/1.1", upstream: "http://[::1]:3003/", host: "localhost:3000"
+2020/05/07 13:23:33 [warn] 90280#90280: *243 upstream server temporarily disabled while connecting to upstream, client: 127.0.0.1, server: localhost, request: "GET / HTTP/1.1", upstream: "http://[::1]:3003/", host: "localhost:3000"
+2020/05/07 13:23:33 [warn] 90280#90280: *243 upstream server temporarily disabled while connecting to upstream, client: 127.0.0.1, server: localhost, request: "GET / HTTP/1.1", upstream: "http://[::1]:3003/", host: "localhost:3000"
+2020/05/07 13:23:33 [info] 90280#90280: *243 client 127.0.0.1 closed keepalive connection
+2020/05/07 13:23:38 [info] 90280#90280: *246 client 127.0.0.1 closed keepalive connection
+2020/05/07 13:23:43 [info] 90280#90280: *248 client 127.0.0.1 closed keepalive connection
+2020/05/07 13:23:46 [info] 90280#90280: *250 client 127.0.0.1 closed keepalive connection
+2020/05/07 13:23:51 [info] 90280#90280: *252 client 127.0.0.1 closed keepalive connection
+2020/05/07 13:23:55 [error] 90280#90280: *254 connect() failed (111: Connection refused) while connecting to upstream, client: 127.0.0.1, server: localhost, request: "GET / HTTP/1.1", upstream: "http://[::1]:3003/", host: "localhost:3000"
+2020/05/07 13:23:55 [error] 90280#90280: *254 connect() failed (111: Connection refused) while connecting to upstream, client: 127.0.0.1, server: localhost, request: "GET / HTTP/1.1", upstream: "http://[::1]:3003/", host: "localhost:3000"
+2020/05/07 13:23:55 [error] 90280#90280: *254 connect() failed (111: Connection refused) while connecting to upstream, client: 127.0.0.1, server: localhost, request: "GET / HTTP/1.1", upstream: "http://[::1]:3003/", host: "localhost:3000"
+2020/05/07 13:23:55 [warn] 90280#90280: *254 upstream server temporarily disabled while connecting to upstream, client: 127.0.0.1, server: localhost, request: "GET / HTTP/1.1", upstream: "http://[::1]:3003/", host: "localhost:3000"
+2020/05/07 13:23:55 [warn] 90280#90280: *254 upstream server temporarily disabled while connecting to upstream, client: 127.0.0.1, server: localhost, request: "GET / HTTP/1.1", upstream: "http://[::1]:3003/", host: "localhost:3000"
+2020/05/07 13:23:55 [info] 90280#90280: *254 client 127.0.0.1 closed keepalive connection
+2020/05/07 13:23:59 [info] 90280#90280: *257 client 127.0.0.1 closed keepalive connection
+2020/05/07 13:24:03 [info] 90280#90280: *259 client 127.0.0.1 closed keepalive connection
+2020/05/07 13:24:06 [info] 90280#90280: *261 client 127.0.0.1 closed keepalive connection
+2020/05/07 13:24:08 [info] 90280#90280: *263 client 127.0.0.1 closed keepalive connection
+2020/05/07 13:24:11 [error] 90280#90280: *265 connect() failed (111: Connection refused) while connecting to upstream, client: 127.0.0.1, server: localhost, request: "GET / HTTP/1.1", upstream: "http://[::1]:3003/", host: "localhost:3000"
+2020/05/07 13:24:11 [error] 90280#90280: *265 connect() failed (111: Connection refused) while connecting to upstream, client: 127.0.0.1, server: localhost, request: "GET / HTTP/1.1", upstream: "http://[::1]:3003/", host: "localhost:3000"
+2020/05/07 13:24:11 [error] 90280#90280: *265 connect() failed (111: Connection refused) while connecting to upstream, client: 127.0.0.1, server: localhost, request: "GET / HTTP/1.1", upstream: "http://[::1]:3003/", host: "localhost:3000"
+2020/05/07 13:24:11 [warn] 90280#90280: *265 upstream server temporarily disabled while connecting to upstream, client: 127.0.0.1, server: localhost, request: "GET / HTTP/1.1", upstream: "http://[::1]:3003/", host: "localhost:3000"
+2020/05/07 13:24:11 [warn] 90280#90280: *265 upstream server temporarily disabled while connecting to upstream, client: 127.0.0.1, server: localhost, request: "GET / HTTP/1.1", upstream: "http://[::1]:3003/", host: "localhost:3000"
+2020/05/07 13:24:11 [info] 90280#90280: *265 client 127.0.0.1 closed keepalive connection
+2020/05/07 13:24:17 [info] 90280#90280: *268 client 127.0.0.1 closed keepalive connection
+2020/05/07 13:24:21 [info] 90280#90280: *270 client 127.0.0.1 closed keepalive connection
+2020/05/07 13:24:24 [info] 90280#90280: *272 client 127.0.0.1 closed keepalive connection
+2020/05/07 13:24:28 [info] 90280#90280: *274 client 127.0.0.1 closed keepalive connection
+2020/05/07 13:24:31 [error] 90280#90280: *276 connect() failed (111: Connection refused) while connecting to upstream, client: 127.0.0.1, server: localhost, request: "GET / HTTP/1.1", upstream: "http://[::1]:3003/", host: "localhost:3000"
+2020/05/07 13:24:31 [error] 90280#90280: *276 connect() failed (111: Connection refused) while connecting to upstream, client: 127.0.0.1, server: localhost, request: "GET / HTTP/1.1", upstream: "http://[::1]:3003/", host: "localhost:3000"
+2020/05/07 13:24:31 [error] 90280#90280: *276 connect() failed (111: Connection refused) while connecting to upstream, client: 127.0.0.1, server: localhost, request: "GET / HTTP/1.1", upstream: "http://[::1]:3003/", host: "localhost:3000"
+2020/05/07 13:24:31 [warn] 90280#90280: *276 upstream server temporarily disabled while connecting to upstream, client: 127.0.0.1, server: localhost, request: "GET / HTTP/1.1", upstream: "http://[::1]:3003/", host: "localhost:3000"
+2020/05/07 13:24:31 [warn] 90280#90280: *276 upstream server temporarily disabled while connecting to upstream, client: 127.0.0.1, server: localhost, request: "GET / HTTP/1.1", upstream: "http://[::1]:3003/", host: "localhost:3000"
+2020/05/07 13:24:31 [info] 90280#90280: *276 client 127.0.0.1 closed keepalive connection
+2020/05/07 13:24:34 [info] 90280#90280: *279 client 127.0.0.1 closed keepalive connection
+2020/05/07 13:24:36 [info] 90280#90280: *281 client 127.0.0.1 closed keepalive connection
+2020/05/07 13:24:39 [info] 90280#90280: *283 client 127.0.0.1 closed keepalive connection
+2020/05/07 13:24:42 [info] 90280#90280: *285 client 127.0.0.1 closed keepalive connection
+2020/05/07 13:24:47 [info] 90280#90280: *287 client 127.0.0.1 closed keepalive connection
+2020/05/07 13:24:52 [error] 90280#90280: *289 connect() failed (111: Connection refused) while connecting to upstream, client: 127.0.0.1, server: localhost, request: "GET / HTTP/1.1", upstream: "http://[::1]:3003/", host: "localhost:3000"
+2020/05/07 13:24:52 [error] 90280#90280: *289 connect() failed (111: Connection refused) while connecting to upstream, client: 127.0.0.1, server: localhost, request: "GET / HTTP/1.1", upstream: "http://[::1]:3003/", host: "localhost:3000"
+2020/05/07 13:24:52 [error] 90280#90280: *289 connect() failed (111: Connection refused) while connecting to upstream, client: 127.0.0.1, server: localhost, request: "GET / HTTP/1.1", upstream: "http://[::1]:3003/", host: "localhost:3000"
+2020/05/07 13:24:52 [warn] 90280#90280: *289 upstream server temporarily disabled while connecting to upstream, client: 127.0.0.1, server: localhost, request: "GET / HTTP/1.1", upstream: "http://[::1]:3003/", host: "localhost:3000"
+2020/05/07 13:24:52 [warn] 90280#90280: *289 upstream server temporarily disabled while connecting to upstream, client: 127.0.0.1, server: localhost, request: "GET / HTTP/1.1", upstream: "http://[::1]:3003/", host: "localhost:3000"
+2020/05/07 13:24:52 [info] 90280#90280: *289 client 127.0.0.1 closed keepalive connection
+2020/05/07 13:24:57 [info] 90280#90280: *292 client 127.0.0.1 closed keepalive connection
+2020/05/07 13:25:01 [info] 90280#90280: *294 client 127.0.0.1 closed keepalive connection
+2020/05/07 13:25:05 [info] 90280#90280: *296 client 127.0.0.1 closed keepalive connection
+2020/05/07 13:25:10 [info] 90280#90280: *298 client 127.0.0.1 closed keepalive connection
+2020/05/07 13:25:13 [error] 90280#90280: *300 connect() failed (111: Connection refused) while connecting to upstream, client: 127.0.0.1, server: localhost, request: "GET / HTTP/1.1", upstream: "http://[::1]:3003/", host: "localhost:3000"
+2020/05/07 13:25:13 [error] 90280#90280: *300 connect() failed (111: Connection refused) while connecting to upstream, client: 127.0.0.1, server: localhost, request: "GET / HTTP/1.1", upstream: "http://[::1]:3003/", host: "localhost:3000"
+2020/05/07 13:25:13 [error] 90280#90280: *300 connect() failed (111: Connection refused) while connecting to upstream, client: 127.0.0.1, server: localhost, request: "GET / HTTP/1.1", upstream: "http://[::1]:3003/", host: "localhost:3000"
+2020/05/07 13:25:13 [warn] 90280#90280: *300 upstream server temporarily disabled while connecting to upstream, client: 127.0.0.1, server: localhost, request: "GET / HTTP/1.1", upstream: "http://[::1]:3003/", host: "localhost:3000"
+2020/05/07 13:25:13 [warn] 90280#90280: *300 upstream server temporarily disabled while connecting to upstream, client: 127.0.0.1, server: localhost, request: "GET / HTTP/1.1", upstream: "http://[::1]:3003/", host: "localhost:3000"
+2020/05/07 13:25:13 [info] 90280#90280: *300 client 127.0.0.1 closed keepalive connection
+2020/05/07 13:25:18 [info] 90280#90280: *303 client 127.0.0.1 closed keepalive connection
+2020/05/07 13:25:21 [info] 90280#90280: *305 client 127.0.0.1 closed keepalive connection
+2020/05/07 13:25:26 [info] 90280#90280: *307 client 127.0.0.1 closed keepalive connection
+2020/05/07 13:25:28 [info] 90280#90280: *309 client 127.0.0.1 closed keepalive connection
+2020/05/07 13:25:32 [error] 90280#90280: *311 connect() failed (111: Connection refused) while connecting to upstream, client: 127.0.0.1, server: localhost, request: "GET / HTTP/1.1", upstream: "http://[::1]:3003/", host: "localhost:3000"
+2020/05/07 13:25:32 [error] 90280#90280: *311 connect() failed (111: Connection refused) while connecting to upstream, client: 127.0.0.1, server: localhost, request: "GET / HTTP/1.1", upstream: "http://[::1]:3003/", host: "localhost:3000"
+2020/05/07 13:25:32 [error] 90280#90280: *311 connect() failed (111: Connection refused) while connecting to upstream, client: 127.0.0.1, server: localhost, request: "GET / HTTP/1.1", upstream: "http://[::1]:3003/", host: "localhost:3000"
+2020/05/07 13:25:32 [warn] 90280#90280: *311 upstream server temporarily disabled while connecting to upstream, client: 127.0.0.1, server: localhost, request: "GET / HTTP/1.1", upstream: "http://[::1]:3003/", host: "localhost:3000"
+2020/05/07 13:25:32 [warn] 90280#90280: *311 upstream server temporarily disabled while connecting to upstream, client: 127.0.0.1, server: localhost, request: "GET / HTTP/1.1", upstream: "http://[::1]:3003/", host: "localhost:3000"
+2020/05/07 13:25:32 [info] 90280#90280: *311 client 127.0.0.1 closed keepalive connection
+2020/05/07 13:25:34 [info] 90280#90280: *314 client 127.0.0.1 closed keepalive connection
+2020/05/07 13:25:40 [info] 90280#90280: *316 client 127.0.0.1 closed keepalive connection
+2020/05/07 13:25:44 [info] 90280#90280: *318 client 127.0.0.1 closed keepalive connection
+2020/05/07 13:25:49 [info] 90280#90280: *320 client 127.0.0.1 closed keepalive connection
+2020/05/07 13:25:53 [error] 90280#90280: *322 connect() failed (111: Connection refused) while connecting to upstream, client: 127.0.0.1, server: localhost, request: "GET / HTTP/1.1", upstream: "http://[::1]:3003/", host: "localhost:3000"
+2020/05/07 13:25:53 [error] 90280#90280: *322 connect() failed (111: Connection refused) while connecting to upstream, client: 127.0.0.1, server: localhost, request: "GET / HTTP/1.1", upstream: "http://[::1]:3003/", host: "localhost:3000"
+2020/05/07 13:25:53 [error] 90280#90280: *322 connect() failed (111: Connection refused) while connecting to upstream, client: 127.0.0.1, server: localhost, request: "GET / HTTP/1.1", upstream: "http://[::1]:3003/", host: "localhost:3000"
+2020/05/07 13:25:53 [warn] 90280#90280: *322 upstream server temporarily disabled while connecting to upstream, client: 127.0.0.1, server: localhost, request: "GET / HTTP/1.1", upstream: "http://[::1]:3003/", host: "localhost:3000"
+2020/05/07 13:25:53 [warn] 90280#90280: *322 upstream server temporarily disabled while connecting to upstream, client: 127.0.0.1, server: localhost, request: "GET / HTTP/1.1", upstream: "http://[::1]:3003/", host: "localhost:3000"
+2020/05/07 13:25:53 [info] 90280#90280: *322 client 127.0.0.1 closed keepalive connection
+2020/05/07 13:25:57 [info] 90280#90280: *325 client 127.0.0.1 closed keepalive connection
+2020/05/07 13:26:00 [info] 90280#90280: *327 client 127.0.0.1 closed keepalive connection
+2020/05/07 13:26:03 [info] 90280#90280: *329 client 127.0.0.1 closed keepalive connection
+2020/05/07 13:26:09 [info] 90280#90280: *331 client 127.0.0.1 closed keepalive connection
+2020/05/07 13:26:14 [info] 90280#90280: *333 client 127.0.0.1 closed keepalive connection
+2020/05/07 13:26:17 [error] 90280#90280: *335 connect() failed (111: Connection refused) while connecting to upstream, client: 127.0.0.1, server: localhost, request: "GET / HTTP/1.1", upstream: "http://[::1]:3003/", host: "localhost:3000"
+2020/05/07 13:26:17 [error] 90280#90280: *335 connect() failed (111: Connection refused) while connecting to upstream, client: 127.0.0.1, server: localhost, request: "GET / HTTP/1.1", upstream: "http://[::1]:3003/", host: "localhost:3000"
+2020/05/07 13:26:17 [error] 90280#90280: *335 connect() failed (111: Connection refused) while connecting to upstream, client: 127.0.0.1, server: localhost, request: "GET / HTTP/1.1", upstream: "http://[::1]:3003/", host: "localhost:3000"
+2020/05/07 13:26:17 [warn] 90280#90280: *335 upstream server temporarily disabled while connecting to upstream, client: 127.0.0.1, server: localhost, request: "GET / HTTP/1.1", upstream: "http://[::1]:3003/", host: "localhost:3000"
+2020/05/07 13:26:17 [warn] 90280#90280: *335 upstream server temporarily disabled while connecting to upstream, client: 127.0.0.1, server: localhost, request: "GET / HTTP/1.1", upstream: "http://[::1]:3003/", host: "localhost:3000"
+2020/05/07 13:26:17 [info] 90280#90280: *335 client 127.0.0.1 closed keepalive connection
+2020/05/07 13:26:22 [info] 90280#90280: *338 client 127.0.0.1 closed keepalive connection
+2020/05/07 13:26:27 [info] 90280#90280: *340 client 127.0.0.1 closed keepalive connection
+2020/05/07 13:26:32 [info] 90280#90280: *342 client 127.0.0.1 closed keepalive connection
+2020/05/07 13:26:38 [info] 90280#90280: *344 client 127.0.0.1 closed keepalive connection
+2020/05/07 13:26:42 [error] 90280#90280: *346 connect() failed (111: Connection refused) while connecting to upstream, client: 127.0.0.1, server: localhost, request: "GET / HTTP/1.1", upstream: "http://[::1]:3003/", host: "localhost:3000"
+2020/05/07 13:26:42 [error] 90280#90280: *346 connect() failed (111: Connection refused) while connecting to upstream, client: 127.0.0.1, server: localhost, request: "GET / HTTP/1.1", upstream: "http://[::1]:3003/", host: "localhost:3000"
+2020/05/07 13:26:42 [error] 90280#90280: *346 connect() failed (111: Connection refused) while connecting to upstream, client: 127.0.0.1, server: localhost, request: "GET / HTTP/1.1", upstream: "http://[::1]:3003/", host: "localhost:3000"
+2020/05/07 13:26:42 [warn] 90280#90280: *346 upstream server temporarily disabled while connecting to upstream, client: 127.0.0.1, server: localhost, request: "GET / HTTP/1.1", upstream: "http://[::1]:3003/", host: "localhost:3000"
+2020/05/07 13:26:42 [warn] 90280#90280: *346 upstream server temporarily disabled while connecting to upstream, client: 127.0.0.1, server: localhost, request: "GET / HTTP/1.1", upstream: "http://[::1]:3003/", host: "localhost:3000"
+2020/05/07 13:26:42 [info] 90280#90280: *346 client 127.0.0.1 closed keepalive connection
+2020/05/07 13:26:46 [info] 90280#90280: *349 client 127.0.0.1 closed keepalive connection
+2020/05/07 13:26:50 [info] 90280#90280: *351 client 127.0.0.1 closed keepalive connection
+2020/05/07 13:26:55 [info] 90280#90280: *353 client 127.0.0.1 closed keepalive connection
+2020/05/07 13:27:00 [info] 90280#90280: *355 client 127.0.0.1 closed keepalive connection
+2020/05/07 13:27:02 [error] 90280#90280: *357 connect() failed (111: Connection refused) while connecting to upstream, client: 127.0.0.1, server: localhost, request: "GET / HTTP/1.1", upstream: "http://[::1]:3003/", host: "localhost:3000"
+2020/05/07 13:27:02 [error] 90280#90280: *357 connect() failed (111: Connection refused) while connecting to upstream, client: 127.0.0.1, server: localhost, request: "GET / HTTP/1.1", upstream: "http://[::1]:3003/", host: "localhost:3000"
+2020/05/07 13:27:02 [error] 90280#90280: *357 connect() failed (111: Connection refused) while connecting to upstream, client: 127.0.0.1, server: localhost, request: "GET / HTTP/1.1", upstream: "http://[::1]:3003/", host: "localhost:3000"
+2020/05/07 13:27:02 [warn] 90280#90280: *357 upstream server temporarily disabled while connecting to upstream, client: 127.0.0.1, server: localhost, request: "GET / HTTP/1.1", upstream: "http://[::1]:3003/", host: "localhost:3000"
+2020/05/07 13:27:02 [warn] 90280#90280: *357 upstream server temporarily disabled while connecting to upstream, client: 127.0.0.1, server: localhost, request: "GET / HTTP/1.1", upstream: "http://[::1]:3003/", host: "localhost:3000"
+2020/05/07 13:27:02 [info] 90280#90280: *357 client 127.0.0.1 closed keepalive connection
+2020/05/07 13:27:07 [info] 90280#90280: *360 client 127.0.0.1 closed keepalive connection
+2020/05/07 13:27:12 [info] 90280#90280: *362 client 127.0.0.1 closed keepalive connection
+2020/05/07 13:27:18 [info] 90280#90280: *364 client 127.0.0.1 closed keepalive connection
+2020/05/07 13:27:20 [info] 90280#90280: *366 client 127.0.0.1 closed keepalive connection
+2020/05/07 13:27:26 [error] 90280#90280: *368 connect() failed (111: Connection refused) while connecting to upstream, client: 127.0.0.1, server: localhost, request: "GET / HTTP/1.1", upstream: "http://[::1]:3003/", host: "localhost:3000"
+2020/05/07 13:27:26 [error] 90280#90280: *368 connect() failed (111: Connection refused) while connecting to upstream, client: 127.0.0.1, server: localhost, request: "GET / HTTP/1.1", upstream: "http://[::1]:3003/", host: "localhost:3000"
+2020/05/07 13:27:26 [error] 90280#90280: *368 connect() failed (111: Connection refused) while connecting to upstream, client: 127.0.0.1, server: localhost, request: "GET / HTTP/1.1", upstream: "http://[::1]:3003/", host: "localhost:3000"
+2020/05/07 13:27:26 [warn] 90280#90280: *368 upstream server temporarily disabled while connecting to upstream, client: 127.0.0.1, server: localhost, request: "GET / HTTP/1.1", upstream: "http://[::1]:3003/", host: "localhost:3000"
+2020/05/07 13:27:26 [warn] 90280#90280: *368 upstream server temporarily disabled while connecting to upstream, client: 127.0.0.1, server: localhost, request: "GET / HTTP/1.1", upstream: "http://[::1]:3003/", host: "localhost:3000"
+2020/05/07 13:27:26 [info] 90280#90280: *368 client 127.0.0.1 closed keepalive connection
+2020/05/07 13:27:29 [info] 90280#90280: *371 client 127.0.0.1 closed keepalive connection
+2020/05/07 13:27:32 [info] 90280#90280: *373 client 127.0.0.1 closed keepalive connection
+2020/05/07 13:27:34 [info] 90280#90280: *375 client 127.0.0.1 closed keepalive connection
+2020/05/07 13:27:39 [info] 90280#90280: *377 client 127.0.0.1 closed keepalive connection
+2020/05/07 13:27:43 [info] 90280#90280: *379 client 127.0.0.1 closed keepalive connection
+2020/05/07 13:27:46 [error] 90280#90280: *381 connect() failed (111: Connection refused) while connecting to upstream, client: 127.0.0.1, server: localhost, request: "GET / HTTP/1.1", upstream: "http://[::1]:3003/", host: "localhost:3000"
+2020/05/07 13:27:46 [error] 90280#90280: *381 connect() failed (111: Connection refused) while connecting to upstream, client: 127.0.0.1, server: localhost, request: "GET / HTTP/1.1", upstream: "http://[::1]:3003/", host: "localhost:3000"
+2020/05/07 13:27:46 [error] 90280#90280: *381 connect() failed (111: Connection refused) while connecting to upstream, client: 127.0.0.1, server: localhost, request: "GET / HTTP/1.1", upstream: "http://[::1]:3003/", host: "localhost:3000"
+2020/05/07 13:27:46 [warn] 90280#90280: *381 upstream server temporarily disabled while connecting to upstream, client: 127.0.0.1, server: localhost, request: "GET / HTTP/1.1", upstream: "http://[::1]:3003/", host: "localhost:3000"
+2020/05/07 13:27:46 [warn] 90280#90280: *381 upstream server temporarily disabled while connecting to upstream, client: 127.0.0.1, server: localhost, request: "GET / HTTP/1.1", upstream: "http://[::1]:3003/", host: "localhost:3000"
+2020/05/07 13:27:46 [info] 90280#90280: *381 client 127.0.0.1 closed keepalive connection
+2020/05/07 13:27:50 [info] 90280#90280: *384 client 127.0.0.1 closed keepalive connection
+2020/05/07 13:27:52 [info] 90280#90280: *386 client 127.0.0.1 closed keepalive connection
+2020/05/07 13:27:58 [info] 90280#90280: *388 client 127.0.0.1 closed keepalive connection
+2020/05/07 13:28:00 [info] 90280#90280: *390 client 127.0.0.1 closed keepalive connection
+2020/05/07 13:28:03 [error] 90280#90280: *392 connect() failed (111: Connection refused) while connecting to upstream, client: 127.0.0.1, server: localhost, request: "GET / HTTP/1.1", upstream: "http://[::1]:3003/", host: "localhost:3000"
+2020/05/07 13:28:03 [error] 90280#90280: *392 connect() failed (111: Connection refused) while connecting to upstream, client: 127.0.0.1, server: localhost, request: "GET / HTTP/1.1", upstream: "http://[::1]:3003/", host: "localhost:3000"
+2020/05/07 13:28:03 [error] 90280#90280: *392 connect() failed (111: Connection refused) while connecting to upstream, client: 127.0.0.1, server: localhost, request: "GET / HTTP/1.1", upstream: "http://[::1]:3003/", host: "localhost:3000"
+2020/05/07 13:28:03 [warn] 90280#90280: *392 upstream server temporarily disabled while connecting to upstream, client: 127.0.0.1, server: localhost, request: "GET / HTTP/1.1", upstream: "http://[::1]:3003/", host: "localhost:3000"
+2020/05/07 13:28:03 [warn] 90280#90280: *392 upstream server temporarily disabled while connecting to upstream, client: 127.0.0.1, server: localhost, request: "GET / HTTP/1.1", upstream: "http://[::1]:3003/", host: "localhost:3000"
+2020/05/07 13:28:03 [info] 90280#90280: *392 client 127.0.0.1 closed keepalive connection
+2020/05/07 13:28:08 [info] 90280#90280: *395 client 127.0.0.1 closed keepalive connection
+2020/05/07 13:28:11 [notice] 85812#85812: signal 1 (SIGHUP) received from 90593, reconfiguring
+2020/05/07 13:28:11 [notice] 85812#85812: signal 1 (SIGHUP) received from 90593, reconfiguring
+2020/05/07 13:28:11 [notice] 85812#85812: reconfiguring
+2020/05/07 13:28:11 [notice] 85812#85812: reconfiguring
+2020/05/07 13:28:11 [notice] 85812#85812: using the "epoll" event method
+2020/05/07 13:28:11 [notice] 85812#85812: using the "epoll" event method
+2020/05/07 13:28:11 [notice] 85812#85812: start worker processes
+2020/05/07 13:28:11 [notice] 85812#85812: start worker processes
+2020/05/07 13:28:11 [notice] 85812#85812: start worker process 90594
+2020/05/07 13:28:11 [notice] 85812#85812: start worker process 90594
+2020/05/07 13:28:11 [notice] 90280#90280: gracefully shutting down
+2020/05/07 13:28:11 [notice] 90280#90280: gracefully shutting down
+2020/05/07 13:28:11 [notice] 90280#90280: exiting
+2020/05/07 13:28:11 [notice] 90280#90280: exiting
+2020/05/07 13:28:11 [notice] 90280#90280: exit
+2020/05/07 13:28:11 [notice] 85812#85812: signal 17 (SIGCHLD) received from 90280
+2020/05/07 13:28:11 [notice] 85812#85812: signal 17 (SIGCHLD) received from 90280
+2020/05/07 13:28:11 [notice] 85812#85812: worker process 90280 exited with code 0
+2020/05/07 13:28:11 [notice] 85812#85812: worker process 90280 exited with code 0
+2020/05/07 13:28:11 [notice] 85812#85812: signal 29 (SIGIO) received
+2020/05/07 13:28:11 [notice] 85812#85812: signal 29 (SIGIO) received
+2020/05/07 13:28:12 [error] 90594#90594: *397 directory index of "/home/trey/dev/sites/nyah-dogwalking/resources/public/" is forbidden, client: 127.0.0.1, server: localhost, request: "GET / HTTP/1.1", host: "localhost:3000"
+2020/05/07 13:28:12 [error] 90594#90594: *397 directory index of "/home/trey/dev/sites/nyah-dogwalking/resources/public/" is forbidden, client: 127.0.0.1, server: localhost, request: "GET / HTTP/1.1", host: "localhost:3000"
+2020/05/07 13:28:12 [error] 90594#90594: *397 directory index of "/home/trey/dev/sites/nyah-dogwalking/resources/public/" is forbidden, client: 127.0.0.1, server: localhost, request: "GET / HTTP/1.1", host: "localhost:3000"
+2020/05/07 13:28:12 [info] 90594#90594: *397 client 127.0.0.1 closed keepalive connection
+2020/05/07 15:29:15 [info] 90594#90594: *398 client 127.0.0.1 closed keepalive connection
+2020/05/07 16:12:40 [info] 90594#90594: *408 client 127.0.0.1 closed keepalive connection
+2020/05/07 19:33:03 [info] 90594#90594: *465 client 127.0.0.1 closed keepalive connection
+2020/05/07 19:33:24 [info] 90594#90594: *466 client 127.0.0.1 closed keepalive connection
+2020/05/07 19:44:22 [emerg] 121441#121441: bind() to 0.0.0.0:3000 failed (98: Address already in use)
+2020/05/07 19:44:22 [emerg] 121441#121441: bind() to 0.0.0.0:3000 failed (98: Address already in use)
+2020/05/07 19:44:22 [emerg] 121441#121441: bind() to 0.0.0.0:3000 failed (98: Address already in use)
+2020/05/07 19:44:22 [notice] 121441#121441: try again to bind() after 500ms
+2020/05/07 19:44:22 [notice] 121441#121441: try again to bind() after 500ms
+2020/05/07 19:44:22 [emerg] 121441#121441: bind() to 0.0.0.0:3000 failed (98: Address already in use)
+2020/05/07 19:44:22 [emerg] 121441#121441: bind() to 0.0.0.0:3000 failed (98: Address already in use)
+2020/05/07 19:44:22 [emerg] 121441#121441: bind() to 0.0.0.0:3000 failed (98: Address already in use)
+2020/05/07 19:44:22 [notice] 121441#121441: try again to bind() after 500ms
+2020/05/07 19:44:22 [notice] 121441#121441: try again to bind() after 500ms
+2020/05/07 19:44:22 [emerg] 121441#121441: bind() to 0.0.0.0:3000 failed (98: Address already in use)
+2020/05/07 19:44:22 [emerg] 121441#121441: bind() to 0.0.0.0:3000 failed (98: Address already in use)
+2020/05/07 19:44:22 [emerg] 121441#121441: bind() to 0.0.0.0:3000 failed (98: Address already in use)
+2020/05/07 19:44:22 [notice] 121441#121441: try again to bind() after 500ms
+2020/05/07 19:44:22 [notice] 121441#121441: try again to bind() after 500ms
+2020/05/07 19:44:22 [emerg] 121441#121441: bind() to 0.0.0.0:3000 failed (98: Address already in use)
+2020/05/07 19:44:22 [emerg] 121441#121441: bind() to 0.0.0.0:3000 failed (98: Address already in use)
+2020/05/07 19:44:22 [emerg] 121441#121441: bind() to 0.0.0.0:3000 failed (98: Address already in use)
+2020/05/07 19:44:22 [notice] 121441#121441: try again to bind() after 500ms
+2020/05/07 19:44:22 [notice] 121441#121441: try again to bind() after 500ms
+2020/05/07 19:44:41 [notice] 85812#85812: signal 1 (SIGHUP) received from 121448, reconfiguring
+2020/05/07 19:44:41 [notice] 85812#85812: signal 1 (SIGHUP) received from 121448, reconfiguring
+2020/05/07 19:44:41 [notice] 85812#85812: reconfiguring
+2020/05/07 19:44:41 [notice] 85812#85812: reconfiguring
+2020/05/07 19:44:41 [notice] 85812#85812: using the "epoll" event method
+2020/05/07 19:44:41 [notice] 85812#85812: using the "epoll" event method
+2020/05/07 19:44:41 [notice] 85812#85812: start worker processes
+2020/05/07 19:44:41 [notice] 85812#85812: start worker processes
+2020/05/07 19:44:41 [notice] 85812#85812: start worker process 121449
+2020/05/07 19:44:41 [notice] 85812#85812: start worker process 121449
+2020/05/07 19:44:42 [notice] 90594#90594: gracefully shutting down
+2020/05/07 19:44:42 [notice] 90594#90594: gracefully shutting down
+2020/05/07 19:44:42 [notice] 90594#90594: exiting
+2020/05/07 19:44:42 [notice] 90594#90594: exiting
+2020/05/07 19:44:42 [notice] 90594#90594: exit
+2020/05/07 19:44:42 [notice] 85812#85812: signal 17 (SIGCHLD) received from 90594
+2020/05/07 19:44:42 [notice] 85812#85812: signal 17 (SIGCHLD) received from 90594
+2020/05/07 19:44:42 [notice] 85812#85812: worker process 90594 exited with code 0
+2020/05/07 19:44:42 [notice] 85812#85812: worker process 90594 exited with code 0
+2020/05/07 19:44:42 [notice] 85812#85812: signal 29 (SIGIO) received
+2020/05/07 19:44:42 [notice] 85812#85812: signal 29 (SIGIO) received
+2020/05/07 22:12:36 [notice] 121449#121449: signal 15 (SIGTERM) received from 128682, exiting
+2020/05/07 22:12:36 [notice] 121449#121449: signal 15 (SIGTERM) received from 128682, exiting
+2020/05/07 22:12:36 [notice] 85812#85812: signal 15 (SIGTERM) received from 128682, exiting
+2020/05/07 22:12:36 [info] 121449#121449: epoll_wait() failed (4: Interrupted system call)
+2020/05/07 22:12:36 [notice] 85812#85812: signal 15 (SIGTERM) received from 128682, exiting
+2020/05/07 22:12:36 [notice] 121449#121449: exiting
+2020/05/07 22:12:36 [notice] 121449#121449: exiting
+2020/05/07 22:12:36 [notice] 121449#121449: exit
+2020/05/07 22:12:36 [notice] 85812#85812: signal 17 (SIGCHLD) received from 121449
+2020/05/07 22:12:36 [notice] 85812#85812: signal 17 (SIGCHLD) received from 121449
+2020/05/07 22:12:36 [notice] 85812#85812: worker process 121449 exited with code 0
+2020/05/07 22:12:36 [notice] 85812#85812: worker process 121449 exited with code 0
+2020/05/07 22:12:36 [notice] 85812#85812: exit
+2020/05/07 22:12:36 [notice] 85812#85812: exit
+2020/05/07 22:12:57 [notice] 128702#128702: using the "epoll" event method
+2020/05/07 22:12:57 [notice] 128702#128702: using the "epoll" event method
+2020/05/07 22:12:57 [notice] 128702#128702: nginx/1.18.0
+2020/05/07 22:12:57 [notice] 128702#128702: nginx/1.18.0
+2020/05/07 22:12:57 [notice] 128702#128702: OS: Linux 5.6.10-arch1-1
+2020/05/07 22:12:57 [notice] 128702#128702: OS: Linux 5.6.10-arch1-1
+2020/05/07 22:12:57 [notice] 128702#128702: getrlimit(RLIMIT_NOFILE): 1024:524288
+2020/05/07 22:12:57 [notice] 128702#128702: getrlimit(RLIMIT_NOFILE): 1024:524288
+2020/05/07 22:12:57 [notice] 128703#128703: start worker processes
+2020/05/07 22:12:57 [notice] 128703#128703: start worker processes
+2020/05/07 22:12:57 [notice] 128703#128703: start worker process 128704
+2020/05/07 22:12:57 [notice] 128703#128703: start worker process 128704
+2020/05/07 22:56:02 [info] 128704#128704: *24 client 127.0.0.1 closed keepalive connection
+2020/05/07 22:56:02 [info] 128704#128704: *23 client 127.0.0.1 closed keepalive connection
+2020/05/08 06:41:21 [info] 128704#128704: epoll_wait() failed (4: Interrupted system call)
+2020/05/08 08:37:35 [info] 128704#128704: *81 client sent invalid method while reading client request line, client: 185.202.1.204, server: localhost, request: "  /*‡     Cookie: mstshash=Administr"
+2020/05/08 08:37:35 [info] 128704#128704: *82 client sent invalid method while reading client request line, client: 185.202.1.204, server: localhost, request: "  /*‡     Cookie: mstshash=Administr"
+2020/05/08 08:37:35 [info] 128704#128704: *83 client sent invalid method while reading client request line, client: 185.202.1.204, server: localhost, request: "  /*‡     Cookie: mstshash=Administr"
+2020/05/08 08:37:35 [info] 128704#128704: *81 recv() failed (104: Connection reset by peer) while reading client request line, client: 185.202.1.204, server: localhost, request: "  /*‡     Cookie: mstshash=Administr"
+2020/05/08 08:37:35 [info] 128704#128704: *82 recv() failed (104: Connection reset by peer) while reading client request line, client: 185.202.1.204, server: localhost, request: "  /*‡     Cookie: mstshash=Administr"
+2020/05/08 08:37:35 [info] 128704#128704: *84 client sent invalid method while reading client request line, client: 185.202.1.204, server: localhost, request: "  /*‡     Cookie: mstshash=Administr"
+2020/05/08 08:37:35 [info] 128704#128704: *83 recv() failed (104: Connection reset by peer) while reading client request line, client: 185.202.1.204, server: localhost, request: "  /*‡     Cookie: mstshash=Administr"
+2020/05/08 08:37:35 [info] 128704#128704: *84 recv() failed (104: Connection reset by peer) while reading client request line, client: 185.202.1.204, server: localhost, request: "  /*‡     Cookie: mstshash=Administr"
+2020/05/08 08:37:35 [info] 128704#128704: *85 client sent invalid method while reading client request line, client: 185.202.1.204, server: localhost, request: "  /*‡     Cookie: mstshash=Administr"
+2020/05/08 08:37:36 [info] 128704#128704: *85 recv() failed (104: Connection reset by peer) while reading client request line, client: 185.202.1.204, server: localhost, request: "  /*‡     Cookie: mstshash=Administr"
+2020/05/08 08:37:36 [info] 128704#128704: *86 client sent invalid method while reading client request line, client: 185.202.1.204, server: localhost, request: "  /*‡     Cookie: mstshash=Administr"
+2020/05/08 08:37:36 [info] 128704#128704: *86 recv() failed (104: Connection reset by peer) while reading client request line, client: 185.202.1.204, server: localhost, request: "  /*‡     Cookie: mstshash=Administr"
+2020/05/08 13:18:24 [error] 128704#128704: *87 directory index of "/home/trey/dev/sites/max-studio/resources/public/" is forbidden, client: 209.17.96.90, server: localhost, request: "GET / HTTP/1.1", host: "treywilkinson.xyz"
+2020/05/08 13:18:24 [error] 128704#128704: *87 directory index of "/home/trey/dev/sites/max-studio/resources/public/" is forbidden, client: 209.17.96.90, server: localhost, request: "GET / HTTP/1.1", host: "treywilkinson.xyz"
+2020/05/08 13:18:24 [error] 128704#128704: *87 directory index of "/home/trey/dev/sites/max-studio/resources/public/" is forbidden, client: 209.17.96.90, server: localhost, request: "GET / HTTP/1.1", host: "treywilkinson.xyz"
+2020/05/08 13:18:24 [info] 128704#128704: *87 client 209.17.96.90 closed keepalive connection
+2020/05/08 19:13:54 [error] 128704#128704: *91 directory index of "/home/trey/dev/sites/max-studio/resources/public/" is forbidden, client: 92.118.160.5, server: localhost, request: "GET / HTTP/1.0"
+2020/05/08 19:13:54 [error] 128704#128704: *91 directory index of "/home/trey/dev/sites/max-studio/resources/public/" is forbidden, client: 92.118.160.5, server: localhost, request: "GET / HTTP/1.0"
+2020/05/08 19:13:54 [error] 128704#128704: *91 directory index of "/home/trey/dev/sites/max-studio/resources/public/" is forbidden, client: 92.118.160.5, server: localhost, request: "GET / HTTP/1.0"
+2020/05/08 22:21:37 [notice] 128703#128703: signal 3 (SIGQUIT) received from 173245, shutting down
+2020/05/08 22:21:37 [notice] 128703#128703: signal 3 (SIGQUIT) received from 173245, shutting down
+2020/05/08 22:21:37 [notice] 128704#128704: gracefully shutting down
+2020/05/08 22:21:37 [notice] 128704#128704: gracefully shutting down
+2020/05/08 22:21:37 [notice] 128704#128704: exiting
+2020/05/08 22:21:37 [notice] 128704#128704: exiting
+2020/05/08 22:21:37 [notice] 128704#128704: exit
+2020/05/08 22:21:37 [notice] 128703#128703: signal 17 (SIGCHLD) received from 128704
+2020/05/08 22:21:37 [notice] 128703#128703: signal 17 (SIGCHLD) received from 128704
+2020/05/08 22:21:37 [notice] 128703#128703: worker process 128704 exited with code 0
+2020/05/08 22:21:37 [notice] 128703#128703: worker process 128704 exited with code 0
+2020/05/08 22:21:37 [notice] 128703#128703: exit
+2020/05/08 22:21:37 [notice] 128703#128703: exit
+2020/05/08 22:21:43 [notice] 173258#173258: using the "epoll" event method
+2020/05/08 22:21:43 [notice] 173258#173258: using the "epoll" event method
+2020/05/08 22:21:43 [notice] 173258#173258: nginx/1.18.0
+2020/05/08 22:21:43 [notice] 173258#173258: nginx/1.18.0
+2020/05/08 22:21:43 [notice] 173258#173258: OS: Linux 5.6.10-arch1-1
+2020/05/08 22:21:43 [notice] 173258#173258: OS: Linux 5.6.10-arch1-1
+2020/05/08 22:21:43 [notice] 173258#173258: getrlimit(RLIMIT_NOFILE): 1024:524288
+2020/05/08 22:21:43 [notice] 173258#173258: getrlimit(RLIMIT_NOFILE): 1024:524288
+2020/05/08 22:21:43 [notice] 173259#173259: start worker processes
+2020/05/08 22:21:43 [notice] 173259#173259: start worker processes
+2020/05/08 22:21:43 [notice] 173259#173259: start worker process 173260
+2020/05/08 22:21:43 [notice] 173259#173259: start worker process 173260
+2020/05/08 22:28:13 [info] 173260#173260: *3 client 127.0.0.1 closed keepalive connection
+2020/05/09 01:24:26 [notice] 173259#173259: signal 1 (SIGHUP) received from 191734, reconfiguring
+2020/05/09 01:24:26 [notice] 173259#173259: signal 1 (SIGHUP) received from 191734, reconfiguring
+2020/05/09 01:24:26 [notice] 173259#173259: reconfiguring
+2020/05/09 01:24:26 [notice] 173259#173259: reconfiguring
+2020/05/09 01:24:26 [notice] 173259#173259: using the "epoll" event method
+2020/05/09 01:24:26 [notice] 173259#173259: using the "epoll" event method
+2020/05/09 01:24:26 [notice] 173259#173259: start worker processes
+2020/05/09 01:24:26 [notice] 173259#173259: start worker processes
+2020/05/09 01:24:26 [notice] 173259#173259: start worker process 191735
+2020/05/09 01:24:26 [notice] 173259#173259: start worker process 191735
+2020/05/09 01:24:26 [notice] 173260#173260: gracefully shutting down
+2020/05/09 01:24:26 [notice] 173260#173260: gracefully shutting down
+2020/05/09 01:24:26 [notice] 173260#173260: exiting
+2020/05/09 01:24:26 [notice] 173260#173260: exiting
+2020/05/09 01:24:26 [notice] 173260#173260: exit
+2020/05/09 01:24:26 [notice] 173259#173259: signal 17 (SIGCHLD) received from 173260
+2020/05/09 01:24:26 [notice] 173259#173259: signal 17 (SIGCHLD) received from 173260
+2020/05/09 01:24:26 [notice] 173259#173259: worker process 173260 exited with code 0
+2020/05/09 01:24:26 [notice] 173259#173259: worker process 173260 exited with code 0
+2020/05/09 01:24:26 [notice] 173259#173259: signal 29 (SIGIO) received
+2020/05/09 01:24:26 [notice] 173259#173259: signal 29 (SIGIO) received
+2020/05/09 07:07:24 [info] 191735#191735: epoll_wait() failed (4: Interrupted system call)
+2020/05/09 07:17:58 [error] 191735#191735: *79 directory index of "/home/trey/dev/sites/max-studio/resources/public/" is forbidden, client: 196.52.43.112, server: localhost, request: "GET / HTTP/1.1", host: "73.172.129.100:3000"
+2020/05/09 07:17:58 [error] 191735#191735: *79 directory index of "/home/trey/dev/sites/max-studio/resources/public/" is forbidden, client: 196.52.43.112, server: localhost, request: "GET / HTTP/1.1", host: "73.172.129.100:3000"
+2020/05/09 07:17:58 [error] 191735#191735: *79 directory index of "/home/trey/dev/sites/max-studio/resources/public/" is forbidden, client: 196.52.43.112, server: localhost, request: "GET / HTTP/1.1", host: "73.172.129.100:3000"
+2020/05/09 07:17:58 [info] 191735#191735: *79 client 196.52.43.112 closed keepalive connection
+2020/05/09 08:04:41 [notice] 173259#173259: signal 1 (SIGHUP) received from 199295, reconfiguring
+2020/05/09 08:04:41 [notice] 173259#173259: signal 1 (SIGHUP) received from 199295, reconfiguring
+2020/05/09 08:04:41 [notice] 173259#173259: reconfiguring
+2020/05/09 08:04:41 [notice] 173259#173259: reconfiguring
+2020/05/09 08:04:41 [notice] 173259#173259: using the "epoll" event method
+2020/05/09 08:04:41 [notice] 173259#173259: using the "epoll" event method
+2020/05/09 08:04:41 [notice] 173259#173259: start worker processes
+2020/05/09 08:04:41 [notice] 173259#173259: start worker processes
+2020/05/09 08:04:41 [notice] 173259#173259: start worker process 199296
+2020/05/09 08:04:41 [notice] 173259#173259: start worker process 199296
+2020/05/09 08:04:41 [notice] 191735#191735: gracefully shutting down
+2020/05/09 08:04:41 [notice] 191735#191735: gracefully shutting down
+2020/05/09 08:04:41 [notice] 191735#191735: exiting
+2020/05/09 08:04:41 [notice] 191735#191735: exiting
+2020/05/09 08:04:41 [notice] 191735#191735: exit
+2020/05/09 08:04:41 [notice] 173259#173259: signal 17 (SIGCHLD) received from 191735
+2020/05/09 08:04:41 [notice] 173259#173259: signal 17 (SIGCHLD) received from 191735
+2020/05/09 08:04:41 [notice] 173259#173259: worker process 191735 exited with code 0
+2020/05/09 08:04:41 [notice] 173259#173259: worker process 191735 exited with code 0
+2020/05/09 08:04:41 [notice] 173259#173259: signal 29 (SIGIO) received
+2020/05/09 08:04:41 [notice] 173259#173259: signal 29 (SIGIO) received
+2020/05/09 08:04:54 [notice] 173259#173259: signal 3 (SIGQUIT) received from 199308, shutting down
+2020/05/09 08:04:54 [notice] 173259#173259: signal 3 (SIGQUIT) received from 199308, shutting down
+2020/05/09 08:04:54 [notice] 199296#199296: gracefully shutting down
+2020/05/09 08:04:54 [notice] 199296#199296: gracefully shutting down
+2020/05/09 08:04:54 [notice] 199296#199296: exiting
+2020/05/09 08:04:54 [notice] 199296#199296: exiting
+2020/05/09 08:04:54 [notice] 199296#199296: exit
+2020/05/09 08:04:55 [notice] 173259#173259: signal 17 (SIGCHLD) received from 199296
+2020/05/09 08:04:55 [notice] 173259#173259: signal 17 (SIGCHLD) received from 199296
+2020/05/09 08:04:55 [notice] 173259#173259: worker process 199296 exited with code 0
+2020/05/09 08:04:55 [notice] 173259#173259: worker process 199296 exited with code 0
+2020/05/09 08:04:55 [notice] 173259#173259: exit
+2020/05/09 08:04:55 [notice] 173259#173259: exit
+2020/05/09 17:25:51 [notice] 258549#258549: using the "epoll" event method
+2020/05/09 17:25:51 [notice] 258549#258549: using the "epoll" event method
+2020/05/09 17:25:51 [notice] 258549#258549: nginx/1.18.0
+2020/05/09 17:25:51 [notice] 258549#258549: nginx/1.18.0
+2020/05/09 17:25:51 [notice] 258549#258549: OS: Linux 5.6.10-arch1-1
+2020/05/09 17:25:51 [notice] 258549#258549: OS: Linux 5.6.10-arch1-1
+2020/05/09 17:25:51 [notice] 258549#258549: getrlimit(RLIMIT_NOFILE): 1024:524288
+2020/05/09 17:25:51 [notice] 258549#258549: getrlimit(RLIMIT_NOFILE): 1024:524288
+2020/05/09 17:25:51 [emerg] 258550#258550: open() "/run/nginx.pid" failed (13: Permission denied)
+2020/05/09 17:25:51 [emerg] 258550#258550: open() "/run/nginx.pid" failed (13: Permission denied)
+2020/05/09 17:25:51 [emerg] 258550#258550: open() "/run/nginx.pid" failed (13: Permission denied)
+2020/05/09 17:25:57 [notice] 258558#258558: using the "epoll" event method
+2020/05/09 17:25:57 [notice] 258558#258558: using the "epoll" event method
+2020/05/09 17:25:57 [notice] 258558#258558: nginx/1.18.0
+2020/05/09 17:25:57 [notice] 258558#258558: nginx/1.18.0
+2020/05/09 17:25:57 [notice] 258558#258558: OS: Linux 5.6.10-arch1-1
+2020/05/09 17:25:57 [notice] 258558#258558: OS: Linux 5.6.10-arch1-1
+2020/05/09 17:25:57 [notice] 258558#258558: getrlimit(RLIMIT_NOFILE): 1024:524288
+2020/05/09 17:25:57 [notice] 258558#258558: getrlimit(RLIMIT_NOFILE): 1024:524288
+2020/05/09 17:25:57 [notice] 258559#258559: start worker processes
+2020/05/09 17:25:57 [notice] 258559#258559: start worker processes
+2020/05/09 17:25:57 [notice] 258559#258559: start worker process 258560
+2020/05/09 17:25:57 [notice] 258559#258559: start worker process 258560
+2020/05/09 20:21:10 [info] 258560#258560: *67 client 127.0.0.1 closed keepalive connection (104: Connection reset by peer)
+2020/05/09 20:36:47 [info] 258560#258560: *77 client 127.0.0.1 closed keepalive connection (104: Connection reset by peer)
+2020/05/09 20:36:49 [info] 258560#258560: *78 client 127.0.0.1 closed keepalive connection (104: Connection reset by peer)
+2020/05/09 20:36:50 [info] 258560#258560: *79 client 127.0.0.1 closed keepalive connection (104: Connection reset by peer)
+2020/05/09 20:50:19 [info] 258560#258560: *87 client 127.0.0.1 closed keepalive connection
+2020/05/09 20:50:19 [info] 258560#258560: *86 client 127.0.0.1 closed keepalive connection
+2020/05/09 23:14:11 [info] 258560#258560: *109 client 127.0.0.1 closed keepalive connection
+2020/05/10 09:23:56 [info] 258560#258560: epoll_wait() failed (4: Interrupted system call)
+2020/05/10 09:40:07 [info] 258560#258560: *160 client 127.0.0.1 closed keepalive connection
+2020/05/10 09:40:07 [info] 258560#258560: *159 client 127.0.0.1 closed keepalive connection
+2020/05/10 13:09:42 [info] 258560#258560: *163 client sent invalid request while reading client request line, client: 45.13.93.82, server: localhost, request: "CONNECT ip.ws.126.net:443 HTTP/1.1"
+2020/05/10 16:21:51 [info] 258560#258560: *172 client sent invalid method while reading client request line, client: 185.202.1.161, server: localhost, request: "  /*‡     Cookie: mstshash=Administr"
+2020/05/10 16:21:51 [info] 258560#258560: *173 client sent invalid method while reading client request line, client: 185.202.1.161, server: localhost, request: "  /*‡     Cookie: mstshash=Administr"
+2020/05/10 16:21:51 [info] 258560#258560: *174 client sent invalid method while reading client request line, client: 185.202.1.161, server: localhost, request: "  /*‡     Cookie: mstshash=Administr"
+2020/05/10 16:21:51 [info] 258560#258560: *173 recv() failed (104: Connection reset by peer) while reading client request line, client: 185.202.1.161, server: localhost, request: "  /*‡     Cookie: mstshash=Administr"
+2020/05/10 16:21:51 [info] 258560#258560: *172 recv() failed (104: Connection reset by peer) while reading client request line, client: 185.202.1.161, server: localhost, request: "  /*‡     Cookie: mstshash=Administr"
+2020/05/10 16:21:51 [info] 258560#258560: *175 client sent invalid method while reading client request line, client: 185.202.1.161, server: localhost, request: "  /*‡     Cookie: mstshash=Administr"
+2020/05/10 16:21:51 [info] 258560#258560: *174 recv() failed (104: Connection reset by peer) while reading client request line, client: 185.202.1.161, server: localhost, request: "  /*‡     Cookie: mstshash=Administr"
+2020/05/10 16:21:51 [info] 258560#258560: *175 recv() failed (104: Connection reset by peer) while reading client request line, client: 185.202.1.161, server: localhost, request: "  /*‡     Cookie: mstshash=Administr"
+2020/05/10 16:21:51 [info] 258560#258560: *176 client sent invalid method while reading client request line, client: 185.202.1.161, server: localhost, request: "  /*‡     Cookie: mstshash=Administr"
+2020/05/10 16:21:51 [info] 258560#258560: *176 recv() failed (104: Connection reset by peer) while reading client request line, client: 185.202.1.161, server: localhost, request: "  /*‡     Cookie: mstshash=Administr"
+2020/05/10 16:21:51 [info] 258560#258560: *177 client sent invalid method while reading client request line, client: 185.202.1.161, server: localhost, request: "  /*‡     Cookie: mstshash=Administr"
+2020/05/10 16:21:52 [info] 258560#258560: *177 recv() failed (104: Connection reset by peer) while reading client request line, client: 185.202.1.161, server: localhost, request: "  /*‡     Cookie: mstshash=Administr"
+2020/05/10 23:23:52 [notice] 258559#258559: signal 3 (SIGQUIT) received from 318250, shutting down
+2020/05/10 23:23:52 [notice] 258559#258559: signal 3 (SIGQUIT) received from 318250, shutting down
+2020/05/10 23:23:52 [notice] 258560#258560: gracefully shutting down
+2020/05/10 23:23:52 [notice] 258560#258560: gracefully shutting down
+2020/05/10 23:23:52 [notice] 258560#258560: exiting
+2020/05/10 23:23:52 [notice] 258560#258560: exiting
+2020/05/10 23:23:52 [notice] 258560#258560: exit
+2020/05/10 23:23:52 [notice] 258559#258559: signal 17 (SIGCHLD) received from 258560
+2020/05/10 23:23:52 [notice] 258559#258559: signal 17 (SIGCHLD) received from 258560
+2020/05/10 23:23:52 [notice] 258559#258559: worker process 258560 exited with code 0
+2020/05/10 23:23:52 [notice] 258559#258559: worker process 258560 exited with code 0
+2020/05/10 23:23:52 [notice] 258559#258559: exit
+2020/05/10 23:23:52 [notice] 258559#258559: exit
+2020/05/11 15:46:34 [notice] 50754#50754: using the "epoll" event method
+2020/05/11 15:46:34 [notice] 50754#50754: using the "epoll" event method
+2020/05/11 15:46:34 [notice] 50754#50754: nginx/1.18.0
+2020/05/11 15:46:34 [notice] 50754#50754: nginx/1.18.0
+2020/05/11 15:46:34 [notice] 50754#50754: OS: Linux 5.6.10-arch1-1
+2020/05/11 15:46:34 [notice] 50754#50754: OS: Linux 5.6.10-arch1-1
+2020/05/11 15:46:34 [notice] 50754#50754: getrlimit(RLIMIT_NOFILE): 1024:524288
+2020/05/11 15:46:34 [notice] 50754#50754: getrlimit(RLIMIT_NOFILE): 1024:524288
+2020/05/11 15:46:34 [emerg] 50755#50755: open() "/run/nginx.pid" failed (13: Permission denied)
+2020/05/11 15:46:34 [emerg] 50755#50755: open() "/run/nginx.pid" failed (13: Permission denied)
+2020/05/11 15:46:34 [emerg] 50755#50755: open() "/run/nginx.pid" failed (13: Permission denied)
+2020/05/11 15:46:38 [notice] 50764#50764: using the "epoll" event method
+2020/05/11 15:46:38 [notice] 50764#50764: using the "epoll" event method
+2020/05/11 15:46:38 [notice] 50764#50764: nginx/1.18.0
+2020/05/11 15:46:38 [notice] 50764#50764: nginx/1.18.0
+2020/05/11 15:46:38 [notice] 50764#50764: OS: Linux 5.6.10-arch1-1
+2020/05/11 15:46:38 [notice] 50764#50764: OS: Linux 5.6.10-arch1-1
+2020/05/11 15:46:38 [notice] 50764#50764: getrlimit(RLIMIT_NOFILE): 1024:524288
+2020/05/11 15:46:38 [notice] 50764#50764: getrlimit(RLIMIT_NOFILE): 1024:524288
+2020/05/11 15:46:38 [notice] 50765#50765: start worker processes
+2020/05/11 15:46:38 [notice] 50765#50765: start worker processes
+2020/05/11 15:46:38 [notice] 50765#50765: start worker process 50766
+2020/05/11 15:46:38 [notice] 50765#50765: start worker process 50766
+2020/05/11 15:46:43 [error] 50766#50766: *1 directory index of "/home/trey/dev/sites/max-studio/resources/public/" is forbidden, client: 127.0.0.1, server: localhost, request: "GET / HTTP/1.1", host: "localhost:3000"
+2020/05/11 15:46:43 [error] 50766#50766: *1 directory index of "/home/trey/dev/sites/max-studio/resources/public/" is forbidden, client: 127.0.0.1, server: localhost, request: "GET / HTTP/1.1", host: "localhost:3000"
+2020/05/11 15:46:43 [error] 50766#50766: *1 directory index of "/home/trey/dev/sites/max-studio/resources/public/" is forbidden, client: 127.0.0.1, server: localhost, request: "GET / HTTP/1.1", host: "localhost:3000"
+2020/05/11 15:46:43 [info] 50766#50766: *1 client 127.0.0.1 closed keepalive connection
+2020/05/11 15:47:13 [notice] 50765#50765: signal 1 (SIGHUP) received from 50826, reconfiguring
+2020/05/11 15:47:13 [notice] 50765#50765: signal 1 (SIGHUP) received from 50826, reconfiguring
+2020/05/11 15:47:13 [notice] 50765#50765: reconfiguring
+2020/05/11 15:47:13 [notice] 50765#50765: reconfiguring
+2020/05/11 15:47:13 [notice] 50765#50765: using the "epoll" event method
+2020/05/11 15:47:13 [notice] 50765#50765: using the "epoll" event method
+2020/05/11 15:47:13 [notice] 50765#50765: start worker processes
+2020/05/11 15:47:13 [notice] 50765#50765: start worker processes
+2020/05/11 15:47:13 [notice] 50765#50765: start worker process 50827
+2020/05/11 15:47:13 [notice] 50765#50765: start worker process 50827
+2020/05/11 15:47:13 [notice] 50766#50766: gracefully shutting down
+2020/05/11 15:47:13 [notice] 50766#50766: gracefully shutting down
+2020/05/11 15:47:13 [notice] 50766#50766: exiting
+2020/05/11 15:47:13 [notice] 50766#50766: exiting
+2020/05/11 15:47:13 [notice] 50766#50766: exit
+2020/05/11 15:47:13 [notice] 50765#50765: signal 17 (SIGCHLD) received from 50766
+2020/05/11 15:47:13 [notice] 50765#50765: signal 17 (SIGCHLD) received from 50766
+2020/05/11 15:47:13 [notice] 50765#50765: worker process 50766 exited with code 0
+2020/05/11 15:47:13 [notice] 50765#50765: worker process 50766 exited with code 0
+2020/05/11 15:47:13 [notice] 50765#50765: signal 29 (SIGIO) received
+2020/05/11 15:47:13 [notice] 50765#50765: signal 29 (SIGIO) received
+2020/05/11 15:47:17 [info] 50827#50827: *2 client 127.0.0.1 closed keepalive connection
+2020/05/11 22:30:05 [info] 50827#50827: *10 client sent invalid method while reading client request line, client: 127.0.0.1, server: localhost, request: "  ¸§S·´≠ÀdØCìq°¶Œ∫†√í÷"¸£J∂@—™0 Rc‹›É]∑ø≤ø@/∫˜◊!VåöœËyÉΩŒö "::¿+¿/¿,¿0Ã©Ã®¿¿ ú ù / 5 "
+2020/05/11 22:30:07 [info] 50827#50827: *11 client 127.0.0.1 closed keepalive connection
+2020/05/11 22:30:12 [info] 50827#50827: *12 client 127.0.0.1 closed keepalive connection
+2020/05/11 22:30:23 [info] 50827#50827: *13 client 127.0.0.1 closed keepalive connection
+2020/05/12 00:04:58 [info] 50827#50827: *42 client 127.0.0.1 closed keepalive connection (104: Connection reset by peer)
+2020/05/12 00:04:58 [info] 50827#50827: *41 client 127.0.0.1 closed keepalive connection (104: Connection reset by peer)
+2020/05/12 00:04:58 [info] 50827#50827: *43 client 127.0.0.1 closed keepalive connection (104: Connection reset by peer)
+2020/05/12 00:04:58 [info] 50827#50827: *44 client 127.0.0.1 closed keepalive connection (104: Connection reset by peer)
+2020/05/12 00:04:59 [info] 50827#50827: *45 client 127.0.0.1 closed keepalive connection (104: Connection reset by peer)
+2020/05/12 00:04:59 [info] 50827#50827: *46 client 127.0.0.1 closed keepalive connection (104: Connection reset by peer)
+2020/05/12 00:04:59 [info] 50827#50827: *47 client 127.0.0.1 closed keepalive connection (104: Connection reset by peer)
+2020/05/12 00:04:59 [info] 50827#50827: *48 client 127.0.0.1 closed keepalive connection (104: Connection reset by peer)
+2020/05/12 00:04:59 [info] 50827#50827: *49 client 127.0.0.1 closed keepalive connection (104: Connection reset by peer)
+2020/05/12 00:04:59 [info] 50827#50827: *50 client 127.0.0.1 closed keepalive connection (104: Connection reset by peer)
+2020/05/12 00:04:59 [info] 50827#50827: *51 client 127.0.0.1 closed keepalive connection (104: Connection reset by peer)
+2020/05/12 00:04:59 [info] 50827#50827: *52 client 127.0.0.1 closed keepalive connection (104: Connection reset by peer)
+2020/05/12 00:04:59 [info] 50827#50827: *53 client 127.0.0.1 closed keepalive connection (104: Connection reset by peer)
+2020/05/12 00:04:59 [info] 50827#50827: *54 client 127.0.0.1 closed keepalive connection (104: Connection reset by peer)
+2020/05/12 00:04:59 [info] 50827#50827: *55 client 127.0.0.1 closed keepalive connection (104: Connection reset by peer)
+2020/05/12 00:05:03 [info] 50827#50827: *56 client 127.0.0.1 closed keepalive connection (104: Connection reset by peer)
+2020/05/12 00:05:03 [info] 50827#50827: *57 client 127.0.0.1 closed keepalive connection (104: Connection reset by peer)
+2020/05/12 00:05:03 [info] 50827#50827: *58 client 127.0.0.1 closed keepalive connection (104: Connection reset by peer)
+2020/05/12 00:05:03 [info] 50827#50827: *59 client 127.0.0.1 closed keepalive connection (104: Connection reset by peer)
+2020/05/12 00:05:03 [info] 50827#50827: *60 client 127.0.0.1 closed keepalive connection (104: Connection reset by peer)
+2020/05/12 00:05:03 [info] 50827#50827: *61 client 127.0.0.1 closed keepalive connection (104: Connection reset by peer)
+2020/05/12 00:05:03 [info] 50827#50827: *62 client 127.0.0.1 closed keepalive connection (104: Connection reset by peer)
+2020/05/12 00:05:05 [info] 50827#50827: *63 client 127.0.0.1 closed keepalive connection (104: Connection reset by peer)
+2020/05/12 00:05:05 [info] 50827#50827: *64 client 127.0.0.1 closed keepalive connection (104: Connection reset by peer)
+2020/05/12 00:05:05 [info] 50827#50827: *65 client 127.0.0.1 closed keepalive connection (104: Connection reset by peer)
+2020/05/12 00:05:05 [info] 50827#50827: *66 client 127.0.0.1 closed keepalive connection (104: Connection reset by peer)
+2020/05/12 00:05:05 [info] 50827#50827: *67 client 127.0.0.1 closed keepalive connection (104: Connection reset by peer)
+2020/05/12 08:07:01 [info] 50827#50827: epoll_wait() failed (4: Interrupted system call)
+2020/05/12 08:25:13 [info] 50827#50827: *86 client 223.71.167.164 closed keepalive connection
+2020/05/12 09:20:52 [notice] 50827#50827: signal 15 (SIGTERM) received from 73424, exiting
+2020/05/12 09:20:52 [notice] 50827#50827: signal 15 (SIGTERM) received from 73424, exiting
+2020/05/12 09:20:52 [notice] 50765#50765: signal 15 (SIGTERM) received from 73424, exiting
+2020/05/12 09:20:52 [notice] 50765#50765: signal 15 (SIGTERM) received from 73424, exiting
+2020/05/12 09:20:52 [info] 50827#50827: epoll_wait() failed (4: Interrupted system call)
+2020/05/12 09:20:52 [notice] 50827#50827: exiting
+2020/05/12 09:20:52 [notice] 50827#50827: exiting
+2020/05/12 09:20:52 [notice] 50827#50827: exit
+2020/05/12 09:20:52 [notice] 50765#50765: signal 14 (SIGALRM) received
+2020/05/12 09:20:52 [notice] 50765#50765: signal 14 (SIGALRM) received
+2020/05/12 09:20:52 [notice] 50765#50765: signal 17 (SIGCHLD) received from 50827
+2020/05/12 09:20:52 [notice] 50765#50765: signal 17 (SIGCHLD) received from 50827
+2020/05/12 09:20:52 [notice] 50765#50765: worker process 50827 exited with code 0
+2020/05/12 09:20:52 [notice] 50765#50765: worker process 50827 exited with code 0
+2020/05/12 09:20:52 [notice] 50765#50765: exit
+2020/05/12 09:20:52 [notice] 50765#50765: exit
+2020/05/12 10:26:38 [notice] 75719#75719: using the "epoll" event method
+2020/05/12 10:26:38 [notice] 75719#75719: using the "epoll" event method
+2020/05/12 10:26:38 [notice] 75719#75719: nginx/1.18.0
+2020/05/12 10:26:38 [notice] 75719#75719: nginx/1.18.0
+2020/05/12 10:26:38 [notice] 75719#75719: OS: Linux 5.6.10-arch1-1
+2020/05/12 10:26:38 [notice] 75719#75719: OS: Linux 5.6.10-arch1-1
+2020/05/12 10:26:38 [notice] 75719#75719: getrlimit(RLIMIT_NOFILE): 1024:524288
+2020/05/12 10:26:38 [notice] 75719#75719: getrlimit(RLIMIT_NOFILE): 1024:524288
+2020/05/12 10:26:38 [notice] 75720#75720: start worker processes
+2020/05/12 10:26:38 [notice] 75720#75720: start worker processes
+2020/05/12 10:26:38 [notice] 75720#75720: start worker process 75721
+2020/05/12 10:26:38 [notice] 75720#75720: start worker process 75721
+2020/05/12 11:56:44 [info] 75721#75721: *11 client sent invalid request while reading client request line, client: 45.13.93.90, server: localhost, request: "CONNECT ip.ws.126.net:443 HTTP/1.1"
+2020/05/12 14:54:57 [info] 75721#75721: *35 client 127.0.0.1 closed keepalive connection (104: Connection reset by peer)
+2020/05/12 18:10:48 [info] 75721#75721: *49 client 127.0.0.1 closed keepalive connection
+2020/05/12 18:10:48 [info] 75721#75721: *48 client 127.0.0.1 closed keepalive connection
+2020/05/12 18:22:43 [notice] 75720#75720: signal 1 (SIGHUP) received from 1, reconfiguring
+2020/05/12 18:22:43 [notice] 75720#75720: signal 1 (SIGHUP) received from 1, reconfiguring
+2020/05/12 18:22:43 [notice] 75720#75720: signal 15 (SIGTERM) received from 1, exiting
+2020/05/12 18:22:43 [notice] 75720#75720: signal 15 (SIGTERM) received from 1, exiting
+2020/05/12 18:22:43 [notice] 75721#75721: signal 1 (SIGHUP) received from 1, ignoring
+2020/05/12 18:22:43 [notice] 75721#75721: signal 1 (SIGHUP) received from 1, ignoring
+2020/05/12 18:22:43 [notice] 75721#75721: signal 15 (SIGTERM) received from 1, exiting
+2020/05/12 18:22:43 [notice] 75721#75721: signal 15 (SIGTERM) received from 1, exiting
+2020/05/12 18:22:43 [info] 75721#75721: epoll_wait() failed (4: Interrupted system call)
+2020/05/12 18:22:43 [notice] 75721#75721: exiting
+2020/05/12 18:22:43 [notice] 75721#75721: exiting
+2020/05/12 18:22:43 [notice] 75721#75721: exit
+2020/05/12 18:22:43 [notice] 75720#75720: signal 17 (SIGCHLD) received from 75721
+2020/05/12 18:22:43 [notice] 75720#75720: signal 17 (SIGCHLD) received from 75721
+2020/05/12 18:22:43 [notice] 75720#75720: worker process 75721 exited with code 0
+2020/05/12 18:22:43 [notice] 75720#75720: worker process 75721 exited with code 0
+2020/05/12 18:22:43 [notice] 75720#75720: exit
+2020/05/12 18:22:43 [notice] 75720#75720: exit
+2020/05/12 19:44:32 [notice] 8000#8000: using the "epoll" event method
+2020/05/12 19:44:32 [notice] 8000#8000: using the "epoll" event method
+2020/05/12 19:44:32 [notice] 8000#8000: nginx/1.18.0
+2020/05/12 19:44:32 [notice] 8000#8000: nginx/1.18.0
+2020/05/12 19:44:32 [notice] 8000#8000: OS: Linux 5.6.10-arch1-1
+2020/05/12 19:44:32 [notice] 8000#8000: OS: Linux 5.6.10-arch1-1
+2020/05/12 19:44:32 [notice] 8000#8000: getrlimit(RLIMIT_NOFILE): 1024:524288
+2020/05/12 19:44:32 [notice] 8000#8000: getrlimit(RLIMIT_NOFILE): 1024:524288
+2020/05/12 19:44:32 [notice] 8001#8001: start worker processes
+2020/05/12 19:44:32 [notice] 8001#8001: start worker processes
+2020/05/12 19:44:32 [notice] 8001#8001: start worker process 8002
+2020/05/12 19:44:32 [notice] 8001#8001: start worker process 8002
+2020/05/12 19:48:52 [info] 8002#8002: *3 client closed connection while waiting for request, client: 127.0.0.1, server: 0.0.0.0:3000
+2020/05/12 19:49:12 [info] 8002#8002: *4 client 127.0.0.1 closed keepalive connection
+2020/05/12 19:49:12 [info] 8002#8002: *5 client closed connection while waiting for request, client: 127.0.0.1, server: 0.0.0.0:3000
+2020/05/12 23:06:03 [notice] 8001#8001: signal 15 (SIGTERM) received from 1, exiting
+2020/05/12 23:06:03 [notice] 8001#8001: signal 15 (SIGTERM) received from 1, exiting
+2020/05/12 23:06:03 [notice] 8001#8001: signal 1 (SIGHUP) received from 1, reconfiguring
+2020/05/12 23:06:03 [notice] 8001#8001: signal 1 (SIGHUP) received from 1, reconfiguring
+2020/05/12 23:06:03 [notice] 8002#8002: signal 15 (SIGTERM) received from 1, exiting
+2020/05/12 23:06:03 [notice] 8002#8002: signal 15 (SIGTERM) received from 1, exiting
+2020/05/12 23:06:03 [notice] 8002#8002: signal 1 (SIGHUP) received from 1, ignoring
+2020/05/12 23:06:03 [notice] 8002#8002: signal 1 (SIGHUP) received from 1, ignoring
+2020/05/12 23:06:03 [info] 8002#8002: epoll_wait() failed (4: Interrupted system call)
+2020/05/12 23:06:03 [notice] 8002#8002: exiting
+2020/05/12 23:06:03 [notice] 8002#8002: exiting
+2020/05/12 23:06:03 [notice] 8002#8002: exit
+2020/05/12 23:06:03 [notice] 8001#8001: signal 17 (SIGCHLD) received from 8002
+2020/05/12 23:06:03 [notice] 8001#8001: signal 17 (SIGCHLD) received from 8002
+2020/05/12 23:06:03 [notice] 8001#8001: worker process 8002 exited with code 0
+2020/05/12 23:06:03 [notice] 8001#8001: worker process 8002 exited with code 0
+2020/05/12 23:06:03 [notice] 8001#8001: exit
+2020/05/12 23:06:03 [notice] 8001#8001: exit
+2020/05/13 11:11:07 [notice] 7352#7352: using the "epoll" event method
+2020/05/13 11:11:07 [notice] 7352#7352: using the "epoll" event method
+2020/05/13 11:11:07 [notice] 7352#7352: nginx/1.18.0
+2020/05/13 11:11:07 [notice] 7352#7352: nginx/1.18.0
+2020/05/13 11:11:07 [notice] 7352#7352: OS: Linux 5.6.10-arch1-1
+2020/05/13 11:11:07 [notice] 7352#7352: OS: Linux 5.6.10-arch1-1
+2020/05/13 11:11:07 [notice] 7352#7352: getrlimit(RLIMIT_NOFILE): 1024:524288
+2020/05/13 11:11:07 [notice] 7352#7352: getrlimit(RLIMIT_NOFILE): 1024:524288
+2020/05/13 11:11:07 [notice] 7353#7353: start worker processes
+2020/05/13 11:11:07 [notice] 7353#7353: start worker processes
+2020/05/13 11:11:07 [notice] 7353#7353: start worker process 7354
+2020/05/13 11:11:07 [notice] 7353#7353: start worker process 7354
+2020/05/13 15:41:56 [info] 7354#7354: *2 client sent invalid method while reading client request line, client: 172.104.242.173, server: localhost, request: "9Õ√Vå&Dz/∑¿tñC‚"
+2020/05/13 23:13:52 [info] 7354#7354: epoll_wait() failed (4: Interrupted system call)
+2020/05/13 23:49:25 [info] 7354#7354: *3 client 196.52.43.113 closed keepalive connection
+2020/05/14 00:16:08 [info] 7354#7354: epoll_wait() failed (4: Interrupted system call)
+2020/05/14 01:26:19 [info] 7354#7354: *4 client 183.136.225.45 closed keepalive connection
+2020/05/14 08:14:12 [info] 7354#7354: epoll_wait() failed (4: Interrupted system call)
+2020/05/14 11:38:18 [info] 7354#7354: *5 client sent invalid method while reading client request line, client: 198.108.66.199, server: localhost, request: " {  wıs_93íØauÎ÷äÉ–œ⁄œ(C¯g'ÃﬁŒÍùEÈ›  ¿/¿+¿¿¿¿	¿¿"
+2020/05/14 11:38:19 [info] 7354#7354: *5 recv() failed (104: Connection reset by peer) while reading client request line, client: 198.108.66.199, server: localhost, request: " {  wıs_93íØauÎ÷äÉ–œ⁄œ(C¯g'ÃﬁŒÍùEÈ›  ¿/¿+¿¿¿¿	¿¿"
+2020/05/14 11:38:19 [info] 7354#7354: *6 client 198.108.66.199 closed keepalive connection (104: Connection reset by peer)
+2020/05/14 11:38:19 [info] 7354#7354: *7 client 198.108.66.199 closed keepalive connection
+2020/05/14 19:31:16 [info] 7354#7354: *10 client closed connection while waiting for request, client: 127.0.0.1, server: 0.0.0.0:3000
+2020/05/14 22:06:09 [info] 7354#7354: *31 recv() failed (104: Connection reset by peer) while waiting for request, client: 46.28.68.169, server: 0.0.0.0:3000
+2020/05/14 22:06:10 [info] 7354#7354: *32 client sent invalid method while reading client request line, client: 46.28.68.169, server: localhost, request: "  /*‡     Cookie: mstshash=Administr"
+2020/05/14 22:06:10 [info] 7354#7354: *32 recv() failed (104: Connection reset by peer) while reading client request line, client: 46.28.68.169, server: localhost, request: "  /*‡     Cookie: mstshash=Administr"
+2020/05/14 22:06:10 [info] 7354#7354: *33 client sent invalid method while reading client request line, client: 46.28.68.169, server: localhost, request: "  /*‡     Cookie: mstshash=Administr"
+2020/05/14 22:06:10 [info] 7354#7354: *33 recv() failed (104: Connection reset by peer) while reading client request line, client: 46.28.68.169, server: localhost, request: "  /*‡     Cookie: mstshash=Administr"
+2020/05/14 22:06:19 [info] 7354#7354: *34 recv() failed (104: Connection reset by peer) while waiting for request, client: 46.28.68.169, server: 0.0.0.0:3000
+2020/05/14 22:06:19 [info] 7354#7354: *35 client sent invalid method while reading client request line, client: 46.28.68.169, server: localhost, request: "  /*‡     Cookie: mstshash=Administr"
+2020/05/14 22:06:19 [info] 7354#7354: *35 recv() failed (104: Connection reset by peer) while reading client request line, client: 46.28.68.169, server: localhost, request: "  /*‡     Cookie: mstshash=Administr"
+2020/05/14 22:06:19 [info] 7354#7354: *36 client sent invalid method while reading client request line, client: 46.28.68.169, server: localhost, request: "  /*‡     Cookie: mstshash=Administr"
+2020/05/14 22:06:19 [info] 7354#7354: *36 recv() failed (104: Connection reset by peer) while reading client request line, client: 46.28.68.169, server: localhost, request: "  /*‡     Cookie: mstshash=Administr"
+2020/05/14 22:06:29 [info] 7354#7354: *37 recv() failed (104: Connection reset by peer) while waiting for request, client: 46.28.68.169, server: 0.0.0.0:3000
+2020/05/14 22:06:30 [info] 7354#7354: *38 client sent invalid method while reading client request line, client: 46.28.68.169, server: localhost, request: "  /*‡     Cookie: mstshash=Administr"
+2020/05/14 22:06:30 [info] 7354#7354: *38 recv() failed (104: Connection reset by peer) while reading client request line, client: 46.28.68.169, server: localhost, request: "  /*‡     Cookie: mstshash=Administr"
+2020/05/14 22:06:30 [info] 7354#7354: *39 client sent invalid method while reading client request line, client: 46.28.68.169, server: localhost, request: "  /*‡     Cookie: mstshash=Administr"
+2020/05/14 22:06:30 [info] 7354#7354: *39 recv() failed (104: Connection reset by peer) while reading client request line, client: 46.28.68.169, server: localhost, request: "  /*‡     Cookie: mstshash=Administr"
+2020/05/14 22:06:52 [info] 7354#7354: *40 recv() failed (104: Connection reset by peer) while waiting for request, client: 46.28.68.169, server: 0.0.0.0:3000
+2020/05/14 22:06:52 [info] 7354#7354: *41 client sent invalid method while reading client request line, client: 46.28.68.169, server: localhost, request: "  /*‡     Cookie: mstshash=Administr"
+2020/05/14 22:06:52 [info] 7354#7354: *41 recv() failed (104: Connection reset by peer) while reading client request line, client: 46.28.68.169, server: localhost, request: "  /*‡     Cookie: mstshash=Administr"
+2020/05/14 22:06:52 [info] 7354#7354: *42 client sent invalid method while reading client request line, client: 46.28.68.169, server: localhost, request: "  /*‡     Cookie: mstshash=Administr"
+2020/05/14 22:06:53 [info] 7354#7354: *42 recv() failed (104: Connection reset by peer) while reading client request line, client: 46.28.68.169, server: localhost, request: "  /*‡     Cookie: mstshash=Administr"
+2020/05/14 22:50:24 [info] 7354#7354: epoll_wait() failed (4: Interrupted system call)
+2020/05/14 23:44:31 [info] 7354#7354: *43 recv() failed (104: Connection reset by peer) while reading client request line, client: 198.108.67.48, server: localhost
+2020/05/14 23:44:31 [info] 7354#7354: *44 client 198.108.67.48 closed keepalive connection (104: Connection reset by peer)
+2020/05/15 09:04:14 [info] 7354#7354: epoll_wait() failed (4: Interrupted system call)
+2020/05/15 09:08:08 [info] 7354#7354: *45 client sent invalid method while reading client request line, client: 5.8.18.88, server: localhost, request: "  /*‡     Cookie: mstshash=Administr"
+2020/05/15 09:08:08 [info] 7354#7354: *45 recv() failed (104: Connection reset by peer) while reading client request line, client: 5.8.18.88, server: localhost, request: "  /*‡     Cookie: mstshash=Administr"
+2020/05/15 09:08:10 [info] 7354#7354: *46 client sent invalid method while reading client request line, client: 5.8.18.88, server: localhost, request: "  /*‡     Cookie: mstshash=Administr"
+2020/05/15 09:08:10 [info] 7354#7354: *46 recv() failed (104: Connection reset by peer) while reading client request line, client: 5.8.18.88, server: localhost, request: "  /*‡     Cookie: mstshash=Administr"
+2020/05/15 09:08:11 [info] 7354#7354: *47 client sent invalid method while reading client request line, client: 5.8.18.88, server: localhost, request: "  /*‡     Cookie: mstshash=Administr"
+2020/05/15 09:08:11 [info] 7354#7354: *47 recv() failed (104: Connection reset by peer) while reading client request line, client: 5.8.18.88, server: localhost, request: "  /*‡     Cookie: mstshash=Administr"
+2020/05/15 09:32:41 [info] 7354#7354: *51 client 127.0.0.1 closed keepalive connection
+2020/05/15 09:37:01 [info] 7354#7354: *52 client sent invalid method while reading client request line, client: 198.108.66.213, server: localhost, request: " {  w≠‡Óåﬁä¢^ﬂhÄOm1]u/}EY:Ë¯Ø^?¶S©|ì  ¿/¿+¿¿¿¿	¿¿"
+2020/05/15 09:37:01 [info] 7354#7354: *52 recv() failed (104: Connection reset by peer) while reading client request line, client: 198.108.66.213, server: localhost, request: " {  w≠‡Óåﬁä¢^ﬂhÄOm1]u/}EY:Ë¯Ø^?¶S©|ì  ¿/¿+¿¿¿¿	¿¿"
+2020/05/15 09:37:02 [info] 7354#7354: *53 client 198.108.66.213 closed keepalive connection (104: Connection reset by peer)
+2020/05/15 09:37:02 [info] 7354#7354: *54 client 198.108.66.213 closed keepalive connection
+2020/05/15 09:38:17 [info] 7354#7354: *57 recv() failed (104: Connection reset by peer) while reading client request line, client: 198.108.67.48, server: localhost
+2020/05/15 09:38:17 [info] 7354#7354: *58 client 198.108.67.48 closed keepalive connection (104: Connection reset by peer)
+2020/05/15 10:00:17 [info] 7354#7354: *60 client 127.0.0.1 closed keepalive connection
+2020/05/15 10:00:17 [info] 7354#7354: *59 client 127.0.0.1 closed keepalive connection
+2020/05/15 10:00:24 [notice] 7354#7354: signal 15 (SIGTERM) received from 1, exiting
+2020/05/15 10:00:24 [notice] 7354#7354: signal 15 (SIGTERM) received from 1, exiting
+2020/05/15 10:00:24 [info] 7354#7354: epoll_wait() failed (4: Interrupted system call)
+2020/05/15 10:00:24 [notice] 7354#7354: exiting
+2020/05/15 10:00:24 [notice] 7354#7354: exiting
+2020/05/15 10:00:24 [notice] 7353#7353: signal 15 (SIGTERM) received from 1, exiting
+2020/05/15 10:00:24 [notice] 7353#7353: signal 15 (SIGTERM) received from 1, exiting
+2020/05/15 10:00:24 [notice] 7354#7354: signal 1 (SIGHUP) received from 1, ignoring
+2020/05/15 10:00:24 [notice] 7354#7354: signal 1 (SIGHUP) received from 1, ignoring
+2020/05/15 10:00:24 [notice] 7353#7353: signal 1 (SIGHUP) received from 1, reconfiguring
+2020/05/15 10:00:24 [notice] 7353#7353: signal 1 (SIGHUP) received from 1, reconfiguring
+2020/05/15 10:00:24 [notice] 7354#7354: exit
+2020/05/15 10:00:24 [notice] 7353#7353: signal 14 (SIGALRM) received
+2020/05/15 10:00:24 [notice] 7353#7353: signal 14 (SIGALRM) received
+2020/05/15 10:00:24 [notice] 7353#7353: signal 17 (SIGCHLD) received from 7354
+2020/05/15 10:00:24 [notice] 7353#7353: signal 17 (SIGCHLD) received from 7354
+2020/05/15 10:00:24 [notice] 7353#7353: worker process 7354 exited with code 0
+2020/05/15 10:00:24 [notice] 7353#7353: worker process 7354 exited with code 0
+2020/05/15 10:00:24 [notice] 7353#7353: exit
+2020/05/15 10:00:24 [notice] 7353#7353: exit
+2020/05/15 11:59:17 [notice] 18865#18865: using the "epoll" event method
+2020/05/15 11:59:17 [notice] 18865#18865: using the "epoll" event method
+2020/05/15 11:59:17 [notice] 18865#18865: nginx/1.18.0
+2020/05/15 11:59:17 [notice] 18865#18865: nginx/1.18.0
+2020/05/15 11:59:17 [notice] 18865#18865: OS: Linux 5.6.10-arch1-1
+2020/05/15 11:59:17 [notice] 18865#18865: OS: Linux 5.6.10-arch1-1
+2020/05/15 11:59:17 [notice] 18865#18865: getrlimit(RLIMIT_NOFILE): 1024:524288
+2020/05/15 11:59:17 [notice] 18865#18865: getrlimit(RLIMIT_NOFILE): 1024:524288
+2020/05/15 11:59:17 [emerg] 18866#18866: open() "/run/nginx.pid" failed (13: Permission denied)
+2020/05/15 11:59:17 [emerg] 18866#18866: open() "/run/nginx.pid" failed (13: Permission denied)
+2020/05/15 11:59:17 [emerg] 18866#18866: open() "/run/nginx.pid" failed (13: Permission denied)
+2020/05/15 11:59:23 [notice] 18875#18875: using the "epoll" event method
+2020/05/15 11:59:23 [notice] 18875#18875: using the "epoll" event method
+2020/05/15 11:59:23 [notice] 18875#18875: nginx/1.18.0
+2020/05/15 11:59:23 [notice] 18875#18875: nginx/1.18.0
+2020/05/15 11:59:23 [notice] 18875#18875: OS: Linux 5.6.10-arch1-1
+2020/05/15 11:59:23 [notice] 18875#18875: OS: Linux 5.6.10-arch1-1
+2020/05/15 11:59:23 [notice] 18875#18875: getrlimit(RLIMIT_NOFILE): 1024:524288
+2020/05/15 11:59:23 [notice] 18875#18875: getrlimit(RLIMIT_NOFILE): 1024:524288
+2020/05/15 11:59:23 [notice] 18876#18876: start worker processes
+2020/05/15 11:59:23 [notice] 18876#18876: start worker processes
+2020/05/15 11:59:23 [notice] 18876#18876: start worker process 18877
+2020/05/15 11:59:23 [notice] 18876#18876: start worker process 18877
+2020/05/15 15:24:24 [notice] 18876#18876: signal 1 (SIGHUP) received from 27407, reconfiguring
+2020/05/15 15:24:24 [notice] 18876#18876: signal 1 (SIGHUP) received from 27407, reconfiguring
+2020/05/15 15:24:24 [notice] 18876#18876: reconfiguring
+2020/05/15 15:24:24 [notice] 18876#18876: reconfiguring
+2020/05/15 15:24:24 [notice] 18876#18876: using the "epoll" event method
+2020/05/15 15:24:24 [notice] 18876#18876: using the "epoll" event method
+2020/05/15 15:24:24 [notice] 18876#18876: start worker processes
+2020/05/15 15:24:24 [notice] 18876#18876: start worker processes
+2020/05/15 15:24:24 [notice] 18876#18876: start worker process 27408
+2020/05/15 15:24:24 [notice] 18876#18876: start worker process 27408
+2020/05/15 15:24:24 [notice] 18877#18877: gracefully shutting down
+2020/05/15 15:24:24 [notice] 18877#18877: gracefully shutting down
+2020/05/15 15:24:24 [notice] 18877#18877: exiting
+2020/05/15 15:24:24 [notice] 18877#18877: exiting
+2020/05/15 15:24:24 [notice] 18877#18877: exit
+2020/05/15 15:24:24 [notice] 18876#18876: signal 17 (SIGCHLD) received from 18877
+2020/05/15 15:24:24 [notice] 18876#18876: signal 17 (SIGCHLD) received from 18877
+2020/05/15 15:24:24 [notice] 18876#18876: worker process 18877 exited with code 0
+2020/05/15 15:24:24 [notice] 18876#18876: worker process 18877 exited with code 0
+2020/05/15 15:24:24 [notice] 18876#18876: signal 29 (SIGIO) received
+2020/05/15 15:24:24 [notice] 18876#18876: signal 29 (SIGIO) received
+2020/05/15 15:26:16 [notice] 18876#18876: signal 1 (SIGHUP) received from 27516, reconfiguring
+2020/05/15 15:26:16 [notice] 18876#18876: signal 1 (SIGHUP) received from 27516, reconfiguring
+2020/05/15 15:26:16 [notice] 18876#18876: reconfiguring
+2020/05/15 15:26:16 [notice] 18876#18876: reconfiguring
+2020/05/15 15:26:16 [notice] 18876#18876: using the "epoll" event method
+2020/05/15 15:26:16 [notice] 18876#18876: using the "epoll" event method
+2020/05/15 15:26:16 [notice] 18876#18876: start worker processes
+2020/05/15 15:26:16 [notice] 18876#18876: start worker processes
+2020/05/15 15:26:16 [notice] 18876#18876: start worker process 27517
+2020/05/15 15:26:16 [notice] 18876#18876: start worker process 27517
+2020/05/15 15:26:16 [notice] 27408#27408: gracefully shutting down
+2020/05/15 15:26:16 [notice] 27408#27408: gracefully shutting down
+2020/05/15 15:26:16 [notice] 27408#27408: exiting
+2020/05/15 15:26:16 [notice] 27408#27408: exiting
+2020/05/15 15:26:16 [notice] 27408#27408: exit
+2020/05/15 15:26:16 [notice] 18876#18876: signal 17 (SIGCHLD) received from 27408
+2020/05/15 15:26:16 [notice] 18876#18876: signal 17 (SIGCHLD) received from 27408
+2020/05/15 15:26:16 [notice] 18876#18876: worker process 27408 exited with code 0
+2020/05/15 15:26:16 [notice] 18876#18876: worker process 27408 exited with code 0
+2020/05/15 15:26:16 [notice] 18876#18876: signal 29 (SIGIO) received
+2020/05/15 15:26:16 [notice] 18876#18876: signal 29 (SIGIO) received
+2020/05/15 15:26:28 [notice] 18876#18876: signal 1 (SIGHUP) received from 27544, reconfiguring
+2020/05/15 15:26:28 [notice] 18876#18876: signal 1 (SIGHUP) received from 27544, reconfiguring
+2020/05/15 15:26:28 [notice] 18876#18876: reconfiguring
+2020/05/15 15:26:28 [notice] 18876#18876: reconfiguring
+2020/05/15 15:26:28 [notice] 18876#18876: using the "epoll" event method
+2020/05/15 15:26:28 [notice] 18876#18876: using the "epoll" event method
+2020/05/15 15:26:28 [notice] 18876#18876: start worker processes
+2020/05/15 15:26:28 [notice] 18876#18876: start worker processes
+2020/05/15 15:26:28 [notice] 18876#18876: start worker process 27545
+2020/05/15 15:26:28 [notice] 18876#18876: start worker process 27545
+2020/05/15 15:26:28 [notice] 27517#27517: gracefully shutting down
+2020/05/15 15:26:28 [notice] 27517#27517: gracefully shutting down
+2020/05/15 15:26:28 [notice] 27517#27517: exiting
+2020/05/15 15:26:28 [notice] 27517#27517: exiting
+2020/05/15 15:26:28 [notice] 27517#27517: exit
+2020/05/15 15:26:28 [notice] 18876#18876: signal 17 (SIGCHLD) received from 27517
+2020/05/15 15:26:28 [notice] 18876#18876: signal 17 (SIGCHLD) received from 27517
+2020/05/15 15:26:28 [notice] 18876#18876: worker process 27517 exited with code 0
+2020/05/15 15:26:28 [notice] 18876#18876: worker process 27517 exited with code 0
+2020/05/15 15:26:28 [notice] 18876#18876: signal 29 (SIGIO) received
+2020/05/15 15:26:28 [notice] 18876#18876: signal 29 (SIGIO) received
+2020/05/15 15:27:03 [notice] 18876#18876: signal 1 (SIGHUP) received from 27602, reconfiguring
+2020/05/15 15:27:03 [notice] 18876#18876: signal 1 (SIGHUP) received from 27602, reconfiguring
+2020/05/15 15:27:03 [notice] 18876#18876: reconfiguring
+2020/05/15 15:27:03 [notice] 18876#18876: reconfiguring
+2020/05/15 15:27:03 [notice] 18876#18876: using the "epoll" event method
+2020/05/15 15:27:03 [notice] 18876#18876: using the "epoll" event method
+2020/05/15 15:27:03 [notice] 18876#18876: start worker processes
+2020/05/15 15:27:03 [notice] 18876#18876: start worker processes
+2020/05/15 15:27:03 [notice] 18876#18876: start worker process 27603
+2020/05/15 15:27:03 [notice] 18876#18876: start worker process 27603
+2020/05/15 15:27:03 [notice] 27545#27545: gracefully shutting down
+2020/05/15 15:27:03 [notice] 27545#27545: gracefully shutting down
+2020/05/15 15:27:03 [notice] 27545#27545: exiting
+2020/05/15 15:27:03 [notice] 27545#27545: exiting
+2020/05/15 15:27:03 [notice] 27545#27545: exit
+2020/05/15 15:27:04 [notice] 18876#18876: signal 17 (SIGCHLD) received from 27545
+2020/05/15 15:27:04 [notice] 18876#18876: signal 17 (SIGCHLD) received from 27545
+2020/05/15 15:27:04 [notice] 18876#18876: worker process 27545 exited with code 0
+2020/05/15 15:27:04 [notice] 18876#18876: worker process 27545 exited with code 0
+2020/05/15 15:27:04 [notice] 18876#18876: signal 29 (SIGIO) received
+2020/05/15 15:27:04 [notice] 18876#18876: signal 29 (SIGIO) received
+2020/05/15 15:49:41 [info] 27603#27603: *77 client 127.0.0.1 closed keepalive connection (104: Connection reset by peer)
+2020/05/15 15:49:43 [info] 27603#27603: *76 client 127.0.0.1 closed keepalive connection (104: Connection reset by peer)
+2020/05/15 15:49:43 [info] 27603#27603: *79 client 127.0.0.1 closed keepalive connection (104: Connection reset by peer)
+2020/05/15 15:49:45 [info] 27603#27603: *81 client 127.0.0.1 closed keepalive connection (104: Connection reset by peer)
+2020/05/15 15:49:45 [info] 27603#27603: *82 client 127.0.0.1 closed keepalive connection (104: Connection reset by peer)
+2020/05/15 15:49:45 [info] 27603#27603: *83 client 127.0.0.1 closed keepalive connection (104: Connection reset by peer)
+2020/05/15 15:49:46 [info] 27603#27603: *84 client 127.0.0.1 closed keepalive connection (104: Connection reset by peer)
+2020/05/15 15:49:46 [info] 27603#27603: *85 client 127.0.0.1 closed keepalive connection (104: Connection reset by peer)
+2020/05/15 15:50:04 [info] 27603#27603: *86 client 127.0.0.1 closed keepalive connection (104: Connection reset by peer)
+2020/05/15 20:59:02 [info] 27603#27603: *101 client 162.243.142.245 closed keepalive connection
+2020/05/16 00:19:33 [info] 27603#27603: *114 client sent invalid method while reading client request line, client: 80.82.65.74, server: localhost, request: " º}I "
+2020/05/16 00:19:33 [info] 27603#27603: *115 client sent invalid method while reading client request line, client: 80.82.65.74, server: localhost, request: " "
+2020/05/16 09:18:18 [info] 27603#27603: *120 client sent invalid method while reading client request line, client: 5.8.18.88, server: localhost, request: "  /*‡     Cookie: mstshash=Administr"
+2020/05/16 09:18:18 [info] 27603#27603: *121 client sent invalid method while reading client request line, client: 5.8.18.88, server: localhost, request: "  /*‡     Cookie: mstshash=Administr"
+2020/05/16 09:18:18 [info] 27603#27603: *120 recv() failed (104: Connection reset by peer) while reading client request line, client: 5.8.18.88, server: localhost, request: "  /*‡     Cookie: mstshash=Administr"
+2020/05/16 09:18:18 [info] 27603#27603: *121 recv() failed (104: Connection reset by peer) while reading client request line, client: 5.8.18.88, server: localhost, request: "  /*‡     Cookie: mstshash=Administr"
+2020/05/16 09:18:19 [info] 27603#27603: *122 client sent invalid method while reading client request line, client: 5.8.18.88, server: localhost, request: "  /*‡     Cookie: mstshash=Administr"
+2020/05/16 09:18:19 [info] 27603#27603: *122 recv() failed (104: Connection reset by peer) while reading client request line, client: 5.8.18.88, server: localhost, request: "  /*‡     Cookie: mstshash=Administr"
+2020/05/16 09:18:19 [info] 27603#27603: *123 client sent invalid method while reading client request line, client: 5.8.18.88, server: localhost, request: "  /*‡     Cookie: mstshash=Administr"
+2020/05/16 09:18:20 [info] 27603#27603: *123 recv() failed (104: Connection reset by peer) while reading client request line, client: 5.8.18.88, server: localhost, request: "  /*‡     Cookie: mstshash=Administr"
+2020/05/16 09:18:21 [info] 27603#27603: *124 client sent invalid method while reading client request line, client: 5.8.18.88, server: localhost, request: "  /*‡     Cookie: mstshash=Administr"
+2020/05/16 09:18:21 [info] 27603#27603: *124 recv() failed (104: Connection reset by peer) while reading client request line, client: 5.8.18.88, server: localhost, request: "  /*‡     Cookie: mstshash=Administr"
+2020/05/16 11:12:47 [info] 27603#27603: *125 client sent invalid method while reading client request line, client: 5.8.18.88, server: localhost, request: "  /*‡     Cookie: mstshash=Administr"
+2020/05/16 11:12:47 [info] 27603#27603: *126 client sent invalid method while reading client request line, client: 5.8.18.88, server: localhost, request: "  /*‡     Cookie: mstshash=Administr"
+2020/05/16 11:12:47 [info] 27603#27603: *125 recv() failed (104: Connection reset by peer) while reading client request line, client: 5.8.18.88, server: localhost, request: "  /*‡     Cookie: mstshash=Administr"
+2020/05/16 11:12:47 [info] 27603#27603: *126 recv() failed (104: Connection reset by peer) while reading client request line, client: 5.8.18.88, server: localhost, request: "  /*‡     Cookie: mstshash=Administr"
+2020/05/16 11:12:47 [info] 27603#27603: *127 client sent invalid method while reading client request line, client: 5.8.18.88, server: localhost, request: "  /*‡     Cookie: mstshash=Administr"
+2020/05/16 11:12:47 [info] 27603#27603: *127 recv() failed (104: Connection reset by peer) while reading client request line, client: 5.8.18.88, server: localhost, request: "  /*‡     Cookie: mstshash=Administr"
+2020/05/16 11:12:48 [info] 27603#27603: *128 client sent invalid method while reading client request line, client: 5.8.18.88, server: localhost, request: "  /*‡     Cookie: mstshash=Administr"
+2020/05/16 11:12:48 [info] 27603#27603: *128 recv() failed (104: Connection reset by peer) while reading client request line, client: 5.8.18.88, server: localhost, request: "  /*‡     Cookie: mstshash=Administr"
+2020/05/16 11:12:49 [info] 27603#27603: *129 client sent invalid method while reading client request line, client: 5.8.18.88, server: localhost, request: "  /*‡     Cookie: mstshash=Administr"
+2020/05/16 11:12:49 [info] 27603#27603: *129 recv() failed (104: Connection reset by peer) while reading client request line, client: 5.8.18.88, server: localhost, request: "  /*‡     Cookie: mstshash=Administr"
+2020/05/16 18:52:17 [info] 27603#27603: *131 client sent invalid method while reading client request line, client: 185.153.196.7, server: localhost, request: "  /*‡     Cookie: mstshash=Administr"
+2020/05/16 18:52:17 [info] 27603#27603: *132 client sent invalid method while reading client request line, client: 185.153.196.7, server: localhost, request: "  /*‡     Cookie: mstshash=Administr"
+2020/05/16 18:52:17 [info] 27603#27603: *133 client sent invalid method while reading client request line, client: 185.153.196.7, server: localhost, request: "  /*‡     Cookie: mstshash=Administr"
+2020/05/16 18:52:17 [info] 27603#27603: *134 client sent invalid method while reading client request line, client: 185.153.196.7, server: localhost, request: "  /*‡     Cookie: mstshash=Administr"
+2020/05/16 18:52:17 [info] 27603#27603: *135 client sent invalid method while reading client request line, client: 185.153.196.7, server: localhost, request: "  /*‡     Cookie: mstshash=Administr"
+2020/05/16 18:52:17 [info] 27603#27603: *131 recv() failed (104: Connection reset by peer) while reading client request line, client: 185.153.196.7, server: localhost, request: "  /*‡     Cookie: mstshash=Administr"
+2020/05/16 18:52:17 [info] 27603#27603: *132 recv() failed (104: Connection reset by peer) while reading client request line, client: 185.153.196.7, server: localhost, request: "  /*‡     Cookie: mstshash=Administr"
+2020/05/16 18:52:17 [info] 27603#27603: *133 recv() failed (104: Connection reset by peer) while reading client request line, client: 185.153.196.7, server: localhost, request: "  /*‡     Cookie: mstshash=Administr"
+2020/05/16 18:52:17 [info] 27603#27603: *134 recv() failed (104: Connection reset by peer) while reading client request line, client: 185.153.196.7, server: localhost, request: "  /*‡     Cookie: mstshash=Administr"
+2020/05/16 18:52:17 [info] 27603#27603: *135 recv() failed (104: Connection reset by peer) while reading client request line, client: 185.153.196.7, server: localhost, request: "  /*‡     Cookie: mstshash=Administr"
+2020/05/17 07:42:46 [info] 27603#27603: epoll_wait() failed (4: Interrupted system call)
+2020/05/17 10:40:13 [info] 27603#27603: *170 client 127.0.0.1 closed keepalive connection (104: Connection reset by peer)
+2020/05/17 10:40:13 [info] 27603#27603: *168 client 127.0.0.1 closed keepalive connection (104: Connection reset by peer)
+2020/05/17 10:40:13 [info] 27603#27603: *169 client 127.0.0.1 closed keepalive connection (104: Connection reset by peer)
+2020/05/17 10:40:13 [info] 27603#27603: *172 client prematurely closed connection (104: Connection reset by peer) while sending response to client, client: 127.0.0.1, server: localhost, request: "GET /css/output.css HTTP/1.1", host: "localhost:3000", referrer: "http://localhost:3003/?"
+2020/05/17 14:55:52 [info] 27603#27603: *217 client 127.0.0.1 closed keepalive connection (104: Connection reset by peer)
+2020/05/17 21:17:06 [info] 27603#27603: *251 client sent invalid request while reading client request line, client: 45.13.93.82, server: localhost, request: "CONNECT ip.ws.126.net:443 HTTP/1.1"
+2020/05/17 22:43:40 [info] 27603#27603: epoll_wait() failed (4: Interrupted system call)
+2020/05/18 07:30:51 [info] 27603#27603: epoll_wait() failed (4: Interrupted system call)
+2020/05/18 10:49:57 [info] 27603#27603: *257 client sent invalid method while reading client request line, client: 5.8.18.88, server: localhost, request: "  /*‡     Cookie: mstshash=Administr"
+2020/05/18 10:49:58 [info] 27603#27603: *257 recv() failed (104: Connection reset by peer) while reading client request line, client: 5.8.18.88, server: localhost, request: "  /*‡     Cookie: mstshash=Administr"
+2020/05/18 10:49:58 [info] 27603#27603: *258 client sent invalid method while reading client request line, client: 5.8.18.88, server: localhost, request: "  /*‡     Cookie: mstshash=Administr"
+2020/05/18 10:49:58 [info] 27603#27603: *258 recv() failed (104: Connection reset by peer) while reading client request line, client: 5.8.18.88, server: localhost, request: "  /*‡     Cookie: mstshash=Administr"
+2020/05/18 12:15:50 [notice] 18876#18876: signal 3 (SIGQUIT) received from 172111, shutting down
+2020/05/18 12:15:50 [notice] 18876#18876: signal 3 (SIGQUIT) received from 172111, shutting down
+2020/05/18 12:15:50 [notice] 27603#27603: gracefully shutting down
+2020/05/18 12:15:50 [notice] 27603#27603: gracefully shutting down
+2020/05/18 12:15:50 [notice] 27603#27603: exiting
+2020/05/18 12:15:50 [notice] 27603#27603: exiting
+2020/05/18 12:15:50 [notice] 27603#27603: exit
+2020/05/18 12:15:50 [notice] 18876#18876: signal 17 (SIGCHLD) received from 27603
+2020/05/18 12:15:50 [notice] 18876#18876: signal 17 (SIGCHLD) received from 27603
+2020/05/18 12:15:50 [notice] 18876#18876: worker process 27603 exited with code 0
+2020/05/18 12:15:50 [notice] 18876#18876: worker process 27603 exited with code 0
+2020/05/18 12:15:50 [notice] 18876#18876: exit
+2020/05/18 12:15:50 [notice] 18876#18876: exit

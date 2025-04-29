@@ -1,0 +1,20 @@
+\documentclass[openany]{book}
+
+\usepackage[unicode=true]{hyperref}
+\usepackage{makeidx}\makeindex
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage[mathscr]{euscript}
+\let\euscr\mathscr \let\mathscr\relax% just so we can load this and rsfs
+\usepackage[scr]{rsfso}
+\newcommand{\powerset}{\raisebox{.15\baselineskip}{\Large\ensuremath{\wp}}}
+
+\title{Notes}
+\author{Trey Wilkinson}
+
+\begin{document}
+\maketitle
+\tableofcontents
+
+\include{basics}
+\end{document}

@@ -1,0 +1,36 @@
+<svg>
+<g
+       id="g2726">
+      <rect
+         ry="4.9340191"
+         transform="matrix(0.64975391,0.76014463,-0.76569064,0.64320903,0,0)"
+         y="-889.25482"
+         x="218.70891"
+         height="43.705265"
+         width="9.8539639"
+         id="rect7337"
+         style="opacity:1;vector-effect:none;fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:2.11670562;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:stroke fill markers;stop-color:#000000;stop-opacity:1" />
+      <path
+         style="font-variation-settings:normal;opacity:1;vector-effect:none;fill:none;fill-opacity:1;stroke:#000000;stroke-width:1.05833334;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;stop-color:#000000;stop-opacity:1"
+         d="m 792.24162,-373.46784 -11.73571,10.08971 a 2.3445624,2.3445624 69.617761 0 0 1.53166,4.12239 l 42.16853,-0.0569"
+         id="path4492"
+         sodipodi:nodetypes="ccc"
+         inkscape:path-effect="#path-effect4542"
+         inkscape:original-d="m 792.24162,-373.46784 -16.54057,14.22066 48.50505,-0.0655" />
+      <circle
+         style="opacity:1;vector-effect:none;fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:2.11666667;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:stroke fill markers;stop-color:#000000;stop-opacity:1"
+         id="circle4558"
+         cx="299.34567"
+         cy="-873.56116"
+         r="12.502405"
+         transform="rotate(45)" />
+      <path
+         style="fill:none;stroke:#000000;stroke-width:1.05833334;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;stroke-miterlimit:4;stroke-dasharray:none"
+         d="m 821.93062,-416.17581 c 0,0 -1.92768,17.68106 17.68107,17.68107"
+         id="path4560" />
+      <path
+         id="path4562"
+         d="m 819.28942,-413.5346 c 0,0 -1.92768,17.68105 17.68107,17.68107"
+         style="fill:none;stroke:#000000;stroke-width:1.05833334;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;stroke-miterlimit:4;stroke-dasharray:none" />
+    </g>
+</svg>

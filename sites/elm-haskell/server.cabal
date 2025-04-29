@@ -1,0 +1,85 @@
+cabal-version: 1.12
+
+-- This file has been generated from package.yaml by hpack version 0.34.4.
+--
+-- see: https://github.com/sol/hpack
+--
+-- hash: 86c3a5e5560510dcc2d8b43206053b1ad751259b1709ae57ccfae3be424605b1
+
+name:           server
+version:        0.1.0.0
+homepage:       https://github.com/githubuser/server#readme
+bug-reports:    https://github.com/githubuser/server/issues
+author:         Trey Wilkinson
+maintainer:     winston.trey.wilkinson@gmail.com
+copyright:      2020 Trey Wilkinson
+license:        BSD3
+build-type:     Simple
+
+source-repository head
+  type: git
+  location: https://github.com/githubuser/server
+
+library
+  exposed-modules:
+      Lib
+  other-modules:
+      Paths_server
+  hs-source-dirs:
+      src
+  default-extensions:
+      OverloadedStrings
+      TypeOperators
+  build-depends:
+      base >=4.7 && <5
+  default-language: Haskell2010
+
+executable server-exe
+  main-is: Main.hs
+  other-modules:
+      Paths_server
+  hs-source-dirs:
+      app
+  default-extensions:
+      OverloadedStrings
+      TypeOperators
+  ghc-options: -threaded -rtsopts -with-rtsopts=-N
+  build-depends:
+      acid-state
+    , base >=4.7 && <5
+    , blog
+    , bytestring
+    , dogwalking
+    , elders
+    , network
+    , servant
+    , servant-options
+    , servant-server
+    , server
+    , streaming-commons
+    , tagged
+    , text
+    , wai
+    , wai-cors
+    , wai-extra
+    , wai-make-assets
+    , warp
+    , warp-tls
+  default-language: Haskell2010
+
+executable server-gen-exe
+  main-is: Main.hs
+  other-modules:
+      Paths_server
+  hs-source-dirs:
+      gen
+  default-extensions:
+      OverloadedStrings
+      TypeOperators
+  ghc-options: -threaded -rtsopts -with-rtsopts=-N
+  build-depends:
+      base >=4.7 && <5
+    , blog
+    , dogwalking
+    , elders
+  default-language: Haskell2010

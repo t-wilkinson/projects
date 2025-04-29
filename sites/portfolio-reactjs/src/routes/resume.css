@@ -1,0 +1,9 @@
+.main-section + .main-section {
+  border-top: 1px dashed #ddd;
+  padding-top: 1rem;
+}
+
+a {
+  color: inherit;
+  /* text-decoration: none; */
+}

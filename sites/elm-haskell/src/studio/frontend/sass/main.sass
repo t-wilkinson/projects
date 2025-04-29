@@ -1,0 +1,294 @@
+// define global styles first, you will develop a better vision quicker
+// it will also lead to more consistent styling as you will realize when
+// you break something once you get to specifics
+
+/* Outside in */
+// outsize -> location -> size -> content
+// Layout Properties (position, display)
+// Box Model Properties (width, height, margin, padding)
+// Visual Properties (color, background, border, box-shadow, filter)
+// Typography Properties (font-size, font-family, text-align, text-transform)
+// Misc Properties (cursor, overflow, z-index)
+
+// currentcolor -- referes to the value of the color preperty of an element
+// hsl -- function which computes hsl color
+// @extend -- inherits parent class
+// % -- placeholder which elements can inherit from
+
+@use 'sass:color'
+
+[data-elm-hot='true']
+  height: inherit
+
+@import url(~sanitize.css)
+
+@import 'abstracts/variables'
+@import 'abstracts/mixins'
+
+@import 'layout/header'
+@import 'layout/footer'
+
+@import 'pages/home'
+@import 'pages/login'
+@import 'pages/studio'
+
+// components buttons/carousel/slider
+// themes theme/admin
+// vendors bootstrap/jquery-ui
+// base reset/typography
+
+
+@font-face
+  font-family: 'Spartan'
+  src: url('../public/fonts/Spartan-VF.ttf')
+
+
+html,body
+  height: 100%
+
+
+html
+  box-sizing: border-box
+  line-height: $lh
+  font-family: 'Spartan'
+  font-size: var(--font-size)
+  font-variation-settings: 'wght' 500
+  h1,h2,h3,h4,h5,h6,strong
+    font-variation-settings: 'wght' var(--font-weight)
+
+body
+  display: grid
+  grid-template: 'header header header' auto '. body .' 1fr 'footer footer footer' auto / 1fr minmax(0,80em) 1fr
+
+// h1:35px
+$total: 3
+@for $i from 1 through 6
+  h#{$i}
+    font-size: #{$total}em
+  $total: $total / 1.6
+
+
+main
+  grid-area: body
+  padding: $lh
+  margin: (2 * $lh) 0
+
+  > section
+    margin-bottom: 3 * $lh
+
+  h1,h2,h3,h4,h5,h6
+    padding: $lh 0
+    margin: 0
+    line-height: 2
+
+ul
+  padding: 0
+
+
+a
+  cursor: pointer
+  line-height: 2
+  display: inline-block
+  text-align: center
+  vertical-align: top
+  background: $gradient
+  -webkit-background-clip: text
+  -webkit-text-fill-color: transparent
+
+
+button
+  +hover(8px, white)
+  border: none
+  border-radius: 3px
+  background: $gradient
+  text-transform: captitalize
+  color: white
+  line-height: 3
+  padding: 0 $lh
+  font-size: 1.4em
+
+
+input[type=checkbox]
+  display: inline-block
+  bottom: 45px
+  right: 5px
+
+  & ~ span::before
+    display: inline-block
+    content: ''
+    border: 3px solid $dark
+
+
+form
+  display: flex
+  flex-direction: column
+  align-items: center
+
+  .field
+    position: relative
+
+    input[type=text],input[type=password]
+      width: 20em
+      max-width: 100vw
+      padding: 0 $lh
+      line-height: 3
+
+      outline: none
+      border: 0px solid
+        bottom: 3px solid $gray
+        radius: 3px 3px 0 0
+
+      background-color: $lgray
+      font-size: 1.3em
+
+      &:focus
+        background-color: $gray
+
+      &:focus,
+      &:not(:focus):valid
+        & ~ label
+          top: 4px
+          background: $gradient
+          -webkit-background-clip: text
+          -webkit-text-fill-color: transparent
+          font-size: 0.6em
+
+      &:focus ~ span::after
+        left: 0
+        right: 0
+
+    label
+      +transition
+      position: absolute
+      pointer-events: none
+      left: $lh
+      top: 1.3em
+
+    span::after
+      +transition
+      $height: 3px
+      content: ''
+      display: block
+      left: 50%
+      right: 50%
+      position: absolute
+      height: $height
+      transform: translateY(-$height)
+      background: $gradient
+
+  button
+    margin-top: $lh
+
+
+// hide elm debugger for now
+body > div
+  display: none !important
+
+#request
+  #clock
+    .container
+        width: 680px
+        margin: 0 auto
+
+    .elm-datepicker--container
+      position: relative
+
+    .elm-datepicker--input:focus
+      outline: 0
+
+    .elm-datepicker--picker
+      position: absolute
+      border: 1px solid #CCC
+      z-index: 10
+      background-color: white
+
+    .elm-datepicker--picker-header,
+    .elm-datepicker--weekdays
+      background: #F2F2F2
+
+    .elm-datepicker--picker-header
+      display: flex
+      align-items: center
+
+    .elm-datepicker--prev-container,
+    .elm-datepicker--next-container
+      flex: 0 1 auto
+      cursor: pointer
+
+    .elm-datepicker--month-container
+      flex: 1 1 auto
+      padding: 0.5em
+      display: flex
+      flex-direction: column
+
+    .elm-datepicker--month,
+    .elm-datepicker--year
+      flex: 1 1 auto
+      cursor: default
+      text-align: center
+
+    .elm-datepicker--year
+      font-size: 0.6em
+      font-weight: 700
+
+    .elm-datepicker--prev,
+    .elm-datepicker--next
+      border: 6px solid transparent
+      background-color: inherit
+      display: block
+      width: 0
+      height: 0
+      padding: 0 0.2em
+
+    .elm-datepicker--prev
+      border-right-color: #AAA
+      .elm-datepicker--prev:hover
+        border-right-color: #BBB
+
+    .elm-datepicker--next
+      border-left-color: #AAA
+      .elm-datepicker--next:hover
+        border-left-color: #BBB
+
+    .elm-datepicker--table
+      border-spacing: 0
+      border-collapse: collapse
+      font-size: 0.8em
+      .elm-datepicker--table td
+        width: 2em
+        height: 2em
+        text-align: center
+
+    .elm-datepicker--row
+      border-top: 1px solid #F2F2F2
+
+    .elm-datepicker--dow
+      border-bottom: 1px solid #CCC
+      cursor: default
+
+    .elm-datepicker--day
+      cursor: pointer
+      .elm-datepicker--day:hover
+        background: #F2F2F2
+
+    .elm-datepicker--disabled
+      cursor: default
+      color: #DDD
+      .elm-datepicker--disabled:hover
+        background: inherit
+
+    .elm-datepicker--picked
+      color: white
+      background: darkblue
+      .elm-datepicker--picked:hover
+        background: darkblue
+
+    .elm-datepicker--today
+      font-weight: bold
+
+    .elm-datepicker--other-month
+      color: #AAA
+      .elm-datepicker--other-month.elm-datepicker--disabled
+        color: #EEE
+      .elm-datepicker--other-month.elm-datepicker--picked
+        color: white

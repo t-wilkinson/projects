@@ -1,0 +1,22 @@
+cabal-version:       >=1.10
+
+name:                common
+version:             0.1.0.0
+maintainer:          nationistrey@gmail.com
+build-type:          Simple
+
+library
+  exposed-modules:
+          Common
+        , Quaalude
+  build-depends:
+          base
+        , aeson
+        , text
+        , time
+  default-language:    Haskell2010
+  default-extensions:
+        NoImplicitPrelude
+      , DerivingStrategies
+      , GeneralizedNewtypeDeriving
+      , StandaloneDeriving

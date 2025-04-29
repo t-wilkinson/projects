@@ -1,0 +1,14 @@
+cabal-version:       >=1.10
+name:                common
+version:             0.1.0.0
+author:              Winston Trey Wilkinson
+maintainer:          winston.trey.wilkinson@gmail.com
+build-type:          Simple
+
+library
+  exposed-modules: Common
+  build-depends:       base
+                     , aeson
+                     , selda
+                     , text
+  default-language:    Haskell2010

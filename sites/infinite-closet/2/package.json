@@ -1,0 +1,18 @@
+{
+  "name": "infinite-closet",
+  "private": true,
+  "workspaces": [
+    "packages/*"
+  ],
+  "scripts": {
+    "build": "lerna run build"
+  },
+  "nohoist": [
+    "**/react-native",
+    "**/react-native/**",
+    "**/expo",
+    "**/expo/**",
+    "**/@babel/core",
+    "**/@babel/core/**"
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "routes": [
+    {
+      "method": "POST",
+      "path": "/accounts/waitlist",
+      "handler": "Users.waitlist",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/accounts/newsletter",
+      "handler": "Users.newsletter",
+      "config": {
+        "policies": []
+      }
+    }
+  ]
+}

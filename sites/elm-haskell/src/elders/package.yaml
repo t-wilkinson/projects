@@ -1,0 +1,66 @@
+name: elders
+version: 0.1.0.0
+github: "winston-trey-wilkinson/elders"
+license: BSD3
+author: "Trey Wilkinson"
+maintainer: "winston.trey.wilkinson@gmail.com"
+copyright: "2020 Trey Wilkinson"
+
+extra-source-files:
+  - README.md
+  - ChangeLog.md
+
+# Metadata used when publishing your package
+# synopsis:            Short description of your package
+# category:            Web
+
+# To avoid duplicated efforts in documentation and dealing with the
+# complications of embedding Haddock markup inside cabal files, it is
+# common to point users to the README.md file.
+description: Please see the README on GitHub at <https://github.com/winston-trey-wilkinson/elders#readme>
+
+dependencies:
+  - base >= 4.7 && < 5
+
+default-extensions:
+  - TemplateHaskell
+  - DeriveGeneric
+  - TypeFamilies
+  - DataKinds
+  - TypeOperators
+  - OverloadedStrings
+
+library:
+  source-dirs: src
+  dependencies:
+    - acid-state
+    - aeson
+    - bytestring
+    - containers
+    - data-default
+    - elm-bridge
+    - http-types
+    - lens
+    - mtl
+    - safecopy
+    - servant
+    - servant-elm
+    - servant-options
+    - servant-server
+    - time
+    - wai
+    - wai-cors
+    - wai-extra
+    - warp
+
+executables:
+  elders-exe:
+    main: Main.hs
+    source-dirs: app
+    ghc-options:
+      - -threaded
+      - -rtsopts
+      - -with-rtsopts=-N
+    dependencies:
+      - elders
+      - warp

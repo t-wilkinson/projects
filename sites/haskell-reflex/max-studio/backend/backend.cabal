@@ -1,0 +1,84 @@
+cabal-version:       >=1.10
+
+name:                backend
+version:             0.1.0.0
+maintainer:          nationistrey@gmail.com
+build-type:          Simple
+
+executable backend
+  main-is:             Main.hs
+  build-depends:
+          base
+        , aeson
+        , bytestring
+        , common
+        , cookie
+        , cryptonite
+        , esqueleto
+        , fast-logger
+        , http-types
+        , lens
+        , monad-logger
+        , mtl
+        , persistent
+        , persistent-postgresql
+        , persistent-template
+        , reflex-dom
+        , resource-pool
+        , selda
+        , selda-sqlite
+        , servant
+        , servant-foreign
+        , servant-js
+        , servant-server
+        , template-haskell
+        , text
+        , time
+        , wai
+        , wai-cors
+        , wai-extra
+        , warp
+        , warp-tls
+
+        , base64-bytestring
+        , blaze-builder
+        , bytestring
+        , cereal
+        , cereal-time
+        , cookie
+        , cryptonite
+        , data-default
+        , exceptions
+        , http-api-data
+        , http-types
+        , memory
+        , tagged
+        , transformers
+        , utf8-string
+
+  default-language:    Haskell2010
+
+  default-extensions:
+      NoImplicitPrelude
+    , DataKinds
+    , DeriveAnyClass
+    , DeriveGeneric
+    , DerivingStrategies
+    , DisambiguateRecordFields
+    , ExplicitForAll
+    , FlexibleContexts
+    , FlexibleInstances
+    , GeneralizedNewtypeDeriving
+    , LambdaCase
+    , MultiParamTypeClasses
+    , NamedFieldPuns
+    , OverloadedStrings
+    , PartialTypeSignatures
+    , RankNTypes
+    , RecordWildCards
+    , ScopedTypeVariables
+    , TypeApplications
+    , TypeFamilies
+    , TypeOperators
+    , TypeSynonymInstances
+    , InstanceSigs

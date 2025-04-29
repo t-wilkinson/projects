@@ -1,0 +1,100 @@
+cabal-version: 1.12
+
+-- This file has been generated from package.yaml by hpack version 0.33.0.
+--
+-- see: https://github.com/sol/hpack
+--
+-- hash: 6a6d3a1ce34b2c9fb35c03d17489574e02f8da9dad6fdf439a60cb319466b6eb
+
+name:           studio
+version:        0.1.0.0
+description:    <https://github.com/githubuser/beats#readme>
+category:       Web
+homepage:       https://github.com/winston-trey-wilkinson/studio#readme
+bug-reports:    https://github.com/winston-trey-wilkinson/studio/issues
+author:         Winston Wilkinson
+maintainer:     winston.trey.wilkinson@gmail.com
+license:        BSD3
+build-type:     Simple
+
+source-repository head
+  type: git
+  location: https://github.com/winston-trey-wilkinson/studio
+
+library
+  exposed-modules:
+      Api
+      Api.Beat
+      Api.Content
+      Api.Secret
+      Api.Studio
+      Api.User
+      Config
+      Db
+      Db.Beat
+      Db.Content
+      Db.Studio
+      Db.User
+      GenerateElm
+      Init
+      Lib
+      Prelude
+  other-modules:
+      Paths_studio
+  hs-source-dirs:
+      src
+  default-extensions: DataKinds DeriveGeneric FlexibleInstances GeneralizedNewtypeDeriving KindSignatures LambdaCase MultiParamTypeClasses OverloadedStrings TypeApplications TypeOperators GADTs TypeFamilies BangPatterns NamedFieldPuns
+  build-depends:
+      aeson
+    , base-noprelude
+    , bcrypt
+    , bytestring
+    , case-insensitive
+    , cookie
+    , cryptonite
+    , ekg
+    , elm-bridge
+    , ghc-prim
+    , http-client
+    , http-media
+    , http-types
+    , lens
+    , memory
+    , monad-logger
+    , mtl
+    , natural-transformation
+    , persistent
+    , persistent-postgresql
+    , persistent-template
+    , postgresql-simple
+    , relude
+    , resource-pool
+    , servant
+    , servant-auth-server
+    , servant-client
+    , servant-elm
+    , servant-options
+    , servant-server
+    , template-haskell
+    , text
+    , transformers
+    , utf8-string
+    , wai
+    , wai-cors
+    , warp
+    , warp-tls
+  default-language: Haskell2010
+
+executable studio-exe
+  main-is: Main.hs
+  other-modules:
+      Paths_studio
+  hs-source-dirs:
+      app
+  default-extensions: DataKinds DeriveGeneric FlexibleInstances GeneralizedNewtypeDeriving KindSignatures LambdaCase MultiParamTypeClasses OverloadedStrings TypeApplications TypeOperators GADTs TypeFamilies BangPatterns NamedFieldPuns
+  ghc-options: -rtsopts -with-rtsopts=-N
+  build-depends:
+      base-noprelude
+    , relude
+    , studio
+  default-language: Haskell2010

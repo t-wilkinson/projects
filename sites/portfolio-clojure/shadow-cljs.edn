@@ -1,0 +1,16 @@
+{:deps     {:aliases [:dev]}
+ :dev-http {8000 "classpath:public"}
+ :nrepl {:port 9000}
+ :builds   {
+            :main {:target     :browser
+                   :output-dir "resources/public/js/main"
+                   :asset-path "/js/main"
+                   :modules    {:main {:init-fn app.client/init
+                                       :entries [app.client]}}
+                   :release {:compiler-options {:optimizations :advanced}}
+                   :devtools   {:after-load app.client/refresh
+                                :watch-dir "resources/public"
+                                :preloads [com.fulcrologic.fulcro.inspect.preload]}}}}
+
+
+

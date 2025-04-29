@@ -1,0 +1,56 @@
+@import './css/variables.css';
+@import './css/fonts.css';
+@import './css/colors.css';
+
+/* Write your global styles here, in PostCSS syntax */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.list__message--empty {
+    background: var(--grey3);
+    padding: 1rem;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    font: var(--typography-lead);
+    color: var(--textColor);
+}
+
+* {
+    box-sizing: border-box;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+.blue-link {
+    color: var(--link);
+    text-decoration: underline;
+}
+
+h1 {
+    font: var(--typography-h1);
+    font-family: 'Inknut Antiqua';
+    font-weight: bold;
+}
+
+h2, h3 {
+    font: var(--typography-h3);
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    /* font-weight: bold; */
+    /* font-family: 'Inknut Antiqua'; */
+    /* font-family: 'McKay GWeb', serif;
+    /* font-family: 'MacKay', serif;
+    /* font-family: 'Open Sans', sans-serif; */
+}
