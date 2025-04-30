@@ -1,0 +1,86 @@
+#home
+  /* #intro
+
+  #explore
+    position: relative
+    height: 20em
+    padding: $lh
+
+    p
+      position: relative
+      top: 50%
+      transform: translateY(-50%)
+      margin: 0
+      font-size: 2em
+      font-variation-settings: 'wght' 1500
+
+    a
+      +position
+      overflow: hidden
+
+      &::before
+        +transition(1s)
+        +position(-5px)
+        filter: blur(3px)
+        background: center
+          image: url("https://www.clearlakerecordingstudios.com/wp-content/uploads/2019/05/console-side-2.jpg")
+          size: 100%
+        z-index: -1
+
+      &:hover::before
+        background-size: 130%
+
+  #videos
+    .video
+      overflow: hidden
+      padding-bottom: 56.25%
+      position: relative
+      height: 0
+
+      iframe
+        +size(100%)
+        left: 0
+        top: 0
+        position: absolute
+
+
+
+  #projects
+    position: relative
+
+    .projects
+      display: grid
+      grid-template: repeat(auto-fill, 16em) / repeat(auto-fill, minmax(10em, 16em))
+      place-items: center
+      place-content: space-evenly
+      grid-gap: $lh
+
+      figure
+        position: relative
+        width: 100%
+        transform-style: preserve-3d
+
+        img
+          width: 100%
+
+        figcaption
+          position: absolute
+          bottom: 0
+          width: 100%
+          transform: translateY(-100%) translateZ(60px)
+          color: white
+          text-align: center
+
+
+  #testimonials
+    .testimonials
+      display: flex
+      overflow-x: scroll
+
+      blockquote
+        min-width: 15em
+        background-color: $gray
+        padding: 1em 2em
+
+        footer::before
+          content: "-"

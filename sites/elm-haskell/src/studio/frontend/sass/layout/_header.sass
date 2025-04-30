@@ -1,0 +1,191 @@
+header
+  grid-area: header
+  display: flex
+  flex-direction: row
+  align-items: center
+  padding: 0 $lh
+  box-shadow: 0px 1px 3px #ccc
+
+  @media (min-width: $content-width)
+    transform: translateY(-100%)
+    animation: 1s cubic-bezier(0.86, 0, 0.07, 1) header forwards
+
+    @keyframes header
+      0%
+        transform: translateY(-100%)
+      100%
+        transform: translateY(0)
+
+  > a
+    +hover
+    +size(auto, 150px)
+    display: flex
+    margin-right: auto
+    padding: $lh 0
+
+    img
+      height: 100%
+      margin-right: $lh
+
+    h1
+      height: 100%
+      align-self: flex-start
+      text-decoration: none
+      margin: 0
+      -webkit-text-fill-color: initial
+      color: black
+
+  ul
+    display: flex
+
+    li
+      list-style: none
+
+      a
+        +hover(0.1em, $dark)
+        font-size: 1.3em
+
+
+    li ~ li
+      padding-left: $lh
+
+
+  aside
+    display: none
+
+
+  @media screen and (max-width: $content-width)
+    > nav
+      display: none
+
+
+    > a
+      flex-direction: column
+      justify-content: center
+      align-items: stretch
+      width: 100%
+      height: 100%
+
+      img
+        height: 120px
+        margin: 0 0 $lh 0
+
+      h1
+        width: 100%
+        height: auto
+
+
+    aside
+      $size: 100px
+      +transition
+      +position(auto,0,0,0)
+      =place
+        +size($size)
+        bottom: 0px
+        right: 0px
+        display: inline-block
+        position: fixed
+      $height: 3.5em
+      display: block
+      position: fixed
+      z-index: 1
+
+      &.js-show
+        nav
+          transform: none
+
+        .checkbox
+          .hamburger
+            span
+              width:0%
+              @each $child,$time in ((1,0), (2,0.125), (3,0.25))
+                &:nth-child(#{$child})
+                  transition-delay: #{$time}s
+
+          .cross
+            span
+              &:nth-child(1)
+                height:80%
+                transition-delay: .625s
+
+              &:nth-child(2)
+                width:80%
+                transition-delay: .375s
+
+
+      nav
+        +transition
+        position: fixed
+        bottom: 0
+        width: 100%
+        transform: translateY(100%)
+
+        ul
+          flex-direction: column
+          align-items: center
+          margin: 0
+          padding: 2em
+          overflow: hidden
+          width: 100%
+          box-shadow: 0px -1px 3px #aaa
+          background: fade-out(white, 0.1)
+
+          li
+            font-size: 1.5em
+            padding: 0
+
+
+      .checkbox
+        $span-size: 6px
+        +place
+        cursor: pointer
+        z-index: 1
+
+        span
+          +transition
+          display: block
+          background: $gradient
+          border-radius: $span-size / 2
+
+        .hamburger
+          position: absolute
+          height: 100%
+          width: 100%
+
+          span
+            width: 60px
+            height: $span-size
+            position: relative
+            top: 24px
+            left: 20px
+            margin: 10px 0
+
+            @each $child,$time in ((1,0.5), (2,0.625), (3,0.75))
+              &:nth-child(#{$child})
+                transition-delay: #{$time}s
+
+        .cross
+          +size(100%)
+          position: absolute
+          transform: rotate(45deg)
+
+          span
+            &:nth-child(1)
+              +size($span-size, 0%)
+              position: absolute
+              top: 10%
+              left: 48px
+              transition-delay: 0s
+
+            &:nth-child(2)
+              +size(0%, $span-size)
+              position: absolute
+              left: 10%
+              top: 48px
+              transition-delay: .25s
+
+      input[type=checkbox]
+        +place
+        z-index: 3
+        opacity: 0
+        cursor: pointer

@@ -1,0 +1,91 @@
+---
+name: studio
+version: 0.1.0.0
+github: "winston-trey-wilkinson/studio"
+license: BSD3
+author: "Winston Wilkinson"
+maintainer: "winston.trey.wilkinson@gmail.com"
+category: Web
+description: <https://github.com/githubuser/beats#readme>
+
+default-extensions:
+  - DataKinds
+  - DeriveGeneric
+  - FlexibleInstances
+  - GeneralizedNewtypeDeriving
+  - KindSignatures
+  - LambdaCase
+  - MultiParamTypeClasses
+  - OverloadedStrings
+  - TypeApplications
+  - TypeOperators
+  - GADTs
+  - TypeFamilies
+  - BangPatterns
+  - NamedFieldPuns
+  # RecordWildCards
+
+dependencies:
+  - relude
+  - base-noprelude
+
+library:
+  source-dirs: src
+  dependencies:
+    # General
+    - aeson
+    - monad-logger
+    - mtl
+    - transformers
+    - lens
+    - text
+    - bytestring
+    - template-haskell
+    - ghc-prim
+    - case-insensitive
+    - natural-transformation
+
+    # Frontend
+    - servant-elm
+    - elm-bridge
+
+    # Server
+    - http-client
+    - http-media
+    - http-types
+    - servant
+    - servant-client
+    - servant-options
+    - servant-server
+    - servant-auth-server
+    - wai
+    - wai-cors
+    - warp
+    - warp-tls
+
+    # Database
+    - cryptonite
+    - bcrypt
+    - memory
+    - utf8-string
+    - ekg
+    - persistent
+    - persistent-postgresql
+    - persistent-template
+    - postgresql-simple
+    - resource-pool
+
+    # Security
+    - cookie
+
+executables:
+  studio-exe:
+    main: Main.hs
+    source-dirs: app
+    ghc-options:
+      # - -threaded
+      - -rtsopts
+      - -with-rtsopts=-N
+
+    dependencies:
+      - studio

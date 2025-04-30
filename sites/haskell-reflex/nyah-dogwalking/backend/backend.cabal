@@ -1,0 +1,57 @@
+cabal-version:       >=2.0
+name:                backend
+version:             0.1.0.0
+author:              Winston Trey Wilkinson
+maintainer:          winston.trey.wilkinson@gmail.com
+build-type:          Simple
+
+-- dependencies:
+--   - base-noprelude
+
+
+executable backend
+  main-is:             Main.hs
+
+  build-depends:
+       base
+        -- base-noprelude
+      -- , relude
+      , aeson
+      , common
+      , cookie
+      , cryptonite
+      , http-types
+      , lens
+      , monad-logger
+      , mtl
+      , natural-transformation
+      , reflex-dom
+      , resource-pool
+      , text
+      , time
+      , selda
+      , selda-sqlite
+      , selda-postgresql
+      , servant
+      , servant-server
+      , wai
+      , wai-extra
+      , wai-cors
+      , warp
+      , warp-tls
+      -- , wai-extra
+  default-language:    Haskell2010
+  default-extensions:
+      NoImplicitPrelude
+    , OverloadedStrings
+    , DeriveGeneric
+    , DisambiguateRecordFields
+    , ExplicitForAll
+    , GeneralizedNewtypeDeriving
+    , LambdaCase
+    , TypeApplications
+    , TypeFamilies
+    , TypeOperators
+    , PartialTypeSignatures
+    , FlexibleContexts
+    , DataKinds

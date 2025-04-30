@@ -1,0 +1,866 @@
+/* Outside in */
+@import url(~sanitize.css);
+[data-elm-hot=true] {
+  height: inherit;
+}
+
+/* Colors */
+@media (min-width: 0px) {
+  :root {
+    --font-size: 95%;
+    --font-weight: 8000;
+  }
+}
+@media (min-width: 500px) {
+  :root {
+    --font-size: 110%;
+    --font-weight: 8100;
+  }
+}
+@media (min-width: 1000px) {
+  :root {
+    --font-size: 110%;
+    --font-weight: 8100;
+  }
+}
+@media (min-width: 1500px) {
+  :root {
+    --font-size: 120%;
+    --font-weight: 8200;
+  }
+}
+
+header {
+  grid-area: header;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 0 1.5rem;
+  box-shadow: 0px 1px 3px #ccc;
+}
+@media (min-width: 1000px) {
+  header {
+    transform: translateY(-100%);
+    animation: 1s cubic-bezier(0.86, 0, 0.07, 1) header forwards;
+  }
+  @keyframes header {
+    0% {
+      transform: translateY(-100%);
+    }
+    100% {
+      transform: translateY(0);
+    }
+  }
+}
+header > a {
+  transition: all 0.45s cubic-bezier(0.86, 0, 0.07, 1);
+  position: relative;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  text-decoration: none;
+  width: auto;
+  height: 150px;
+  display: flex;
+  margin-right: auto;
+  padding: 1.5rem 0;
+}
+header > a::before, header > a::after {
+  content: "";
+  position: absolute;
+  transition: inherit;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: rebeccapurple;
+}
+header > a::before {
+  bottom: 0.1em;
+  transform: translateX(-101%);
+}
+header > a::after {
+  top: 0.1em;
+  transform: translateX(101%);
+}
+header > a:hover::before, header > a:hover::after {
+  transform: translateX(0);
+}
+header > a img {
+  height: 100%;
+  margin-right: 1.5rem;
+}
+header > a h1 {
+  height: 100%;
+  align-self: flex-start;
+  text-decoration: none;
+  margin: 0;
+  -webkit-text-fill-color: initial;
+  color: black;
+}
+header ul {
+  display: flex;
+}
+header ul li {
+  list-style: none;
+}
+header ul li a {
+  transition: all 0.45s cubic-bezier(0.86, 0, 0.07, 1);
+  position: relative;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  text-decoration: none;
+  font-size: 1.3em;
+}
+header ul li a::before, header ul li a::after {
+  content: "";
+  position: absolute;
+  transition: inherit;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: rebeccapurple;
+}
+header ul li a::before {
+  bottom: 0.1em;
+  transform: translateX(-101%);
+}
+header ul li a::after {
+  top: 0.1em;
+  transform: translateX(101%);
+}
+header ul li a:hover::before, header ul li a:hover::after {
+  transform: translateX(0);
+}
+header ul li ~ li {
+  padding-left: 1.5rem;
+}
+header aside {
+  display: none;
+}
+@media screen and (max-width: 1000px) {
+  header > nav {
+    display: none;
+  }
+  header > a {
+    flex-direction: column;
+    justify-content: center;
+    align-items: stretch;
+    width: 100%;
+    height: 100%;
+  }
+  header > a img {
+    height: 120px;
+    margin: 0 0 1.5rem 0;
+  }
+  header > a h1 {
+    width: 100%;
+    height: auto;
+  }
+  header aside {
+    transition: all 0.45s cubic-bezier(0.86, 0, 0.07, 1);
+    content: "";
+    position: absolute;
+    top: auto;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    display: block;
+    position: fixed;
+    z-index: 1;
+  }
+  header aside.js-show nav {
+    transform: none;
+  }
+  header aside.js-show .checkbox .hamburger span {
+    width: 0%;
+  }
+  header aside.js-show .checkbox .hamburger span:nth-child(1) {
+    transition-delay: 0s;
+  }
+  header aside.js-show .checkbox .hamburger span:nth-child(2) {
+    transition-delay: 0.125s;
+  }
+  header aside.js-show .checkbox .hamburger span:nth-child(3) {
+    transition-delay: 0.25s;
+  }
+  header aside.js-show .checkbox .cross span:nth-child(1) {
+    height: 80%;
+    transition-delay: 0.625s;
+  }
+  header aside.js-show .checkbox .cross span:nth-child(2) {
+    width: 80%;
+    transition-delay: 0.375s;
+  }
+  header aside nav {
+    transition: all 0.45s cubic-bezier(0.86, 0, 0.07, 1);
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    transform: translateY(100%);
+  }
+  header aside nav ul {
+    flex-direction: column;
+    align-items: center;
+    margin: 0;
+    padding: 2em;
+    overflow: hidden;
+    width: 100%;
+    box-shadow: 0px -1px 3px #aaa;
+    background: rgba(255, 255, 255, 0.9);
+  }
+  header aside nav ul li {
+    font-size: 1.5em;
+    padding: 0;
+  }
+  header aside .checkbox {
+    width: 100px;
+    height: 100px;
+    bottom: 0px;
+    right: 0px;
+    display: inline-block;
+    position: fixed;
+    cursor: pointer;
+    z-index: 1;
+  }
+  header aside .checkbox span {
+    transition: all 0.45s cubic-bezier(0.86, 0, 0.07, 1);
+    display: block;
+    background: -webkit-linear-gradient(45deg, red, rebeccapurple);
+    border-radius: 3px;
+  }
+  header aside .checkbox .hamburger {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+  }
+  header aside .checkbox .hamburger span {
+    width: 60px;
+    height: 6px;
+    position: relative;
+    top: 24px;
+    left: 20px;
+    margin: 10px 0;
+  }
+  header aside .checkbox .hamburger span:nth-child(1) {
+    transition-delay: 0.5s;
+  }
+  header aside .checkbox .hamburger span:nth-child(2) {
+    transition-delay: 0.625s;
+  }
+  header aside .checkbox .hamburger span:nth-child(3) {
+    transition-delay: 0.75s;
+  }
+  header aside .checkbox .cross {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    transform: rotate(45deg);
+  }
+  header aside .checkbox .cross span:nth-child(1) {
+    width: 6px;
+    height: 0%;
+    position: absolute;
+    top: 10%;
+    left: 48px;
+    transition-delay: 0s;
+  }
+  header aside .checkbox .cross span:nth-child(2) {
+    width: 0%;
+    height: 6px;
+    position: absolute;
+    left: 10%;
+    top: 48px;
+    transition-delay: 0.25s;
+  }
+  header aside input[type=checkbox] {
+    width: 100px;
+    height: 100px;
+    bottom: 0px;
+    right: 0px;
+    display: inline-block;
+    position: fixed;
+    z-index: 3;
+    opacity: 0;
+    cursor: pointer;
+  }
+}
+
+#footer {
+  grid-area: footer;
+  box-shadow: 0px -1px 3px #ccc;
+}
+#footer h1 {
+  display: flex;
+  align-items: center;
+}
+#footer h1 a {
+  transition: all 0.45s cubic-bezier(0.86, 0, 0.07, 1);
+  position: relative;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  text-decoration: none;
+}
+#footer h1 a::before, #footer h1 a::after {
+  content: "";
+  position: absolute;
+  transition: inherit;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: rebeccapurple;
+}
+#footer h1 a::before {
+  bottom: 0.1em;
+  transform: translateX(-101%);
+}
+#footer h1 a::after {
+  top: 0.1em;
+  transform: translateX(101%);
+}
+#footer h1 a:hover::before, #footer h1 a:hover::after {
+  transform: translateX(0);
+}
+#footer h3 {
+  text-align: center;
+}
+#footer ul {
+  padding: 0;
+}
+#footer ul li {
+  list-style: none;
+}
+#footer ul li a {
+  transition: all 0.45s cubic-bezier(0.86, 0, 0.07, 1);
+  position: relative;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  text-decoration: none;
+  text-decoration: none;
+}
+#footer ul li a::before, #footer ul li a::after {
+  content: "";
+  position: absolute;
+  transition: inherit;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: rebeccapurple;
+}
+#footer ul li a::before {
+  bottom: 0.1em;
+  transform: translateX(-101%);
+}
+#footer ul li a::after {
+  top: 0.1em;
+  transform: translateX(101%);
+}
+#footer ul li a:hover::before, #footer ul li a:hover::after {
+  transform: translateX(0);
+}
+#footer ul li a:hover strong::before, #footer ul li a:hover strong::after {
+  transform: translateX(0);
+}
+#footer ul li a strong {
+  display: inline-block;
+  background: -webkit-linear-gradient(45deg, red, rebeccapurple);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+#footer ul li a span {
+  -webkit-text-fill-color: initial;
+  color: rebeccapurple;
+}
+@media (max-width: 1000px) {
+  #footer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  #footer ul {
+    grid-area: left;
+  }
+  #footer ul li {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    pointer: cusor;
+  }
+  #footer ul li a {
+    margin: 0.75rem 0;
+  }
+}
+@media (min-width: 1000px) {
+  #footer {
+    display: grid;
+    grid-template: auto/auto 1fr;
+    padding: 1.5rem;
+  }
+  #footer .social-media {
+    grid-area: 1/2/1/3;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  #footer .social-media ul {
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+  }
+  #footer .social-media ul li {
+    height: 100%;
+  }
+  #footer .social-media ul li a {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 100%;
+  }
+}
+
+#home {
+  /* #intro */
+}
+#home #explore {
+  position: relative;
+  height: 20em;
+  padding: 1.5rem;
+}
+#home #explore p {
+  position: relative;
+  top: 50%;
+  transform: translateY(-50%);
+  margin: 0;
+  color: white;
+  font-size: 2em;
+}
+#home #explore a {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  overflow: hidden;
+}
+#home #explore a::before {
+  transition: all 1s cubic-bezier(0.86, 0, 0.07, 1);
+  content: "";
+  position: absolute;
+  top: -5px;
+  right: -5px;
+  bottom: -5px;
+  left: -5px;
+  filter: blur(3px);
+  background: center;
+  background-image: url("https://www.clearlakerecordingstudios.com/wp-content/uploads/2019/05/console-side-2.jpg");
+  background-size: 100%;
+  z-index: -1;
+}
+#home #explore a:hover::before {
+  background-size: 130%;
+}
+#home #videos .video {
+  overflow: hidden;
+  padding-bottom: 56.25%;
+  position: relative;
+  height: 0;
+}
+#home #videos .video iframe {
+  width: 100%;
+  height: 100%;
+  left: 0;
+  top: 0;
+  position: absolute;
+}
+#home #projects {
+  position: relative;
+}
+#home #projects .projects {
+  display: grid;
+  grid-template: repeat(auto-fill, 16em)/repeat(auto-fill, minmax(10em, 16em));
+  place-items: center;
+  place-content: space-evenly;
+  grid-gap: 1.5rem;
+}
+#home #projects .projects figure {
+  position: relative;
+  width: 100%;
+  transform-style: preserve-3d;
+}
+#home #projects .projects figure img {
+  width: 100%;
+}
+#home #projects .projects figure figcaption {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  transform: translateY(-100%) translateZ(60px);
+  color: white;
+  text-align: center;
+}
+#home #testimonials .testimonials {
+  display: flex;
+  overflow-x: scroll;
+}
+#home #testimonials .testimonials blockquote {
+  min-width: 15em;
+  background-color: #ccc;
+  padding: 1em 2em;
+}
+#home #testimonials .testimonials blockquote footer::before {
+  content: "-";
+}
+
+#login {
+  grid-area: body;
+  position: relative;
+}
+#login.login #form-register {
+  display: none;
+}
+#login.register #form-login {
+  display: none;
+}
+#login h1 {
+  padding-bottom: 0;
+}
+#login .js-toggle-form {
+  display: inline-block;
+  padding-bottom: 1.5rem;
+}
+
+#contact ul li * {
+  vertical-align: middle;
+  transition: all 0.45s cubic-bezier(0.86, 0, 0.07, 1);
+  position: relative;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  text-decoration: none;
+}
+#contact ul li *::before, #contact ul li *::after {
+  content: "";
+  position: absolute;
+  transition: inherit;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: rebeccapurple;
+}
+#contact ul li *::before {
+  bottom: 0.1em;
+  transform: translateX(-101%);
+}
+#contact ul li *::after {
+  top: 0.1em;
+  transform: translateX(101%);
+}
+#contact ul li *:hover::before, #contact ul li *:hover::after {
+  transform: translateX(0);
+}
+
+@font-face {
+  font-family: "Spartan";
+  src: url("../public/fonts/Spartan-VF.ttf");
+}
+html, body {
+  height: 100%;
+}
+
+html {
+  box-sizing: border-box;
+  line-height: 1.5rem;
+  font-family: "Spartan";
+  font-size: var(--font-size);
+  font-variation-settings: "wght" 500;
+}
+html h1, html h2, html h3, html h4, html h5, html h6, html strong {
+  font-variation-settings: "wght" var(--font-weight);
+}
+
+body {
+  display: grid;
+  grid-template: "header header header" auto ". body ." 1fr "footer footer footer" auto/1fr minmax(0, 80em) 1fr;
+}
+
+h1 {
+  font-size: 3em;
+}
+
+h2 {
+  font-size: 1.875em;
+}
+
+h3 {
+  font-size: 1.171875em;
+}
+
+h4 {
+  font-size: 0.732421875em;
+}
+
+h5 {
+  font-size: 0.4577636719em;
+}
+
+h6 {
+  font-size: 0.2861022949em;
+}
+
+main {
+  grid-area: body;
+  padding: 1.5rem;
+  margin: 3rem 0;
+}
+main > section {
+  margin-bottom: 4.5rem;
+}
+main h1, main h2, main h3, main h4, main h5, main h6 {
+  padding: 1.5rem 0;
+  margin: 0;
+  line-height: 2;
+}
+
+ul {
+  padding: 0;
+}
+
+a {
+  cursor: pointer;
+  line-height: 2;
+  display: inline-block;
+  text-align: center;
+  vertical-align: top;
+  background: -webkit-linear-gradient(45deg, red, rebeccapurple);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+button {
+  transition: all 0.45s cubic-bezier(0.86, 0, 0.07, 1);
+  position: relative;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  text-decoration: none;
+  border: none;
+  border-radius: 3px;
+  background: -webkit-linear-gradient(45deg, red, rebeccapurple);
+  text-transform: captitalize;
+  color: white;
+  line-height: 3;
+  padding: 0 1.5rem;
+  font-size: 1.4em;
+}
+button::before, button::after {
+  content: "";
+  position: absolute;
+  transition: inherit;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: white;
+}
+button::before {
+  bottom: 8px;
+  transform: translateX(-101%);
+}
+button::after {
+  top: 8px;
+  transform: translateX(101%);
+}
+button:hover::before, button:hover::after {
+  transform: translateX(0);
+}
+
+input[type=checkbox] {
+  display: inline-block;
+  bottom: 45px;
+  right: 5px;
+}
+input[type=checkbox] ~ span::before {
+  display: inline-block;
+  content: "";
+  border: 3px solid rebeccapurple;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+form .field {
+  position: relative;
+}
+form .field input[type=text], form .field input[type=password] {
+  width: 20em;
+  max-width: 100vw;
+  padding: 0 1.5rem;
+  line-height: 3;
+  outline: none;
+  border: 0px solid;
+  border-bottom: 3px solid #ccc;
+  border-radius: 3px 3px 0 0;
+  background-color: #eee;
+  font-size: 1.3em;
+}
+form .field input[type=text]:focus, form .field input[type=password]:focus {
+  background-color: #ccc;
+}
+form .field input[type=text]:focus ~ label, form .field input[type=text]:not(:focus):valid ~ label, form .field input[type=password]:focus ~ label, form .field input[type=password]:not(:focus):valid ~ label {
+  top: 4px;
+  background: -webkit-linear-gradient(45deg, red, rebeccapurple);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-size: 0.6em;
+}
+form .field input[type=text]:focus ~ span::after, form .field input[type=password]:focus ~ span::after {
+  left: 0;
+  right: 0;
+}
+form .field label {
+  transition: all 0.45s cubic-bezier(0.86, 0, 0.07, 1);
+  position: absolute;
+  pointer-events: none;
+  left: 1.5rem;
+  top: 1.3em;
+}
+form .field span::after {
+  transition: all 0.45s cubic-bezier(0.86, 0, 0.07, 1);
+  content: "";
+  display: block;
+  left: 50%;
+  right: 50%;
+  position: absolute;
+  height: 3px;
+  transform: translateY(-3px);
+  background: -webkit-linear-gradient(45deg, red, rebeccapurple);
+}
+form button {
+  margin-top: 1.5rem;
+}
+
+body > div {
+  display: none !important;
+}
+
+#request #clock .container {
+  width: 680px;
+  margin: 0 auto;
+}
+#request #clock .elm-datepicker--container {
+  position: relative;
+}
+#request #clock .elm-datepicker--input:focus {
+  outline: 0;
+}
+#request #clock .elm-datepicker--picker {
+  position: absolute;
+  border: 1px solid #CCC;
+  z-index: 10;
+  background-color: white;
+}
+#request #clock .elm-datepicker--picker-header,
+#request #clock .elm-datepicker--weekdays {
+  background: #F2F2F2;
+}
+#request #clock .elm-datepicker--picker-header {
+  display: flex;
+  align-items: center;
+}
+#request #clock .elm-datepicker--prev-container,
+#request #clock .elm-datepicker--next-container {
+  flex: 0 1 auto;
+  cursor: pointer;
+}
+#request #clock .elm-datepicker--month-container {
+  flex: 1 1 auto;
+  padding: 0.5em;
+  display: flex;
+  flex-direction: column;
+}
+#request #clock .elm-datepicker--month,
+#request #clock .elm-datepicker--year {
+  flex: 1 1 auto;
+  cursor: default;
+  text-align: center;
+}
+#request #clock .elm-datepicker--year {
+  font-size: 0.6em;
+  font-weight: 700;
+}
+#request #clock .elm-datepicker--prev,
+#request #clock .elm-datepicker--next {
+  border: 6px solid transparent;
+  background-color: inherit;
+  display: block;
+  width: 0;
+  height: 0;
+  padding: 0 0.2em;
+}
+#request #clock .elm-datepicker--prev {
+  border-right-color: #AAA;
+}
+#request #clock .elm-datepicker--prev .elm-datepicker--prev:hover {
+  border-right-color: #BBB;
+}
+#request #clock .elm-datepicker--next {
+  border-left-color: #AAA;
+}
+#request #clock .elm-datepicker--next .elm-datepicker--next:hover {
+  border-left-color: #BBB;
+}
+#request #clock .elm-datepicker--table {
+  border-spacing: 0;
+  border-collapse: collapse;
+  font-size: 0.8em;
+}
+#request #clock .elm-datepicker--table .elm-datepicker--table td {
+  width: 2em;
+  height: 2em;
+  text-align: center;
+}
+#request #clock .elm-datepicker--row {
+  border-top: 1px solid #F2F2F2;
+}
+#request #clock .elm-datepicker--dow {
+  border-bottom: 1px solid #CCC;
+  cursor: default;
+}
+#request #clock .elm-datepicker--day {
+  cursor: pointer;
+}
+#request #clock .elm-datepicker--day .elm-datepicker--day:hover {
+  background: #F2F2F2;
+}
+#request #clock .elm-datepicker--disabled {
+  cursor: default;
+  color: #DDD;
+}
+#request #clock .elm-datepicker--disabled .elm-datepicker--disabled:hover {
+  background: inherit;
+}
+#request #clock .elm-datepicker--picked {
+  color: white;
+  background: darkblue;
+}
+#request #clock .elm-datepicker--picked .elm-datepicker--picked:hover {
+  background: darkblue;
+}
+#request #clock .elm-datepicker--today {
+  font-weight: bold;
+}
+#request #clock .elm-datepicker--other-month {
+  color: #AAA;
+}
+#request #clock .elm-datepicker--other-month .elm-datepicker--other-month.elm-datepicker--disabled {
+  color: #EEE;
+}
+#request #clock .elm-datepicker--other-month .elm-datepicker--other-month.elm-datepicker--picked {
+  color: white;
+}
+
+/*# sourceMappingURL=main.css.map */

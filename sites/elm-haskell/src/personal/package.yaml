@@ -1,0 +1,55 @@
+name: personal
+version: 0.1.0.0
+github: "githubuser/personal"
+license: BSD3
+author: "Author name here"
+maintainer: "example@example.com"
+copyright: "2020 Author name here"
+category: Web
+description: <https://github.com/githubuser/personal#readme>
+
+dependencies:
+  - base-noprelude
+  - relude
+  # base >= 4.7 && < 5
+
+ghc-options: -Wincomplete-uni-patterns
+  -Wincomplete-record-updates
+  -Wcompat
+  -Widentities
+  -Wredundant-constraints
+  -fhide-source-paths
+  -Wpartial-fields
+
+default-extensions:
+  - ExplicitForAll
+  - TypeApplications
+
+library:
+  source-dirs: src
+  dependencies:
+    # General
+    - text
+    - bytestring
+    - mtl
+    - lens
+    # Frontend
+    - servant-elm
+    - elm-bridge
+    # Server
+    - servant
+    - servant-server
+    # Database
+    - postgresql-simple
+    - resource-pool
+
+executables:
+  personal-exe:
+    main: Main.hs
+    source-dirs: app
+    ghc-options:
+      - -threaded
+      - -rtsopts
+      - -with-rtsopts=-N
+    dependencies:
+      - personal

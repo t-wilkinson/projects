@@ -1,0 +1,52 @@
+{
+  "routes": [
+    {
+      "method": "GET",
+      "path": "/non-operational-dates",
+      "handler": "non-operational-dates.find",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/non-operational-dates/count",
+      "handler": "non-operational-dates.count",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/non-operational-dates/:id",
+      "handler": "non-operational-dates.findOne",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/non-operational-dates",
+      "handler": "non-operational-dates.create",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "PUT",
+      "path": "/non-operational-dates/:id",
+      "handler": "non-operational-dates.update",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/non-operational-dates/:id",
+      "handler": "non-operational-dates.delete",
+      "config": {
+        "policies": []
+      }
+    }
+  ]
+}

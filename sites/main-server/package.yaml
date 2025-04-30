@@ -1,0 +1,135 @@
+name:                backend
+version:             0.1.0.1
+github:              "githubuser/backend"
+license:             BSD3
+author:              "Author name here"
+maintainer:          "example@example.com"
+copyright:           "2020 Author name here"
+
+default-extensions:
+- BlockArguments
+- DataKinds
+- DeriveAnyClass
+- DeriveGeneric
+- DerivingStrategies
+- DisambiguateRecordFields
+- DuplicateRecordFields
+- ExplicitForAll
+- FlexibleContexts
+- FlexibleInstances
+- GADTs
+- GeneralizedNewtypeDeriving
+- InstanceSigs
+- LambdaCase
+- MultiParamTypeClasses
+- NamedFieldPuns
+- NoImplicitPrelude
+- OverloadedStrings
+- PartialTypeSignatures
+- PatternSynonyms
+- PolyKinds
+- RankNTypes
+- RecordWildCards
+- RoleAnnotations
+- ScopedTypeVariables
+- TypeApplications
+- TypeFamilies
+- TypeOperators
+- TypeSynonymInstances
+- UnicodeSyntax
+- ViewPatterns
+- BangPatterns
+- RecursiveDo
+
+dependencies:
+- aeson
+- aeson-pretty
+- base >= 4.7 && < 5
+- base16-bytestring
+- bytestring
+- case-insensitive
+- containers
+- cookie
+- cryptonite
+- data-default
+- esqueleto
+- exceptions
+- fast-logger
+- hspec-wai
+- http-client
+- http-client-tls
+- http-conduit
+- http-types
+- lens
+- lens-aeson
+- megaparsec
+- memory
+- monad-logger
+- mtl
+- persistent
+- persistent-postgresql
+- persistent-template
+- regex-compat
+- resource-pool
+- servant
+- servant-foreign
+- servant-js
+- servant-server
+- split
+- template-haskell
+- text
+- time
+- transformers
+- validation
+- vector
+- wai
+- wai-cors
+- wai-extra
+- warp
+- warp-tls
+- uuid
+- base64-bytestring
+
+library:
+  source-dirs:
+    src
+
+executables:
+  server:
+    main: Main.hs
+    source-dirs: app
+    ghc-options:
+      - -Wall
+      - -threaded
+      - -rtsopts
+      - -with-rtsopts=-N
+      - -fno-warn-unused-binds
+      - -fno-warn-orphans
+      - -fno-warn-unused-matches
+    dependencies:
+      - backend
+
+# tests:
+#   main-test:
+#     main:                Main.hs
+#     source-dirs:         test
+#     ghc-options:
+#       - -threaded
+#       - -rtsopts
+#       - -with-rtsopts=-N
+#     dependencies:
+#       - Cabal
+#       - QuickCheck
+#       - backend
+#       - base-compat-batteries
+#       - containers
+#       - criterion
+#       - hspec
+#       - hspec-wai
+#       - http-client
+#       - http-types
+#       - servant-client
+#       - unordered-containers
+#       - wai
+#       - warp
+#       - servant

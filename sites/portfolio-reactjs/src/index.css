@@ -1,0 +1,23 @@
+html {
+  scroll-behavior: smooth;
+}
+
+@font-face {
+	font-family: 'Roboto';
+}
+
+body {
+  margin: 0;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* * { */
+/*   font-family: 'Roboto', sans-serif; */
+/* } */
+
+button {
+  background: none;
+  border: none;
+  cursor: pointer;
+}

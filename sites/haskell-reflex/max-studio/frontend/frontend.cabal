@@ -1,0 +1,33 @@
+cabal-version:       >=1.10
+name:                frontend
+version:             0.1.0.0
+maintainer:          nationistrey@gmail.com
+build-type:          Simple
+
+executable frontend
+  main-is:             Main.hs
+  build-depends:
+          base
+        , common
+        , aeson
+        , containers
+        , text
+        , lens
+        , reflex
+        , reflex-dom
+        -- , jsaddle
+  -- if impl(ghcjs)
+  --     build-depends: ghcjs-base
+  default-language:    Haskell2010
+  default-extensions:
+      NoImplicitPrelude
+    , OverloadedStrings
+    , GeneralizedNewtypeDeriving
+    , TypeFamilies
+    , RecursiveDo
+    , PartialTypeSignatures
+    , MultiParamTypeClasses
+    , ScopedTypeVariables
+    , RankNTypes
+    , FlexibleContexts
+    , TypeApplications

@@ -1,0 +1,22 @@
+{
+  "kind": "singleType",
+  "collectionName": "settings",
+  "info": {
+    "name": "settings",
+    "description": ""
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "membership_price": {
+      "type": "decimal"
+    },
+    "rent_days_lookahead": {
+      "type": "integer",
+      "required": true
+    }
+  }
+}

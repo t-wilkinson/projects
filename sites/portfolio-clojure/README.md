@@ -1,0 +1,1 @@
+This is the result of me trying `Clojure` and `ClojureScript` to create a website, which I found a very pleasurable experience. Ultimately, however, I decided to instead learn JavaScript as it is a much more common required language.

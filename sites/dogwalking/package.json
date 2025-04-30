@@ -1,0 +1,60 @@
+{
+  "name": "nyah.w-dogwalking",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "@testing-library/jest-dom": "^4.2.4",
+    "@testing-library/react": "^9.5.0",
+    "@testing-library/user-event": "^7.2.1",
+    "@types/jest": "^24.9.1",
+    "@types/node": "^12.12.47",
+    "@types/react": "^16.9.41",
+    "@types/react-dom": "^16.9.8",
+    "@types/react-router-dom": "^5.1.5",
+    "eslint-plugin-react-hooks": "0.0.0-7f28234f8",
+    "googleapis": "^52.1.0",
+    "gsap": "file:gsap-bonus.tgz",
+    "immer": "^7.0.5",
+    "loadjs": "^4.2.0",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1",
+    "react-router-dom": "^5.2.0",
+    "react-scripts": "3.4.1",
+    "rxjs": "^6.6.0",
+    "rxjs-redux-store": "^1.1.0",
+    "typescript": "^3.9.6"
+  },
+  "scripts": {
+    "start": "BROWSER=none ; react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
+  },
+  "eslintConfig": {
+    "extends": "react-app",
+    "plugins": [
+      "react-hooks"
+    ],
+    "rules": {
+      "react-hooks/rules-of-hooks": "error",
+      "react-hooks/exhaustive-deps": "warn"
+    }
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "devDependencies": {
+    "redux-devtools": "^3.5.0",
+    "webpack": "^4.42.0",
+    "webpack-dev-server": "^3.10.3"
+  }
+}

@@ -1,0 +1,50 @@
+/* Vars */
+  :root {
+    --pri: #000;
+    --sec: #fff;
+  }
+
+/* Checkbox */
+  .checkbox {
+      display: inline-flex;
+      cursor: pointer;
+      position: relative;
+  }
+
+  .checkbox > input {
+      height: 1rem;
+      width: 1rem;
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      -o-appearance: none;
+      appearance: none;
+      border: 1px solid var(--pri);
+      outline: none;
+      transition-duration: 0.3s;
+      background-color: var(--sec);
+      cursor: pointer;
+    }
+
+  .checkbox > input:checked {
+      border: 1px solid var(--pri);
+      background-color: var(--pri);
+  }
+
+  .checkbox > input:active {
+      border: 2px solid var(--pri);
+  }
+
+/* Plane Animation */
+  .sk-plane {
+    animation: sk-plane 1.2s infinite ease-in-out;
+  }
+
+  @keyframes sk-plane {
+    0% {
+      transform: perspective(120px) rotateX(0deg) rotateY(0deg);
+    } 50% {
+      transform: perspective(120px) rotateX(-180.1deg) rotateY(0deg);
+    } 100% {
+      transform: perspective(120px) rotateX(-180deg) rotateY(-179.9deg);
+    }
+  }

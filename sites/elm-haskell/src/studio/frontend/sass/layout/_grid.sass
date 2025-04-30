@@ -1,0 +1,9 @@
+body
+  display: grid
+  grid-template: "header header header" auto ". body ." auto "footer footer footer" auto / auto fit-content(1000px) auto
+  min-height: 100vh
+
+  &:after
+    height: 1000px
+    content: ""
+

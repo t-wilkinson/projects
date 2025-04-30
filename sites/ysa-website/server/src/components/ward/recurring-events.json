@@ -1,0 +1,54 @@
+{
+  "collectionName": "components_ward_recurring_events",
+  "info": {
+    "displayName": "Recurring Events",
+    "icon": "calendar-alt",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "name": {
+      "type": "string",
+      "required": true
+    },
+    "description": {
+      "type": "text"
+    },
+    "start": {
+      "type": "time",
+      "required": true
+    },
+    "end": {
+      "type": "time",
+      "required": true
+    },
+    "dayOfWeek": {
+      "type": "enumeration",
+      "enum": [
+        "sunday",
+        "monday",
+        "tuesday",
+        "wednesday",
+        "thursday",
+        "friday",
+        "saturday"
+      ],
+      "required": true
+    },
+    "location": {
+      "type": "string",
+      "required": false
+    },
+    "repeats": {
+      "type": "enumeration",
+      "enum": [
+        "weekly",
+        "firstOfMonth",
+        "firstAndThirdOfMonth",
+        "secondAndFourthOfMonth"
+      ],
+      "default": "weekly",
+      "required": true
+    }
+  }
+}

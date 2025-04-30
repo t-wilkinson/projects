@@ -1,0 +1,734 @@
+2020/05/10 23:46:25 [notice] 2505#2505: using the "epoll" event method
+2020/05/10 23:46:25 [notice] 2505#2505: using the "epoll" event method
+2020/05/10 23:46:25 [notice] 2505#2505: nginx/1.16.1
+2020/05/10 23:46:25 [notice] 2505#2505: nginx/1.16.1
+2020/05/10 23:46:25 [notice] 2505#2505: built by gcc 9.3.0 (GCC) 
+2020/05/10 23:46:25 [notice] 2505#2505: built by gcc 9.3.0 (GCC) 
+2020/05/10 23:46:25 [notice] 2505#2505: OS: Linux 5.6.10-arch1-1
+2020/05/10 23:46:25 [notice] 2505#2505: OS: Linux 5.6.10-arch1-1
+2020/05/10 23:46:25 [notice] 2505#2505: getrlimit(RLIMIT_NOFILE): 1024:524288
+2020/05/10 23:46:25 [notice] 2505#2505: getrlimit(RLIMIT_NOFILE): 1024:524288
+2020/05/10 23:46:25 [emerg] 2506#2506: open() "/nix/store/3gap020zyyyq1m30aflww9wg87df1f3d-nginx-1.16.1/logs/nginx.pid" failed (13: Permission denied)
+2020/05/10 23:46:25 [emerg] 2506#2506: open() "/nix/store/3gap020zyyyq1m30aflww9wg87df1f3d-nginx-1.16.1/logs/nginx.pid" failed (13: Permission denied)
+2020/05/10 23:46:25 [emerg] 2506#2506: open() "/nix/store/3gap020zyyyq1m30aflww9wg87df1f3d-nginx-1.16.1/logs/nginx.pid" failed (13: Permission denied)
+2020/05/10 23:47:08 [notice] 2588#2588: using the "epoll" event method
+2020/05/10 23:47:08 [notice] 2588#2588: using the "epoll" event method
+2020/05/10 23:47:08 [notice] 2588#2588: nginx/1.16.1
+2020/05/10 23:47:08 [notice] 2588#2588: nginx/1.16.1
+2020/05/10 23:47:08 [notice] 2588#2588: built by gcc 9.3.0 (GCC) 
+2020/05/10 23:47:08 [notice] 2588#2588: built by gcc 9.3.0 (GCC) 
+2020/05/10 23:47:08 [notice] 2588#2588: OS: Linux 5.6.10-arch1-1
+2020/05/10 23:47:08 [notice] 2588#2588: OS: Linux 5.6.10-arch1-1
+2020/05/10 23:47:08 [notice] 2588#2588: getrlimit(RLIMIT_NOFILE): 1024:524288
+2020/05/10 23:47:08 [notice] 2588#2588: getrlimit(RLIMIT_NOFILE): 1024:524288
+2020/05/10 23:47:08 [notice] 2589#2589: start worker processes
+2020/05/10 23:47:08 [notice] 2589#2589: start worker processes
+2020/05/10 23:47:08 [notice] 2589#2589: start worker process 2590
+2020/05/10 23:47:08 [notice] 2589#2589: start worker process 2590
+2020/05/10 23:48:18 [info] 2590#2590: *1 client 186.47.210.130 closed keepalive connection
+2020/05/10 23:49:34 [notice] 2589#2589: signal 15 (SIGTERM) received from 2779, exiting
+2020/05/10 23:49:34 [notice] 2589#2589: signal 15 (SIGTERM) received from 2779, exiting
+2020/05/10 23:49:34 [notice] 2590#2590: exiting
+2020/05/10 23:49:34 [notice] 2590#2590: exiting
+2020/05/10 23:49:34 [notice] 2589#2589: signal 14 (SIGALRM) received
+2020/05/10 23:49:34 [notice] 2589#2589: signal 14 (SIGALRM) received
+2020/05/10 23:49:34 [notice] 2590#2590: exit
+2020/05/10 23:49:34 [notice] 2589#2589: signal 14 (SIGALRM) received
+2020/05/10 23:49:34 [notice] 2589#2589: signal 14 (SIGALRM) received
+2020/05/10 23:49:34 [notice] 2589#2589: signal 17 (SIGCHLD) received from 2590
+2020/05/10 23:49:34 [notice] 2589#2589: signal 17 (SIGCHLD) received from 2590
+2020/05/10 23:49:34 [notice] 2589#2589: worker process 2590 exited with code 0
+2020/05/10 23:49:34 [notice] 2589#2589: worker process 2590 exited with code 0
+2020/05/10 23:49:34 [alert] 2589#2589: unlink() "/nix/store/3gap020zyyyq1m30aflww9wg87df1f3d-nginx-1.16.1/logs/nginx.pid" failed (13: Permission denied)
+2020/05/10 23:49:34 [alert] 2589#2589: unlink() "/nix/store/3gap020zyyyq1m30aflww9wg87df1f3d-nginx-1.16.1/logs/nginx.pid" failed (13: Permission denied)
+2020/05/10 23:49:34 [alert] 2589#2589: unlink() "/nix/store/3gap020zyyyq1m30aflww9wg87df1f3d-nginx-1.16.1/logs/nginx.pid" failed (13: Permission denied)
+2020/05/10 23:49:34 [notice] 2589#2589: exit
+2020/05/10 23:49:34 [notice] 2589#2589: exit
+2020/05/10 23:49:48 [notice] 2832#2832: using the "epoll" event method
+2020/05/10 23:49:48 [notice] 2832#2832: using the "epoll" event method
+2020/05/10 23:49:48 [notice] 2832#2832: nginx/1.16.1
+2020/05/10 23:49:48 [notice] 2832#2832: nginx/1.16.1
+2020/05/10 23:49:48 [notice] 2832#2832: built by gcc 9.3.0 (GCC) 
+2020/05/10 23:49:48 [notice] 2832#2832: built by gcc 9.3.0 (GCC) 
+2020/05/10 23:49:48 [notice] 2832#2832: OS: Linux 5.6.10-arch1-1
+2020/05/10 23:49:48 [notice] 2832#2832: OS: Linux 5.6.10-arch1-1
+2020/05/10 23:49:48 [notice] 2832#2832: getrlimit(RLIMIT_NOFILE): 1024:524288
+2020/05/10 23:49:48 [notice] 2832#2832: getrlimit(RLIMIT_NOFILE): 1024:524288
+2020/05/10 23:49:48 [notice] 2833#2833: start worker processes
+2020/05/10 23:49:48 [notice] 2833#2833: start worker processes
+2020/05/10 23:49:48 [notice] 2833#2833: start worker process 2834
+2020/05/10 23:49:48 [notice] 2833#2833: start worker process 2834
+2020/05/10 23:49:55 [notice] 2833#2833: signal 3 (SIGQUIT) received from 2836, shutting down
+2020/05/10 23:49:55 [notice] 2833#2833: signal 3 (SIGQUIT) received from 2836, shutting down
+2020/05/10 23:49:55 [notice] 2834#2834: gracefully shutting down
+2020/05/10 23:49:55 [notice] 2834#2834: gracefully shutting down
+2020/05/10 23:49:55 [notice] 2834#2834: exiting
+2020/05/10 23:49:55 [notice] 2834#2834: exiting
+2020/05/10 23:49:55 [notice] 2834#2834: exit
+2020/05/10 23:49:55 [notice] 2833#2833: signal 17 (SIGCHLD) received from 2834
+2020/05/10 23:49:55 [notice] 2833#2833: signal 17 (SIGCHLD) received from 2834
+2020/05/10 23:49:55 [notice] 2833#2833: worker process 2834 exited with code 0
+2020/05/10 23:49:55 [notice] 2833#2833: worker process 2834 exited with code 0
+2020/05/10 23:49:55 [alert] 2833#2833: unlink() "/nix/store/3gap020zyyyq1m30aflww9wg87df1f3d-nginx-1.16.1/logs/nginx.pid" failed (13: Permission denied)
+2020/05/10 23:49:55 [alert] 2833#2833: unlink() "/nix/store/3gap020zyyyq1m30aflww9wg87df1f3d-nginx-1.16.1/logs/nginx.pid" failed (13: Permission denied)
+2020/05/10 23:49:55 [alert] 2833#2833: unlink() "/nix/store/3gap020zyyyq1m30aflww9wg87df1f3d-nginx-1.16.1/logs/nginx.pid" failed (13: Permission denied)
+2020/05/10 23:49:55 [notice] 2833#2833: exit
+2020/05/10 23:49:55 [notice] 2833#2833: exit
+2020/05/11 00:49:49 [notice] 7123#7123: using the "epoll" event method
+2020/05/11 00:49:49 [notice] 7123#7123: using the "epoll" event method
+2020/05/11 00:49:49 [notice] 7123#7123: nginx/1.16.1
+2020/05/11 00:49:49 [notice] 7123#7123: nginx/1.16.1
+2020/05/11 00:49:49 [notice] 7123#7123: built by gcc 9.3.0 (GCC) 
+2020/05/11 00:49:49 [notice] 7123#7123: built by gcc 9.3.0 (GCC) 
+2020/05/11 00:49:49 [notice] 7123#7123: OS: Linux 5.6.10-arch1-1
+2020/05/11 00:49:49 [notice] 7123#7123: OS: Linux 5.6.10-arch1-1
+2020/05/11 00:49:49 [notice] 7123#7123: getrlimit(RLIMIT_NOFILE): 1024:524288
+2020/05/11 00:49:49 [notice] 7123#7123: getrlimit(RLIMIT_NOFILE): 1024:524288
+2020/05/11 00:49:49 [notice] 7124#7124: start worker processes
+2020/05/11 00:49:49 [notice] 7124#7124: start worker processes
+2020/05/11 00:49:49 [notice] 7124#7124: start worker process 7125
+2020/05/11 00:49:49 [notice] 7124#7124: start worker process 7125
+2020/05/11 00:50:16 [notice] 7125#7125: signal 15 (SIGTERM) received from 7192, exiting
+2020/05/11 00:50:16 [notice] 7124#7124: signal 15 (SIGTERM) received from 7192, exiting
+2020/05/11 00:50:16 [notice] 7125#7125: signal 15 (SIGTERM) received from 7192, exiting
+2020/05/11 00:50:16 [notice] 7124#7124: signal 15 (SIGTERM) received from 7192, exiting
+2020/05/11 00:50:16 [info] 7125#7125: epoll_wait() failed (4: Interrupted system call)
+2020/05/11 00:50:16 [notice] 7125#7125: exiting
+2020/05/11 00:50:16 [notice] 7125#7125: exiting
+2020/05/11 00:50:16 [notice] 7125#7125: exit
+2020/05/11 00:50:16 [notice] 7124#7124: signal 17 (SIGCHLD) received from 7125
+2020/05/11 00:50:16 [notice] 7124#7124: signal 17 (SIGCHLD) received from 7125
+2020/05/11 00:50:16 [notice] 7124#7124: worker process 7125 exited with code 0
+2020/05/11 00:50:16 [notice] 7124#7124: worker process 7125 exited with code 0
+2020/05/11 00:50:16 [alert] 7124#7124: unlink() "/nix/store/3gap020zyyyq1m30aflww9wg87df1f3d-nginx-1.16.1/logs/nginx.pid" failed (13: Permission denied)
+2020/05/11 00:50:16 [alert] 7124#7124: unlink() "/nix/store/3gap020zyyyq1m30aflww9wg87df1f3d-nginx-1.16.1/logs/nginx.pid" failed (13: Permission denied)
+2020/05/11 00:50:16 [alert] 7124#7124: unlink() "/nix/store/3gap020zyyyq1m30aflww9wg87df1f3d-nginx-1.16.1/logs/nginx.pid" failed (13: Permission denied)
+2020/05/11 00:50:16 [notice] 7124#7124: exit
+2020/05/11 00:50:16 [notice] 7124#7124: exit
+2020/05/11 01:22:01 [notice] 8062#8062: using the "epoll" event method
+2020/05/11 01:22:01 [notice] 8062#8062: using the "epoll" event method
+2020/05/11 01:22:01 [notice] 8062#8062: nginx/1.16.1
+2020/05/11 01:22:01 [notice] 8062#8062: nginx/1.16.1
+2020/05/11 01:22:01 [notice] 8062#8062: built by gcc 9.3.0 (GCC) 
+2020/05/11 01:22:01 [notice] 8062#8062: built by gcc 9.3.0 (GCC) 
+2020/05/11 01:22:01 [notice] 8062#8062: OS: Linux 5.6.10-arch1-1
+2020/05/11 01:22:01 [notice] 8062#8062: OS: Linux 5.6.10-arch1-1
+2020/05/11 01:22:01 [notice] 8062#8062: getrlimit(RLIMIT_NOFILE): 1024:524288
+2020/05/11 01:22:01 [notice] 8062#8062: getrlimit(RLIMIT_NOFILE): 1024:524288
+2020/05/11 01:22:01 [notice] 8063#8063: start worker processes
+2020/05/11 01:22:01 [notice] 8063#8063: start worker processes
+2020/05/11 01:22:01 [notice] 8063#8063: start worker process 8064
+2020/05/11 01:22:01 [notice] 8063#8063: start worker process 8064
+2020/05/11 01:22:14 [notice] 8064#8064: signal 15 (SIGTERM) received from 8080, exiting
+2020/05/11 01:22:14 [notice] 8063#8063: signal 15 (SIGTERM) received from 8080, exiting
+2020/05/11 01:22:14 [notice] 8064#8064: signal 15 (SIGTERM) received from 8080, exiting
+2020/05/11 01:22:14 [notice] 8063#8063: signal 15 (SIGTERM) received from 8080, exiting
+2020/05/11 01:22:14 [info] 8064#8064: epoll_wait() failed (4: Interrupted system call)
+2020/05/11 01:22:14 [notice] 8064#8064: exiting
+2020/05/11 01:22:14 [notice] 8064#8064: exiting
+2020/05/11 01:22:14 [notice] 8064#8064: exit
+2020/05/11 01:22:14 [notice] 8063#8063: signal 14 (SIGALRM) received
+2020/05/11 01:22:14 [notice] 8063#8063: signal 14 (SIGALRM) received
+2020/05/11 01:22:14 [notice] 8063#8063: signal 17 (SIGCHLD) received from 8064
+2020/05/11 01:22:14 [notice] 8063#8063: signal 17 (SIGCHLD) received from 8064
+2020/05/11 01:22:14 [notice] 8063#8063: worker process 8064 exited with code 0
+2020/05/11 01:22:14 [notice] 8063#8063: worker process 8064 exited with code 0
+2020/05/11 01:22:14 [alert] 8063#8063: unlink() "/nix/store/3gap020zyyyq1m30aflww9wg87df1f3d-nginx-1.16.1/logs/nginx.pid" failed (13: Permission denied)
+2020/05/11 01:22:14 [alert] 8063#8063: unlink() "/nix/store/3gap020zyyyq1m30aflww9wg87df1f3d-nginx-1.16.1/logs/nginx.pid" failed (13: Permission denied)
+2020/05/11 01:22:14 [alert] 8063#8063: unlink() "/nix/store/3gap020zyyyq1m30aflww9wg87df1f3d-nginx-1.16.1/logs/nginx.pid" failed (13: Permission denied)
+2020/05/11 01:22:14 [notice] 8063#8063: exit
+2020/05/11 01:22:14 [notice] 8063#8063: exit
+2020/05/11 08:39:49 [notice] 23229#23229: using the "epoll" event method
+2020/05/11 08:39:49 [notice] 23229#23229: using the "epoll" event method
+2020/05/11 08:39:49 [notice] 23229#23229: nginx/1.16.1
+2020/05/11 08:39:49 [notice] 23229#23229: nginx/1.16.1
+2020/05/11 08:39:49 [notice] 23229#23229: built by gcc 9.3.0 (GCC) 
+2020/05/11 08:39:49 [notice] 23229#23229: built by gcc 9.3.0 (GCC) 
+2020/05/11 08:39:49 [notice] 23229#23229: OS: Linux 5.6.10-arch1-1
+2020/05/11 08:39:49 [notice] 23229#23229: OS: Linux 5.6.10-arch1-1
+2020/05/11 08:39:49 [notice] 23229#23229: getrlimit(RLIMIT_NOFILE): 1024:524288
+2020/05/11 08:39:49 [notice] 23229#23229: getrlimit(RLIMIT_NOFILE): 1024:524288
+2020/05/11 08:39:49 [notice] 23230#23230: start worker processes
+2020/05/11 08:39:49 [notice] 23230#23230: start worker processes
+2020/05/11 08:39:49 [notice] 23230#23230: start worker process 23231
+2020/05/11 08:39:49 [notice] 23230#23230: start worker process 23231
+2020/05/11 08:40:09 [notice] 23231#23231: signal 15 (SIGTERM) received from 23257, exiting
+2020/05/11 08:40:09 [notice] 23230#23230: signal 15 (SIGTERM) received from 23257, exiting
+2020/05/11 08:40:09 [notice] 23231#23231: signal 15 (SIGTERM) received from 23257, exiting
+2020/05/11 08:40:09 [notice] 23230#23230: signal 15 (SIGTERM) received from 23257, exiting
+2020/05/11 08:40:09 [info] 23231#23231: epoll_wait() failed (4: Interrupted system call)
+2020/05/11 08:40:09 [notice] 23231#23231: exiting
+2020/05/11 08:40:09 [notice] 23231#23231: exiting
+2020/05/11 08:40:09 [notice] 23230#23230: signal 14 (SIGALRM) received
+2020/05/11 08:40:09 [notice] 23230#23230: signal 14 (SIGALRM) received
+2020/05/11 08:40:09 [notice] 23231#23231: exit
+2020/05/11 08:40:09 [notice] 23230#23230: signal 17 (SIGCHLD) received from 23231
+2020/05/11 08:40:09 [notice] 23230#23230: signal 17 (SIGCHLD) received from 23231
+2020/05/11 08:40:09 [notice] 23230#23230: worker process 23231 exited with code 0
+2020/05/11 08:40:09 [notice] 23230#23230: worker process 23231 exited with code 0
+2020/05/11 08:40:09 [alert] 23230#23230: unlink() "/nix/store/3gap020zyyyq1m30aflww9wg87df1f3d-nginx-1.16.1/logs/nginx.pid" failed (13: Permission denied)
+2020/05/11 08:40:09 [alert] 23230#23230: unlink() "/nix/store/3gap020zyyyq1m30aflww9wg87df1f3d-nginx-1.16.1/logs/nginx.pid" failed (13: Permission denied)
+2020/05/11 08:40:09 [alert] 23230#23230: unlink() "/nix/store/3gap020zyyyq1m30aflww9wg87df1f3d-nginx-1.16.1/logs/nginx.pid" failed (13: Permission denied)
+2020/05/11 08:40:09 [notice] 23230#23230: exit
+2020/05/11 08:40:09 [notice] 23230#23230: exit
+2020/05/11 09:00:33 [notice] 24427#24427: using the "epoll" event method
+2020/05/11 09:00:33 [notice] 24427#24427: using the "epoll" event method
+2020/05/11 09:00:33 [notice] 24427#24427: nginx/1.16.1
+2020/05/11 09:00:33 [notice] 24427#24427: nginx/1.16.1
+2020/05/11 09:00:33 [notice] 24427#24427: built by gcc 9.3.0 (GCC) 
+2020/05/11 09:00:33 [notice] 24427#24427: built by gcc 9.3.0 (GCC) 
+2020/05/11 09:00:33 [notice] 24427#24427: OS: Linux 5.6.10-arch1-1
+2020/05/11 09:00:33 [notice] 24427#24427: OS: Linux 5.6.10-arch1-1
+2020/05/11 09:00:33 [notice] 24427#24427: getrlimit(RLIMIT_NOFILE): 1024:524288
+2020/05/11 09:00:33 [notice] 24427#24427: getrlimit(RLIMIT_NOFILE): 1024:524288
+2020/05/11 09:00:33 [notice] 24428#24428: start worker processes
+2020/05/11 09:00:33 [notice] 24428#24428: start worker processes
+2020/05/11 09:00:33 [notice] 24428#24428: start worker process 24429
+2020/05/11 09:00:33 [notice] 24428#24428: start worker process 24429
+2020/05/11 09:00:43 [notice] 24428#24428: signal 15 (SIGTERM) received from 24439, exiting
+2020/05/11 09:00:43 [notice] 24429#24429: signal 15 (SIGTERM) received from 24439, exiting
+2020/05/11 09:00:43 [notice] 24428#24428: signal 15 (SIGTERM) received from 24439, exiting
+2020/05/11 09:00:43 [notice] 24429#24429: signal 15 (SIGTERM) received from 24439, exiting
+2020/05/11 09:00:43 [info] 24429#24429: epoll_wait() failed (4: Interrupted system call)
+2020/05/11 09:00:43 [notice] 24429#24429: exiting
+2020/05/11 09:00:43 [notice] 24429#24429: exiting
+2020/05/11 09:00:43 [notice] 24429#24429: exit
+2020/05/11 09:00:43 [notice] 24428#24428: signal 14 (SIGALRM) received
+2020/05/11 09:00:43 [notice] 24428#24428: signal 14 (SIGALRM) received
+2020/05/11 09:00:43 [notice] 24428#24428: signal 17 (SIGCHLD) received from 24429
+2020/05/11 09:00:43 [notice] 24428#24428: signal 17 (SIGCHLD) received from 24429
+2020/05/11 09:00:43 [notice] 24428#24428: worker process 24429 exited with code 0
+2020/05/11 09:00:43 [notice] 24428#24428: worker process 24429 exited with code 0
+2020/05/11 09:00:43 [alert] 24428#24428: unlink() "/nix/store/3gap020zyyyq1m30aflww9wg87df1f3d-nginx-1.16.1/logs/nginx.pid" failed (13: Permission denied)
+2020/05/11 09:00:43 [alert] 24428#24428: unlink() "/nix/store/3gap020zyyyq1m30aflww9wg87df1f3d-nginx-1.16.1/logs/nginx.pid" failed (13: Permission denied)
+2020/05/11 09:00:43 [alert] 24428#24428: unlink() "/nix/store/3gap020zyyyq1m30aflww9wg87df1f3d-nginx-1.16.1/logs/nginx.pid" failed (13: Permission denied)
+2020/05/11 09:00:43 [notice] 24428#24428: exit
+2020/05/11 09:00:43 [notice] 24428#24428: exit
+2020/05/11 09:02:27 [notice] 24641#24641: using the "epoll" event method
+2020/05/11 09:02:27 [notice] 24641#24641: using the "epoll" event method
+2020/05/11 09:02:27 [notice] 24641#24641: nginx/1.16.1
+2020/05/11 09:02:27 [notice] 24641#24641: nginx/1.16.1
+2020/05/11 09:02:27 [notice] 24641#24641: built by gcc 9.3.0 (GCC) 
+2020/05/11 09:02:27 [notice] 24641#24641: built by gcc 9.3.0 (GCC) 
+2020/05/11 09:02:27 [notice] 24641#24641: OS: Linux 5.6.10-arch1-1
+2020/05/11 09:02:27 [notice] 24641#24641: OS: Linux 5.6.10-arch1-1
+2020/05/11 09:02:27 [notice] 24641#24641: getrlimit(RLIMIT_NOFILE): 1024:524288
+2020/05/11 09:02:27 [notice] 24641#24641: getrlimit(RLIMIT_NOFILE): 1024:524288
+2020/05/11 09:02:27 [notice] 24642#24642: start worker processes
+2020/05/11 09:02:27 [notice] 24642#24642: start worker processes
+2020/05/11 09:02:27 [notice] 24642#24642: start worker process 24643
+2020/05/11 09:02:27 [notice] 24642#24642: start worker process 24643
+2020/05/11 09:03:08 [notice] 24643#24643: signal 15 (SIGTERM) received from 24662, exiting
+2020/05/11 09:03:08 [notice] 24642#24642: signal 15 (SIGTERM) received from 24662, exiting
+2020/05/11 09:03:08 [notice] 24643#24643: signal 15 (SIGTERM) received from 24662, exiting
+2020/05/11 09:03:08 [notice] 24642#24642: signal 15 (SIGTERM) received from 24662, exiting
+2020/05/11 09:03:08 [info] 24643#24643: epoll_wait() failed (4: Interrupted system call)
+2020/05/11 09:03:08 [notice] 24643#24643: exiting
+2020/05/11 09:03:08 [notice] 24643#24643: exiting
+2020/05/11 09:03:08 [notice] 24643#24643: exit
+2020/05/11 09:03:08 [notice] 24642#24642: signal 17 (SIGCHLD) received from 24643
+2020/05/11 09:03:08 [notice] 24642#24642: signal 17 (SIGCHLD) received from 24643
+2020/05/11 09:03:08 [notice] 24642#24642: worker process 24643 exited with code 0
+2020/05/11 09:03:08 [notice] 24642#24642: worker process 24643 exited with code 0
+2020/05/11 09:03:08 [alert] 24642#24642: unlink() "/nix/store/3gap020zyyyq1m30aflww9wg87df1f3d-nginx-1.16.1/logs/nginx.pid" failed (13: Permission denied)
+2020/05/11 09:03:08 [alert] 24642#24642: unlink() "/nix/store/3gap020zyyyq1m30aflww9wg87df1f3d-nginx-1.16.1/logs/nginx.pid" failed (13: Permission denied)
+2020/05/11 09:03:08 [alert] 24642#24642: unlink() "/nix/store/3gap020zyyyq1m30aflww9wg87df1f3d-nginx-1.16.1/logs/nginx.pid" failed (13: Permission denied)
+2020/05/11 09:03:08 [notice] 24642#24642: exit
+2020/05/11 09:03:08 [notice] 24642#24642: exit
+2020/05/11 09:03:58 [notice] 24814#24814: using the "epoll" event method
+2020/05/11 09:03:58 [notice] 24814#24814: using the "epoll" event method
+2020/05/11 09:03:58 [notice] 24814#24814: nginx/1.16.1
+2020/05/11 09:03:58 [notice] 24814#24814: nginx/1.16.1
+2020/05/11 09:03:58 [notice] 24814#24814: built by gcc 9.3.0 (GCC) 
+2020/05/11 09:03:58 [notice] 24814#24814: built by gcc 9.3.0 (GCC) 
+2020/05/11 09:03:58 [notice] 24814#24814: OS: Linux 5.6.10-arch1-1
+2020/05/11 09:03:58 [notice] 24814#24814: OS: Linux 5.6.10-arch1-1
+2020/05/11 09:03:58 [notice] 24814#24814: getrlimit(RLIMIT_NOFILE): 1024:524288
+2020/05/11 09:03:58 [notice] 24814#24814: getrlimit(RLIMIT_NOFILE): 1024:524288
+2020/05/11 09:03:58 [notice] 24815#24815: start worker processes
+2020/05/11 09:03:58 [notice] 24815#24815: start worker processes
+2020/05/11 09:03:58 [notice] 24815#24815: start worker process 24816
+2020/05/11 09:03:58 [notice] 24815#24815: start worker process 24816
+2020/05/11 09:04:08 [notice] 24816#24816: signal 15 (SIGTERM) received from 24827, exiting
+2020/05/11 09:04:08 [notice] 24815#24815: signal 15 (SIGTERM) received from 24827, exiting
+2020/05/11 09:04:08 [notice] 24816#24816: signal 15 (SIGTERM) received from 24827, exiting
+2020/05/11 09:04:08 [notice] 24815#24815: signal 15 (SIGTERM) received from 24827, exiting
+2020/05/11 09:04:08 [info] 24816#24816: epoll_wait() failed (4: Interrupted system call)
+2020/05/11 09:04:08 [notice] 24816#24816: exiting
+2020/05/11 09:04:08 [notice] 24816#24816: exiting
+2020/05/11 09:04:08 [notice] 24816#24816: exit
+2020/05/11 09:04:08 [notice] 24815#24815: signal 17 (SIGCHLD) received from 24816
+2020/05/11 09:04:08 [notice] 24815#24815: signal 17 (SIGCHLD) received from 24816
+2020/05/11 09:04:08 [notice] 24815#24815: worker process 24816 exited with code 0
+2020/05/11 09:04:08 [notice] 24815#24815: worker process 24816 exited with code 0
+2020/05/11 09:04:08 [alert] 24815#24815: unlink() "/nix/store/3gap020zyyyq1m30aflww9wg87df1f3d-nginx-1.16.1/logs/nginx.pid" failed (13: Permission denied)
+2020/05/11 09:04:08 [alert] 24815#24815: unlink() "/nix/store/3gap020zyyyq1m30aflww9wg87df1f3d-nginx-1.16.1/logs/nginx.pid" failed (13: Permission denied)
+2020/05/11 09:04:08 [alert] 24815#24815: unlink() "/nix/store/3gap020zyyyq1m30aflww9wg87df1f3d-nginx-1.16.1/logs/nginx.pid" failed (13: Permission denied)
+2020/05/11 09:04:08 [notice] 24815#24815: exit
+2020/05/11 09:04:08 [notice] 24815#24815: exit
+2020/05/11 09:04:30 [notice] 24875#24875: using the "epoll" event method
+2020/05/11 09:04:30 [notice] 24875#24875: using the "epoll" event method
+2020/05/11 09:04:30 [notice] 24875#24875: nginx/1.16.1
+2020/05/11 09:04:30 [notice] 24875#24875: nginx/1.16.1
+2020/05/11 09:04:30 [notice] 24875#24875: built by gcc 9.3.0 (GCC) 
+2020/05/11 09:04:30 [notice] 24875#24875: built by gcc 9.3.0 (GCC) 
+2020/05/11 09:04:30 [notice] 24875#24875: OS: Linux 5.6.10-arch1-1
+2020/05/11 09:04:30 [notice] 24875#24875: OS: Linux 5.6.10-arch1-1
+2020/05/11 09:04:30 [notice] 24875#24875: getrlimit(RLIMIT_NOFILE): 1024:524288
+2020/05/11 09:04:30 [notice] 24875#24875: getrlimit(RLIMIT_NOFILE): 1024:524288
+2020/05/11 09:04:30 [notice] 24876#24876: start worker processes
+2020/05/11 09:04:30 [notice] 24876#24876: start worker processes
+2020/05/11 09:04:30 [notice] 24876#24876: start worker process 24877
+2020/05/11 09:04:30 [notice] 24876#24876: start worker process 24877
+2020/05/11 09:04:32 [notice] 24877#24877: signal 15 (SIGTERM) received from 24882, exiting
+2020/05/11 09:04:32 [notice] 24876#24876: signal 15 (SIGTERM) received from 24882, exiting
+2020/05/11 09:04:32 [notice] 24877#24877: signal 15 (SIGTERM) received from 24882, exiting
+2020/05/11 09:04:32 [notice] 24876#24876: signal 15 (SIGTERM) received from 24882, exiting
+2020/05/11 09:04:32 [info] 24877#24877: epoll_wait() failed (4: Interrupted system call)
+2020/05/11 09:04:32 [notice] 24877#24877: exiting
+2020/05/11 09:04:32 [notice] 24877#24877: exiting
+2020/05/11 09:04:32 [notice] 24877#24877: exit
+2020/05/11 09:04:33 [notice] 24876#24876: signal 17 (SIGCHLD) received from 24877
+2020/05/11 09:04:33 [notice] 24876#24876: signal 17 (SIGCHLD) received from 24877
+2020/05/11 09:04:33 [notice] 24876#24876: worker process 24877 exited with code 0
+2020/05/11 09:04:33 [notice] 24876#24876: worker process 24877 exited with code 0
+2020/05/11 09:04:33 [alert] 24876#24876: unlink() "/nix/store/3gap020zyyyq1m30aflww9wg87df1f3d-nginx-1.16.1/logs/nginx.pid" failed (13: Permission denied)
+2020/05/11 09:04:33 [alert] 24876#24876: unlink() "/nix/store/3gap020zyyyq1m30aflww9wg87df1f3d-nginx-1.16.1/logs/nginx.pid" failed (13: Permission denied)
+2020/05/11 09:04:33 [alert] 24876#24876: unlink() "/nix/store/3gap020zyyyq1m30aflww9wg87df1f3d-nginx-1.16.1/logs/nginx.pid" failed (13: Permission denied)
+2020/05/11 09:04:33 [notice] 24876#24876: exit
+2020/05/11 09:04:33 [notice] 24876#24876: exit
+2020/05/11 11:33:19 [notice] 28995#28995: using the "epoll" event method
+2020/05/11 11:33:19 [notice] 28995#28995: using the "epoll" event method
+2020/05/11 11:33:19 [notice] 28995#28995: nginx/1.16.1
+2020/05/11 11:33:19 [notice] 28995#28995: nginx/1.16.1
+2020/05/11 11:33:19 [notice] 28995#28995: built by gcc 9.3.0 (GCC) 
+2020/05/11 11:33:19 [notice] 28995#28995: built by gcc 9.3.0 (GCC) 
+2020/05/11 11:33:19 [notice] 28995#28995: OS: Linux 5.6.10-arch1-1
+2020/05/11 11:33:19 [notice] 28995#28995: OS: Linux 5.6.10-arch1-1
+2020/05/11 11:33:19 [notice] 28995#28995: getrlimit(RLIMIT_NOFILE): 1024:524288
+2020/05/11 11:33:19 [notice] 28995#28995: getrlimit(RLIMIT_NOFILE): 1024:524288
+2020/05/11 11:33:19 [notice] 28996#28996: start worker processes
+2020/05/11 11:33:19 [notice] 28996#28996: start worker processes
+2020/05/11 11:33:19 [notice] 28996#28996: start worker process 28997
+2020/05/11 11:33:19 [notice] 28996#28996: start worker process 28997
+2020/05/11 11:33:52 [emerg] 29268#29268: bind() to 0.0.0.0:8080 failed (98: Address already in use)
+2020/05/11 11:33:52 [emerg] 29268#29268: bind() to 0.0.0.0:8080 failed (98: Address already in use)
+2020/05/11 11:33:52 [emerg] 29268#29268: bind() to 0.0.0.0:8080 failed (98: Address already in use)
+2020/05/11 11:33:52 [notice] 29268#29268: try again to bind() after 500ms
+2020/05/11 11:33:52 [notice] 29268#29268: try again to bind() after 500ms
+2020/05/11 11:33:52 [emerg] 29268#29268: bind() to 0.0.0.0:8080 failed (98: Address already in use)
+2020/05/11 11:33:52 [emerg] 29268#29268: bind() to 0.0.0.0:8080 failed (98: Address already in use)
+2020/05/11 11:33:52 [emerg] 29268#29268: bind() to 0.0.0.0:8080 failed (98: Address already in use)
+2020/05/11 11:33:52 [notice] 29268#29268: try again to bind() after 500ms
+2020/05/11 11:33:52 [notice] 29268#29268: try again to bind() after 500ms
+2020/05/11 11:33:52 [emerg] 29268#29268: bind() to 0.0.0.0:8080 failed (98: Address already in use)
+2020/05/11 11:33:52 [emerg] 29268#29268: bind() to 0.0.0.0:8080 failed (98: Address already in use)
+2020/05/11 11:33:52 [emerg] 29268#29268: bind() to 0.0.0.0:8080 failed (98: Address already in use)
+2020/05/11 11:33:52 [notice] 29268#29268: try again to bind() after 500ms
+2020/05/11 11:33:52 [notice] 29268#29268: try again to bind() after 500ms
+2020/05/11 11:33:52 [emerg] 29268#29268: bind() to 0.0.0.0:8080 failed (98: Address already in use)
+2020/05/11 11:33:52 [emerg] 29268#29268: bind() to 0.0.0.0:8080 failed (98: Address already in use)
+2020/05/11 11:33:52 [emerg] 29268#29268: bind() to 0.0.0.0:8080 failed (98: Address already in use)
+2020/05/11 11:33:52 [notice] 29268#29268: try again to bind() after 500ms
+2020/05/11 11:33:52 [notice] 29268#29268: try again to bind() after 500ms
+2020/05/11 11:33:52 [emerg] 29268#29268: bind() to 0.0.0.0:8080 failed (98: Address already in use)
+2020/05/11 11:33:52 [emerg] 29268#29268: bind() to 0.0.0.0:8080 failed (98: Address already in use)
+2020/05/11 11:33:52 [emerg] 29268#29268: bind() to 0.0.0.0:8080 failed (98: Address already in use)
+2020/05/11 11:33:52 [notice] 29268#29268: try again to bind() after 500ms
+2020/05/11 11:33:52 [notice] 29268#29268: try again to bind() after 500ms
+2020/05/11 11:33:52 [emerg] 29268#29268: still could not bind()
+2020/05/11 11:33:52 [emerg] 29268#29268: still could not bind()
+2020/05/11 11:33:52 [emerg] 29268#29268: still could not bind()
+2020/05/11 11:33:57 [notice] 28996#28996: signal 15 (SIGTERM) received from 29270, exiting
+2020/05/11 11:33:57 [notice] 28997#28997: signal 15 (SIGTERM) received from 29270, exiting
+2020/05/11 11:33:57 [notice] 28996#28996: signal 15 (SIGTERM) received from 29270, exiting
+2020/05/11 11:33:57 [notice] 28997#28997: signal 15 (SIGTERM) received from 29270, exiting
+2020/05/11 11:33:57 [info] 28997#28997: epoll_wait() failed (4: Interrupted system call)
+2020/05/11 11:33:57 [notice] 28997#28997: exiting
+2020/05/11 11:33:57 [notice] 28997#28997: exiting
+2020/05/11 11:33:57 [notice] 28997#28997: exit
+2020/05/11 11:33:57 [notice] 28996#28996: signal 17 (SIGCHLD) received from 28997
+2020/05/11 11:33:57 [notice] 28996#28996: signal 17 (SIGCHLD) received from 28997
+2020/05/11 11:33:57 [notice] 28996#28996: worker process 28997 exited with code 0
+2020/05/11 11:33:57 [notice] 28996#28996: worker process 28997 exited with code 0
+2020/05/11 11:33:57 [alert] 28996#28996: unlink() "/nix/store/3gap020zyyyq1m30aflww9wg87df1f3d-nginx-1.16.1/logs/nginx.pid" failed (13: Permission denied)
+2020/05/11 11:33:57 [alert] 28996#28996: unlink() "/nix/store/3gap020zyyyq1m30aflww9wg87df1f3d-nginx-1.16.1/logs/nginx.pid" failed (13: Permission denied)
+2020/05/11 11:33:57 [alert] 28996#28996: unlink() "/nix/store/3gap020zyyyq1m30aflww9wg87df1f3d-nginx-1.16.1/logs/nginx.pid" failed (13: Permission denied)
+2020/05/11 11:33:57 [notice] 28996#28996: exit
+2020/05/11 11:33:57 [notice] 28996#28996: exit
+2020/05/11 11:33:58 [notice] 29272#29272: using the "epoll" event method
+2020/05/11 11:33:58 [notice] 29272#29272: using the "epoll" event method
+2020/05/11 11:33:58 [notice] 29272#29272: nginx/1.16.1
+2020/05/11 11:33:58 [notice] 29272#29272: nginx/1.16.1
+2020/05/11 11:33:58 [notice] 29272#29272: built by gcc 9.3.0 (GCC) 
+2020/05/11 11:33:58 [notice] 29272#29272: built by gcc 9.3.0 (GCC) 
+2020/05/11 11:33:58 [notice] 29272#29272: OS: Linux 5.6.10-arch1-1
+2020/05/11 11:33:58 [notice] 29272#29272: OS: Linux 5.6.10-arch1-1
+2020/05/11 11:33:58 [notice] 29272#29272: getrlimit(RLIMIT_NOFILE): 1024:524288
+2020/05/11 11:33:58 [notice] 29272#29272: getrlimit(RLIMIT_NOFILE): 1024:524288
+2020/05/11 11:33:58 [notice] 29273#29273: start worker processes
+2020/05/11 11:33:58 [notice] 29273#29273: start worker processes
+2020/05/11 11:33:58 [notice] 29273#29273: start worker process 29274
+2020/05/11 11:33:58 [notice] 29273#29273: start worker process 29274
+2020/05/11 11:34:02 [notice] 29274#29274: signal 15 (SIGTERM) received from 29275, exiting
+2020/05/11 11:34:02 [notice] 29273#29273: signal 15 (SIGTERM) received from 29275, exiting
+2020/05/11 11:34:02 [notice] 29274#29274: signal 15 (SIGTERM) received from 29275, exiting
+2020/05/11 11:34:02 [notice] 29273#29273: signal 15 (SIGTERM) received from 29275, exiting
+2020/05/11 11:34:02 [info] 29274#29274: epoll_wait() failed (4: Interrupted system call)
+2020/05/11 11:34:02 [notice] 29274#29274: exiting
+2020/05/11 11:34:02 [notice] 29274#29274: exiting
+2020/05/11 11:34:02 [notice] 29274#29274: exit
+2020/05/11 11:34:02 [notice] 29273#29273: signal 17 (SIGCHLD) received from 29274
+2020/05/11 11:34:02 [notice] 29273#29273: signal 17 (SIGCHLD) received from 29274
+2020/05/11 11:34:02 [notice] 29273#29273: worker process 29274 exited with code 0
+2020/05/11 11:34:02 [notice] 29273#29273: worker process 29274 exited with code 0
+2020/05/11 11:34:02 [alert] 29273#29273: unlink() "/nix/store/3gap020zyyyq1m30aflww9wg87df1f3d-nginx-1.16.1/logs/nginx.pid" failed (13: Permission denied)
+2020/05/11 11:34:02 [alert] 29273#29273: unlink() "/nix/store/3gap020zyyyq1m30aflww9wg87df1f3d-nginx-1.16.1/logs/nginx.pid" failed (13: Permission denied)
+2020/05/11 11:34:02 [alert] 29273#29273: unlink() "/nix/store/3gap020zyyyq1m30aflww9wg87df1f3d-nginx-1.16.1/logs/nginx.pid" failed (13: Permission denied)
+2020/05/11 11:34:02 [notice] 29273#29273: exit
+2020/05/11 11:34:02 [notice] 29273#29273: exit
+2020/05/11 11:40:54 [notice] 36524#36524: using the "epoll" event method
+2020/05/11 11:40:54 [notice] 36524#36524: using the "epoll" event method
+2020/05/11 11:40:54 [notice] 36524#36524: nginx/1.16.1
+2020/05/11 11:40:54 [notice] 36524#36524: nginx/1.16.1
+2020/05/11 11:40:54 [notice] 36524#36524: built by gcc 9.3.0 (GCC) 
+2020/05/11 11:40:54 [notice] 36524#36524: built by gcc 9.3.0 (GCC) 
+2020/05/11 11:40:54 [notice] 36524#36524: OS: Linux 5.6.10-arch1-1
+2020/05/11 11:40:54 [notice] 36524#36524: OS: Linux 5.6.10-arch1-1
+2020/05/11 11:40:54 [notice] 36524#36524: getrlimit(RLIMIT_NOFILE): 1024:524288
+2020/05/11 11:40:54 [notice] 36524#36524: getrlimit(RLIMIT_NOFILE): 1024:524288
+2020/05/11 11:40:54 [notice] 36525#36525: start worker processes
+2020/05/11 11:40:54 [notice] 36525#36525: start worker processes
+2020/05/11 11:40:54 [notice] 36525#36525: start worker process 36526
+2020/05/11 11:40:54 [notice] 36525#36525: start worker process 36526
+2020/05/11 11:40:57 [notice] 36526#36526: signal 15 (SIGTERM) received from 36527, exiting
+2020/05/11 11:40:57 [notice] 36525#36525: signal 15 (SIGTERM) received from 36527, exiting
+2020/05/11 11:40:57 [notice] 36526#36526: signal 15 (SIGTERM) received from 36527, exiting
+2020/05/11 11:40:57 [notice] 36525#36525: signal 15 (SIGTERM) received from 36527, exiting
+2020/05/11 11:40:57 [info] 36526#36526: epoll_wait() failed (4: Interrupted system call)
+2020/05/11 11:40:57 [notice] 36526#36526: exiting
+2020/05/11 11:40:57 [notice] 36526#36526: exiting
+2020/05/11 11:40:57 [notice] 36526#36526: exit
+2020/05/11 11:40:57 [notice] 36525#36525: signal 14 (SIGALRM) received
+2020/05/11 11:40:57 [notice] 36525#36525: signal 14 (SIGALRM) received
+2020/05/11 11:40:57 [notice] 36525#36525: signal 17 (SIGCHLD) received from 36526
+2020/05/11 11:40:57 [notice] 36525#36525: signal 17 (SIGCHLD) received from 36526
+2020/05/11 11:40:57 [notice] 36525#36525: worker process 36526 exited with code 0
+2020/05/11 11:40:57 [notice] 36525#36525: worker process 36526 exited with code 0
+2020/05/11 11:40:57 [alert] 36525#36525: unlink() "/nix/store/3gap020zyyyq1m30aflww9wg87df1f3d-nginx-1.16.1/logs/nginx.pid" failed (13: Permission denied)
+2020/05/11 11:40:57 [alert] 36525#36525: unlink() "/nix/store/3gap020zyyyq1m30aflww9wg87df1f3d-nginx-1.16.1/logs/nginx.pid" failed (13: Permission denied)
+2020/05/11 11:40:57 [alert] 36525#36525: unlink() "/nix/store/3gap020zyyyq1m30aflww9wg87df1f3d-nginx-1.16.1/logs/nginx.pid" failed (13: Permission denied)
+2020/05/11 11:40:57 [notice] 36525#36525: exit
+2020/05/11 11:40:57 [notice] 36525#36525: exit
+2020/05/11 15:42:19 [notice] 50648#50648: using the "epoll" event method
+2020/05/11 15:42:19 [notice] 50648#50648: using the "epoll" event method
+2020/05/11 15:42:19 [notice] 50648#50648: nginx/1.16.1
+2020/05/11 15:42:19 [notice] 50648#50648: nginx/1.16.1
+2020/05/11 15:42:19 [notice] 50648#50648: built by gcc 9.3.0 (GCC) 
+2020/05/11 15:42:19 [notice] 50648#50648: built by gcc 9.3.0 (GCC) 
+2020/05/11 15:42:19 [notice] 50648#50648: OS: Linux 5.6.10-arch1-1
+2020/05/11 15:42:19 [notice] 50648#50648: OS: Linux 5.6.10-arch1-1
+2020/05/11 15:42:19 [notice] 50648#50648: getrlimit(RLIMIT_NOFILE): 1024:524288
+2020/05/11 15:42:19 [notice] 50648#50648: getrlimit(RLIMIT_NOFILE): 1024:524288
+2020/05/11 15:42:19 [notice] 50649#50649: start worker processes
+2020/05/11 15:42:19 [notice] 50649#50649: start worker processes
+2020/05/11 15:42:19 [notice] 50649#50649: start worker process 50650
+2020/05/11 15:42:19 [notice] 50649#50649: start worker process 50650
+2020/05/11 15:42:48 [info] 50650#50650: *1 client 127.0.0.1 closed keepalive connection
+2020/05/11 15:46:23 [notice] 50650#50650: signal 15 (SIGTERM) received from 50741, exiting
+2020/05/11 15:46:23 [notice] 50649#50649: signal 15 (SIGTERM) received from 50741, exiting
+2020/05/11 15:46:23 [notice] 50650#50650: signal 15 (SIGTERM) received from 50741, exiting
+2020/05/11 15:46:23 [notice] 50649#50649: signal 15 (SIGTERM) received from 50741, exiting
+2020/05/11 15:46:23 [info] 50650#50650: epoll_wait() failed (4: Interrupted system call)
+2020/05/11 15:46:23 [notice] 50650#50650: exiting
+2020/05/11 15:46:23 [notice] 50650#50650: exiting
+2020/05/11 15:46:24 [notice] 50649#50649: signal 14 (SIGALRM) received
+2020/05/11 15:46:24 [notice] 50649#50649: signal 14 (SIGALRM) received
+2020/05/11 15:46:23 [notice] 50650#50650: exit
+2020/05/11 15:46:24 [notice] 50649#50649: signal 17 (SIGCHLD) received from 50650
+2020/05/11 15:46:24 [notice] 50649#50649: signal 17 (SIGCHLD) received from 50650
+2020/05/11 15:46:24 [notice] 50649#50649: worker process 50650 exited with code 0
+2020/05/11 15:46:24 [notice] 50649#50649: worker process 50650 exited with code 0
+2020/05/11 15:46:24 [alert] 50649#50649: unlink() "/nix/store/3gap020zyyyq1m30aflww9wg87df1f3d-nginx-1.16.1/logs/nginx.pid" failed (13: Permission denied)
+2020/05/11 15:46:24 [alert] 50649#50649: unlink() "/nix/store/3gap020zyyyq1m30aflww9wg87df1f3d-nginx-1.16.1/logs/nginx.pid" failed (13: Permission denied)
+2020/05/11 15:46:24 [alert] 50649#50649: unlink() "/nix/store/3gap020zyyyq1m30aflww9wg87df1f3d-nginx-1.16.1/logs/nginx.pid" failed (13: Permission denied)
+2020/05/11 15:46:24 [notice] 50649#50649: exit
+2020/05/11 15:46:24 [notice] 50649#50649: exit
+2020/05/12 09:20:30 [notice] 73401#73401: using the "epoll" event method
+2020/05/12 09:20:30 [notice] 73401#73401: using the "epoll" event method
+2020/05/12 09:20:30 [notice] 73401#73401: nginx/1.16.1
+2020/05/12 09:20:30 [notice] 73401#73401: nginx/1.16.1
+2020/05/12 09:20:30 [notice] 73401#73401: built by gcc 9.3.0 (GCC) 
+2020/05/12 09:20:30 [notice] 73401#73401: built by gcc 9.3.0 (GCC) 
+2020/05/12 09:20:30 [notice] 73401#73401: OS: Linux 5.6.10-arch1-1
+2020/05/12 09:20:30 [notice] 73401#73401: OS: Linux 5.6.10-arch1-1
+2020/05/12 09:20:30 [notice] 73401#73401: getrlimit(RLIMIT_NOFILE): 1024:524288
+2020/05/12 09:20:30 [notice] 73401#73401: getrlimit(RLIMIT_NOFILE): 1024:524288
+2020/05/12 09:20:30 [notice] 73402#73402: start worker processes
+2020/05/12 09:20:30 [notice] 73402#73402: start worker processes
+2020/05/12 09:20:30 [notice] 73402#73402: start worker process 73403
+2020/05/12 09:20:30 [notice] 73402#73402: start worker process 73403
+2020/05/12 09:20:39 [notice] 73403#73403: signal 15 (SIGTERM) received from 73414, exiting
+2020/05/12 09:20:39 [notice] 73402#73402: signal 15 (SIGTERM) received from 73414, exiting
+2020/05/12 09:20:39 [notice] 73403#73403: signal 15 (SIGTERM) received from 73414, exiting
+2020/05/12 09:20:39 [notice] 73402#73402: signal 15 (SIGTERM) received from 73414, exiting
+2020/05/12 09:20:39 [info] 73403#73403: epoll_wait() failed (4: Interrupted system call)
+2020/05/12 09:20:39 [notice] 73403#73403: exiting
+2020/05/12 09:20:39 [notice] 73403#73403: exiting
+2020/05/12 09:20:39 [notice] 73403#73403: exit
+2020/05/12 09:20:39 [notice] 73402#73402: signal 14 (SIGALRM) received
+2020/05/12 09:20:39 [notice] 73402#73402: signal 14 (SIGALRM) received
+2020/05/12 09:20:39 [notice] 73402#73402: signal 17 (SIGCHLD) received from 73403
+2020/05/12 09:20:39 [notice] 73402#73402: signal 17 (SIGCHLD) received from 73403
+2020/05/12 09:20:39 [notice] 73402#73402: worker process 73403 exited with code 0
+2020/05/12 09:20:39 [notice] 73402#73402: worker process 73403 exited with code 0
+2020/05/12 09:20:39 [alert] 73402#73402: unlink() "/nix/store/3gap020zyyyq1m30aflww9wg87df1f3d-nginx-1.16.1/logs/nginx.pid" failed (13: Permission denied)
+2020/05/12 09:20:39 [alert] 73402#73402: unlink() "/nix/store/3gap020zyyyq1m30aflww9wg87df1f3d-nginx-1.16.1/logs/nginx.pid" failed (13: Permission denied)
+2020/05/12 09:20:39 [alert] 73402#73402: unlink() "/nix/store/3gap020zyyyq1m30aflww9wg87df1f3d-nginx-1.16.1/logs/nginx.pid" failed (13: Permission denied)
+2020/05/12 09:20:39 [notice] 73402#73402: exit
+2020/05/12 09:20:39 [notice] 73402#73402: exit
+2020/05/12 09:23:05 [notice] 73632#73632: using the "epoll" event method
+2020/05/12 09:23:05 [notice] 73632#73632: using the "epoll" event method
+2020/05/12 09:23:05 [notice] 73632#73632: nginx/1.16.1
+2020/05/12 09:23:05 [notice] 73632#73632: nginx/1.16.1
+2020/05/12 09:23:05 [notice] 73632#73632: built by gcc 9.3.0 (GCC) 
+2020/05/12 09:23:05 [notice] 73632#73632: built by gcc 9.3.0 (GCC) 
+2020/05/12 09:23:05 [notice] 73632#73632: OS: Linux 5.6.10-arch1-1
+2020/05/12 09:23:05 [notice] 73632#73632: OS: Linux 5.6.10-arch1-1
+2020/05/12 09:23:05 [notice] 73632#73632: getrlimit(RLIMIT_NOFILE): 1024:524288
+2020/05/12 09:23:05 [notice] 73632#73632: getrlimit(RLIMIT_NOFILE): 1024:524288
+2020/05/12 09:23:05 [notice] 73633#73633: start worker processes
+2020/05/12 09:23:05 [notice] 73633#73633: start worker processes
+2020/05/12 09:23:05 [notice] 73633#73633: start worker process 73634
+2020/05/12 09:23:05 [notice] 73633#73633: start worker process 73634
+2020/05/12 09:23:14 [notice] 73634#73634: signal 15 (SIGTERM) received from 73636, exiting
+2020/05/12 09:23:14 [notice] 73633#73633: signal 15 (SIGTERM) received from 73636, exiting
+2020/05/12 09:23:14 [notice] 73634#73634: signal 15 (SIGTERM) received from 73636, exiting
+2020/05/12 09:23:14 [notice] 73633#73633: signal 15 (SIGTERM) received from 73636, exiting
+2020/05/12 09:23:14 [info] 73634#73634: epoll_wait() failed (4: Interrupted system call)
+2020/05/12 09:23:14 [notice] 73634#73634: exiting
+2020/05/12 09:23:14 [notice] 73634#73634: exiting
+2020/05/12 09:23:14 [notice] 73634#73634: exit
+2020/05/12 09:23:15 [notice] 73633#73633: signal 14 (SIGALRM) received
+2020/05/12 09:23:15 [notice] 73633#73633: signal 14 (SIGALRM) received
+2020/05/12 09:23:15 [notice] 73633#73633: signal 17 (SIGCHLD) received from 73634
+2020/05/12 09:23:15 [notice] 73633#73633: signal 17 (SIGCHLD) received from 73634
+2020/05/12 09:23:15 [notice] 73633#73633: worker process 73634 exited with code 0
+2020/05/12 09:23:15 [notice] 73633#73633: worker process 73634 exited with code 0
+2020/05/12 09:23:15 [alert] 73633#73633: unlink() "/nix/store/3gap020zyyyq1m30aflww9wg87df1f3d-nginx-1.16.1/logs/nginx.pid" failed (13: Permission denied)
+2020/05/12 09:23:15 [alert] 73633#73633: unlink() "/nix/store/3gap020zyyyq1m30aflww9wg87df1f3d-nginx-1.16.1/logs/nginx.pid" failed (13: Permission denied)
+2020/05/12 09:23:15 [alert] 73633#73633: unlink() "/nix/store/3gap020zyyyq1m30aflww9wg87df1f3d-nginx-1.16.1/logs/nginx.pid" failed (13: Permission denied)
+2020/05/12 09:23:15 [notice] 73633#73633: exit
+2020/05/12 09:23:15 [notice] 73633#73633: exit
+2020/06/12 12:39:12 [emerg] 109707#109707: bind() to 0.0.0.0:8080 failed (98: Address already in use)
+2020/06/12 12:39:12 [emerg] 109707#109707: bind() to 0.0.0.0:8080 failed (98: Address already in use)
+2020/06/12 12:39:12 [emerg] 109707#109707: bind() to 0.0.0.0:8080 failed (98: Address already in use)
+2020/06/12 12:39:12 [emerg] 109707#109707: bind() to 0.0.0.0:8080 failed (98: Address already in use)
+2020/06/12 12:39:12 [notice] 109707#109707: try again to bind() after 500ms
+2020/06/12 12:39:12 [notice] 109707#109707: try again to bind() after 500ms
+2020/06/12 12:39:12 [emerg] 109707#109707: bind() to 0.0.0.0:8080 failed (98: Address already in use)
+2020/06/12 12:39:12 [emerg] 109707#109707: bind() to 0.0.0.0:8080 failed (98: Address already in use)
+2020/06/12 12:39:12 [emerg] 109707#109707: bind() to 0.0.0.0:8080 failed (98: Address already in use)
+2020/06/12 12:39:12 [emerg] 109707#109707: bind() to 0.0.0.0:8080 failed (98: Address already in use)
+2020/06/12 12:39:12 [notice] 109707#109707: try again to bind() after 500ms
+2020/06/12 12:39:12 [notice] 109707#109707: try again to bind() after 500ms
+2020/06/12 12:39:12 [emerg] 109707#109707: bind() to 0.0.0.0:8080 failed (98: Address already in use)
+2020/06/12 12:39:12 [emerg] 109707#109707: bind() to 0.0.0.0:8080 failed (98: Address already in use)
+2020/06/12 12:39:12 [emerg] 109707#109707: bind() to 0.0.0.0:8080 failed (98: Address already in use)
+2020/06/12 12:39:12 [emerg] 109707#109707: bind() to 0.0.0.0:8080 failed (98: Address already in use)
+2020/06/12 12:39:12 [notice] 109707#109707: try again to bind() after 500ms
+2020/06/12 12:39:12 [notice] 109707#109707: try again to bind() after 500ms
+2020/06/12 12:39:12 [emerg] 109707#109707: bind() to 0.0.0.0:8080 failed (98: Address already in use)
+2020/06/12 12:39:12 [emerg] 109707#109707: bind() to 0.0.0.0:8080 failed (98: Address already in use)
+2020/06/12 12:39:12 [emerg] 109707#109707: bind() to 0.0.0.0:8080 failed (98: Address already in use)
+2020/06/12 12:39:12 [emerg] 109707#109707: bind() to 0.0.0.0:8080 failed (98: Address already in use)
+2020/06/12 12:39:12 [notice] 109707#109707: try again to bind() after 500ms
+2020/06/12 12:39:12 [notice] 109707#109707: try again to bind() after 500ms
+2020/06/12 12:39:12 [emerg] 109707#109707: bind() to 0.0.0.0:8080 failed (98: Address already in use)
+2020/06/12 12:39:12 [emerg] 109707#109707: bind() to 0.0.0.0:8080 failed (98: Address already in use)
+2020/06/12 12:39:12 [emerg] 109707#109707: bind() to 0.0.0.0:8080 failed (98: Address already in use)
+2020/06/12 12:39:12 [emerg] 109707#109707: bind() to 0.0.0.0:8080 failed (98: Address already in use)
+2020/06/12 12:39:12 [notice] 109707#109707: try again to bind() after 500ms
+2020/06/12 12:39:12 [notice] 109707#109707: try again to bind() after 500ms
+2020/06/12 12:39:12 [emerg] 109707#109707: still could not bind()
+2020/06/12 12:39:12 [emerg] 109707#109707: still could not bind()
+2020/06/12 12:39:12 [emerg] 109707#109707: still could not bind()
+2020/06/12 12:39:12 [emerg] 109707#109707: still could not bind()
+2020/06/12 12:39:29 [notice] 109774#109774: using the "epoll" event method
+2020/06/12 12:39:29 [notice] 109774#109774: using the "epoll" event method
+2020/06/12 12:39:29 [notice] 109774#109774: nginx/1.18.0
+2020/06/12 12:39:29 [notice] 109774#109774: nginx/1.18.0
+2020/06/12 12:39:29 [notice] 109774#109774: built by gcc 9.3.0 (GCC) 
+2020/06/12 12:39:29 [notice] 109774#109774: built by gcc 9.3.0 (GCC) 
+2020/06/12 12:39:29 [notice] 109774#109774: OS: Linux 5.6.15-arch1-1
+2020/06/12 12:39:29 [notice] 109774#109774: OS: Linux 5.6.15-arch1-1
+2020/06/12 12:39:29 [notice] 109774#109774: getrlimit(RLIMIT_NOFILE): 1024:524288
+2020/06/12 12:39:29 [notice] 109774#109774: getrlimit(RLIMIT_NOFILE): 1024:524288
+2020/06/12 12:39:29 [notice] 109775#109775: start worker processes
+2020/06/12 12:39:29 [notice] 109775#109775: start worker processes
+2020/06/12 12:39:29 [notice] 109775#109775: start worker process 109776
+2020/06/12 12:39:29 [notice] 109775#109775: start worker process 109776
+2020/06/12 12:39:39 [info] 109776#109776: *1 client 127.0.0.1 closed keepalive connection
+2020/06/12 12:41:30 [emerg] 109928#109928: bind() to 0.0.0.0:3000 failed (98: Address already in use)
+2020/06/12 12:41:30 [emerg] 109928#109928: bind() to 0.0.0.0:3000 failed (98: Address already in use)
+2020/06/12 12:41:30 [emerg] 109928#109928: bind() to 0.0.0.0:3000 failed (98: Address already in use)
+2020/06/12 12:41:30 [emerg] 109928#109928: bind() to 0.0.0.0:3000 failed (98: Address already in use)
+2020/06/12 12:41:30 [notice] 109928#109928: try again to bind() after 500ms
+2020/06/12 12:41:30 [notice] 109928#109928: try again to bind() after 500ms
+2020/06/12 12:41:30 [emerg] 109928#109928: bind() to 0.0.0.0:3000 failed (98: Address already in use)
+2020/06/12 12:41:30 [emerg] 109928#109928: bind() to 0.0.0.0:3000 failed (98: Address already in use)
+2020/06/12 12:41:30 [emerg] 109928#109928: bind() to 0.0.0.0:3000 failed (98: Address already in use)
+2020/06/12 12:41:30 [emerg] 109928#109928: bind() to 0.0.0.0:3000 failed (98: Address already in use)
+2020/06/12 12:41:30 [notice] 109928#109928: try again to bind() after 500ms
+2020/06/12 12:41:30 [notice] 109928#109928: try again to bind() after 500ms
+2020/06/12 12:41:30 [emerg] 109928#109928: bind() to 0.0.0.0:3000 failed (98: Address already in use)
+2020/06/12 12:41:30 [emerg] 109928#109928: bind() to 0.0.0.0:3000 failed (98: Address already in use)
+2020/06/12 12:41:30 [emerg] 109928#109928: bind() to 0.0.0.0:3000 failed (98: Address already in use)
+2020/06/12 12:41:30 [emerg] 109928#109928: bind() to 0.0.0.0:3000 failed (98: Address already in use)
+2020/06/12 12:41:30 [notice] 109928#109928: try again to bind() after 500ms
+2020/06/12 12:41:30 [notice] 109928#109928: try again to bind() after 500ms
+2020/06/12 12:41:30 [emerg] 109928#109928: bind() to 0.0.0.0:3000 failed (98: Address already in use)
+2020/06/12 12:41:30 [emerg] 109928#109928: bind() to 0.0.0.0:3000 failed (98: Address already in use)
+2020/06/12 12:41:30 [emerg] 109928#109928: bind() to 0.0.0.0:3000 failed (98: Address already in use)
+2020/06/12 12:41:30 [emerg] 109928#109928: bind() to 0.0.0.0:3000 failed (98: Address already in use)
+2020/06/12 12:41:30 [notice] 109928#109928: try again to bind() after 500ms
+2020/06/12 12:41:30 [notice] 109928#109928: try again to bind() after 500ms
+2020/06/12 12:41:30 [emerg] 109928#109928: bind() to 0.0.0.0:3000 failed (98: Address already in use)
+2020/06/12 12:41:30 [emerg] 109928#109928: bind() to 0.0.0.0:3000 failed (98: Address already in use)
+2020/06/12 12:41:30 [emerg] 109928#109928: bind() to 0.0.0.0:3000 failed (98: Address already in use)
+2020/06/12 12:41:30 [emerg] 109928#109928: bind() to 0.0.0.0:3000 failed (98: Address already in use)
+2020/06/12 12:41:30 [notice] 109928#109928: try again to bind() after 500ms
+2020/06/12 12:41:30 [notice] 109928#109928: try again to bind() after 500ms
+2020/06/12 12:41:35 [notice] 109775#109775: signal 15 (SIGTERM) received from 109934, exiting
+2020/06/12 12:41:35 [notice] 109776#109776: signal 15 (SIGTERM) received from 109934, exiting
+2020/06/12 12:41:35 [notice] 109775#109775: signal 15 (SIGTERM) received from 109934, exiting
+2020/06/12 12:41:35 [notice] 109776#109776: signal 15 (SIGTERM) received from 109934, exiting
+2020/06/12 12:41:35 [info] 109776#109776: epoll_wait() failed (4: Interrupted system call)
+2020/06/12 12:41:35 [notice] 109776#109776: exiting
+2020/06/12 12:41:35 [notice] 109776#109776: exiting
+2020/06/12 12:41:35 [notice] 109775#109775: signal 14 (SIGALRM) received
+2020/06/12 12:41:35 [notice] 109775#109775: signal 14 (SIGALRM) received
+2020/06/12 12:41:35 [notice] 109776#109776: exit
+2020/06/12 12:41:35 [notice] 109775#109775: signal 17 (SIGCHLD) received from 109776
+2020/06/12 12:41:35 [notice] 109775#109775: signal 17 (SIGCHLD) received from 109776
+2020/06/12 12:41:35 [notice] 109775#109775: worker process 109776 exited with code 0
+2020/06/12 12:41:35 [notice] 109775#109775: worker process 109776 exited with code 0
+2020/06/12 12:41:35 [notice] 109775#109775: exit
+2020/06/12 12:41:35 [notice] 109775#109775: exit
+2020/06/12 12:41:37 [notice] 109939#109939: using the "epoll" event method
+2020/06/12 12:41:37 [notice] 109939#109939: using the "epoll" event method
+2020/06/12 12:41:37 [notice] 109939#109939: nginx/1.18.0
+2020/06/12 12:41:37 [notice] 109939#109939: nginx/1.18.0
+2020/06/12 12:41:37 [notice] 109939#109939: built by gcc 9.3.0 (GCC) 
+2020/06/12 12:41:37 [notice] 109939#109939: built by gcc 9.3.0 (GCC) 
+2020/06/12 12:41:37 [notice] 109939#109939: OS: Linux 5.6.15-arch1-1
+2020/06/12 12:41:37 [notice] 109939#109939: OS: Linux 5.6.15-arch1-1
+2020/06/12 12:41:37 [notice] 109939#109939: getrlimit(RLIMIT_NOFILE): 1024:524288
+2020/06/12 12:41:37 [notice] 109939#109939: getrlimit(RLIMIT_NOFILE): 1024:524288
+2020/06/12 12:41:37 [notice] 109940#109940: start worker processes
+2020/06/12 12:41:37 [notice] 109940#109940: start worker processes
+2020/06/12 12:41:37 [notice] 109940#109940: start worker process 109941
+2020/06/12 12:41:37 [notice] 109940#109940: start worker process 109941
+2020/06/12 12:41:55 [info] 109941#109941: *1 client 127.0.0.1 closed keepalive connection
+2020/06/12 12:55:23 [emerg] 110733#110733: bind() to 0.0.0.0:3000 failed (98: Address already in use)
+2020/06/12 12:55:23 [emerg] 110733#110733: bind() to 0.0.0.0:3000 failed (98: Address already in use)
+2020/06/12 12:55:23 [emerg] 110733#110733: bind() to 0.0.0.0:3000 failed (98: Address already in use)
+2020/06/12 12:55:23 [emerg] 110733#110733: bind() to 0.0.0.0:3000 failed (98: Address already in use)
+2020/06/12 12:55:23 [notice] 110733#110733: try again to bind() after 500ms
+2020/06/12 12:55:23 [notice] 110733#110733: try again to bind() after 500ms
+2020/06/12 12:55:23 [emerg] 110733#110733: bind() to 0.0.0.0:3000 failed (98: Address already in use)
+2020/06/12 12:55:23 [emerg] 110733#110733: bind() to 0.0.0.0:3000 failed (98: Address already in use)
+2020/06/12 12:55:23 [emerg] 110733#110733: bind() to 0.0.0.0:3000 failed (98: Address already in use)
+2020/06/12 12:55:23 [emerg] 110733#110733: bind() to 0.0.0.0:3000 failed (98: Address already in use)
+2020/06/12 12:55:23 [notice] 110733#110733: try again to bind() after 500ms
+2020/06/12 12:55:23 [notice] 110733#110733: try again to bind() after 500ms
+2020/06/12 12:55:23 [emerg] 110733#110733: bind() to 0.0.0.0:3000 failed (98: Address already in use)
+2020/06/12 12:55:23 [emerg] 110733#110733: bind() to 0.0.0.0:3000 failed (98: Address already in use)
+2020/06/12 12:55:23 [emerg] 110733#110733: bind() to 0.0.0.0:3000 failed (98: Address already in use)
+2020/06/12 12:55:23 [emerg] 110733#110733: bind() to 0.0.0.0:3000 failed (98: Address already in use)
+2020/06/12 12:55:23 [notice] 110733#110733: try again to bind() after 500ms
+2020/06/12 12:55:23 [notice] 110733#110733: try again to bind() after 500ms
+2020/06/12 12:55:23 [emerg] 110733#110733: bind() to 0.0.0.0:3000 failed (98: Address already in use)
+2020/06/12 12:55:23 [emerg] 110733#110733: bind() to 0.0.0.0:3000 failed (98: Address already in use)
+2020/06/12 12:55:23 [emerg] 110733#110733: bind() to 0.0.0.0:3000 failed (98: Address already in use)
+2020/06/12 12:55:23 [emerg] 110733#110733: bind() to 0.0.0.0:3000 failed (98: Address already in use)
+2020/06/12 12:55:23 [notice] 110733#110733: try again to bind() after 500ms
+2020/06/12 12:55:23 [notice] 110733#110733: try again to bind() after 500ms
+2020/06/12 12:55:23 [emerg] 110733#110733: bind() to 0.0.0.0:3000 failed (98: Address already in use)
+2020/06/12 12:55:23 [emerg] 110733#110733: bind() to 0.0.0.0:3000 failed (98: Address already in use)
+2020/06/12 12:55:23 [emerg] 110733#110733: bind() to 0.0.0.0:3000 failed (98: Address already in use)
+2020/06/12 12:55:23 [emerg] 110733#110733: bind() to 0.0.0.0:3000 failed (98: Address already in use)
+2020/06/12 12:55:23 [notice] 110733#110733: try again to bind() after 500ms
+2020/06/12 12:55:23 [notice] 110733#110733: try again to bind() after 500ms
+2020/06/12 13:11:48 [notice] 109940#109940: signal 3 (SIGQUIT) received from 111925, shutting down
+2020/06/12 13:11:48 [notice] 109940#109940: signal 3 (SIGQUIT) received from 111925, shutting down
+2020/06/12 13:11:48 [notice] 109941#109941: gracefully shutting down
+2020/06/12 13:11:48 [notice] 109941#109941: gracefully shutting down
+2020/06/12 13:11:48 [notice] 109941#109941: exiting
+2020/06/12 13:11:48 [notice] 109941#109941: exiting
+2020/06/12 13:11:48 [notice] 109941#109941: exit
+2020/06/12 13:11:48 [notice] 109940#109940: signal 17 (SIGCHLD) received from 109941
+2020/06/12 13:11:48 [notice] 109940#109940: signal 17 (SIGCHLD) received from 109941
+2020/06/12 13:11:48 [notice] 109940#109940: worker process 109941 exited with code 0
+2020/06/12 13:11:48 [notice] 109940#109940: worker process 109941 exited with code 0
+2020/06/12 13:11:48 [notice] 109940#109940: exit
+2020/06/12 13:11:48 [notice] 109940#109940: exit
+2020/06/12 13:12:01 [notice] 111936#111936: using the "epoll" event method
+2020/06/12 13:12:01 [notice] 111936#111936: using the "epoll" event method
+2020/06/12 13:12:01 [notice] 111936#111936: nginx/1.18.0
+2020/06/12 13:12:01 [notice] 111936#111936: nginx/1.18.0
+2020/06/12 13:12:01 [notice] 111936#111936: built by gcc 9.3.0 (GCC) 
+2020/06/12 13:12:01 [notice] 111936#111936: built by gcc 9.3.0 (GCC) 
+2020/06/12 13:12:01 [notice] 111936#111936: OS: Linux 5.6.15-arch1-1
+2020/06/12 13:12:01 [notice] 111936#111936: OS: Linux 5.6.15-arch1-1
+2020/06/12 13:12:01 [notice] 111936#111936: getrlimit(RLIMIT_NOFILE): 1024:524288
+2020/06/12 13:12:01 [notice] 111936#111936: getrlimit(RLIMIT_NOFILE): 1024:524288
+2020/06/12 13:12:01 [notice] 111937#111937: start worker processes
+2020/06/12 13:12:01 [notice] 111937#111937: start worker processes
+2020/06/12 13:12:01 [notice] 111937#111937: start worker process 111938
+2020/06/12 13:12:01 [notice] 111937#111937: start worker process 111938
+2020/06/12 13:13:29 [info] 111938#111938: *1 client 127.0.0.1 closed keepalive connection
+2020/06/12 13:17:14 [notice] 111937#111937: signal 3 (SIGQUIT) received from 112518, shutting down
+2020/06/12 13:17:14 [notice] 111937#111937: signal 3 (SIGQUIT) received from 112518, shutting down
+2020/06/12 13:17:14 [notice] 111938#111938: gracefully shutting down
+2020/06/12 13:17:14 [notice] 111938#111938: gracefully shutting down
+2020/06/12 13:17:14 [notice] 111938#111938: exiting
+2020/06/12 13:17:14 [notice] 111938#111938: exiting
+2020/06/12 13:17:14 [notice] 111938#111938: exit
+2020/06/12 13:17:14 [notice] 111937#111937: signal 17 (SIGCHLD) received from 111938
+2020/06/12 13:17:14 [notice] 111937#111937: signal 17 (SIGCHLD) received from 111938
+2020/06/12 13:17:14 [notice] 111937#111937: worker process 111938 exited with code 0
+2020/06/12 13:17:14 [notice] 111937#111937: worker process 111938 exited with code 0
+2020/06/12 13:17:14 [notice] 111937#111937: exit
+2020/06/12 13:17:14 [notice] 111937#111937: exit
+2020/06/12 13:21:38 [notice] 112681#112681: using the "epoll" event method
+2020/06/12 13:21:38 [notice] 112681#112681: using the "epoll" event method
+2020/06/12 13:21:38 [notice] 112681#112681: nginx/1.18.0
+2020/06/12 13:21:38 [notice] 112681#112681: nginx/1.18.0
+2020/06/12 13:21:38 [notice] 112681#112681: built by gcc 9.3.0 (GCC) 
+2020/06/12 13:21:38 [notice] 112681#112681: built by gcc 9.3.0 (GCC) 
+2020/06/12 13:21:38 [notice] 112681#112681: OS: Linux 5.6.15-arch1-1
+2020/06/12 13:21:38 [notice] 112681#112681: OS: Linux 5.6.15-arch1-1
+2020/06/12 13:21:38 [notice] 112681#112681: getrlimit(RLIMIT_NOFILE): 1024:524288
+2020/06/12 13:21:38 [notice] 112681#112681: getrlimit(RLIMIT_NOFILE): 1024:524288
+2020/06/12 13:21:38 [notice] 112682#112682: start worker processes
+2020/06/12 13:21:38 [notice] 112682#112682: start worker processes
+2020/06/12 13:21:38 [notice] 112682#112682: start worker process 112683
+2020/06/12 13:21:38 [notice] 112682#112682: start worker process 112683
+2020/06/12 13:51:59 [error] 112683#112683: *1 open() "/home/trey/dev/nix/nginx/favicon.ico" failed (2: No such file or directory), client: ::1, server: , request: "GET /favicon.ico HTTP/1.1", host: "[::1]:3000"
+2020/06/12 13:51:59 [error] 112683#112683: *1 open() "/home/trey/dev/nix/nginx/favicon.ico" failed (2: No such file or directory), client: ::1, server: , request: "GET /favicon.ico HTTP/1.1", host: "[::1]:3000"
+2020/06/12 13:51:59 [error] 112683#112683: *1 open() "/home/trey/dev/nix/nginx/favicon.ico" failed (2: No such file or directory), client: ::1, server: , request: "GET /favicon.ico HTTP/1.1", host: "[::1]:3000"
+2020/06/12 13:51:59 [error] 112683#112683: *1 open() "/home/trey/dev/nix/nginx/favicon.ico" failed (2: No such file or directory), client: ::1, server: , request: "GET /favicon.ico HTTP/1.1", host: "[::1]:3000"
+2020/06/12 13:52:12 [notice] 112682#112682: signal 3 (SIGQUIT) received from 115046, shutting down
+2020/06/12 13:52:12 [notice] 112682#112682: signal 3 (SIGQUIT) received from 115046, shutting down
+2020/06/12 13:52:12 [notice] 112683#112683: gracefully shutting down
+2020/06/12 13:52:12 [notice] 112683#112683: gracefully shutting down
+2020/06/12 13:52:12 [notice] 112683#112683: exiting
+2020/06/12 13:52:12 [notice] 112683#112683: exiting
+2020/06/12 13:52:12 [notice] 112683#112683: exit
+2020/06/12 13:52:12 [notice] 112682#112682: signal 17 (SIGCHLD) received from 112683
+2020/06/12 13:52:12 [notice] 112682#112682: signal 17 (SIGCHLD) received from 112683
+2020/06/12 13:52:12 [notice] 112682#112682: worker process 112683 exited with code 0
+2020/06/12 13:52:12 [notice] 112682#112682: worker process 112683 exited with code 0
+2020/06/12 13:52:12 [notice] 112682#112682: exit
+2020/06/12 13:52:12 [notice] 112682#112682: exit

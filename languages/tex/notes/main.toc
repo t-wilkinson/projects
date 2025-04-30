@@ -1,0 +1,8 @@
+\contentsline {part}{I\hspace {1em}Basics}{3}{part.1}%
+\contentsline {chapter}{\numberline {1}Set Theory}{4}{chapter.1}%
+\contentsline {section}{\numberline {1.1}Notation}{4}{section.1.1}%
+\contentsline {section}{\numberline {1.2}Naive set theory}{4}{section.1.2}%
+\contentsline {section}{\numberline {1.3}Zermelo-Fraenkel set theory}{4}{section.1.3}%
+\contentsline {paragraph}{Axioms}{4}{section*.2}%
+\contentsline {chapter}{\numberline {2}Logic}{6}{chapter.2}%
+\contentsline {chapter}{\numberline {3}Type Theory}{7}{chapter.3}%
