@@ -1,7 +1,0 @@
-############################
-# Expo
-############################
-/.expo/*
-/web-build
-/app.config.js
-/.expo/packager-info.json
