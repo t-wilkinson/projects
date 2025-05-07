@@ -65,7 +65,7 @@ squareReq' origin key body method paths manager =
   where
     headers =
         [ ("Content-Type", "application/json")
-        , ("Authorization", "Bearer " <> "EAAAEGPhwUmBrsBHN14j2NUbelruuI3PNYh6TLVlR0YT6M_cJG0eTPNqI6UKiVIK")
+        , ("Authorization", "Bearer " <> "$SQUARE_ACCESS_TOKEN")
         , ("Square-Version", "2020-09-23")
         ]
 

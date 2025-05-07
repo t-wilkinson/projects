@@ -24,7 +24,7 @@ export default () => {
     let exists = Array
       .from(document.querySelectorAll("script"))
       .map(src=>src.src)
-      .includes("https://maps.googleapis.com/maps/api/js?key=AIzaSyAU_nol5aAtfwUwOkZn8VDnzW3Wn4Kfe-c&callback=initMap&libraries=places")
+      .includes("https://maps.googleapis.com/maps/api/js?key=GOOGLE_API_KEY&callback=initMap&libraries=places")
     if (exists) return
 
     (window as any).initMap = () => {

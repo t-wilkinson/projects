@@ -9,7 +9,7 @@ const app = express()
 app.use(cookieParser())
 // app.use(express.json())
 
-const webhookSecret = "whsec_4WXxuhLI8OTHVkq7N6qy5evsMrfuP5L4"
+const webhookSecret = "WEBHOOK_SECRET"
 app.post("/stripe/webhook", bodyParser.raw({type: 'application/json'}), (req, res) => {
   let event, object
   const sig = req.get("stripe-signature")
