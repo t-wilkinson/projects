@@ -1,10 +1,10 @@
 {
-  description = "A Nix-flake-based Python development environment";
+  description = "A Nix-flake-based Jupyter development environment";
 
   inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
 
   outputs =
-    { self, nixpkgs }:
+    inputs:
     let
       supportedSystems = [
         "x86_64-linux"
@@ -14,10 +14,10 @@
       ];
       forEachSupportedSystem =
         f:
-        nixpkgs.lib.genAttrs supportedSystems (
+        inputs.nixpkgs.lib.genAttrs supportedSystems (
           system:
           f {
-            pkgs = import nixpkgs { inherit system; };
+            pkgs = import inputs.nixpkgs { inherit system; };
           }
         );
     in
@@ -29,13 +29,13 @@
             venvDir = ".venv";
             packages =
               with pkgs;
-              [ python311 ]
-              ++ (with pkgs.python311Packages; [
+              [
+                poetry
+                python311
+              ]
+              ++ (with python311Packages; [
+                ipykernel
                 pip
-                numpy
-                pandas
-                matplotlib
-                virtualenv
                 venvShellHook
               ]);
           };

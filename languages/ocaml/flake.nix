@@ -1,10 +1,10 @@
 {
-  description = "A Nix-flake-based Python development environment";
+  description = "A Nix-flake-based OCaml development environment";
 
   inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
 
   outputs =
-    { self, nixpkgs }:
+    inputs:
     let
       supportedSystems = [
         "x86_64-linux"
@@ -14,10 +14,10 @@
       ];
       forEachSupportedSystem =
         f:
-        nixpkgs.lib.genAttrs supportedSystems (
+        inputs.nixpkgs.lib.genAttrs supportedSystems (
           system:
           f {
-            pkgs = import nixpkgs { inherit system; };
+            pkgs = import inputs.nixpkgs { inherit system; };
           }
         );
     in
@@ -26,17 +26,15 @@
         { pkgs }:
         {
           default = pkgs.mkShell {
-            venvDir = ".venv";
             packages =
               with pkgs;
-              [ python311 ]
-              ++ (with pkgs.python311Packages; [
-                pip
-                numpy
-                pandas
-                matplotlib
-                virtualenv
-                venvShellHook
+              [
+                ocaml
+                ocamlformat
+              ]
+              ++ (with pkgs.ocamlPackages; [
+                dune_3
+                odoc
               ]);
           };
         }
