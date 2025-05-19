@@ -1,0 +1,64 @@
+{
+  "name": "max.k-studio",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "@stripe/react-stripe-js": "^1.1.2",
+    "@stripe/stripe-js": "^1.8.0",
+    "@testing-library/jest-dom": "^4.2.4",
+    "@testing-library/react": "^9.5.0",
+    "@testing-library/user-event": "^7.2.1",
+    "@types/jest": "^24.9.1",
+    "@types/node": "^12.12.47",
+    "@types/react": "^16.9.36",
+    "@types/react-dom": "^16.9.8",
+    "cookie-parser": "^1.4.5",
+    "express": "^4.17.1",
+    "gsap": "file:gsap-bonus.tgz",
+    "immer": "^7.0.5",
+    "nodemailer": "^6.4.10",
+    "react": "^16.13.1",
+    "react-app-polyfill": "^1.0.6",
+    "react-currency-input-field": "^2.3.3",
+    "react-dom": "^16.13.1",
+    "react-router-dom": "^5.2.0",
+    "react-scripts": "^4.0.3",
+    "react-square-payment-form": "^0.7.2",
+    "react-transition-group": "^4.4.1",
+    "rxjs": "^6.5.5",
+    "rxjs-redux-store": "^1.1.0",
+    "source-map-explorer": "^2.5.0",
+    "stripe": "^8.78.0",
+    "supports-color": "^5.5.0",
+    "typescript": "^3.7.5"
+  },
+  "scripts": {
+    "analyze": "source-map-explorer 'build/static/js/*.js'",
+    "start": "BROWSER=none ; react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
+  },
+  "eslintConfig": {
+    "extends": "react-app"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "safari > 7",
+      "iOS > 7",
+      "not dead",
+      "not op_mini all",
+      "chrome > 60",
+      "firefox > 60"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "devDependencies": {
+    "chalk": "^2.4.2"
+  }
+}

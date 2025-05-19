@@ -1,0 +1,51 @@
+{
+  "collectionName": "components_ward_events",
+  "info": {
+    "displayName": "Events",
+    "icon": "calendar-day",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "name": {
+      "type": "string",
+      "required": true
+    },
+    "start": {
+      "type": "datetime",
+      "required": true
+    },
+    "end": {
+      "type": "datetime",
+      "required": true
+    },
+    "linkText": {
+      "type": "string"
+    },
+    "linkUrl": {
+      "type": "string"
+    },
+    "description": {
+      "type": "text"
+    },
+    "flyer": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ]
+    },
+    "location": {
+      "type": "string",
+      "required": false
+    },
+    "featured": {
+      "type": "boolean",
+      "default": false
+    }
+  }
+}

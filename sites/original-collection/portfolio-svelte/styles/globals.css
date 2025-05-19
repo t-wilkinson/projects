@@ -1,0 +1,158 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html,
+body {
+  scroll-behavior: smooth;
+  padding: 0;
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell,
+    Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+  background: #1c2124;
+  overflow-x: none;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+div,
+section,
+article {
+  display: flex;
+  flex-direction: column;
+}
+
+.theme {
+  border-radius: 0.25em;
+  /* transform: skewX(-12deg); */
+}
+
+.link {
+  position: relative;
+  text-decoration: none;
+}
+
+.link::before {
+  content: '';
+  position: absolute;
+  display: block;
+  width: 100%;
+  height: 2px;
+  bottom: 0;
+  left: 0;
+  background-color: #eeecff;
+  transform: scaleX(0);
+  transform-origin: top left;
+  transition: transform 0.3s ease-in-out;
+}
+
+.link:hover::before {
+  transform: scaleX(1);
+}
+
+.button {
+  position: relative;
+  display: grid;
+  place-items: center;
+  transition: 1s ease-in-out;
+
+  background: #5037ff;
+  cursor: pointer;
+  outline: none;
+}
+
+.button__svg {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  left: 0;
+  top: 0;
+  fill: none;
+  stroke: #eeecff;
+  stroke-dasharray: 150 480;
+  stroke-dashoffset: 150;
+  transition: 1s ease-in-out;
+}
+
+.button:hover .button__svg {
+  stroke-dashoffset: -480;
+}
+
+.project {
+  display: grid;
+  grid-gap: 1rem;
+  transition: all 0.333s ease-in-out 0s;
+}
+
+@media (min-width: 768px) {
+  .project__img {
+    grid-row: 1 / -1;
+  }
+
+  .hover .project__img {
+    transform: scale(1.25);
+  }
+
+  .left.hover .project__title {
+    transform: scale(1.25) translate3d(0, -0.5rem, 0);
+  }
+
+  .right.hover .project__title {
+    transform: scale(1.25) translate3d(8rem, -0.5rem, 0);
+  }
+
+  .left.hover .project__content {
+    transform: translateX(-33.3333%);
+  }
+
+  .right.hover .project__content {
+    transform: translateX(33.3333%);
+  }
+
+  .right .project__img {
+    grid-column: 1 / 3;
+  }
+  .left .project__img {
+    grid-column: 2 / 4;
+  }
+
+  .project.right {
+    grid-template:
+      '. . .' 1fr
+      '. . title' auto
+      '. content content' auto
+      '. . .' 50px
+      / 1fr 150px 1fr;
+  }
+
+  .project.left {
+    grid-template:
+      '. . .' 1fr
+      'title . .' auto
+      'content content . ' auto
+      '. . .' 50px
+      / 1fr 150px 1fr;
+  }
+}
+
+@media (max-width: 767px) {
+  .project__img {
+    grid-area: image;
+  }
+
+  .project.right,
+  .project.left {
+    grid-template:
+      'title' auto
+      'image' 50vw
+      'content' auto
+      / 1fr;
+  }
+}

@@ -1,5 +1,0 @@
-User-agent: *
-Allow: /
-Allow: /projects
-Allow: /dashboard
-Disallow: /admin
