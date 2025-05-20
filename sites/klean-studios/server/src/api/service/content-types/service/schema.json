@@ -1,0 +1,43 @@
+{
+  "kind": "collectionType",
+  "collectionName": "services",
+  "info": {
+    "singularName": "service",
+    "pluralName": "services",
+    "displayName": "Service",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": false,
+    "comment": ""
+  },
+  "attributes": {
+    "firstName": {
+      "type": "string"
+    },
+    "lastName": {
+      "type": "string"
+    },
+    "email": {
+      "type": "email"
+    },
+    "phoneNumber": {
+      "type": "string"
+    },
+    "bandName": {
+      "type": "string"
+    },
+    "recording": {
+      "type": "boolean"
+    },
+    "mixing": {
+      "type": "boolean"
+    },
+    "mastering": {
+      "type": "boolean"
+    },
+    "details": {
+      "type": "text"
+    }
+  }
+}
