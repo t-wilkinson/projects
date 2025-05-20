@@ -15,6 +15,12 @@ import toml  # lets just use json
 from signal import signal, SIGPIPE, SIG_DFL
 signal(SIGPIPE, SIG_DFL)
 
+<<<<<<< HEAD
+=======
+# TODO:
+# Export all installed github projects to sync the pulled github projects to other machines
+
+>>>>>>> refs/remotes/origin/main
 logging.basicConfig(level=logging.WARNING)
 
 
