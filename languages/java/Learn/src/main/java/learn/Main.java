@@ -5,19 +5,16 @@ import java.util.Arrays;
 
 public class Main {
   public static void main(String[] args) {
-<<<<<<< HEAD
     // Scanner scanner = new Scanner(System.in);
     // String message = scanner.nextLine();
     // Hello.greeting("Your message is: " + message);
     // scanner.close();
-=======
-    Scanner scanner = new Scanner(System.in);
-    String message = scanner.nextLine();
-    Hello.greeting("Your message is: " + message);
-    scanner.close();
->>>>>>> refs/remotes/origin/main
 
-    TicTacToe();
+    for (int i = 0; i < 0; i++) {
+      System.out.println("hi");
+    }
+
+    // TicTacToe();
   }
 
   protected static void TicTacToe() {
