@@ -1,4 +1,9 @@
 #!/usr/bin/env python3
+# TODO:
+# prj status should work with author (that way you can view status of your personal repos). Can give author followed by / (author/)
+# prj status is it possible to hide outputs for projects that have not changed
+# prj cd should take you to root of projects
+# prj should update based on current state of projects
 """
 prj - Manage your local git repositories with ease.
 """
@@ -157,7 +162,7 @@ def save_config(config_data, config_file_path):
 
 def resolve_project(identifier, config_projects):
     """
-    Resolves a project identifier (author/repo, alias, or repo name)
+    Resolves a project identifier (author/repo, alias, author, or repo name)
     to its canonical 'author/repository' key.
     """
     if not identifier:
@@ -171,6 +176,16 @@ def resolve_project(identifier, config_projects):
     for key, data in config_projects.items():
         if identifier in data.get("aliases", []):
             return key
+
+    # 3. Author match
+    if identifier.len >= 1 and identifier[-1] == '/':
+        identifier = identifier[0:-1]
+        for key, data in config_projects.items():
+            # Check actual repository name and also the repo part of the key
+            if data.get("autorh", "").lower() == identifier.lower() or \
+               key.split('/')[-1].lower() == identifier.lower():
+                return key
+
 
     # 3. Repository name match (if identifier doesn't contain '/')
     if '/' not in identifier:
@@ -509,8 +524,8 @@ def cmd_cd(args, config_data):
         sys.exit(1) # Important for `cd $(...)` to not change to home dir on error
 
 
-def cmd_show(args, config_data):
-    """Command: prj show"""
+def cmd_tree(args, config_data):
+    """Command: prj tree"""
     depth = args.depth
     print(f"{PRJ_DIR}/")
     
@@ -815,10 +830,10 @@ def main():
     p_cd.add_argument('identifier', help="Project (key, alias, repo name) or Author name.")
     p_cd.set_defaults(func=cmd_cd)
 
-    # --- `show` command ---
-    p_show = subparsers.add_parser('show', help="Display tree-like structure of PRJ_DIR.")
-    p_show.add_argument('--depth', type=int, default=2, help="Depth of the tree to show (default: 2 for author/repo).")
-    p_show.set_defaults(func=cmd_show)
+    # --- `tree` command ---
+    p_tree = subparsers.add_parser('tree', help="Display tree-like structure of PRJ_DIR.")
+    p_tree.add_argument('--depth', type=int, default=2, help="Depth of the tree to show (default: 2 for author/repo).")
+    p_tree.set_defaults(func=cmd_tree)
 
     # --- `alias` command ---
     p_alias = subparsers.add_parser('alias', help="Add an alias to a project.")
