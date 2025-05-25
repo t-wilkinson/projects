@@ -2,6 +2,7 @@
 """
 prj - Manage your local git repositories with ease.
 """
+
 import argparse
 import json
 import os
@@ -14,39 +15,47 @@ from signal import signal, SIGPIPE, SIG_DFL
 # Ignore SIGPIPE errors when piping output (e.g., to `head` or `grep`)
 try:
     signal(SIGPIPE, SIG_DFL)
-except AttributeError: # SIGPIPE may not be available on all platforms (e.g. Windows)
+except AttributeError:  # SIGPIPE may not be available on all platforms (e.g. Windows)
     pass
 
+# --- ANSI Color Codes ---
+BOLD_BLUE = "\033[1;94m"  # Bold Light Blue
+RESET_COLOR = "\033[0m"  # Reset all attributes
 
 # --- Configuration and Setup ---
 
+
 def get_config_paths():
     """Determines project directory and config file paths."""
-    prj_dir_env = os.environ.get('PRJ_DIR')
+    prj_dir_env = os.environ.get("PRJ_DIR")
     if prj_dir_env:
         prj_dir = os.path.abspath(os.path.expanduser(prj_dir_env))
     else:
-        prj_dir = os.path.expanduser('~/dev')
+        prj_dir = os.path.expanduser("~/dev")
 
-    config_file_env = os.environ.get('PRJ_CONFIG')
+    config_file_env = os.environ.get("PRJ_CONFIG")
     if config_file_env:
         config_file_path = os.path.abspath(os.path.expanduser(config_file_env))
         config_dir = os.path.dirname(config_file_path)
     else:
-        config_dir = os.path.expanduser('~/.config/prj')
-        config_file_path = os.path.join(config_dir, 'config.json')
+        config_dir = os.path.expanduser("~/.config/prj")
+        config_file_path = os.path.join(config_dir, "config.json")
 
     return prj_dir, config_dir, config_file_path
 
+
 PRJ_DIR, CONFIG_DIR, CONFIG_FILE = get_config_paths()
+
 
 def get_git_remote_url(repo_path):
     """Gets the remote URL of a git repository."""
     try:
         result = subprocess.run(
-            ['git', 'config', '--get', 'remote.origin.url'],
+            ["git", "config", "--get", "remote.origin.url"],
             cwd=repo_path,
-            capture_output=True, text=True, check=False
+            capture_output=True,
+            text=True,
+            check=False,
         )
         if result.returncode == 0:
             return result.stdout.strip()
@@ -54,9 +63,10 @@ def get_git_remote_url(repo_path):
         pass
     return ""
 
+
 def get_project_key_from_url(git_url):
     """Extracts 'author/repository' from a git URL."""
-    match = re.search(r'(?:[:/])([^/]+)/([^/]+?)(?:\.git)?$', git_url)
+    match = re.search(r"(?:[:/])([^/]+)/([^/]+?)(?:\.git)?$", git_url)
     if match:
         author, repo = match.groups()
         return f"{author}/{repo}"
@@ -73,10 +83,16 @@ def init_prj_environment(force_rescan=False):
             print(f"Rescanning {PRJ_DIR} and rebuilding config at {CONFIG_FILE}...")
             existing_config_data = load_config(CONFIG_FILE, silent=True)
             if existing_config_data is None:
-                 existing_config_data = {"settings": {"PRJ_DIR_snapshot": PRJ_DIR}, "projects": {}}
+                existing_config_data = {
+                    "settings": {"PRJ_DIR_snapshot": PRJ_DIR},
+                    "projects": {},
+                }
         else:
             print(f"Config file not found at {CONFIG_FILE}. Creating a new one.")
-            existing_config_data = {"settings": {"PRJ_DIR_snapshot": PRJ_DIR}, "projects": {}}
+            existing_config_data = {
+                "settings": {"PRJ_DIR_snapshot": PRJ_DIR},
+                "projects": {},
+            }
 
         projects = existing_config_data.get("projects", {})
 
@@ -84,10 +100,10 @@ def init_prj_environment(force_rescan=False):
             print(f"Scanning {PRJ_DIR} for existing git projects...")
             for author_name in os.listdir(PRJ_DIR):
                 author_path = os.path.join(PRJ_DIR, author_name)
-                if os.path.isdir(author_path) and not author_name.startswith('.'):
+                if os.path.isdir(author_path) and not author_name.startswith("."):
                     for repo_name in os.listdir(author_path):
                         repo_path = os.path.join(author_path, repo_name)
-                        if os.path.isdir(os.path.join(repo_path, '.git')):
+                        if os.path.isdir(os.path.join(repo_path, ".git")):
                             project_key = f"{author_name}/{repo_name}"
                             if project_key not in projects:
                                 print(f"Found project: {project_key}")
@@ -96,27 +112,37 @@ def init_prj_environment(force_rescan=False):
                                     "repository": repo_name,
                                     "aliases": [],
                                     "tags": [],
-                                    "remote_url": get_git_remote_url(repo_path) or f"https://github.com/{project_key}.git",
-                                    "description": ""
+                                    "remote_url": get_git_remote_url(repo_path)
+                                    or f"https://github.com/{project_key}.git",
+                                    "description": "",
                                 }
                             elif not projects[project_key].get("remote_url"):
-                                projects[project_key]["remote_url"] = get_git_remote_url(repo_path) or f"https://github.com/{project_key}.git"
+                                projects[project_key]["remote_url"] = (
+                                    get_git_remote_url(repo_path)
+                                    or f"https://github.com/{project_key}.git"
+                                )
 
         if force_rescan:
             keys_to_remove = []
             for key, data in projects.items():
-                author = data.get("author", key.split('/')[0])
-                repo = data.get("repository", key.split('/')[-1])
+                author = data.get("author", key.split("/")[0])
+                repo = data.get("repository", key.split("/")[-1])
                 project_path = os.path.join(PRJ_DIR, author, repo)
-                if not os.path.isdir(project_path) or not os.path.isdir(os.path.join(project_path, '.git')):
-                    print(f"Project directory for '{key}' not found at '{project_path}'. Removing from config.")
+                if not os.path.isdir(project_path) or not os.path.isdir(
+                    os.path.join(project_path, ".git")
+                ):
+                    print(
+                        f"Project directory for '{key}' not found at '{project_path}'. Removing from config."
+                    )
                     keys_to_remove.append(key)
-            for key in keys_to_remove:
-                del projects[key]
+            for key_to_remove in keys_to_remove:  # Renamed variable to avoid conflict
+                del projects[key_to_remove]
 
         config_data = {
-            "settings": existing_config_data.get("settings", {"PRJ_DIR_snapshot": PRJ_DIR}),
-            "projects": projects
+            "settings": existing_config_data.get(
+                "settings", {"PRJ_DIR_snapshot": PRJ_DIR}
+            ),
+            "projects": projects,
         }
         config_data["settings"]["PRJ_DIR_snapshot"] = PRJ_DIR
         save_config(config_data, CONFIG_FILE)
@@ -127,26 +153,38 @@ def init_prj_environment(force_rescan=False):
 def load_config(config_file_path, silent=False):
     """Loads the JSON configuration file."""
     try:
-        with open(config_file_path, 'r') as f:
+        with open(config_file_path, "r") as f:
             return json.load(f)
     except FileNotFoundError:
         if not silent:
-            print(f"Info: Config file {config_file_path} not found. Run 'prj init' or 'prj sync'.", file=sys.stderr)
+            print(
+                f"Info: Config file {config_file_path} not found. Run 'prj init' or 'prj sync'.",
+                file=sys.stderr,
+            )
         return None
     except json.JSONDecodeError:
-        print(f"Error: Config file {config_file_path} is corrupted. Please fix or delete it and run 'prj init'.", file=sys.stderr)
+        print(
+            f"Error: Config file {config_file_path} is corrupted. Please fix or delete it and run 'prj init'.",
+            file=sys.stderr,
+        )
         sys.exit(1)
+
 
 def save_config(config_data, config_file_path):
     """Saves the configuration data to the JSON file."""
     try:
-        with open(config_file_path, 'w') as f:
+        with open(config_file_path, "w") as f:
             json.dump(config_data, f, indent=2)
     except IOError as e:
-        print(f"Error: Could not write to config file {config_file_path}: {e}", file=sys.stderr)
+        print(
+            f"Error: Could not write to config file {config_file_path}: {e}",
+            file=sys.stderr,
+        )
         sys.exit(1)
 
+
 # --- Project Resolution ---
+
 
 def resolve_single_project(identifier, config_projects):
     """
@@ -167,18 +205,20 @@ def resolve_single_project(identifier, config_projects):
             return key
 
     # 3. Repository name match (if identifier doesn't contain '/')
-    if '/' not in identifier:
+    if "/" not in identifier:
         matches = []
         for key, data in config_projects.items():
-            if data.get("repository", "").lower() == identifier.lower() or \
-               key.split('/')[-1].lower() == identifier.lower():
+            if (
+                data.get("repository", "").lower() == identifier.lower()
+                or key.split("/")[-1].lower() == identifier.lower()
+            ):
                 matches.append(key)
 
         if len(matches) == 1:
             return matches[0]
         elif len(matches) > 1:
             # Ambiguity handled by get_target_projects, return None here
-            return None 
+            return None
     return None
 
 
@@ -203,7 +243,7 @@ def get_target_projects(args_project_identifiers, config_projects, all_if_empty=
     ambiguous_identifiers = set()
 
     for p_id in args_project_identifiers:
-        is_author_explicit_match = p_id.endswith('/')
+        is_author_explicit_match = p_id.endswith("/")
         author_to_match = p_id[:-1] if is_author_explicit_match else p_id
 
         # Attempt 1: Resolve as a single specific project (key, alias, unique repo)
@@ -216,40 +256,65 @@ def get_target_projects(args_project_identifiers, config_projects, all_if_empty=
         author_matches = []
         repo_only_matches = []
 
-        is_potential_author = True # Assume it could be an author unless it's clearly not
-        if '/' in p_id and not is_author_explicit_match: # e.g. "foo/bar" but not a known project key
-            is_potential_author = False 
+        is_potential_author = (
+            True  # Assume it could be an author unless it's clearly not
+        )
+        if (
+            "/" in p_id and not is_author_explicit_match
+        ):  # e.g. "foo/bar" but not a known project key
+            is_potential_author = False
 
         for key, data in config_projects.items():
             # Check for author match
-            if is_potential_author and data.get("author", "").lower() == author_to_match.lower():
+            if (
+                is_potential_author
+                and data.get("author", "").lower() == author_to_match.lower()
+            ):
                 author_matches.append(key)
 
             # Check for repository-only match (if p_id has no slash and wasn't unique before)
-            if '/' not in p_id and (data.get("repository", "").lower() == p_id.lower() or key.split('/')[-1].lower() == p_id.lower()):
+            if "/" not in p_id and (
+                data.get("repository", "").lower() == p_id.lower()
+                or key.split("/")[-1].lower() == p_id.lower()
+            ):
                 repo_only_matches.append(key)
 
         if is_author_explicit_match and author_matches:
             resolved_targets.update(author_matches)
-        elif author_matches and not single_resolved_key and ('/' not in p_id): # Matched an author implicitly
+        elif (
+            author_matches and not single_resolved_key and ("/" not in p_id)
+        ):  # Matched an author implicitly
             resolved_targets.update(author_matches)
-        elif repo_only_matches and len(repo_only_matches) > 1 and not single_resolved_key : # Ambiguous repo name
+        elif (
+            repo_only_matches and len(repo_only_matches) > 1 and not single_resolved_key
+        ):  # Ambiguous repo name
             ambiguous_identifiers.add(p_id)
         elif not single_resolved_key and not author_matches and not repo_only_matches:
-             print(f"Warning: Project or author '{p_id}' not found. Skipping.", file=sys.stderr)
-
+            print(
+                f"Warning: Project or author '{p_id}' not found. Skipping.",
+                file=sys.stderr,
+            )
 
     if ambiguous_identifiers:
-        for p_id in ambiguous_identifiers:
-            print(f"Error: Ambiguous project identifier '{p_id}'. Matches found for repository name:", file=sys.stderr)
+        for p_id_ambiguous in ambiguous_identifiers:  # Renamed variable
+            print(
+                f"Error: Ambiguous project identifier '{p_id_ambiguous}'. Matches found for repository name:",
+                file=sys.stderr,
+            )
             # Find and print specific ambiguous matches
             matches_for_ambiguous_id = []
             for key, data in config_projects.items():
-                 if data.get("repository", "").lower() == p_id.lower() or key.split('/')[-1].lower() == p_id.lower():
+                if (
+                    data.get("repository", "").lower() == p_id_ambiguous.lower()
+                    or key.split("/")[-1].lower() == p_id_ambiguous.lower()
+                ):
                     matches_for_ambiguous_id.append(key)
             for m in matches_for_ambiguous_id:
                 print(f"  - {m}", file=sys.stderr)
-            print("Please use 'author/repository', a unique alias, or 'author/' for all projects by an author.", file=sys.stderr)
+            print(
+                "Please use 'author/repository', a unique alias, or 'author/' for all projects by an author.",
+                file=sys.stderr,
+            )
         # Decide if we should exit or continue with successfully resolved ones
         # For now, continue with successfully resolved ones.
 
@@ -261,11 +326,13 @@ def get_project_path(project_key, config_data):
     project_info = config_data["projects"].get(project_key)
     if not project_info:
         return None
-    author = project_info.get("author", project_key.split('/')[0])
-    repository = project_info.get("repository", project_key.split('/')[-1])
+    author = project_info.get("author", project_key.split("/")[0])
+    repository = project_info.get("repository", project_key.split("/")[-1])
     return os.path.join(PRJ_DIR, author, repository)
 
+
 # --- Git Operations ---
+
 
 def check_git_status_details(project_path):
     """
@@ -276,80 +343,127 @@ def check_git_status_details(project_path):
     has_unpushed = False
     has_unpulled = False
 
-    if not os.path.isdir(os.path.join(project_path, '.git')):
+    if not os.path.isdir(os.path.join(project_path, ".git")):
         return False, False, False
 
     try:
         # Check for uncommitted changes
-        status_porcelain = subprocess.run(['git', 'status', '--porcelain'], cwd=project_path, capture_output=True, text=True, check=False)
+        status_porcelain = subprocess.run(
+            ["git", "status", "--porcelain"],
+            cwd=project_path,
+            capture_output=True,
+            text=True,
+            check=False,
+        )
         if status_porcelain.stdout.strip():
             has_uncommitted = True
 
         # Check for unpushed commits
         # Compares local HEAD with its upstream
-        unpushed_check = subprocess.run(['git', 'rev-list', '--count', '@{u}..HEAD'], cwd=project_path, capture_output=True, text=True, check=False)
+        unpushed_check = subprocess.run(
+            ["git", "rev-list", "--count", "@{u}..HEAD"],
+            cwd=project_path,
+            capture_output=True,
+            text=True,
+            check=False,
+        )
         if unpushed_check.returncode == 0 and int(unpushed_check.stdout.strip()) > 0:
             has_unpushed = True
         # Fallback if upstream is not set (rev-list @{u}..HEAD errors out)
-        elif unpushed_check.returncode != 0: # Common error: "fatal: no upstream configured for branch..."
+        elif (
+            unpushed_check.returncode != 0
+        ):  # Common error: "fatal: no upstream configured for branch..."
             # A simpler check if HEAD is ahead of any remote ref for the current branch (less precise)
             # This is harder to do reliably without knowing the remote name.
             # For now, if upstream isn't set, we can't easily tell if it's "unpushed" in a general sense.
             pass
 
-
         # Check for unpulled commits
-        unpulled_check = subprocess.run(['git', 'rev-list', '--count', 'HEAD..@{u}'], cwd=project_path, capture_output=True, text=True, check=False)
+        unpulled_check = subprocess.run(
+            ["git", "rev-list", "--count", "HEAD..@{u}"],
+            cwd=project_path,
+            capture_output=True,
+            text=True,
+            check=False,
+        )
         if unpulled_check.returncode == 0 and int(unpulled_check.stdout.strip()) > 0:
             has_unpulled = True
 
     except (FileNotFoundError, ValueError, subprocess.CalledProcessError) as e:
         # ValueError for int conversion if output is not a number
-        print(f"Note: Could not accurately determine detailed status for {project_path} (may need 'git fetch'): {e}", file=sys.stderr)
+        print(
+            f"Note: Could not accurately determine detailed status for {project_path} (may need 'git fetch'): {e}",
+            file=sys.stderr,
+        )
         # Fallback: if any git command fails, assume it might have changes or need attention
-        return True, True, True # Be conservative
+        return True, True, True  # Be conservative
 
     return has_uncommitted, has_unpushed, has_unpulled
 
 
-def run_git_command(project_path, command_args, display_output=True, check_return_code=True):
+def run_git_command(
+    project_path, command_args, display_output=True, check_return_code=True
+):
     """Runs a git command in the specified project directory."""
-    if not os.path.isdir(os.path.join(project_path, '.git')):
-        print(f"Skipping {os.path.basename(project_path)}: Not a git repository or .git folder missing.", file=sys.stderr)
-        return False, "", "" # success, stdout, stderr
+    if not os.path.isdir(os.path.join(project_path, ".git")):
+        print(
+            f"Skipping {os.path.basename(project_path)}: Not a git repository or .git folder missing.",
+            file=sys.stderr,
+        )
+        return False, "", ""  # success, stdout, stderr
     try:
-        process = subprocess.Popen(['git'] + command_args, cwd=project_path, 
-                                   stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, errors='replace')
+        process = subprocess.Popen(
+            ["git"] + command_args,
+            cwd=project_path,
+            stdout=subprocess.PIPE,
+            stderr=subprocess.PIPE,
+            text=True,
+            errors="replace",
+        )
 
         stdout_lines = []
         if display_output:
-            for line in process.stdout:
+            # Stream output line by line
+            for line in iter(process.stdout.readline, ""):
                 sys.stdout.write(line)
                 stdout_lines.append(line)
-            sys.stdout.flush()
+            process.stdout.close()  # Close pipe after reading
+            sys.stdout.flush()  # Ensure output is displayed immediately
 
-        raw_stdout, raw_stderr = process.communicate() # stdout will be empty if already streamed
+        # Wait for process to complete and get remaining stderr
+        # stdout will be empty here if already streamed and closed
+        _, raw_stderr = process.communicate()
 
-        if not display_output: # if not streamed, capture it now
-            stdout_lines = raw_stdout.splitlines(True) if raw_stdout else []
-
-        full_stdout = "".join(stdout_lines)
+        full_stdout = "".join(stdout_lines)  # This will contain what was streamed
 
         if check_return_code and process.returncode != 0:
-            # Prefer printing raw_stderr as it's captured after process completion.
-            error_output = raw_stderr.strip() if raw_stderr else "Unknown git error (no stderr output)"
-            print(f"Git command error in {project_path} (git {' '.join(command_args)}):\n{error_output}", file=sys.stderr)
+            error_output = (
+                raw_stderr.strip()
+                if raw_stderr
+                else "Unknown git error (no stderr output)"
+            )
+            print(
+                f"Git command error in {project_path} (git {' '.join(command_args)}):\n{error_output}",
+                file=sys.stderr,
+            )
             return False, full_stdout, raw_stderr.strip()
         return True, full_stdout, raw_stderr.strip()
     except FileNotFoundError:
-        print("Error: 'git' command not found. Please ensure Git is installed and in your PATH.", file=sys.stderr)
+        print(
+            "Error: 'git' command not found. Please ensure Git is installed and in your PATH.",
+            file=sys.stderr,
+        )
         sys.exit(1)
     except Exception as e:
-        print(f"An error occurred while running git command in {project_path}: {e}", file=sys.stderr)
+        print(
+            f"An error occurred while running git command in {project_path}: {e}",
+            file=sys.stderr,
+        )
         return False, "", str(e)
 
 
 # --- Command Functions ---
+
 
 def cmd_init(args, config_data):
     """Command: prj init"""
@@ -358,7 +472,7 @@ def cmd_init(args, config_data):
     if not os.path.isfile(CONFIG_FILE):
         print("Config file was not found, it should have been created.")
         print("Running initialization again...")
-        init_prj_environment() 
+        init_prj_environment()
     else:
         print("Environment is initialized.")
         if args.rescan:
@@ -369,56 +483,86 @@ def cmd_install(args, config_data):
     """Command: prj install <repo_url_or_author_repo>"""
     repo_identifier = args.repo_identifier
 
-    if "://" in repo_identifier or "@" in repo_identifier: 
+    if "://" in repo_identifier or "@" in repo_identifier:
         clone_url = repo_identifier
         project_key_from_url = get_project_key_from_url(clone_url)
         if not project_key_from_url:
-            print(f"Error: Could not parse author/repository from URL: {clone_url}", file=sys.stderr)
+            print(
+                f"Error: Could not parse author/repository from URL: {clone_url}",
+                file=sys.stderr,
+            )
             return
-        author, repository = project_key_from_url.split('/')
-    elif '/' in repo_identifier: 
-        author, repository = repo_identifier.split('/', 1)
-        clone_url = args.source_url_template.format(author=author, repository=repository)
+        author, repository = project_key_from_url.split("/")
+    elif "/" in repo_identifier:
+        author, repository = repo_identifier.split("/", 1)
+        clone_url = args.source_url_template.format(
+            author=author, repository=repository
+        )
     else:
-        print("Error: Invalid repository identifier. Use 'author/repository' or a full Git URL.", file=sys.stderr)
+        print(
+            "Error: Invalid repository identifier. Use 'author/repository' or a full Git URL.",
+            file=sys.stderr,
+        )
         return
 
     project_key = f"{author}/{repository}"
     target_dir = os.path.join(PRJ_DIR, author, repository)
 
     if project_key in config_data["projects"] and os.path.isdir(target_dir):
-        print(f"Project {project_key} already exists at {target_dir} and is in config.", file=sys.stderr)
+        print(
+            f"Project {project_key} already exists at {target_dir} and is in config.",
+            file=sys.stderr,
+        )
         return
 
     if os.path.isdir(target_dir):
         print(f"Warning: Directory {target_dir} already exists.", file=sys.stderr)
-        if not os.path.isdir(os.path.join(target_dir, '.git')):
-            print(f"Error: {target_dir} exists but is not a git repository.", file=sys.stderr)
+        if not os.path.isdir(os.path.join(target_dir, ".git")):
+            print(
+                f"Error: {target_dir} exists but is not a git repository.",
+                file=sys.stderr,
+            )
             return
         print("Assuming it's the project. Adding to config if not present.")
     else:
         print(f"Cloning {clone_url} into {target_dir}...")
         os.makedirs(os.path.dirname(target_dir), exist_ok=True)
-        success, _, stderr = run_git_command(os.path.dirname(target_dir), ['clone', clone_url, repository], display_output=True)
+        success, _, stderr = run_git_command(
+            os.path.dirname(target_dir),
+            ["clone", clone_url, repository],
+            display_output=True,
+        )
         if not success:
-            print(f"Error cloning repository {clone_url}. Git stderr:\n{stderr}", file=sys.stderr)
-            if os.path.exists(target_dir) and not os.listdir(target_dir):
+            print(
+                f"Error cloning repository {clone_url}. Git stderr:\n{stderr}",
+                file=sys.stderr,
+            )
+            if os.path.exists(target_dir) and not os.listdir(
+                target_dir
+            ):  # Check if clone created an empty dir
                 shutil.rmtree(target_dir, ignore_errors=True)
-                if not os.listdir(os.path.dirname(target_dir)): 
-                    shutil.rmtree(os.path.dirname(target_dir), ignore_errors=True)
+                # Check if author dir is also empty and remove
+                author_dir_path = os.path.dirname(target_dir)
+                if os.path.exists(author_dir_path) and not os.listdir(author_dir_path):
+                    shutil.rmtree(author_dir_path, ignore_errors=True)
             return
         print(f"Successfully cloned {project_key}.")
 
-
     project_entry = config_data["projects"].get(project_key, {})
-    project_entry.update({
-        "author": author,
-        "repository": repository,
-        "remote_url": clone_url if "://" in clone_url else get_git_remote_url(target_dir) or clone_url,
-        "description": project_entry.get("description", "") 
-    })
-    if "aliases" not in project_entry: project_entry["aliases"] = []
-    if "tags" not in project_entry: project_entry["tags"] = []
+    project_entry.update(
+        {
+            "author": author,
+            "repository": repository,
+            "remote_url": clone_url
+            if "://" in clone_url
+            else get_git_remote_url(target_dir) or clone_url,
+            "description": project_entry.get("description", ""),
+        }
+    )
+    if "aliases" not in project_entry:
+        project_entry["aliases"] = []
+    if "tags" not in project_entry:
+        project_entry["tags"] = []
 
     if args.alias:
         if args.alias not in project_entry["aliases"]:
@@ -433,24 +577,39 @@ def cmd_install(args, config_data):
 def cmd_uninstall(args, config_data):
     """Command: prj uninstall <project_identifier>"""
     # Uninstall expects a single, specific project.
-    project_key = resolve_single_project(args.project_identifier, config_data["projects"])
+    project_key = resolve_single_project(
+        args.project_identifier, config_data["projects"]
+    )
     if not project_key:
         # Check if it was ambiguous
         matches = []
-        if '/' not in args.project_identifier:
-            for key, data in config_data["projects"].items():
-                if data.get("repository", "").lower() == args.project_identifier.lower() or \
-                   key.split('/')[-1].lower() == args.project_identifier.lower():
-                    matches.append(key)
+        if "/" not in args.project_identifier:
+            for key_iter, data_iter in config_data["projects"].items():  # Renamed vars
+                if (
+                    data_iter.get("repository", "").lower()
+                    == args.project_identifier.lower()
+                    or key_iter.split("/")[-1].lower()
+                    == args.project_identifier.lower()
+                ):
+                    matches.append(key_iter)
         if len(matches) > 1:
-            print(f"Error: Ambiguous project identifier '{args.project_identifier}'. Matches found:", file=sys.stderr)
-            for m in matches: print(f"  - {m}", file=sys.stderr)
-            print("Please use a more specific identifier (author/repository or a unique alias).", file=sys.stderr)
+            print(
+                f"Error: Ambiguous project identifier '{args.project_identifier}'. Matches found:",
+                file=sys.stderr,
+            )
+            for m in matches:
+                print(f"  - {m}", file=sys.stderr)
+            print(
+                "Please use a more specific identifier (author/repository or a unique alias).",
+                file=sys.stderr,
+            )
             return
         else:
-            print(f"Error: Project '{args.project_identifier}' not found in configuration.", file=sys.stderr)
+            print(
+                f"Error: Project '{args.project_identifier}' not found in configuration.",
+                file=sys.stderr,
+            )
             return
-
 
     project_path = get_project_path(project_key, config_data)
 
@@ -496,33 +655,39 @@ def cmd_ls(args, config_data):
     for key, data in projects_to_list:
         output = key
         if args.path:
-            project_path = get_project_path(key, config_data)
-            output = project_path if project_path else f"{key} (path not found)"
+            project_path_val = get_project_path(key, config_data)  # Renamed var
+            output = project_path_val if project_path_val else f"{key} (path not found)"
         elif args.long:
             details = []
             if data.get("aliases"):
                 details.append(f"aliases: {', '.join(data['aliases'])}")
             if data.get("tags"):
                 details.append(f"tags: {', '.join(data['tags'])}")
-            desc = data.get("description","")
+            desc = data.get("description", "")
             if desc:
-                 details.append(f"desc: {desc[:50]}{'...' if len(desc) > 50 else ''}")
+                details.append(f"desc: {desc[:50]}{'...' if len(desc) > 50 else ''}")
             if details:
                 output += f" ({'; '.join(details)})"
         print(output)
 
 
-def cmd_git_operation_wrapper(args, config_data, operation_name, git_command_args_list_func,
-                              commit_message=None, status_filter_active=False):
+def cmd_git_operation_wrapper(
+    args,
+    config_data,
+    operation_name,
+    git_command_args_list_func,
+    commit_message=None,
+    status_filter_active=False,
+):
     """
     Generic handler for status, pull, push.
     git_command_args_list_func can be a list or a function that takes project_path and returns a list.
     """
     target_keys = get_target_projects(args.project_identifiers, config_data["projects"])
     if not target_keys:
-        if args.project_identifiers: 
+        if args.project_identifiers:
             print("No valid projects to operate on from your selection.")
-        else: 
+        else:
             print("No projects configured to operate on.")
         return
 
@@ -534,95 +699,150 @@ def cmd_git_operation_wrapper(args, config_data, operation_name, git_command_arg
     for key in target_keys:
         project_path = get_project_path(key, config_data)
         if not (project_path and os.path.isdir(project_path)):
-            print(f"Skipping {key}: Path not found or invalid ({project_path})", file=sys.stderr)
-            failure_count +=1
+            print(
+                f"Skipping {key}: Path not found or invalid ({project_path})",
+                file=sys.stderr,
+            )
+            failure_count += 1
             continue
 
-        if status_filter_active and not args.all: # For status command, check if dirty
+        if status_filter_active and not args.all:  # For status command, check if dirty
             uncommitted, unpushed, unpulled = check_git_status_details(project_path)
             if not (uncommitted or unpushed or unpulled):
                 # print(f"--- Skipping {key} (clean) ---") # Optional: verbose skip
-                continue # Skip clean projects unless --all is used
+                continue  # Skip clean projects unless --all is used
 
-        print(f"\n--- {operation_name.capitalize()} for {key} ({project_path}) ---")
-        shown_count +=1
+        # MODIFIED SECTION FOR COLORED OUTPUT
+        if operation_name.lower() == "status":
+            # For status, print only the colored key, then the status will follow
+            print(f"\n{BOLD_BLUE}{key}{RESET_COLOR}")
+        else:
+            # For other commands (pull, push), include more details in the header
+            print(
+                f"\n--- {operation_name.capitalize()} for {BOLD_BLUE}{key}{RESET_COLOR} ({project_path}) ---"
+            )
+        # END OF MODIFIED SECTION
+
+        shown_count += 1
 
         current_op_success = True
-        if commit_message: # Specific to push with message
+        if commit_message:  # Specific to push with message
             print("Staging all changes...")
-            stage_ok, _, _ = run_git_command(project_path, ['add', '.'], display_output=False)
+            stage_ok, _, _ = run_git_command(
+                project_path, ["add", "."], display_output=False
+            )
             if not stage_ok:
                 print(f"Failed to stage changes for {key}.", file=sys.stderr)
                 current_op_success = False
             else:
-                print(f"Committing with message: \"{commit_message}\"...")
+                print(f'Committing with message: "{commit_message}"...')
                 # Check if there's anything to commit after staging
-                status_check_cmd = ['status', '--porcelain']
-                _, status_output, _ = run_git_command(project_path, status_check_cmd, display_output=False, check_return_code=False)
+                status_check_cmd = ["status", "--porcelain"]
+                _, status_output, _ = run_git_command(
+                    project_path,
+                    status_check_cmd,
+                    display_output=False,
+                    check_return_code=False,
+                )
 
-                if not status_output.strip() and not check_git_status_details(project_path)[1]: # No staged changes and no unpushed commits
+                if (
+                    not status_output.strip()
+                    and not check_git_status_details(project_path)[1]
+                ):  # No staged changes and no unpushed commits
                     # Check if only unpushed commits exist (no local changes to commit)
-                    _, unpushed_count_str, _ = run_git_command(project_path, ['rev-list', '--count', '@{u}..HEAD'], display_output=False, check_return_code=False)
+                    _, unpushed_count_str, _ = run_git_command(
+                        project_path,
+                        ["rev-list", "--count", "@{u}..HEAD"],
+                        display_output=False,
+                        check_return_code=False,
+                    )
                     has_unpushed_commits = False
                     try:
-                        if unpushed_count_str and int(unpushed_count_str.strip()) > 0 :
+                        if unpushed_count_str and int(unpushed_count_str.strip()) > 0:
                             has_unpushed_commits = True
-                    except ValueError: pass
+                    except ValueError:
+                        pass
 
                     if not has_unpushed_commits:
                         print(f"No changes to commit for {key}. Skipping commit.")
                     # else: proceed to push existing unpushed commits
-                else: # Has staged changes or existing unpushed commits
-                    add_ok, _, _ = run_git_command(project_path, ['add', '-A'], display_output=True)
-                    if not add_ok:
-                        print(f"Failed to add changes for {key}.", file=sys.stderr)
-
-                    commit_ok, _, _ = run_git_command(project_path, ['commit', '-m', commit_message], display_output=True)
+                else:  # Has staged changes or existing unpushed commits
+                    commit_ok, _, _ = run_git_command(
+                        project_path,
+                        ["commit", "-m", commit_message],
+                        display_output=True,
+                    )
                     if not commit_ok:
-                        print(f"Failed to commit changes for {key}. It might be that there were no staged changes to commit.", file=sys.stderr)
+                        print(
+                            f"Failed to commit changes for {key}. It might be that there were no staged changes to commit.",
+                            file=sys.stderr,
+                        )
                         # Don't necessarily set current_op_success to False, as push might still proceed for existing commits.
                         # Let the push command determine final success.
 
-        if current_op_success: # Proceed to main git operation (pull, push, status)
-            git_cmds = git_command_args_list_func(project_path) if callable(git_command_args_list_func) else git_command_args_list_func
-            op_ok, _, _ = run_git_command(project_path, git_cmds)
+        if current_op_success:  # Proceed to main git operation (pull, push, status)
+            git_cmds = (
+                git_command_args_list_func(project_path)
+                if callable(git_command_args_list_func)
+                else git_command_args_list_func
+            )
+            op_ok, _, _ = run_git_command(
+                project_path, git_cmds
+            )  # display_output is True by default
             if op_ok:
                 success_count += 1
             else:
                 failure_count += 1
-        else: # Staging or commit failed
+        else:  # Staging or commit failed
             failure_count += 1
 
     if status_filter_active and shown_count == 0 and target_keys:
-        print("\nAll targeted projects are clean or up-to-date. Use --all to see their status.")
+        print(
+            "\nAll targeted projects are clean or up-to-date. Use --all to see their status."
+        )
 
     print(f"\n--- {operation_name.capitalize()} Summary ---")
-    print(f"Operations attempted/shown: {shown_count if status_filter_active else len(target_keys)}")
+    print(
+        f"Operations attempted/shown: {shown_count if status_filter_active else len(target_keys)}"
+    )
     print(f"Successful operations: {success_count}")
     print(f"Failed/skipped operations: {failure_count}")
 
 
 def cmd_status(args, config_data):
     """Command: prj status"""
-    cmd_git_operation_wrapper(args, config_data, "status", ['status', '-sb'], status_filter_active=True)
+    cmd_git_operation_wrapper(
+        args, config_data, "status", ["status", "-sb"], status_filter_active=True
+    )
+
 
 def cmd_pull(args, config_data):
     """Command: prj pull"""
-    def get_pull_args(project_path): # Not actually dependent on project_path for pull
-        pull_cmds = ['pull']
-        if args.rebase: pull_cmds.append('--rebase')
-        if args.ff_only: pull_cmds.append('--ff-only')
+
+    def get_pull_args(project_path_arg):  # Renamed var
+        pull_cmds = ["pull"]
+        if args.rebase:
+            pull_cmds.append("--rebase")
+        if args.ff_only:
+            pull_cmds.append("--ff-only")
         return pull_cmds
+
     cmd_git_operation_wrapper(args, config_data, "pull", get_pull_args)
+
 
 def cmd_push(args, config_data):
     """Command: prj push"""
-    def get_push_args(project_path): # Not actually dependent on project_path for push
-        push_cmds = ['push']
-        if args.force: push_cmds.append('--force')
+
+    def get_push_args(project_path_arg):  # Renamed var
+        push_cmds = ["push"]
+        if args.force:
+            push_cmds.append("--force")
         # Add other push options if needed, e.g. args.tags, args.remote
         return push_cmds
-    cmd_git_operation_wrapper(args, config_data, "push", get_push_args, commit_message=args.message)
+
+    cmd_git_operation_wrapper(
+        args, config_data, "push", get_push_args, commit_message=args.message
+    )
 
 
 def cmd_cd(args, config_data):
@@ -630,7 +850,7 @@ def cmd_cd(args, config_data):
     identifier = args.identifier
     target_path = None
 
-    if not identifier: # `prj cd` with no args
+    if not identifier:  # `prj cd` with no args
         print(PRJ_DIR)
         return
 
@@ -643,21 +863,24 @@ def cmd_cd(args, config_data):
         # Check if 'identifier' is an author by seeing if it has managed projects
         is_author_of_managed_projects = False
         potential_author_path = os.path.join(PRJ_DIR, identifier)
-        if os.path.isdir(potential_author_path): # Directory for author name exists
+        if os.path.isdir(potential_author_path):  # Directory for author name exists
             for proj_data in config_data["projects"].values():
                 if proj_data.get("author", "").lower() == identifier.lower():
                     is_author_of_managed_projects = True
                     break
             if is_author_of_managed_projects:
-                 target_path = potential_author_path
+                target_path = potential_author_path
             # else: it's a directory in PRJ_DIR but not a known author with managed projects.
             # We could choose to cd to it anyway, but for now, stick to known entities.
 
     if target_path and os.path.isdir(target_path):
         print(target_path)
     else:
-        print(f"Error: Could not find directory for '{identifier}'. Not a known project, alias, or author with managed projects.", file=sys.stderr)
-        sys.exit(1) 
+        print(
+            f"Error: Could not find directory for '{identifier}'. Not a known project, alias, or author with managed projects.",
+            file=sys.stderr,
+        )
+        sys.exit(1)
 
 
 def cmd_tree(args, config_data):
@@ -665,30 +888,46 @@ def cmd_tree(args, config_data):
     depth = args.depth
     print(f"{PRJ_DIR}/")
 
-    authors = sorted([d for d in os.listdir(PRJ_DIR) if os.path.isdir(os.path.join(PRJ_DIR, d)) and not d.startswith('.')])
+    authors = sorted(
+        [
+            d
+            for d in os.listdir(PRJ_DIR)
+            if os.path.isdir(os.path.join(PRJ_DIR, d)) and not d.startswith(".")
+        ]
+    )
 
     for i, author_name in enumerate(authors):
         author_path = os.path.join(PRJ_DIR, author_name)
-        is_last_author = (i == len(authors) - 1)
+        is_last_author = i == len(authors) - 1
         author_prefix = "└── " if is_last_author else "├── "
         print(f"{author_prefix}{author_name}/")
 
         if depth > 1:
-            repos = sorted([r for r in os.listdir(author_path) if os.path.isdir(os.path.join(author_path, r)) and not r.startswith('.')])
+            repos = sorted(
+                [
+                    r
+                    for r in os.listdir(author_path)
+                    if os.path.isdir(os.path.join(author_path, r))
+                    and not r.startswith(".")
+                ]
+            )
             for j, repo_name in enumerate(repos):
-                is_last_repo = (j == len(repos) - 1)
+                is_last_repo = j == len(repos) - 1
 
                 indent = "    " if is_last_author else "│   "
                 repo_prefix = "└── " if is_last_repo else "├── "
 
-                project_key = f"{author_name}/{repo_name}"
+                project_key_val = f"{author_name}/{repo_name}"  # Renamed var
                 marker = ""
-                if project_key in config_data["projects"]:
-                    p_data = config_data["projects"][project_key]
+                if project_key_val in config_data["projects"]:
+                    p_data = config_data["projects"][project_key_val]
                     details = []
-                    if p_data.get("aliases"): details.append(f"aliases: {', '.join(p_data['aliases'])}")
-                    if p_data.get("tags"): details.append(f"tags: {', '.join(p_data['tags'])}")
-                    if details: marker = f" ({'; '.join(details)})"
+                    if p_data.get("aliases"):
+                        details.append(f"aliases: {', '.join(p_data['aliases'])}")
+                    if p_data.get("tags"):
+                        details.append(f"tags: {', '.join(p_data['tags'])}")
+                    if details:
+                        marker = f" ({'; '.join(details)})"
                 elif os.path.isdir(os.path.join(author_path, repo_name, ".git")):
                     marker = " (unmanaged git repo)"
                 else:
@@ -696,28 +935,37 @@ def cmd_tree(args, config_data):
                 print(f"{indent}{repo_prefix}{repo_name}{marker}")
 
 
-def _modify_project_attribute(project_identifier, attribute_name, value, config_data, add=True):
+def _modify_project_attribute(
+    project_identifier, attribute_name, value, config_data, add=True
+):
     """Helper for adding/removing aliases and tags."""
     # This function expects a single, specific project.
     project_key = resolve_single_project(project_identifier, config_data["projects"])
     if not project_key:
         # Check for ambiguity if not found
         matches = []
-        if '/' not in project_identifier: # Could be an ambiguous repo name
-            for pk, data in config_data["projects"].items():
-                if data.get("repository", "").lower() == project_identifier.lower() or \
-                   pk.split('/')[-1].lower() == project_identifier.lower():
+        if "/" not in project_identifier:  # Could be an ambiguous repo name
+            for pk, data_val in config_data["projects"].items():  # Renamed var
+                if (
+                    data_val.get("repository", "").lower() == project_identifier.lower()
+                    or pk.split("/")[-1].lower() == project_identifier.lower()
+                ):
                     matches.append(pk)
         if len(matches) > 1:
-             print(f"Error: Ambiguous project identifier '{project_identifier}'. Matches found:", file=sys.stderr)
-             for m in matches: print(f"  - {m}", file=sys.stderr)
+            print(
+                f"Error: Ambiguous project identifier '{project_identifier}'. Matches found:",
+                file=sys.stderr,
+            )
+            for m in matches:
+                print(f"  - {m}", file=sys.stderr)
         else:
             print(f"Error: Project '{project_identifier}' not found.", file=sys.stderr)
         return False
 
-
     project_data = config_data["projects"][project_key]
-    if attribute_name not in project_data or not isinstance(project_data[attribute_name], list):
+    if attribute_name not in project_data or not isinstance(
+        project_data[attribute_name], list
+    ):
         project_data[attribute_name] = []
 
     attr_list = project_data[attribute_name]
@@ -726,32 +974,53 @@ def _modify_project_attribute(project_identifier, attribute_name, value, config_
     if add:
         if value not in attr_list:
             attr_list.append(value)
-            print(f"{attribute_name[:-1].capitalize()} '{value}' {op_past} to {project_key}.")
+            print(
+                f"{attribute_name[:-1].capitalize()} '{value}' {op_past} to {project_key}."
+            )
         else:
-            print(f"{attribute_name[:-1].capitalize()} '{value}' already exists for {project_key}.")
-            return True 
-    else: 
+            print(
+                f"{attribute_name[:-1].capitalize()} '{value}' already exists for {project_key}."
+            )
+            return True
+    else:
         if value in attr_list:
             attr_list.remove(value)
-            print(f"{attribute_name[:-1].capitalize()} '{value}' {op_past} from {project_key}.")
+            print(
+                f"{attribute_name[:-1].capitalize()} '{value}' {op_past} from {project_key}."
+            )
         else:
-            print(f"Error: {attribute_name[:-1].capitalize()} '{value}' not found for {project_key}.", file=sys.stderr)
+            print(
+                f"Error: {attribute_name[:-1].capitalize()} '{value}' not found for {project_key}.",
+                file=sys.stderr,
+            )
             return False
 
     save_config(config_data, CONFIG_FILE)
     return True
 
+
 def cmd_alias(args, config_data):
-    _modify_project_attribute(args.project_identifier, "aliases", args.alias_name, config_data, add=True)
+    _modify_project_attribute(
+        args.project_identifier, "aliases", args.alias_name, config_data, add=True
+    )
+
 
 def cmd_unalias(args, config_data):
-    _modify_project_attribute(args.project_identifier, "aliases", args.alias_name, config_data, add=False)
+    _modify_project_attribute(
+        args.project_identifier, "aliases", args.alias_name, config_data, add=False
+    )
+
 
 def cmd_tag(args, config_data):
-    _modify_project_attribute(args.project_identifier, "tags", args.tag_name, config_data, add=True)
+    _modify_project_attribute(
+        args.project_identifier, "tags", args.tag_name, config_data, add=True
+    )
+
 
 def cmd_untag(args, config_data):
-    _modify_project_attribute(args.project_identifier, "tags", args.tag_name, config_data, add=False)
+    _modify_project_attribute(
+        args.project_identifier, "tags", args.tag_name, config_data, add=False
+    )
 
 
 def cmd_export(args, config_data):
@@ -765,7 +1034,7 @@ def cmd_export(args, config_data):
 
     if args.file:
         try:
-            with open(args.file, 'w') as f:
+            with open(args.file, "w") as f:
                 f.write(output_str + "\n")
             print(f"Exported {len(output_lines)} projects to {args.file}")
         except IOError as e:
@@ -782,8 +1051,10 @@ def cmd_import(args, config_data):
         return
 
     try:
-        with open(filepath, 'r') as f:
-            lines = [line.strip() for line in f if line.strip() and not line.startswith('#')]
+        with open(filepath, "r") as f:
+            lines = [
+                line.strip() for line in f if line.strip() and not line.startswith("#")
+            ]
     except IOError as e:
         print(f"Error reading import file {filepath}: {e}", file=sys.stderr)
         return
@@ -798,24 +1069,32 @@ def cmd_import(args, config_data):
     for line_num, repo_identifier in enumerate(lines, 1):
         print(f"\nProcessing line {line_num}: {repo_identifier}")
         install_args = argparse.Namespace(
-            repo_identifier=repo_identifier, 
-            alias=None, 
-            source_url_template=args.source_url_template
+            repo_identifier=repo_identifier,
+            alias=None,
+            source_url_template=args.source_url_template,
         )
 
-        project_key_from_id = get_project_key_from_url(repo_identifier) if "://" in repo_identifier or "@" in repo_identifier else (repo_identifier if '/' in repo_identifier else None)
+        project_key_from_id = (
+            get_project_key_from_url(repo_identifier)
+            if "://" in repo_identifier or "@" in repo_identifier
+            else (repo_identifier if "/" in repo_identifier else None)
+        )
 
         if project_key_from_id and project_key_from_id in config_data["projects"]:
             target_dir_check = get_project_path(project_key_from_id, config_data)
             if os.path.isdir(target_dir_check):
-                 print(f"Project {project_key_from_id} already configured and directory exists. Skipping.")
-                 skipped_count += 1
-                 continue
-            else: 
-                 print(f"Project {project_key_from_id} in config but directory missing. Attempting re-install.")
+                print(
+                    f"Project {project_key_from_id} already configured and directory exists. Skipping."
+                )
+                skipped_count += 1
+                continue
+            else:
+                print(
+                    f"Project {project_key_from_id} in config but directory missing. Attempting re-install."
+                )
         try:
-            cmd_install(install_args, config_data) 
-            imported_count +=1
+            cmd_install(install_args, config_data)
+            imported_count += 1
         except Exception as e:
             print(f"Failed to import {repo_identifier}: {e}", file=sys.stderr)
             failed_count += 1
@@ -831,17 +1110,20 @@ def cmd_search_remote(args, config_data):
     try:
         import requests
     except ImportError:
-        print("Error: The 'requests' library is required. pip install requests", file=sys.stderr)
+        print(
+            "Error: The 'requests' library is required. pip install requests",
+            file=sys.stderr,
+        )
         sys.exit(1)
 
     username = args.github_username
     api_url = f"https://api.github.com/users/{username}/repos"
-    params = {'type': 'all', 'sort': 'updated', 'per_page': 100} 
+    params = {"type": "all", "sort": "updated", "per_page": 100}
 
     try:
         print(f"Fetching repositories for GitHub user: {username}...")
         response = requests.get(api_url, params=params, timeout=10)
-        response.raise_for_status() 
+        response.raise_for_status()
         repos = response.json()
 
         if not repos:
@@ -850,29 +1132,35 @@ def cmd_search_remote(args, config_data):
 
         print(f"\nRepositories for {username} (newest first):")
         for repo in repos:
-            name = repo.get("full_name") 
+            name = repo.get("full_name")
             description = repo.get("description") or "No description"
             stars = repo.get("stargazers_count", 0)
             fork = "[Fork] " if repo.get("fork") else ""
 
             installed_marker = "*" if name in config_data["projects"] else " "
-            print(f" {installed_marker} {name:<40} ({stars} ⭐) - {fork}{description[:80]}")
+            print(
+                f" {installed_marker} {name:<40} ({stars} ⭐) - {fork}{description[:80]}"
+            )
         print("\n(*) indicates the repository is already managed by prj.")
 
     except requests.exceptions.RequestException as e:
         print(f"Error fetching repositories for {username}: {e}", file=sys.stderr)
 
+
 def cmd_sync(args, config_data):
     """Command: prj sync"""
     print("Synchronizing configuration with filesystem...")
-    init_prj_environment(force_rescan=True) 
+    init_prj_environment(force_rescan=True)
     print("Sync complete. Configuration file has been updated.")
 
 
 def cmd_fzf(args, config_data):
     """Command: prj fzf - Interactive project selection and action."""
     if shutil.which("fzf") is None:
-        print("Error: fzf command not found. Please install fzf to use this feature.", file=sys.stderr)
+        print(
+            "Error: fzf command not found. Please install fzf to use this feature.",
+            file=sys.stderr,
+        )
         sys.exit(1)
 
     if not config_data["projects"]:
@@ -880,14 +1168,17 @@ def cmd_fzf(args, config_data):
         return
 
     fzf_input_lines = []
-    project_keys_ordered = [] # To map fzf output line back to project key
+    project_keys_ordered = []  # To map fzf output line back to project key
 
     for key, data in sorted(config_data["projects"].items()):
         details = []
-        if data.get("aliases"): details.append(f"A: {', '.join(data['aliases'])}")
-        if data.get("tags"): details.append(f"T: {', '.join(data['tags'])}")
-        desc = data.get("description","")
-        if desc: details.append(f"D: {desc[:40]}{'...' if len(desc) > 40 else ''}")
+        if data.get("aliases"):
+            details.append(f"A: {', '.join(data['aliases'])}")
+        if data.get("tags"):
+            details.append(f"T: {', '.join(data['tags'])}")
+        desc = data.get("description", "")
+        if desc:
+            details.append(f"D: {desc[:40]}{'...' if len(desc) > 40 else ''}")
 
         fzf_input_lines.append(f"{key:<40} | {' | '.join(details)}")
         project_keys_ordered.append(key)
@@ -897,26 +1188,39 @@ def cmd_fzf(args, config_data):
     try:
         # Allow multiple selections with --multi
         fzf_process = subprocess.Popen(
-            ['fzf', '--multi', '--ansi', '--prompt', 'Select Project(s) > ', '--header', 'PROJECT | DETAILS'],
-            stdin=subprocess.PIPE, stdout=subprocess.PIPE, text=True
+            [
+                "fzf",
+                "--multi",
+                "--ansi",
+                "--prompt",
+                "Select Project(s) > ",
+                "--header",
+                "PROJECT | DETAILS",
+            ],
+            stdin=subprocess.PIPE,
+            stdout=subprocess.PIPE,
+            text=True,
         )
         stdout, _ = fzf_process.communicate(input=fzf_input_str)
-        if fzf_process.returncode != 0 and fzf_process.returncode != 130 : # 130 is Ctrl+C
-             print("fzf selection cancelled or failed.", file=sys.stderr)
-             return
+        if (
+            fzf_process.returncode != 0 and fzf_process.returncode != 130
+        ):  # 130 is Ctrl+C
+            print("fzf selection cancelled or failed.", file=sys.stderr)
+            return
 
-        selected_lines = stdout.strip().split('\n')
-        if not selected_lines or not selected_lines[0]: # Empty selection
+        selected_lines = stdout.strip().split("\n")
+        if not selected_lines or not selected_lines[0]:  # Empty selection
             print("No projects selected.", file=sys.stderr)
             return
 
         selected_project_keys = []
         for line in selected_lines:
-            # Extract the project key (first part before "|")
-            project_key_candidate = line.split("|")[0].strip()
-            if project_key_candidate in project_keys_ordered: # Ensure it's a valid key from our list
-                 selected_project_keys.append(project_key_candidate)
-
+            # Extract the project key (first part before " | ")
+            project_key_candidate = line.split(" | ")[0].strip()
+            if (
+                project_key_candidate in project_keys_ordered
+            ):  # Ensure it's a valid key from our list
+                selected_project_keys.append(project_key_candidate)
 
         if not selected_project_keys:
             print("No valid projects selected.", file=sys.stderr)
@@ -940,27 +1244,32 @@ def cmd_fzf(args, config_data):
             if selected_project_keys:
                 # For cd, usually operate on the first selected for simplicity
                 cd_args = argparse.Namespace(identifier=selected_project_keys[0])
-                cmd_cd(cd_args, config_data) # This will print the path
+                cmd_cd(cd_args, config_data)  # This will print the path
             else:
                 print("No project selected for cd.", file=sys.stderr)
         elif action == "status":
-            action_args.all = input("Show status for all (even clean)? [y/N] > ").strip().lower() == 'y'
+            action_args.all = (
+                input("Show status for all (even clean)? [y/N] > ").strip().lower()
+                == "y"
+            )
             cmd_status(action_args, config_data)
         elif action == "pull":
-            action_args.rebase = False # Default, could prompt
-            action_args.ff_only = False # Default, could prompt
+            action_args.rebase = False  # Default, could prompt
+            action_args.ff_only = False  # Default, could prompt
             cmd_pull(action_args, config_data)
         elif action == "push":
-            commit_msg_q = input("Commit message (leave blank to just push existing commits)? > ").strip()
+            commit_msg_q = input(
+                "Commit message (leave blank to just push existing commits)? > "
+            ).strip()
             action_args.message = commit_msg_q if commit_msg_q else None
-            action_args.force = False # Default, could prompt
+            action_args.force = False  # Default, could prompt
             cmd_push(action_args, config_data)
         elif action == "show_path":
             for p_key in selected_project_keys:
                 p_path = get_project_path(p_key, config_data)
                 print(p_path if p_path else f"Path for {p_key} not found.")
 
-    except FileNotFoundError: # fzf not found
+    except FileNotFoundError:  # fzf not found
         print("Error: fzf command not found. Please install fzf.", file=sys.stderr)
     except Exception as e:
         print(f"An error occurred during fzf operation: {e}", file=sys.stderr)
@@ -972,16 +1281,37 @@ def cmd_completion(args, config_data):
 
     # Basic list of commands for completion
     commands = [
-        "init", "install", "uninstall", "ls", "status", "pull", "push", "cd", 
-        "tree", "alias", "unalias", "tag", "untag", "export", "import", 
-        "search-remote", "sync", "fzf", "completion"
+        "init",
+        "install",
+        "uninstall",
+        "ls",
+        "status",
+        "pull",
+        "push",
+        "cd",
+        "tree",
+        "alias",
+        "unalias",
+        "tag",
+        "untag",
+        "export",
+        "import",
+        "search-remote",
+        "sync",
+        "fzf",
+        "completion",
     ]
-    # Could also try to complete project names/aliases, but that's more complex for static scripts
-    # project_identifiers = sorted(list(config_data["projects"].keys()))
-    # for p_data in config_data["projects"].values():
-    #     project_identifiers.extend(p_data.get("aliases", []))
-    # project_identifiers = sorted(list(set(project_identifiers)))
-
+    # Dynamically get project identifiers for completion if config is available
+    project_identifiers_for_completion = []
+    if config_data and config_data.get("projects"):
+        project_identifiers_for_completion.extend(
+            sorted(list(config_data["projects"].keys()))
+        )
+        for p_data in config_data["projects"].values():
+            project_identifiers_for_completion.extend(p_data.get("aliases", []))
+        project_identifiers_for_completion = sorted(
+            list(set(project_identifiers_for_completion))
+        )
 
     if shell == "bash":
         print(f"""\
@@ -991,29 +1321,42 @@ _prj_completions() {{
     cur_word="${{COMP_WORDS[COMP_CWORD]}}"
     prev_word="${{COMP_WORDS[COMP_CWORD-1]}}"
     commands=({" ".join(commands)})
+    # Project identifiers might be too numerous for static completion, 
+    # but could be generated dynamically by sourcing a command.
+    # For simplicity, we'll focus on commands here.
+    # local projects_and_authors=({" ".join(project_identifiers_for_completion)})
+
 
     if [[ $COMP_CWORD == 1 ]]; then
         COMPREPLY=( $(compgen -W "${{commands[*]}}" -- "$cur_word") )
         return 0
     fi
 
-    # Add more specific completions for subcommands here if desired
-    # For example, for 'prj status':
-    # if [[ "$prev_word" == "status" || "$prev_word" == "pull" || "$prev_word" == "push" ]]; then
-    #     local projects_and_authors=({" ".join(project_identifiers)}) # Needs dynamic update
-    #     COMPREPLY=( $(compgen -W "${{projects_and_authors[*]}}" -- "$cur_word") )
-    #     return 0
-    # fi
+    # Example: Complete project identifiers for commands that take them
+    case "$prev_word" in
+        status|pull|push|cd|alias|unalias|tag|untag|uninstall)
+            # This part would ideally call `prj ls` or similar to get current projects
+            # For a static script, you might pre-generate this list or omit it.
+            # local current_projects_list="$(_prj_get_project_list_for_completion)" 
+            # COMPREPLY=( $(compgen -W "${{current_projects_list}}" -- "$cur_word") )
+            # For now, let's keep it simple
+            return 0
+            ;;
+    esac
 }}
 complete -F _prj_completions prj
 """)
-        print("# To use, add the above to your .bashrc or .bash_profile and source it, or save as a file and source.")
+        print(
+            "# To use, add the above to your .bashrc or .bash_profile and source it, or save as a file and source."
+        )
     elif shell == "fish":
         print(f"function __prj_complete_commands\n    echo '{' '.join(commands)}'\nend")
-        # print(f"function __prj_complete_projects\n    echo '{' '.join(project_identifiers)}'\nend") # Needs dynamic update
+        print(
+            f"function __prj_complete_projects_and_authors\n    # This could call `prj ls` or similar for dynamic completion\n    echo '{' '.join(project_identifiers_for_completion)}'\nend"
+        )
         print(f"""
 complete -c prj -n "__fish_is_first_arg" -a "(__prj_complete_commands)" -d "prj subcommands"
-# complete -c prj -n "not __fish_is_first_arg; and contains -- (commandline -opc)[1] status pull push cd alias unalias tag untag" -a "(__prj_complete_projects)" -d "Project/Alias/Author"
+complete -c prj -n "not __fish_is_first_arg; and command -q prj; and contains -- (commandline -opc)[1] status pull push cd alias unalias tag untag uninstall" -a "(__prj_complete_projects_and_authors)" -d "Project/Alias/Author"
 # Add more specific completions below
 complete -c prj -s h -l help -d "Show help"
 # Example for 'status' options:
@@ -1022,164 +1365,319 @@ complete -c prj -A -x -c push -s m -l message -r -d "Commit message before pushi
 """)
         print("# To use, save the above to ~/.config/fish/completions/prj.fish")
     elif shell == "zsh":
+        # Zsh completions can be more powerful and often rely on functions.
+        # This is a more structured approach.
         print(f"""\
 #compdef prj
-_prj() {{
-    local -a commands
-    commands=(
+
+_prj_commands() {{
+    local -a _cmds
+    _cmds=(
         'init:Initialize prj environment'
-        'install:Clone a new repository'
-        'uninstall:Remove a project'
+        'install:Clone a new repository and add to prj'
+        'uninstall:Remove a project from prj configuration'
         'ls:List managed projects'
         'status:Show git status for projects'
         'pull:Run git pull for projects'
         'push:Run git push for projects'
-        'cd:Change directory to project/author'
-        'tree:Display tree structure'
-        'alias:Add an alias'
-        'unalias:Remove an alias'
-        'tag:Add a tag'
-        'untag:Remove a tag'
-        'export:Export project list'
-        'import:Import project list'
-        'search-remote:Search GitHub user repos'
+        'cd:Print path to project/author dir or PRJ_DIR'
+        'tree:Display tree-like structure of PRJ_DIR'
+        'alias:Add an alias to a project'
+        'unalias:Remove an alias from a project'
+        'tag:Add a tag to a project'
+        'untag:Remove a tag from a project'
+        'export:Export list of managed projects'
+        'import:Import and install projects from a list file'
+        'search-remote:Search for a GitHub user''s public repositories'
         'sync:Synchronize config with filesystem'
-        'fzf:Interactive project selection'
+        'fzf:Interactive project selection and actions using fzf'
         'completion:Generate shell completion script'
     )
-    _describe 'command' commands
-
-    # Add more specific completions for subcommands here
-    # Example:
-    # case "$words[2]" in
-    #   status|pull|push)
-    #     local -a projects_and_authors
-    #     projects_and_authors=($({config_data["projects"].keys()})) # This needs to be dynamic
-    #     _wanted projects expl 'project identifier' compadd -a projects_and_authors
-    #     ;;
-    # esac
+    _describe 'command' _cmds
 }}
+
+_prj_project_identifiers() {{
+    # This function would ideally call `prj ls` or parse the config
+    # For a static script, you could embed the list or have prj generate it.
+    # Example: prj ls | awk '{{print $1}}'
+    local -a projects
+    projects=({" ".join(project_identifiers_for_completion)})
+    _wanted projects expl 'project identifier' compadd -a projects
+}}
+
+_prj() {{
+    local curcontext="$curcontext" state line
+    typeset -A opt_args
+
+    _arguments -C \\
+        '1: :_prj_commands' \\
+        '*:: :->args'
+
+    case $state in
+        args)
+            case $words[1] in
+                status|pull|push|cd|alias|unalias|tag|untag|uninstall)
+                    _prj_project_identifiers
+                    ;;
+                install)
+                    # Could complete known remote patterns or suggest 'author/repo'
+                    ;;
+                completion)
+                    compadd bash fish zsh
+                    ;;
+                # Add more specific argument completions for other commands
+            esac
+            ;;
+    esac
+}}
+
 _prj "$@"
 """)
-        print("# To use, save the above as a file (e.g., _prj) in a directory in your $fpath (like /usr/local/share/zsh/site-functions or ~/.zsh/completion), then run compinit or restart your shell.")
+        print(
+            "# To use, save the above as a file (e.g., _prj) in a directory in your $fpath (like /usr/local/share/zsh/site-functions or ~/.zsh/completion), then run `compinit` or restart your shell."
+        )
     else:
-        print(f"Sorry, completion script generation for '{shell}' is not yet supported.", file=sys.stderr)
+        print(
+            f"Sorry, completion script generation for '{shell}' is not yet supported.",
+            file=sys.stderr,
+        )
 
 
 # --- Main Execution ---
 
+
 def main():
-    init_prj_environment(force_rescan=False) 
+    # Ensure environment is initialized before loading config or parsing args
+    # This creates PRJ_DIR and a basic config if they don't exist.
+    init_prj_environment(force_rescan=False)
     config_data = load_config(CONFIG_FILE)
 
-    if config_data is None: 
-        print("Critical Error: Configuration could not be loaded or created. Exiting.", file=sys.stderr)
-        save_config({"settings": {"PRJ_DIR_snapshot": PRJ_DIR}, "projects": {}}, CONFIG_FILE)
-        config_data = load_config(CONFIG_FILE) 
+    # If config is still None after init (e.g., permission issues), create a minimal one.
+    if config_data is None:
+        print(
+            "Warning: Configuration could not be loaded. Attempting to create a new minimal config.",
+            file=sys.stderr,
+        )
+        # Create a default empty structure
+        default_config = {"settings": {"PRJ_DIR_snapshot": PRJ_DIR}, "projects": {}}
+        save_config(default_config, CONFIG_FILE)
+        config_data = load_config(CONFIG_FILE)
         if config_data is None:
-             sys.exit(1) 
+            print(
+                "Critical Error: Failed to create or load configuration. Exiting.",
+                file=sys.stderr,
+            )
+            sys.exit(1)  # Exit if config is absolutely unrecoverable
 
-    parser = argparse.ArgumentParser(description="Manage your local git repositories.", prog="prj")
-    parser.add_argument('--source-url-template', default="https://github.com/{author}/{repository}.git",
-                        help="Template for Git clone URLs. Default: GitHub.")
-    subparsers = parser.add_subparsers(dest='command', title='Available commands', help='Run `prj <command> -h` for more help.')
-    subparsers.required = True
+    parser = argparse.ArgumentParser(
+        description="Manage your local git repositories.", prog="prj"
+    )
+    parser.add_argument(
+        "--source-url-template",
+        default="https://github.com/{author}/{repository}.git",
+        help="Template for Git clone URLs. Default: GitHub.",
+    )
+    subparsers = parser.add_subparsers(
+        dest="command",
+        title="Available commands",
+        help="Run `prj <command> -h` for more help.",
+    )
+    subparsers.required = True  # Make a command mandatory
 
-    p_init = subparsers.add_parser('init', help="Initialize or re-initialize prj environment and config.")
-    p_init.add_argument('--rescan', action='store_true', help="Force a rescan of PRJ_DIR and rebuild config.")
+    p_init = subparsers.add_parser(
+        "init", help="Initialize or re-initialize prj environment and config."
+    )
+    p_init.add_argument(
+        "--rescan",
+        action="store_true",
+        help="Force a rescan of PRJ_DIR and rebuild config.",
+    )
     p_init.set_defaults(func=cmd_init)
 
-    p_install = subparsers.add_parser('install', help="Clone a new repository and add to prj.")
-    p_install.add_argument('repo_identifier', help="Repository to install (e.g., 'author/repo' or full git URL).")
-    p_install.add_argument('--alias', help="Optional alias for the new project.")
+    p_install = subparsers.add_parser(
+        "install", help="Clone a new repository and add to prj."
+    )
+    p_install.add_argument(
+        "repo_identifier",
+        help="Repository to install (e.g., 'author/repo' or full git URL).",
+    )
+    p_install.add_argument("--alias", help="Optional alias for the new project.")
     p_install.set_defaults(func=cmd_install)
 
-    p_uninstall = subparsers.add_parser('uninstall', help="Remove a project from prj configuration.")
-    p_uninstall.add_argument('project_identifier', help="Project to uninstall (key, alias, or repo name).")
-    p_uninstall.add_argument('--delete-files', action='store_true', help="Also delete the project's files from disk.")
+    p_uninstall = subparsers.add_parser(
+        "uninstall", help="Remove a project from prj configuration."
+    )
+    p_uninstall.add_argument(
+        "project_identifier", help="Project to uninstall (key, alias, or repo name)."
+    )
+    p_uninstall.add_argument(
+        "--delete-files",
+        action="store_true",
+        help="Also delete the project's files from disk.",
+    )
     p_uninstall.set_defaults(func=cmd_uninstall)
 
-    p_ls = subparsers.add_parser('ls', help="List managed projects.")
-    p_ls.add_argument('--author', help="Filter by author name.")
-    p_ls.add_argument('--tag', help="Filter by tag.")
-    p_ls.add_argument('-l', '--long', action='store_true', help="Show more details (aliases, tags, description).")
-    p_ls.add_argument('-p', '--path', action='store_true', help="Show full local path instead of project key.")
+    p_ls = subparsers.add_parser("ls", help="List managed projects.")
+    p_ls.add_argument("--author", help="Filter by author name.")
+    p_ls.add_argument("--tag", help="Filter by tag.")
+    p_ls.add_argument(
+        "-l",
+        "--long",
+        action="store_true",
+        help="Show more details (aliases, tags, description).",
+    )
+    p_ls.add_argument(
+        "-p",
+        "--path",
+        action="store_true",
+        help="Show full local path instead of project key.",
+    )
     p_ls.set_defaults(func=cmd_ls)
 
-    p_status = subparsers.add_parser('status', help="Show git status for projects. Only shows 'dirty' projects by default.")
-    p_status.add_argument('project_identifiers', nargs='*', help="Projects or Authors (e.g. 'author/', 'myrepo'). All if empty.")
-    p_status.add_argument('-a', '--all', action='store_true', help="Show status for all targeted projects, even if clean.")
+    p_status = subparsers.add_parser(
+        "status",
+        help="Show git status for projects. Only shows 'dirty' projects by default.",
+    )
+    p_status.add_argument(
+        "project_identifiers",
+        nargs="*",
+        help="Projects or Authors (e.g. 'author/', 'myrepo'). All if empty.",
+    )
+    p_status.add_argument(
+        "-a",
+        "--all",
+        action="store_true",
+        help="Show status for all targeted projects, even if clean.",
+    )
     p_status.set_defaults(func=cmd_status)
 
-    p_pull = subparsers.add_parser('pull', help="Run git pull for projects.")
-    p_pull.add_argument('project_identifiers', nargs='*', help="Projects or Authors. All if empty.")
-    p_pull.add_argument('--rebase', action='store_true', help="Use 'git pull --rebase'.")
-    p_pull.add_argument('--ff-only', action='store_true', help="Use 'git pull --ff-only'.")
+    p_pull = subparsers.add_parser("pull", help="Run git pull for projects.")
+    p_pull.add_argument(
+        "project_identifiers", nargs="*", help="Projects or Authors. All if empty."
+    )
+    p_pull.add_argument(
+        "--rebase", action="store_true", help="Use 'git pull --rebase'."
+    )
+    p_pull.add_argument(
+        "--ff-only", action="store_true", help="Use 'git pull --ff-only'."
+    )
     p_pull.set_defaults(func=cmd_pull)
 
-    p_push = subparsers.add_parser('push', help="Run git push for projects. Can auto-commit with -m.")
-    p_push.add_argument('project_identifiers', nargs='*', help="Projects or Authors. All if empty.")
-    p_push.add_argument('-m', '--message', help="Commit message. If provided, stages all changes and commits before pushing.")
-    p_push.add_argument('--force', action='store_true', help="Use 'git push --force'.")
+    p_push = subparsers.add_parser(
+        "push", help="Run git push for projects. Can auto-commit with -m."
+    )
+    p_push.add_argument(
+        "project_identifiers", nargs="*", help="Projects or Authors. All if empty."
+    )
+    p_push.add_argument(
+        "-m",
+        "--message",
+        help="Commit message. If provided, stages all changes and commits before pushing.",
+    )
+    p_push.add_argument("--force", action="store_true", help="Use 'git push --force'.")
     p_push.set_defaults(func=cmd_push)
 
-    p_cd = subparsers.add_parser('cd', help="Print path to project/author dir or PRJ_DIR if no arg. For use with cd $(prj cd ...).")
-    p_cd.add_argument('identifier', nargs='?', help="Project (key, alias, repo name) or Author name. If empty, PRJ_DIR.")
+    p_cd = subparsers.add_parser(
+        "cd",
+        help="Print path to project/author dir or PRJ_DIR if no arg. For use with cd $(prj cd ...).",
+    )
+    p_cd.add_argument(
+        "identifier",
+        nargs="?",
+        help="Project (key, alias, repo name) or Author name. If empty, PRJ_DIR.",
+    )
     p_cd.set_defaults(func=cmd_cd)
 
-    p_tree = subparsers.add_parser('tree', help="Display tree-like structure of PRJ_DIR (alias for 'show').")
-    p_tree.add_argument('--depth', type=int, default=2, help="Depth of the tree to show (default: 2 for author/repo).")
-    p_tree.set_defaults(func=cmd_tree) # Function is cmd_tree
+    p_tree = subparsers.add_parser(
+        "tree", help="Display tree-like structure of PRJ_DIR (alias for 'show')."
+    )
+    p_tree.add_argument(
+        "--depth",
+        type=int,
+        default=2,
+        help="Depth of the tree to show (default: 2 for author/repo).",
+    )
+    p_tree.set_defaults(func=cmd_tree)
 
-    p_alias = subparsers.add_parser('alias', help="Add an alias to a project.")
-    p_alias.add_argument('project_identifier', help="Project to alias (key, existing alias, or repo name).")
-    p_alias.add_argument('alias_name', help="The new alias name.")
+    p_alias = subparsers.add_parser("alias", help="Add an alias to a project.")
+    p_alias.add_argument(
+        "project_identifier",
+        help="Project to alias (key, existing alias, or repo name).",
+    )
+    p_alias.add_argument("alias_name", help="The new alias name.")
     p_alias.set_defaults(func=cmd_alias)
 
-    p_unalias = subparsers.add_parser('unalias', help="Remove an alias from a project.")
-    p_unalias.add_argument('project_identifier', help="Project from which to remove alias.")
-    p_unalias.add_argument('alias_name', help="The alias name to remove.")
+    p_unalias = subparsers.add_parser("unalias", help="Remove an alias from a project.")
+    p_unalias.add_argument(
+        "project_identifier", help="Project from which to remove alias."
+    )
+    p_unalias.add_argument("alias_name", help="The alias name to remove.")
     p_unalias.set_defaults(func=cmd_unalias)
 
-    p_tag = subparsers.add_parser('tag', help="Add a tag to a project.")
-    p_tag.add_argument('project_identifier', help="Project to tag.")
-    p_tag.add_argument('tag_name', help="The tag name.")
+    p_tag = subparsers.add_parser("tag", help="Add a tag to a project.")
+    p_tag.add_argument("project_identifier", help="Project to tag.")
+    p_tag.add_argument("tag_name", help="The tag name.")
     p_tag.set_defaults(func=cmd_tag)
 
-    p_untag = subparsers.add_parser('untag', help="Remove a tag from a project.")
-    p_untag.add_argument('project_identifier', help="Project from which to remove tag.")
-    p_untag.add_argument('tag_name', help="The tag name to remove.")
+    p_untag = subparsers.add_parser("untag", help="Remove a tag from a project.")
+    p_untag.add_argument("project_identifier", help="Project from which to remove tag.")
+    p_untag.add_argument("tag_name", help="The tag name to remove.")
     p_untag.set_defaults(func=cmd_untag)
 
-    p_export = subparsers.add_parser('export', help="Export list of managed projects.")
-    p_export.add_argument('--file', help="Optional file to write the export list to (stdout if not provided).")
+    p_export = subparsers.add_parser("export", help="Export list of managed projects.")
+    p_export.add_argument(
+        "--file",
+        help="Optional file to write the export list to (stdout if not provided).",
+    )
     p_export.set_defaults(func=cmd_export)
 
-    p_import = subparsers.add_parser('import', help="Import and install projects from a list file.")
-    p_import.add_argument('filepath', help="Path to the file containing project identifiers (one per line).")
+    p_import = subparsers.add_parser(
+        "import", help="Import and install projects from a list file."
+    )
+    p_import.add_argument(
+        "filepath",
+        help="Path to the file containing project identifiers (one per line).",
+    )
     p_import.set_defaults(func=cmd_import)
 
-    p_search_remote = subparsers.add_parser('search-remote', help="Search for a GitHub user's public repositories.")
-    p_search_remote.add_argument('github_username', help="GitHub username to search for.")
+    p_search_remote = subparsers.add_parser(
+        "search-remote", help="Search for a GitHub user's public repositories."
+    )
+    p_search_remote.add_argument(
+        "github_username", help="GitHub username to search for."
+    )
     p_search_remote.set_defaults(func=cmd_search_remote)
 
-    p_sync = subparsers.add_parser('sync', help="Synchronize config with filesystem (scan PRJ_DIR, add new, warn about missing).")
+    p_sync = subparsers.add_parser(
+        "sync",
+        help="Synchronize config with filesystem (scan PRJ_DIR, add new, warn about missing).",
+    )
     p_sync.set_defaults(func=cmd_sync)
 
-    p_fzf = subparsers.add_parser('fzf', help="Interactive project selection and actions using fzf.")
+    p_fzf = subparsers.add_parser(
+        "fzf", help="Interactive project selection and actions using fzf."
+    )
     p_fzf.set_defaults(func=cmd_fzf)
 
-    p_completion = subparsers.add_parser('completion', help="Generate shell completion script (bash, fish, zsh).")
-    p_completion.add_argument('shell_name', choices=['bash', 'fish', 'zsh'], help="Name of the shell to generate completion for.")
+    p_completion = subparsers.add_parser(
+        "completion", help="Generate shell completion script (bash, fish, zsh)."
+    )
+    p_completion.add_argument(
+        "shell_name",
+        choices=["bash", "fish", "zsh"],
+        help="Name of the shell to generate completion for.",
+    )
     p_completion.set_defaults(func=cmd_completion)
-
 
     args = parser.parse_args()
 
-    if hasattr(args, 'func'):
+    # Dispatch to the appropriate command function
+    if hasattr(args, "func"):
         args.func(args, config_data)
     else:
-        parser.print_help() 
+        # This should not be reached if subparsers.required = True
+        parser.print_help()
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     main()
