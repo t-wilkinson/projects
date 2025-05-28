@@ -2,6 +2,8 @@
 """
 prj - Manage your local git repositories with ease.
 """
+# TODO:
+# - Make `prj ls` sort. Add -t or --tree for tree output
 
 import argparse
 import json
