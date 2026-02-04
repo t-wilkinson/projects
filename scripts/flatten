@@ -4,7 +4,8 @@
 
 cd ${1:-.}
 
-DEST_DIR="/tmp/$(basename $(pwd))"
+DEST_DIR="/tmp/flatten/$(basename $(pwd))"
+rm -r "$DEST_DIR"
 mkdir -p "$DEST_DIR"
 
 # Find all files recursively (-type f)
