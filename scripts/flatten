@@ -4,7 +4,7 @@
 
 cd ${1:-.}
 
-DEST_DIR="/tmp/flatten/$(basename $(pwd))"
+DEST_DIR="/tmp/flatten/$(basename $PWD)"
 rm -rf "$DEST_DIR"
 mkdir -p "$DEST_DIR"
 
@@ -20,8 +20,11 @@ find . -type f -print0 | while IFS= read -r -d '' file; do
   new_name="${clean_path//\//-}"
 
   # Copy the file to the destination
-  if [ ! -e "$DEST_DIR/$new_name" ]; then
-    ln -sf "$(pwd)/$clean_path" "$DEST_DIR/$new_name"
+  if [ "$(uname)" = "Darwin" ]; then
+    # finder search doesn't see symlinks?!?
+    cp "$PWD/$clean_path" "$DEST_DIR/$new_name"
+  else
+    ln -sf "$PWD/$clean_path" "$DEST_DIR/$new_name"
   fi
 
   #if [ -e "$DEST_DIR/$new_name" ]; then
