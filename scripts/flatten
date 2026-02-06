@@ -1,16 +1,30 @@
 #!/bin/bash
-# Flatten directory and move it to /tmp/{directory} to make it easier to upload filenames
+# Flatten {directory} and move it to a tmp {directory} to make it easier to upload filenames
 # Especially useful for gemini as it requires unique file names
 
-cd ${1:-.}
+TARGET_DIR="${1:-.}"
 
-DEST_DIR="/tmp/flatten/$(basename $PWD)"
+if [ ! -d "$TARGET_DIR" ]; then
+  echo "Error: ${TARGET_DIR} is not a valid directory"
+  exit 1
+fi
+
+cd "$TARGET_DIR" || exit
+
+OS_TYPE="$(uname)"
+
+if [ "$OS_TYPE" = "Darwin" ]; then
+  DEST_DIR="$HOME/Library/Caches/flatten/$(basename $PWD)"
+else
+  DEST_DIR="$HOME/.cache/flatten/$(basename $PWD)"
+fi
+
 rm -rf "$DEST_DIR"
 mkdir -p "$DEST_DIR"
 
 # Find all files recursively (-type f)
 # -print0 and IFS= read -r -d '' handles filenames with spaces safely
-find . -type f -print0 | while IFS= read -r -d '' file; do
+find . -type f -not -path '*/.*' -not -path '*node_modules*' -print0 | while IFS= read -r -d '' file; do
 
   # ./dir1/file.txt -> dir1/file.txt
   clean_path="${file#./}"
@@ -19,9 +33,9 @@ find . -type f -print0 | while IFS= read -r -d '' file; do
   new_name="${clean_path//\//-}"
 
   # Copy the file to the destination
-  if [ "$(uname)" = "Darwin" ]; then
-    # finder search doesn't see symlinks?!?
-    cp "$PWD/$clean_path" "$DEST_DIR/$new_name"
+  if [ "$OS_TYPE" = "Darwin" ]; then
+    # cp "$PWD/$clean_path" "$DEST_DIR/$new_name"
+    ln -sf "$PWD/$clean_path" "$DEST_DIR/$new_name"
   else
     ln -sf "$PWD/$clean_path" "$DEST_DIR/$new_name"
   fi

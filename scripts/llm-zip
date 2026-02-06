@@ -1,0 +1,29 @@
+#!/bin/bash
+
+TARGET_DIR="${1:-.}"
+cd "$TARGET_DIR" || exit
+FOLDER_NAME=$(basename "$(pwd)")
+
+OS_TYPE="$(uname)"
+if [ "$OS_TYPE" = "Darwin" ]; then
+  mkdir -p "$HOME/Desktop/llm-zip"
+  ZIP_FILE="$HOME/Desktop/llm-zip/${FOLDER_NAME}.zip"
+else
+  mkdir -p "$HOME/Desktop/llm-zip"
+  ZIP_FILE="$HOME/Desktop/llm-zip/${FOLDER_NAME}.zip"
+fi
+
+echo "Creating a context-optimized zip for Gemini..."
+
+# Use git to list only tracked files.
+# This automatically ignores node_modules, .git, and build folders.
+if git rev-parse --is-inside-work-tree >/dev/null 2>&1; then
+  # We use -T to read from a null-terminated list provided by git
+  git ls-files | zip -q -r "$ZIP_FILE" -@
+  echo "Success! Only Git-tracked files were included."
+else
+  echo "Warning: Not a git repo. Falling back to manual exclusion."
+  zip -q -r "$ZIP_FILE" . -x "**/node_modules/*" -x "**/.git/*" -x "**/dist/*" -x "**/.next/*"
+fi
+
+echo "Zip created at: $ZIP_FILE"
