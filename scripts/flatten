@@ -34,8 +34,8 @@ find . -type f -not -path '*/.*' -not -path '*node_modules*' -print0 | while IFS
 
   # Copy the file to the destination
   if [ "$OS_TYPE" = "Darwin" ]; then
-    # cp "$PWD/$clean_path" "$DEST_DIR/$new_name"
-    ln -sf "$PWD/$clean_path" "$DEST_DIR/$new_name"
+    cp "$PWD/$clean_path" "$DEST_DIR/$new_name"
+    # ln -sf "$PWD/$clean_path" "$DEST_DIR/$new_name"
   else
     ln -sf "$PWD/$clean_path" "$DEST_DIR/$new_name"
   fi
