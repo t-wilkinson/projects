@@ -68,6 +68,18 @@
             openssl.dev
             clang
             llvmPackages.libclang
+
+            # For machine learning
+            (pkgs.python3.withPackages (
+              ps: with ps; [
+                jupyter
+                websockets
+                pycocotools
+                matplotlib
+                pip
+              ]
+            ))
+
             espTools.basePython
             espTools.xtensaEspElf
             espTools.xtensaRust

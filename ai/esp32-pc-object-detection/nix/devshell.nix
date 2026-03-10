@@ -70,9 +70,6 @@
   export GIT_CONFIG_KEY_0="safe.directory"
   export GIT_CONFIG_VALUE_0="*"
 
-  # ── Toolchain PATH ──────────────────────────────────────
-  export PATH="${espTools.xtensaRust}/bin:${espTools.xtensaEspElf}/bin:${espTools.ldproxy}/bin:${espTools.espIdf}/tools:$PATH"
-
   # ── Rust / Cargo ────────────────────────────────────────
   export RUSTC="${espTools.xtensaRust}/bin/rustc"
   export CARGO="${espTools.xtensaRust}/bin/cargo"
@@ -106,8 +103,17 @@
   }''${LD_LIBRARY_PATH:+:$LD_LIBRARY_PATH}"
   export BINDGEN_EXTRA_CLANG_ARGS="-fsigned-char"
 
+  # Python venv
+  # python -m venv .venv
+  # source .venv/bin/activate
+  pip install -r requirements.txt 2>&1 | grep -v 'already satisfied'
+
+  # ── Toolchain PATH ──────────────────────────────────────
+  # IMPORTANT keep this after activating python env
+  export PATH="${espTools.xtensaRust}/bin:${espTools.xtensaEspElf}/bin:${espTools.ldproxy}/bin:${espTools.espIdf}/tools:${espTools.espIdf}:$PATH"
+
   echo ""
-  echo "  ESP32-S2 Rust development shell"
+  echo "  ESP32 Rust development shell"
   echo "  ────────────────────────────────────────"
   echo "  Rust  : $(rustc --version 2>/dev/null || echo 'ERROR')"
   echo "  Cargo : $(cargo --version 2>/dev/null || echo 'ERROR')"
@@ -116,7 +122,9 @@
   echo "  Python: $(python --version 2>/dev/null) (venv)"
   echo "  MCU   : $MCU"
   echo ""
-  echo "  Build : cargo build"
-  echo "  Flash : espflash flash --monitor target/xtensa-esp32-espidf/debug/<bin>"
+  echo "  ML development : jupyter notebook"
+  echo "  Build : cargo build --release"
+  echo "  Flash : cargo run --release"
+  echo "       or espflash flash --monitor target/xtensa-esp32-espidf/debug/<bin>"
   echo ""
 ''

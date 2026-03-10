@@ -22,27 +22,27 @@ rec {
         ];
       }
       ''
-                  cp -a ${espIdfSrc} $out
-                  chmod -R u+w $out
+                cp -a ${espIdfSrc} $out
+                chmod -R u+w $out
 
-                  cd $out
+                cd $out
 
-                  # ── Write version.txt ──────────────────────────────────────
-                  echo "v${versions.idf}" > version.txt
+                # ── Write version.txt ──────────────────────────────────────
+                echo "v${versions.idf}" > version.txt
 
-                  # ── Fix .git so ad-hoc git calls still work ────────────────
-                  git config user.email "nix@build"
-                  git config user.name  "nix"
-                  git tag -f "v${versions.idf}" HEAD 2>/dev/null || true
+                # ── Fix .git so ad-hoc git calls still work ────────────────
+                git config user.email "nix@build"
+                git config user.name  "nix"
+                git tag -f "v${versions.idf}" HEAD 2>/dev/null || true
 
-                  # ── Patch cmake to skip git_describe entirely ──────────────
-                  # Replace __build_get_idf_git_revision in build.cmake so it
-                  # reads version.txt instead of calling git_describe (which
-                  # triggers GetGitRevisionDescription → grabRef → crash).
-                  # Also patch __build_check_python to be a no-op — the Nix
-                  # venv may have slightly different versions than IDF's strict
-                  # constraints and that's fine.
-                  cat > /tmp/patch_build_cmake.py << 'PYEOF'
+                # ── Patch cmake to skip git_describe entirely ──────────────
+                # Replace __build_get_idf_git_revision in build.cmake so it
+                # reads version.txt instead of calling git_describe (which
+                # triggers GetGitRevisionDescription → grabRef → crash).
+                # Also patch __build_check_python to be a no-op — the Nix
+                # venv may have slightly different versions than IDF's strict
+                # constraints and that's fine.
+                cat > /tmp/patch_build_cmake.py << 'PYEOF'
         import re, sys
 
         path = sys.argv[1]
@@ -84,16 +84,16 @@ rec {
             f.write(content)
         PYEOF
 
-                  python3 /tmp/patch_build_cmake.py \
-                    "$out/tools/cmake/build.cmake" \
-                    "${versions.idf}"
+                python3 /tmp/patch_build_cmake.py \
+                  "$out/tools/cmake/build.cmake" \
+                  "${versions.idf}"
 
-                  # ── Patch GetGitRevisionDescription.cmake ────────────
-                  # The bootloader subproject (and anything using project.cmake)
-                  # calls git_describe via this module.  grabRef.cmake crashes
-                  # when .git refs are incomplete (Nix fetchgit strips them).
-                  # Overwrite the entire file with stubs that return fixed values.
-                  cat > "$out/tools/cmake/third_party/GetGitRevisionDescription.cmake" << 'CMEOF'
+                # ── Patch GetGitRevisionDescription.cmake ────────────
+                # The bootloader subproject (and anything using project.cmake)
+                # calls git_describe via this module.  grabRef.cmake crashes
+                # when .git refs are incomplete (Nix fetchgit strips them).
+                # Overwrite the entire file with stubs that return fixed values.
+                cat > "$out/tools/cmake/third_party/GetGitRevisionDescription.cmake" << 'CMEOF'
         # Patched by nix flake: all git queries return fixed values.
         # This avoids grabRef.cmake crashes in the Nix store.
 

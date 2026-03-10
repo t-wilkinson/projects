@@ -1,15 +1,3 @@
-// ─────────────────────────────────────────────────────────────────────────────
-// ESP32-S WebSocket server
-//
-// What this does:
-//   1. Connects to a WiFi network (STA mode)
-//   2. Starts an HTTP server that upgrades /ws to WebSocket
-//   3. Echos every text/binary frame back to the sender
-//   4. Broadcasts a "ping" message to all connected clients every 5 seconds
-//
-// Crates: esp-idf-svc, embedded-svc, esp-idf-hal, anyhow, log
-// ─────────────────────────────────────────────────────────────────────────────
-
 use std::{
     collections::HashMap,
     sync::{Arc, Mutex},
@@ -48,7 +36,7 @@ const HTTP_PORT: u16 = 80;
 // ─────────────────────────────────────────────────────────────────────────────
 type Sessions = Arc<Mutex<HashMap<i32, ()>>>;
 
-fn main() -> Result<()> {
+fn run() -> Result<()> {
     // Required: links esp-idf patches + initialises the logging backend.
     esp_idf_svc::sys::link_patches();
     esp_idf_svc::log::EspLogger::initialize_default();
@@ -251,3 +239,4 @@ fn handle_ws(
 
     Ok(())
 }
+

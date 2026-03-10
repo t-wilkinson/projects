@@ -13,6 +13,7 @@ opt-level = "s"
 debug = true
 strip = true
 lto = "thin"
+codegen-units = 1
 
 [profile.dev]
 debug = true    # Symbols are nice, and they don't increase the size on Flash
@@ -20,7 +21,8 @@ strip = false
 opt-level = "z"
 
 [features]
-# default = []
+default = []
+push_broadcast = [] # enable push-based websocket broadcast
 # experimental = ["esp-idf-svc/experimental"]
 
 [dependencies]
