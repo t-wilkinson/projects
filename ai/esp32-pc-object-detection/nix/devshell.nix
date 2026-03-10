@@ -99,6 +99,14 @@
       pkgs.stdenv.cc.cc.lib
       pkgs.libxml2
       pkgs.ncurses
+
+      # OpenCV dependencies
+      pkgs.xorg.libxcb
+      pkgs.xorg.libX11
+      pkgs.xorg.libXext
+      pkgs.xorg.libXrender
+      pkgs.libGL
+      pkgs.glib
     ]
   }''${LD_LIBRARY_PATH:+:$LD_LIBRARY_PATH}"
   export BINDGEN_EXTRA_CLANG_ARGS="-fsigned-char"
@@ -107,6 +115,8 @@
   # python -m venv .venv
   # source .venv/bin/activate
   pip install -r requirements.txt 2>&1 | grep -v 'already satisfied'
+  # Register venv as a Jupyter kernel
+  python -m ipykernel install --user --name esp32-ml --display-name "ESP32 ML"
 
   # ── Toolchain PATH ──────────────────────────────────────
   # IMPORTANT keep this after activating python env
@@ -122,7 +132,7 @@
   echo "  Python: $(python --version 2>/dev/null) (venv)"
   echo "  MCU   : $MCU"
   echo ""
-  echo "  ML development : jupyter notebook"
+  echo "  Jupyter : jupyter notebook (uses 'ESP32 ML' kernel)"
   echo "  Build : cargo build --release"
   echo "  Flash : cargo run --release"
   echo "       or espflash flash --monitor target/xtensa-esp32-espidf/debug/<bin>"

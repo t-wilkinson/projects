@@ -70,15 +70,12 @@
             llvmPackages.libclang
 
             # For machine learning
-            (pkgs.python3.withPackages (
-              ps: with ps; [
-                jupyter
-                websockets
-                pycocotools
-                matplotlib
-                pip
-              ]
-            ))
+            # (pkgs.python3.withPackages (
+            #   ps: with ps; [
+            #     websockets
+            #     pip
+            #   ]
+            # ))
 
             espTools.basePython
             espTools.xtensaEspElf

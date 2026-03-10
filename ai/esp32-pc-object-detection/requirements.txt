@@ -1,8 +1,13 @@
+# python -m ipykernel install --user --name esp32-ml --display-name "ESP32 ML"
+
 ultralytics # YOLO26-M
 albumentations # preprocessing
-opencv-python # opencv4
 torch
 torchvision
 numpy
-onyx
+onnx
 ai-edge-torch
+pycocotools
+jupyter
+matplotlib
+opencv-python-headless
