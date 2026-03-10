@@ -26,9 +26,9 @@ opt-level = "z"
 [dependencies]
 anyhow = { version = "1", features = ["std"] }                                # error handling
 log = "0.4"                                                                   # logging
-esp-idf-sys = { version = "0.35", features = ["binstart"] }
-esp-idf-svc = { version = "0.49", features = ["std", "embassy-time-driver"] }
-esp-idf-hal = "0.44"
+esp-idf-sys = { version = "0.36", features = ["binstart"] }
+esp-idf-svc = { version = "0.50", features = ["std", "embassy-time-driver"] }
+esp-idf-hal = "0.45"
 embedded-svc = "0.28"
 
 # --- Optional Embassy Integration ---
@@ -49,4 +49,4 @@ embedded-svc = "0.28"
 # critical-section = { version = "1.1", features = ["std"], default-features = false }
 
 [build-dependencies]
-embuild = { version = "0.32", features = ["espidf"] }
+embuild = { version = "0.33", features = ["espidf"] }

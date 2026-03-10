@@ -1,5 +1,7 @@
 # nix
 result/
+.envrc
+.direnv
 
 #########################################
 #               LANGUAGES               #

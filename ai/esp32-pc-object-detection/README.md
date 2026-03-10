@@ -19,3 +19,7 @@ for f in *.zip; do unzip $f.zip; done
 echo 'use flake' > .direnv # or nix shell
 espup install # for the first time
 ```
+
+## TODO
+
+Look at this for ideas of how to include various cargo apps https://github.com/newAM/esp-rs-nix/blob/main/flake.nix

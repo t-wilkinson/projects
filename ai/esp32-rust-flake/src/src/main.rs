@@ -28,15 +28,14 @@ use esp_idf_svc::{
     http::server::{ws::EspHttpWsConnection, Configuration as HttpConfig, EspHttpServer},
     nvs::EspDefaultNvsPartition,
     wifi::{BlockingWifi, EspWifi},
+    io::Write,
 };
 
 use esp_idf_sys as _; // pulls in the esp-idf-sys link patches
 
 // ── WiFi credentials ─────────────────────────────────────────────────────────
-// Replace these with your network details.
-// Better practice for real projects: read from NVS or a provisioning flow.
-const WIFI_SSID:     &str = "your-ssid";
-const WIFI_PASSWORD: &str = "your-password";
+const WIFI_SSID:     &str = env!("WIFI_SSID");
+const WIFI_PASSWORD: &str = env!("WIFI_PASSWORD");
 
 // ── WebSocket server port ────────────────────────────────────────────────────
 // Clients connect to:  ws://<device-ip>/ws
@@ -110,7 +109,7 @@ fn main() -> Result<()> {
     server.fn_handler("/", esp_idf_svc::http::Method::Get, |req| {
         req.into_ok_response()?
             .write_all(b"ESP32 WebSocket server is running. Connect to ws://<ip>/ws")?;
-        Ok(())
+        Ok::<(), anyhow::Error>(())
     })?;
 
     // ── Background broadcast thread ───────────────────────────────────────────
