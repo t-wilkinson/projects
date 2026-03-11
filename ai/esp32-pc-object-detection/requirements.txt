@@ -1,5 +1,3 @@
-# python -m ipykernel install --user --name esp32-ml --display-name "ESP32 ML"
-
 ultralytics # YOLO26-M
 albumentations # preprocessing
 torch

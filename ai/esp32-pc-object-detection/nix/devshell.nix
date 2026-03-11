@@ -115,7 +115,7 @@
   # python -m venv .venv
   # source .venv/bin/activate
   pip install -r requirements.txt 2>&1 | grep -v 'already satisfied'
-  # Register venv as a Jupyter kernel
+  # Register venv as a Jupyter kernel so we don't use nix's python
   python -m ipykernel install --user --name esp32-ml --display-name "ESP32 ML"
 
   # ── Toolchain PATH ──────────────────────────────────────
