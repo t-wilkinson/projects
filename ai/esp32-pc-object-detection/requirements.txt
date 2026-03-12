@@ -4,8 +4,13 @@ torch
 torchvision
 numpy
 onnx
-ai-edge-torch
+# ai-edge-torch # deprecated
+# litert-torch
+onnx2tf
+tensorflow
 pycocotools
 jupyter
 matplotlib
 opencv-python-headless
+onnxscript
+protobuf<4.21.0
