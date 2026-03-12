@@ -15,7 +15,7 @@ use std::{
     time::{Duration, Instant},
 };
 
-use anyhow::{bail, Context, Result};
+use anyhow::{bail, Result};
 use log::{debug, error, info, warn};
 
 use embedded_svc::wifi::{AuthMethod, ClientConfiguration, Configuration as WifiConfig};
@@ -308,7 +308,7 @@ fn run() -> Result<()> {
     loop {
         let t_start = Instant::now();
 
-        // One call: capture + preprocess + inference + parse
+        // capture image + preprocess + inference + parse
         let ret = unsafe { fomo_detect(&mut result) };
         if ret != 0 {
             warn!("[FOMO] fomo_detect failed (error={})", ret);

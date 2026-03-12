@@ -33,6 +33,9 @@ esp-idf-svc = { version = "0.50", features = ["std", "embassy-time-driver"] }
 esp-idf-hal = "0.45"
 embedded-svc = "0.28"
 
+[package.metadata.esp-idf-sys]
+extra_components = [{ component_dirs = "components" }]
+
 # --- Optional Embassy Integration ---
 # esp-idf-svc = { version = "0.51", features = ["critical-section", "embassy-time-driver", "embassy-sync"] }
 

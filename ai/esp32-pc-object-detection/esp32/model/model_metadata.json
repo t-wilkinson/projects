@@ -1,0 +1,26 @@
+{
+  "input_size": 96,
+  "grid_size": 12,
+  "num_classes": 6,
+  "class_names": [
+    "background",
+    "person",
+    "sports_ball",
+    "chair",
+    "couch",
+    "dining_table"
+  ],
+  "normalization": {
+    "mean": [
+      0.485,
+      0.456,
+      0.406
+    ],
+    "std": [
+      0.229,
+      0.224,
+      0.225
+    ]
+  },
+  "model_size_bytes": 114408
+}

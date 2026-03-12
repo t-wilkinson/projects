@@ -11,9 +11,9 @@
 #include "esp_log.h"
 #include "esp_timer.h"
 
-#include "tensorflow/lite/micro/all_ops_resolver.h"
 #include "tensorflow/lite/micro/micro_interpreter.h"
 #include "tensorflow/lite/micro/micro_log.h"
+#include "tensorflow/lite/micro/micro_mutable_op_resolver.h"
 #include "tensorflow/lite/schema/schema_generated.h"
 
 #include <cmath>
@@ -54,7 +54,7 @@ static const float IMAGENET_STD[3] = {0.229f, 0.224f, 0.225f};
 
 // ── Static state (lives for the whole program) ───────────────────────────────
 static tflite::MicroInterpreter *s_interpreter = nullptr;
-static tflite::AllOpsResolver s_resolver;
+static tflite::MicroMutableOpResolver<20> s_resolver;
 static uint8_t *s_arena = nullptr;
 
 // Quantisation parameters read from the model's input tensor
@@ -282,6 +282,23 @@ extern "C" int fomo_init(const uint8_t *model_data, size_t model_data_len,
     return -4;
   }
 
+  s_resolver.AddConv2D();
+  s_resolver.AddDepthwiseConv2D();
+  s_resolver.AddReshape();
+  s_resolver.AddSoftmax();
+  s_resolver.AddPad();
+  s_resolver.AddPadV2();
+  s_resolver.AddAdd();
+  s_resolver.AddMul();
+  s_resolver.AddMean();
+  s_resolver.AddRelu6();
+  s_resolver.AddQuantize();
+  s_resolver.AddDequantize();
+  s_resolver.AddFullyConnected();
+  s_resolver.AddLogistic();
+  s_resolver.AddExpandDims();
+  s_resolver.AddConcatenation();
+  s_resolver.AddStridedSlice();
   s_interpreter = new (std::nothrow)
       tflite::MicroInterpreter(model, s_resolver, s_arena, arena_size_bytes);
 
