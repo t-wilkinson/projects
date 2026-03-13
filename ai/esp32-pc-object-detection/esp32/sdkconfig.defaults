@@ -1,7 +1,6 @@
+# ESP32
+
 # ── Memory ──────────────────────────────────────────────────────────────────
-# Enable PSRAM if your board has it (most ESP32-S3 devkits do).
-# Remove or set to n if your board has no PSRAM.
-# CONFIG_SPIRAM_MODE_OCT=y
 CONFIG_SPIRAM_SPEED_80M=y
 
 # Grow the main task stack — Rust async + std needs more than the default.
@@ -41,7 +40,7 @@ CONFIG_SPIRAM=y
 CONFIG_SPIRAM_MALLOC_ALWAYSINTERNAL=4096
 
 # Camera
-# CONFIG_CAMERA_SUPPORT=y
+CONFIG_CAMERA_SUPPORT=y
 
 # Stack sizes (inference needs more stack)
 CONFIG_PTHREAD_TASK_STACK_SIZE_DEFAULT=8192

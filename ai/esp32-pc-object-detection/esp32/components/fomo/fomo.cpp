@@ -1,15 +1,11 @@
-// ─────────────────────────────────────────────────────────────────────────────
 // fomo.cpp — Camera + preprocess + TFLite Micro + output parsing
-//
-// Everything that touches ML or camera hardware lives here.
-// Rust never sees tensors, pixel buffers, or camera frame pointers.
-// ─────────────────────────────────────────────────────────────────────────────
 
 #include "fomo.h"
 
 #include "esp_camera.h"
 #include "esp_log.h"
 #include "esp_timer.h"
+#include "img_converters.h"
 
 #include "tensorflow/lite/micro/micro_interpreter.h"
 #include "tensorflow/lite/micro/micro_log.h"
@@ -22,7 +18,13 @@
 
 static const char *TAG = "fomo";
 
-// ── Model constants (must match training notebook) ───────────────────────────
+// Scratch buffer for the decoded 160×120 RGB888 frame (57600 bytes)
+static uint8_t *s_decode_buf = nullptr;
+#define DECODE_W 160
+#define DECODE_H 120
+#define DECODE_SIZE (DECODE_W * DECODE_H * 3)
+
+// Model constants
 #define INPUT_W 96
 #define INPUT_H 96
 #define INPUT_CH 3
@@ -65,6 +67,39 @@ static int32_t s_input_zero_point = 0;
 static uint8_t *s_rgb_buf = nullptr;  // INPUT_SIZE bytes: 96×96×3 RGB888
 static int8_t *s_input_buf = nullptr; // INPUT_SIZE bytes: quantised int8
 
+/// Capture JPEG, decode to RGB888, then nearest-neighbour downscale to 96×96
+static int camera_capture_rgb96(uint8_t *out) {
+  camera_fb_t *fb = esp_camera_fb_get();
+  if (!fb) {
+    ESP_LOGE(TAG, "Camera capture failed");
+    return -1;
+  }
+
+  // JPEG → RGB888  (160×120 → 57 600 bytes)
+  bool ok = fmt2rgb888(fb->buf, fb->len, PIXFORMAT_JPEG, s_decode_buf);
+  esp_camera_fb_return(fb);
+
+  if (!ok) {
+    ESP_LOGE(TAG, "JPEG decode failed");
+    return -2;
+  }
+
+  // Nearest-neighbour downscale 160×120 → 96×96
+  for (int dy = 0; dy < INPUT_H; dy++) {
+    int sy = (dy * DECODE_H) / INPUT_H;
+    for (int dx = 0; dx < INPUT_W; dx++) {
+      int sx = (dx * DECODE_W) / INPUT_W;
+      int src_idx = (sy * DECODE_W + sx) * 3;
+      int dst_idx = (dy * INPUT_W + dx) * 3;
+      out[dst_idx + 0] = s_decode_buf[src_idx + 0];
+      out[dst_idx + 1] = s_decode_buf[src_idx + 1];
+      out[dst_idx + 2] = s_decode_buf[src_idx + 2];
+    }
+  }
+
+  return 0;
+}
+
 // ─────────────────────────────────────────────────────────────────────────────
 // Camera
 // ─────────────────────────────────────────────────────────────────────────────
@@ -92,60 +127,101 @@ static int camera_init(void) {
   config.xclk_freq_hz = 20000000;
   config.ledc_timer = LEDC_TIMER_0;
   config.ledc_channel = LEDC_CHANNEL_0;
-  config.pixel_format = PIXFORMAT_RGB565;
-  config.frame_size = FRAMESIZE_QVGA; // 320×240
-  config.jpeg_quality = 12;
+
+  // config.pixel_format = PIXFORMAT_RGB565;
+  // config.frame_size = FRAMESIZE_QQVGA; // 160x120 // FRAMESIZE_96X96; //
+  // FRAMESIZE_QVGA; // 320×240
+  //
+  // config.jpeg_quality = 12;
+  // config.fb_count = 2;
+  // config.grab_mode = CAMERA_GRAB_WHEN_EMPTY;
+  // config.fb_location = CAMERA_FB_IN_PSRAM; // CAMERA_FB_IN_PSRAM;
+
+  config.pixel_format = PIXFORMAT_JPEG;
+  config.frame_size = FRAMESIZE_QQVGA; // 160×120
+  config.jpeg_quality = 8; // low compression → fast decode, good detail
   config.fb_count = 1;
   config.grab_mode = CAMERA_GRAB_WHEN_EMPTY;
-  config.fb_location = CAMERA_FB_IN_PSRAM;
+  config.fb_location = CAMERA_FB_IN_DRAM;
 
+  ESP_LOGE(TAG, "initialising camera");
   esp_err_t err = esp_camera_init(&config);
   if (err != ESP_OK) {
     ESP_LOGE(TAG, "esp_camera_init failed: 0x%x", err);
     return -1;
   }
 
+  // // ── Override OV2640 clock for raw RGB565 on ESP32 ────────────────
+  // // The driver forces clk_2x=0 on ESP32, which starves the DSP of
+  // // clock cycles and prevents HREF from asserting in non-JPEG modes.
+  // sensor_t *s = esp_camera_sensor_get();
+  // if (s) {
+  //   // CLKRC (bank 1, reg 0x11): set bit 7 = clk_2x ON, bits 5:0 = clk_div 3
+  //   //   → internal DSP clock = XCLK × 2 / (3+1) = 10 MHz
+  //   s->set_reg(s, 0x111, 0xFF, 0x83); // 0x80 | 3
+
+  //   // R_DVP_SP (bank 0, reg 0xD3): clear bit 7 = pclk_auto OFF, bits 6:0 =
+  //   // pclk_div 8
+  //   //   → deterministic PCLK the I2S DMA can lock onto
+  //   s->set_reg(s, 0x0D3, 0xFF, 0x08);
+  // }
+
   ESP_LOGI(TAG, "Camera initialised (QVGA RGB565)");
   return 0;
 }
 
 /// Capture a frame and downscale RGB565 320×240 → RGB888 96×96
-static int camera_capture_rgb96(uint8_t *out) {
-  camera_fb_t *fb = esp_camera_fb_get();
-  if (!fb) {
-    ESP_LOGE(TAG, "Camera capture failed");
-    return -1;
-  }
-
-  const int src_w = fb->width;
-  const int src_h = fb->height;
-  const uint8_t *src = fb->buf;
-
-  // Nearest-neighbour downscale RGB565 → RGB888
-  for (int dy = 0; dy < INPUT_H; dy++) {
-    int sy = (dy * src_h) / INPUT_H;
-    for (int dx = 0; dx < INPUT_W; dx++) {
-      int sx = (dx * src_w) / INPUT_W;
-
-      int idx = (sy * src_w + sx) * 2;
-      uint16_t lo = src[idx];
-      uint16_t hi = src[idx + 1];
-      uint16_t pixel = (hi << 8) | lo;
-
-      uint8_t r = (uint8_t)((pixel >> 11) & 0x1F);
-      uint8_t g = (uint8_t)((pixel >> 5) & 0x3F);
-      uint8_t b = (uint8_t)(pixel & 0x1F);
-
-      int out_idx = (dy * INPUT_W + dx) * 3;
-      out[out_idx + 0] = (r << 3) | (r >> 2);
-      out[out_idx + 1] = (g << 2) | (g >> 4);
-      out[out_idx + 2] = (b << 3) | (b >> 2);
-    }
-  }
-
-  esp_camera_fb_return(fb);
-  return 0;
-}
+// static int camera_capture_rgb96(uint8_t *out) {
+//   camera_fb_t *fb = esp_camera_fb_get();
+//   if (!fb) {
+//     ESP_LOGE(TAG, "Camera capture failed");
+//     return -1;
+//   }
+//
+//   const int src_w = fb->width;
+//   const int src_h = fb->height;
+//   const uint8_t *src = fb->buf;
+//
+//   // Direct RGB565 → RGB888 conversion, no rescale needed
+//   // for (int i = 0; i < INPUT_W * INPUT_H; i++) {
+//   //   uint16_t lo = src[i * 2];
+//   //   uint16_t hi = src[i * 2 + 1];
+//   //   uint16_t pixel = (hi << 8) | lo;
+//
+//   //   uint8_t r = (uint8_t)((pixel >> 11) & 0x1F);
+//   //   uint8_t g = (uint8_t)((pixel >> 5) & 0x3F);
+//   //   uint8_t b = (uint8_t)(pixel & 0x1F);
+//
+//   //   out[i * 3 + 0] = (r << 3) | (r >> 2);
+//   //   out[i * 3 + 1] = (g << 2) | (g >> 4);
+//   //   out[i * 3 + 2] = (b << 3) | (b >> 2);
+//   // }
+//
+//   // Nearest-neighbour downscale RGB565 → RGB888
+//   for (int dy = 0; dy < INPUT_H; dy++) {
+//     int sy = (dy * src_h) / INPUT_H;
+//     for (int dx = 0; dx < INPUT_W; dx++) {
+//       int sx = (dx * src_w) / INPUT_W;
+//
+//       int idx = (sy * src_w + sx) * 2;
+//       uint16_t lo = src[idx];
+//       uint16_t hi = src[idx + 1];
+//       uint16_t pixel = (hi << 8) | lo;
+//
+//       uint8_t r = (uint8_t)((pixel >> 11) & 0x1F);
+//       uint8_t g = (uint8_t)((pixel >> 5) & 0x3F);
+//       uint8_t b = (uint8_t)(pixel & 0x1F);
+//
+//       int out_idx = (dy * INPUT_W + dx) * 3;
+//       out[out_idx + 0] = (r << 3) | (r >> 2);
+//       out[out_idx + 1] = (g << 2) | (g >> 4);
+//       out[out_idx + 2] = (b << 3) | (b >> 2);
+//     }
+//   }
+//
+//   esp_camera_fb_return(fb);
+//   return 0;
+// }
 
 // ─────────────────────────────────────────────────────────────────────────────
 // Preprocessing: RGB888 uint8 → quantised int8 (NCHW)
@@ -167,8 +243,8 @@ static void preprocess(const uint8_t *rgb, int8_t *out, float scale,
       if (quantised > 127)
         quantised = 127;
 
-      // NCHW layout — change to `out[i * 3 + ch]` if your model is NHWC
-      out[ch * total + i] = (int8_t)quantised;
+      // NHWC layout — change to `out[ch * total + i]` if your model is NCHW
+      out[i * 3 + ch] = (int8_t)quantised;
     }
   }
 }
@@ -265,6 +341,14 @@ extern "C" int fomo_init(const uint8_t *model_data, size_t model_data_len,
     return -2;
   }
 
+  s_decode_buf = (uint8_t *)malloc(DECODE_SIZE);
+  if (!s_decode_buf) {
+    ESP_LOGE(TAG, "Failed to allocate JPEG decode buffer (%d bytes)",
+             DECODE_SIZE);
+    return -2;
+  }
+  ESP_LOGI(TAG, "Allocated scratch buffers");
+
   // ── Parse model ──────────────────────────────────────────────────────
   const tflite::Model *model = tflite::GetModel(model_data);
   if (!model || model->version() != TFLITE_SCHEMA_VERSION) {
@@ -274,6 +358,8 @@ extern "C" int fomo_init(const uint8_t *model_data, size_t model_data_len,
     return -3;
   }
 
+  ESP_LOGI(TAG, "Parsed model");
+
   // ── Allocate arena & build interpreter ────────────────────────────────
   s_arena = (uint8_t *)malloc(arena_size_bytes);
   if (!s_arena) {
@@ -281,6 +367,8 @@ extern "C" int fomo_init(const uint8_t *model_data, size_t model_data_len,
              (unsigned)arena_size_bytes);
     return -4;
   }
+
+  ESP_LOGI(TAG, "Allocated arena");
 
   s_resolver.AddConv2D();
   s_resolver.AddDepthwiseConv2D();
@@ -307,11 +395,15 @@ extern "C" int fomo_init(const uint8_t *model_data, size_t model_data_len,
     return -5;
   }
 
+  ESP_LOGI(TAG, "Allocated interpreter");
+
   TfLiteStatus status = s_interpreter->AllocateTensors();
   if (status != kTfLiteOk) {
     ESP_LOGE(TAG, "AllocateTensors() failed (status=%d)", status);
     return -6;
   }
+
+  ESP_LOGI(TAG, "Allocated tensors");
 
   // ── Read quantisation parameters ─────────────────────────────────────
   TfLiteTensor *input_tensor = s_interpreter->input(0);
@@ -323,6 +415,8 @@ extern "C" int fomo_init(const uint8_t *model_data, size_t model_data_len,
     if (qp->zero_point && qp->zero_point->size > 0)
       s_input_zero_point = qp->zero_point->data[0];
   }
+
+  ESP_LOGI(TAG, "Read quantisation parameters");
 
   // Fallback for common uint8→int8 mapping
   if (s_input_scale == 0.0f) {

@@ -28,9 +28,11 @@ use esp_idf_svc::{
     io::Write,
     nvs::EspDefaultNvsPartition,
     wifi::{BlockingWifi, EspWifi},
+    // handle::RawHandle,
 };
 
-use esp_idf_sys as _;
+// use esp_idf_sys::{httpd_handle_t, httpd_ws_frame_t, httpd_ws_send_frame_async,
+//                   httpd_ws_type_t_HTTPD_WS_TYPE_TEXT};
 
 // ── Configuration ────────────────────────────────────────────────────────────
 
@@ -39,7 +41,7 @@ const WIFI_PASSWORD: &str = env!("WIFI_PASSWORD");
 
 const HTTP_PORT: u16 = 80;
 const INFERENCE_INTERVAL_MS: u64 = 300; // ~3 FPS
-const TENSOR_ARENA_SIZE: usize = 300 * 1024;
+const TENSOR_ARENA_SIZE: usize = 500 * 1024;
 
 /// Class names — index 0 = background (never returned by fomo_detect)
 const CLASS_NAMES: [&str; 6] = [
@@ -53,6 +55,7 @@ const CLASS_NAMES: [&str; 6] = [
 
 // ── Embedded model binary ────────────────────────────────────────────────────
 const MODEL_DATA: &[u8] = include_bytes!("../model/fomo_model_int8.tflite");
+// const MODEL_DATA: &[u8] = &[];
 
 // ── FFI to the C/C++ FOMO component ─────────────────────────────────────────
 
@@ -127,6 +130,7 @@ impl Detection {
 // ── Shared state ─────────────────────────────────────────────────────────────
 
 struct SharedState {
+    // server_handle: Option<httpd_handle_t>,
     sessions: HashMap<i32, ()>,
     detections: Vec<Detection>,
     frame_count: u32,
@@ -211,6 +215,48 @@ fn format_detections_json(detections: &[Detection], frame: u32, ms: u32) -> Stri
     )
 }
 
+// fn broadcast_detections(state: &SharedStateHandle) {
+//     let guard = state.lock().unwrap();
+// 
+//     let handle = match guard.server_handle {
+//         Some(h) => h,
+//         None => return,
+//     };
+// 
+//     if guard.sessions.is_empty() {
+//         return;
+//     }
+// 
+//     let json = format_detections_json(
+//         &guard.detections,
+//         guard.frame_count,
+//         guard.inference_ms,
+//     );
+//     let payload = json.as_bytes();
+// 
+//     let sessions: Vec<i32> = guard.sessions.keys().cloned().collect();
+//     drop(guard); // release lock before doing I/O
+// 
+//     for id in &sessions {
+//         let mut frame = httpd_ws_frame_t {
+//             type_: httpd_ws_type_t_HTTPD_WS_TYPE_TEXT,
+//             payload: payload.as_ptr() as *mut u8,
+//             len: payload.len(),
+//             ..unsafe { core::mem::zeroed() }
+//         };
+// 
+//         let ret = unsafe { httpd_ws_send_frame_async(handle, *id, &mut frame) };
+// 
+//         if ret != 0 {
+//             warn!("[WS] Push to session_id={} failed (err={}), removing", id, ret);
+//             if let Ok(mut g) = state.lock() {
+//                 g.sessions.remove(id);
+//                 // g.sessions.retain(|&f| f != *id);
+//             }
+//         }
+//     }
+// }
+
 // ── Main ─────────────────────────────────────────────────────────────────────
 
 fn run() -> Result<()> {
@@ -220,6 +266,18 @@ fn run() -> Result<()> {
     info!("═══════════════════════════════════════════════════");
     info!("  ESP32-CAM FOMO Object Detection Server");
     info!("═══════════════════════════════════════════════════");
+
+    // ── Initialise camera + ML (single C call) ──────────────────────────
+     info!("[FOMO] Initialising camera + model ({} bytes)...", MODEL_DATA.len());
+
+    let ret = unsafe {
+        fomo_init(MODEL_DATA.as_ptr(), MODEL_DATA.len(), TENSOR_ARENA_SIZE)
+    };
+    if ret != 0 {
+        bail!("fomo_init failed (error={})", ret);
+    }
+    info!("[FOMO] Pipeline ready!");
+
 
     // ── WiFi ─────────────────────────────────────────────────────────────
     let peripherals = Peripherals::take()?;
@@ -238,28 +296,18 @@ fn run() -> Result<()> {
         ..Default::default()
     }))?;
 
-    wifi.start()?;
-    info!("[WIFI] Connecting to \"{}\"...", WIFI_SSID);
-    wifi.connect()?;
-    wifi.wait_netif_up()?;
+    // wifi.start()?;
+    // info!("[WIFI] Connecting to \"{}\"...", WIFI_SSID);
+    // wifi.connect()?;
+    // wifi.wait_netif_up()?;
 
-    let ip_info = wifi.wifi().sta_netif().get_ip_info()?;
-    info!("[WIFI] Connected! IP: {}", ip_info.ip);
-    info!("[WIFI] WebSocket: ws://{}/ws", ip_info.ip);
-
-    // ── Initialise camera + ML (single C call) ──────────────────────────
-    info!("[FOMO] Initialising camera + model ({} bytes)...", MODEL_DATA.len());
-
-    let ret = unsafe {
-        fomo_init(MODEL_DATA.as_ptr(), MODEL_DATA.len(), TENSOR_ARENA_SIZE)
-    };
-    if ret != 0 {
-        bail!("fomo_init failed (error={})", ret);
-    }
-    info!("[FOMO] Pipeline ready!");
+    // let ip_info = wifi.wifi().sta_netif().get_ip_info()?;
+    // info!("[WIFI] Connected! IP: {}", ip_info.ip);
+    // info!("[WIFI] WebSocket: ws://{}/ws", ip_info.ip);
 
     // ── Shared state ─────────────────────────────────────────────────────
     let shared_state: SharedStateHandle = Arc::new(Mutex::new(SharedState {
+        // server_handle: None,
         sessions: HashMap::new(),
         detections: Vec::new(),
         frame_count: 0,
@@ -275,6 +323,11 @@ fn run() -> Result<()> {
     };
 
     let mut server = EspHttpServer::new(&server_config)?;
+
+    // {
+    //     let mut guard = shared_state.lock().unwrap();
+    //     guard.server_handle = Some(server.handle());
+    // }
 
     let state_for_ws = Arc::clone(&shared_state);
     server.ws_handler("/ws", move |ws: &mut EspHttpWsConnection| {
@@ -345,6 +398,8 @@ fn run() -> Result<()> {
             guard.frame_count = frame_count;
             guard.inference_ms = result.inference_ms;
         }
+
+        // broadcast_detections(&shared_state);
 
         // Rate limit
         let elapsed = t_start.elapsed();
