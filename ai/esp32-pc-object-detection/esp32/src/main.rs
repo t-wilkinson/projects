@@ -280,21 +280,21 @@ fn run() -> Result<()> {
 
 
     // ── WiFi ─────────────────────────────────────────────────────────────
-    let peripherals = Peripherals::take()?;
-    let sysloop = EspSystemEventLoop::take()?;
-    let nvs = EspDefaultNvsPartition::take()?;
+    // let peripherals = Peripherals::take()?;
+    // let sysloop = EspSystemEventLoop::take()?;
+    // let nvs = EspDefaultNvsPartition::take()?;
 
-    let mut wifi = BlockingWifi::wrap(
-        EspWifi::new(peripherals.modem, sysloop.clone(), Some(nvs))?,
-        sysloop,
-    )?;
+    // let mut wifi = BlockingWifi::wrap(
+    //     EspWifi::new(peripherals.modem, sysloop.clone(), Some(nvs))?,
+    //     sysloop,
+    // )?;
 
-    wifi.set_configuration(&WifiConfig::Client(ClientConfiguration {
-        ssid: WIFI_SSID.try_into().expect("SSID too long"),
-        password: WIFI_PASSWORD.try_into().expect("Password too long"),
-        auth_method: AuthMethod::WPA2Personal,
-        ..Default::default()
-    }))?;
+    // wifi.set_configuration(&WifiConfig::Client(ClientConfiguration {
+    //     ssid: WIFI_SSID.try_into().expect("SSID too long"),
+    //     password: WIFI_PASSWORD.try_into().expect("Password too long"),
+    //     auth_method: AuthMethod::WPA2Personal,
+    //     ..Default::default()
+    // }))?;
 
     // wifi.start()?;
     // info!("[WIFI] Connecting to \"{}\"...", WIFI_SSID);
@@ -314,38 +314,38 @@ fn run() -> Result<()> {
         inference_ms: 0,
     }));
 
-    // ── HTTP / WebSocket server ──────────────────────────────────────────
-    let server_config = HttpConfig {
-        http_port: HTTP_PORT,
-        max_sessions: 4,
-        session_timeout: Duration::from_secs(300),
-        ..Default::default()
-    };
+    // // ── HTTP / WebSocket server ──────────────────────────────────────────
+    // let server_config = HttpConfig {
+    //     http_port: HTTP_PORT,
+    //     max_sessions: 4,
+    //     session_timeout: Duration::from_secs(300),
+    //     ..Default::default()
+    // };
 
-    let mut server = EspHttpServer::new(&server_config)?;
+    // let mut server = EspHttpServer::new(&server_config)?;
 
-    // {
-    //     let mut guard = shared_state.lock().unwrap();
-    //     guard.server_handle = Some(server.handle());
-    // }
+    // // {
+    // //     let mut guard = shared_state.lock().unwrap();
+    // //     guard.server_handle = Some(server.handle());
+    // // }
 
-    let state_for_ws = Arc::clone(&shared_state);
-    server.ws_handler("/ws", move |ws: &mut EspHttpWsConnection| {
-        handle_ws(ws, &state_for_ws)
-    })?;
+    // let state_for_ws = Arc::clone(&shared_state);
+    // server.ws_handler("/ws", move |ws: &mut EspHttpWsConnection| {
+    //     handle_ws(ws, &state_for_ws)
+    // })?;
 
-    server.fn_handler("/", esp_idf_svc::http::Method::Get, |req| {
-        let html = concat!(
-            "<html><body style='font-family:monospace;background:#111;color:#0f0;padding:2em'>",
-            "<h1>ESP32-CAM FOMO Server</h1>",
-            "<p>Connect via WebSocket: <code>ws://&lt;this-ip&gt;/ws</code></p>",
-            "<p>Model: FOMO (MobileNetV2 backbone, 96x96 input, 12x12 grid)</p>",
-            "<p>Classes: person, sports_ball, chair, couch, dining_table</p>",
-            "</body></html>"
-        );
-        req.into_ok_response()?.write_all(html.as_bytes())?;
-        Ok::<(), anyhow::Error>(())
-    })?;
+    // server.fn_handler("/", esp_idf_svc::http::Method::Get, |req| {
+    //     let html = concat!(
+    //         "<html><body style='font-family:monospace;background:#111;color:#0f0;padding:2em'>",
+    //         "<h1>ESP32-CAM FOMO Server</h1>",
+    //         "<p>Connect via WebSocket: <code>ws://&lt;this-ip&gt;/ws</code></p>",
+    //         "<p>Model: FOMO (MobileNetV2 backbone, 96x96 input, 12x12 grid)</p>",
+    //         "<p>Classes: person, sports_ball, chair, couch, dining_table</p>",
+    //         "</body></html>"
+    //     );
+    //     req.into_ok_response()?.write_all(html.as_bytes())?;
+    //     Ok::<(), anyhow::Error>(())
+    // })?;
 
     // ── Inference loop ───────────────────────────────────────────────────
     info!(

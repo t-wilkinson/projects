@@ -3,6 +3,7 @@
 #include "fomo.h"
 
 #include "esp_camera.h"
+#include "esp_heap_caps.h"
 #include "esp_log.h"
 #include "esp_timer.h"
 #include "img_converters.h"
@@ -69,6 +70,8 @@ static int8_t *s_input_buf = nullptr; // INPUT_SIZE bytes: quantised int8
 
 /// Capture JPEG, decode to RGB888, then nearest-neighbour downscale to 96×96
 static int camera_capture_rgb96(uint8_t *out) {
+  ESP_LOGI(TAG, "Capturing frame...");
+
   camera_fb_t *fb = esp_camera_fb_get();
   if (!fb) {
     ESP_LOGE(TAG, "Camera capture failed");
@@ -124,7 +127,7 @@ static int camera_init(void) {
   config.pin_href = CAM_PIN_HREF;
   config.pin_pclk = CAM_PIN_PCLK;
 
-  config.xclk_freq_hz = 20000000;
+  config.xclk_freq_hz = 10000000;
   config.ledc_timer = LEDC_TIMER_0;
   config.ledc_channel = LEDC_CHANNEL_0;
 
@@ -142,7 +145,7 @@ static int camera_init(void) {
   config.jpeg_quality = 8; // low compression → fast decode, good detail
   config.fb_count = 1;
   config.grab_mode = CAMERA_GRAB_WHEN_EMPTY;
-  config.fb_location = CAMERA_FB_IN_DRAM;
+  config.fb_location = CAMERA_FB_IN_PSRAM; // CAMERA_FB_IN_DRAM;
 
   ESP_LOGE(TAG, "initialising camera");
   esp_err_t err = esp_camera_init(&config);
@@ -151,20 +154,13 @@ static int camera_init(void) {
     return -1;
   }
 
-  // // ── Override OV2640 clock for raw RGB565 on ESP32 ────────────────
-  // // The driver forces clk_2x=0 on ESP32, which starves the DSP of
-  // // clock cycles and prevents HREF from asserting in non-JPEG modes.
-  // sensor_t *s = esp_camera_sensor_get();
-  // if (s) {
-  //   // CLKRC (bank 1, reg 0x11): set bit 7 = clk_2x ON, bits 5:0 = clk_div 3
-  //   //   → internal DSP clock = XCLK × 2 / (3+1) = 10 MHz
-  //   s->set_reg(s, 0x111, 0xFF, 0x83); // 0x80 | 3
-
-  //   // R_DVP_SP (bank 0, reg 0xD3): clear bit 7 = pclk_auto OFF, bits 6:0 =
-  //   // pclk_div 8
-  //   //   → deterministic PCLK the I2S DMA can lock onto
-  //   s->set_reg(s, 0x0D3, 0xFF, 0x08);
-  // }
+  camera_fb_t *warmup = esp_camera_fb_get();
+  if (warmup) {
+    ESP_LOGI(TAG, "Warm-up frame: %u bytes", (unsigned)warmup->len);
+    esp_camera_fb_return(warmup);
+  } else {
+    ESP_LOGW(TAG, "Warm-up capture failed — DMA may be starved");
+  }
 
   ESP_LOGI(TAG, "Camera initialised (QVGA RGB565)");
   return 0;
@@ -427,6 +423,26 @@ extern "C" int fomo_init(const uint8_t *model_data, size_t model_data_len,
   ESP_LOGI(TAG, "Model loaded: arena %u/%u bytes, input quant scale=%.6f zp=%d",
            (unsigned)s_interpreter->arena_used_bytes(),
            (unsigned)arena_size_bytes, s_input_scale, (int)s_input_zero_point);
+
+  // // ── Override OV2640 clock for raw RGB565 on ESP32 ────────────────
+  // // The driver forces clk_2x=0 on ESP32, which starves the DSP of
+  // // clock cycles and prevents HREF from asserting in non-JPEG modes.
+  // sensor_t *s = esp_camera_sensor_get();
+  // if (s) {
+  //   // CLKRC (bank 1, reg 0x11): set bit 7 = clk_2x ON, bits 5:0 = clk_div 3
+  //   //   → internal DSP clock = XCLK × 2 / (3+1) = 10 MHz
+  //   s->set_reg(s, 0x111, 0xFF, 0x83); // 0x80 | 3
+
+  //   // R_DVP_SP (bank 0, reg 0xD3): clear bit 7 = pclk_auto OFF, bits 6:0 =
+  //   // pclk_div 8
+  //   //   → deterministic PCLK the I2S DMA can lock onto
+  //   s->set_reg(s, 0x0D3, 0xFF, 0x08);
+  // }
+  // ESP_LOGI(TAG, "Updated camera registers");
+
+  ESP_LOGI(TAG, "Free internal: %u, largest DMA block: %u",
+           (unsigned)heap_caps_get_free_size(MALLOC_CAP_INTERNAL),
+           (unsigned)heap_caps_get_largest_free_block(MALLOC_CAP_DMA));
 
   return 0;
 }
