@@ -1,4 +1,6 @@
 # ESP32
+CONFIG_ESP32_DEFAULT_CPU_FREQ_240=y
+CONFIG_ESP32_DEFAULT_CPU_FREQ_MHZ=240
 
 # ── Memory ──────────────────────────────────────────────────────────────────
 CONFIG_SPIRAM_SPEED_80M=y

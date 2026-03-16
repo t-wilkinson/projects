@@ -1,3 +1,5 @@
 datasets
 .direnv
 .envrc
+camera_example
+esp32/debug

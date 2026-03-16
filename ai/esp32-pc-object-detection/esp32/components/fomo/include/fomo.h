@@ -57,6 +57,8 @@ int fomo_init(const uint8_t *model_data, size_t model_data_len,
 /// Returns 0 on success, negative on error.
 int fomo_detect(fomo_result_t *out);
 
+const uint8_t *fomo_get_bmp(int *out_len);
+
 #ifdef __cplusplus
 }
 #endif
