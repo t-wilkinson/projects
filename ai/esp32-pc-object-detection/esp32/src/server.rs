@@ -156,6 +156,7 @@ pub fn init(shared_state: SharedStateHandle) -> Result<EspHttpServer<'static>> {
         http_port: HTTP_PORT,
         max_sessions: 4,
         session_timeout: Duration::from_secs(300),
+        // stack_size: 10240,
         ..Default::default()
     };
 

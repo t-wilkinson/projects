@@ -87,6 +87,7 @@ static int camera_capture_rgb96(uint8_t *out) {
     return -1;
   }
 
+  /*
   // DEBUG: raw frame buffer info + first bytes
   ESP_LOGI(TAG, "fb: %p len=%d w=%d h=%d fmt=%d", fb->buf, fb->len, fb->width,
            fb->height, fb->format);
@@ -102,6 +103,7 @@ static int camera_capture_rgb96(uint8_t *out) {
   uint16_t px1_swap = (fb->buf[3] << 8) | fb->buf[2];
   ESP_LOGI(TAG, "BigEnd px0=0x%04x px1=0x%04x  LitEnd px0=0x%04x px1=0x%04x",
            px0, px1, px0_swap, px1_swap);
+*/
 
   const uint8_t *src = fb->buf;
   for (int i = 0; i < INPUT_W * INPUT_H; i++) {
@@ -279,6 +281,8 @@ void log_time(const char *msg) {
 
 /// Call AFTER camera_capture_rgb96 has filled s_rgb_buf
 extern "C" const uint8_t *fomo_get_bmp(int *out_len) {
+  camera_capture_rgb96(s_rgb_buf);
+
   // BMP header (54 bytes)
   uint8_t *h = s_bmp_buf;
   memset(h, 0, BMP_HEADER_SIZE);
@@ -363,6 +367,7 @@ extern "C" int fomo_init(const uint8_t *model_data, size_t model_data_len,
   // }
   ESP_LOGI(TAG, "Allocated scratch buffers");
 
+  /*
   // ── Parse model ──────────────────────────────────────────────────────
   const tflite::Model *model = tflite::GetModel(model_data);
   if (!model || model->version() != TFLITE_SCHEMA_VERSION) {
@@ -452,6 +457,7 @@ extern "C" int fomo_init(const uint8_t *model_data, size_t model_data_len,
   ESP_LOGI(TAG, "Model loaded: arena %u/%u bytes, input quant scale=%.6f zp=%d",
            (unsigned)s_interpreter->arena_used_bytes(),
            (unsigned)arena_size_bytes, s_input_scale, (int)s_input_zero_point);
+  */
 
   return 0;
 }
@@ -470,6 +476,7 @@ extern "C" int fomo_detect(fomo_result_t *out) {
   }
   log_time("camera_capture_rgb96");
 
+  /*
   // DEBUG: check raw RGB888 pixel values
   ESP_LOGI(TAG, "RGB sample: [0]=%d,%d,%d [100]=%d,%d,%d [4600]=%d,%d,%d",
            s_rgb_buf[0], s_rgb_buf[1], s_rgb_buf[2], s_rgb_buf[300],
@@ -562,6 +569,7 @@ extern "C" int fomo_detect(fomo_result_t *out) {
 
   int64_t elapsed_us = esp_timer_get_time() - t_start;
   out->inference_ms = (uint32_t)(elapsed_us / 1000);
+  */
 
   return 0;
 }

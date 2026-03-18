@@ -22,6 +22,7 @@ use std::{
 use anyhow::Result;
 use log::{error, info};
 use esp_idf_svc::sys::httpd_handle_t;
+use esp_idf_hal::task::thread::ThreadSpawnConfiguration;
 
 use crate::model::{Detection, FomoResultC};
 
@@ -85,22 +86,22 @@ fn run() -> Result<()> {
     loop {
         let t_start = Instant::now();
 
-        let detections = match model::inference(&mut raw_result, frame_count) {
-            Ok(v) => v,
-            Err(_) => continue,
-        };
+        // let detections = match model::inference(&mut raw_result, frame_count) {
+        //     Ok(v) => v,
+        //     Err(_) => continue,
+        // };
 
         frame_count += 1;
 
         // Update shared state for WS clients
-        {
-            let mut guard = shared_state.lock().unwrap();
-            guard.detections = detections;
-            guard.frame_count = frame_count;
-            guard.inference_ms = raw_result.inference_ms;
-        }
+        // {
+        //     let mut guard = shared_state.lock().unwrap();
+        //     guard.detections = detections;
+        //     guard.frame_count = frame_count;
+        //     guard.inference_ms = raw_result.inference_ms;
+        // }
 
-        server::broadcast_detections(&shared_state);
+        // server::broadcast_detections(&shared_state);
 
         // Rate limit
         let elapsed = t_start.elapsed();
