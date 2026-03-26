@@ -4,7 +4,7 @@ rec {
   espIdfSrc = pkgs.fetchgit {
     url = "https://github.com/espressif/esp-idf.git";
     rev = "v${versions.idf}";
-    hash = "sha256-lY0ZYaTKgKU4xGt8xIqxAQyZoh5IpasuiSL5UJIhs48=";
+    hash = "sha256-ZqukKm0JVc2vliGJVyiMGGow8GJK38UBjM5z/B2UddM=";
     fetchSubmodules = true;
     leaveDotGit = true;
   };
