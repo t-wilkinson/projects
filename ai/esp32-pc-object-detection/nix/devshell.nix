@@ -94,20 +94,23 @@
   # libraries that libclang.so needs are on LD_LIBRARY_PATH.
   export LIBCLANG_PATH="${pkgs.llvmPackages.libclang.lib}/lib"
   export LD_LIBRARY_PATH="${
-    lib.makeLibraryPath [
-      pkgs.zlib
-      pkgs.stdenv.cc.cc.lib
-      pkgs.libxml2
-      pkgs.ncurses
+    lib.makeLibraryPath (
+      with pkgs;
+      [
+        zlib
+        stdenv.cc.cc.lib
+        libxml2
+        ncurses
 
-      # OpenCV dependencies
-      pkgs.xorg.libxcb
-      pkgs.xorg.libX11
-      pkgs.xorg.libXext
-      pkgs.xorg.libXrender
-      pkgs.libGL
-      pkgs.glib
-    ]
+        # OpenCV dependencies
+        xorg.libxcb
+        xorg.libX11
+        xorg.libXext
+        xorg.libXrender
+        libGL
+        glib
+      ]
+    )
   }''${LD_LIBRARY_PATH:+:$LD_LIBRARY_PATH}"
   export BINDGEN_EXTRA_CLANG_ARGS="-fsigned-char"
 
