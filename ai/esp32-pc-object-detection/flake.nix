@@ -31,64 +31,102 @@
       nixpkgs,
       flake-utils,
     }:
-    flake-utils.lib.eachSystem [ "x86_64-linux" ] (
+    flake-utils.lib.eachSystem [ "x86_64-linux" "aarch64-darwin" ] (
       system:
       let
         pkgs = import nixpkgs {
           inherit system;
           config.allowUnfree = true;
         };
+        isLinux = pkgs.stdenv.isLinux;
+        # isDarwin = pkgs.stdenv.isDarwin;
         versions = import ./nix/versions.nix;
+
+        # ESP-IDF packages
         espIdf = pkgs.callPackage ./nix/esp-idf.nix { inherit versions; };
         toolchain = pkgs.callPackage ./nix/toolchain.nix { inherit versions; };
         tools = pkgs.callPackage ./nix/tools.nix { };
         espTools = { } // espIdf // toolchain // tools;
+
       in
       {
         packages = { } // espTools;
 
-        devShells.default = pkgs.mkShell {
-          name = "esp32-rust";
+        devShells.default =
+          if isLinux then
+            pkgs.mkShell {
+              name = "esp32-rust";
 
-          buildInputs = with pkgs; [
-            cmake
-            ninja
-            git
-            wget
-            curl
-            websocat
-            flex
-            bison
-            gperf
-            ccache
-            dfu-util
-            libusb1
-            pkg-config
-            openssl
-            openssl.dev
-            clang
-            llvmPackages.libclang
+              buildInputs = with pkgs; [
+                cmake
+                ninja
+                git
+                wget
+                curl
+                websocat
+                flex
+                bison
+                gperf
+                ccache
+                dfu-util
+                libusb1
+                pkg-config
+                openssl
+                openssl.dev
+                clang
+                llvmPackages.libclang
 
-            # For machine learning
-            # (pkgs.python3.withPackages (
-            #   ps: with ps; [
-            #     websockets
-            #     pip
-            #   ]
-            # ))
+                espTools.basePython
+                espTools.xtensaEspElf
+                espTools.xtensaRust
+                espTools.xtensaRustSrc
+                espTools.ldproxy
+                espflash
+              ];
 
-            espTools.basePython
-            espTools.xtensaEspElf
-            espTools.xtensaRust
-            espTools.xtensaRustSrc
-            espTools.ldproxy
-            espflash
-          ];
+              LIBCLANG_PATH = "${pkgs.llvmPackages.libclang.lib}/lib";
 
-          LIBCLANG_PATH = "${pkgs.llvmPackages.libclang.lib}/lib";
+              shellHook = pkgs.callPackage ./nix/devshell.nix { inherit versions espTools; };
+            }
+          else
+            pkgs.mkShell {
+              name = "esp32-ml";
 
-          shellHook = pkgs.callPackage ./nix/devshell.nix { inherit versions espTools; };
-        };
+              buildInputs = with pkgs; [
+                tools.basePython
+                git
+                curl
+              ];
+
+              shellHook = ''
+                # ── Python venv for extra pip deps ─────────────
+                _ML_VENV="''${ML_VENV_PATH:-$PWD/.venv}"
+
+                if [ ! -f "$_ML_VENV/pyvenv.cfg" ]; then
+                  echo ""
+                  echo "  [flake] Creating Python venv for ML/Jupyter..."
+                  python3 -m venv "$_ML_VENV"
+                  source "$_ML_VENV/bin/activate"
+                  pip install --upgrade pip setuptools -q
+                  if [ -f requirements.txt ]; then
+                    pip install -r requirements.txt 2>&1 | grep -v 'already satisfied'
+                  fi
+                  echo "  [flake] venv ready."
+                else
+                  source "$_ML_VENV/bin/activate"
+                fi
+
+                # Register venv as a Jupyter kernel so we don't use nix's python
+                python -m ipykernel install --user --name esp32-ml --display-name "ESP32 ML" --overwrite
+
+                echo ""
+                echo "  ESP32 ML shell (macOS — Jupyter only)"
+                echo "  ────────────────────────────────────────"
+                echo "  Python : $(python --version 2>/dev/null)"
+                echo "  Jupyter: jupyter notebook (uses 'ESP32 ML' kernel)"
+                echo ""
+              '';
+            };
       }
     );
 }
