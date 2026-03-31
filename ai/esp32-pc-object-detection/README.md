@@ -31,3 +31,10 @@ Flash size:        4MB
 Features:          WiFi, BT, Dual Core, 240MHz, Coding Scheme None
 MAC address:       c0:49:ef:bc:c9:68
 App/part. size:    1,052,080/4,128,768 bytes, 25.48%
+
+# TODOs
+- MIN_SCALED_BBOX_AREA might be untraining the model on small balls. Perhaps give a low penalty for small areas
+- Backbone cutoff might be too early due to grayscale no longer having color to assist in detecting features.
+- The loss seems to take a hit whenever the LR resets
+- The class weights might not accurately represent the class imbalance
+- Perhaps change optimizer to T_0=30, T_mult=1, eta_min=1e-6
