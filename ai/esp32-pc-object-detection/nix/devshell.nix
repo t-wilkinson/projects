@@ -93,7 +93,7 @@
   # We can't easily prevent that, so instead ensure all shared
   # libraries that libclang.so needs are on LD_LIBRARY_PATH.
   export LIBCLANG_PATH="${pkgs.llvmPackages.libclang.lib}/lib"
-  export LD_LIBRARY_PATH="${
+  export LD_LIBRARY_PATH="/run/opengl-driver/lib:/run/opengl-driver-32/lib:${
     lib.makeLibraryPath (
       with pkgs;
       [
@@ -113,6 +113,7 @@
     )
   }''${LD_LIBRARY_PATH:+:$LD_LIBRARY_PATH}"
   export BINDGEN_EXTRA_CLANG_ARGS="-fsigned-char"
+  echo $LD_LIBRARY_PATH
 
   # Python venv
   # python -m venv .venv

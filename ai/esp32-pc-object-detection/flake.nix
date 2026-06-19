@@ -47,7 +47,6 @@
         toolchain = pkgs.callPackage ./nix/toolchain.nix { inherit versions; };
         tools = pkgs.callPackage ./nix/tools.nix { };
         espTools = { } // espIdf // toolchain // tools;
-
       in
       {
         packages = { } // espTools;
