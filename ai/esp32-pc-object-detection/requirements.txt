@@ -16,3 +16,4 @@ onnxscript
 protobuf<4.21.0
 click<8.2
 pandas
+import-ipynb==0.2
