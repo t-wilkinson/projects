@@ -1,19 +1,20 @@
-ultralytics # YOLO26-M
-albumentations # preprocessing
-torch==2.6.0+cu124
-torchvision==0.21.0+cu124
-numpy
-onnx
 # ai-edge-torch # deprecated
 # litert-torch
-onnx2tf
-tensorflow
-pycocotools
+albumentations # preprocessing
+click<8.2
+import-ipynb==0.2
 jupyter
 matplotlib
-opencv-python-headless
+numpy
+onnx
+onnx2tf
 onnxscript
-protobuf<4.21.0
-click<8.2
+opencv-python-headless
 pandas
-import-ipynb==0.2
+protobuf<4.21.0
+pycocotools
+tensorflow
+timm
+torch==2.6.0+cu124
+torchvision==0.21.0+cu124
+ultralytics # YOLO26-M
