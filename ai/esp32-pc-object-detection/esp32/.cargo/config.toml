@@ -1,17 +1,29 @@
+# Default target is the ESP32-S3 (Freenove ESP32-S3 WROOM CAM).
+# To build for the original AI-Thinker ESP32-CAM instead:
+#   MCU=esp32 cargo build --release --target xtensa-esp32-espidf
 [build]
-target = "xtensa-esp32-espidf"
+target = "xtensa-esp32s3-espidf"
+
+[target.xtensa-esp32s3-espidf]
+linker = "ldproxy"
+runner = "espflash flash --monitor"
+rustflags = ["--cfg", "espidf_time64"]
 
 [target.xtensa-esp32-espidf]
 linker = "ldproxy"
 runner = "espflash flash --monitor"
 rustflags = ["--cfg", "espidf_time64"]
 
+# Cargo.lock is not committed, so pick dependency versions that still build
+# with the pinned esp toolchain (see rust-version in Cargo.toml).
+[resolver]
+incompatible-rust-versions = "fallback"
+
 [unstable]
 build-std = ["std", "panic_abort"]
 
 [env]
-MCU = "esp32"
+# Must match the target above; an MCU already set in your shell wins.
+MCU = "esp32s3"
 ESP_IDF_VERSION = "v5.3.2"
-# ESP_IDF_TOOLS_INSTALL_DIR = "fromenv"
 ESP_IDF_COMPONENT_MANAGER = "true"
-# ESP_IDF_COMPONENT_DIRS = { value = "components", relative = true }

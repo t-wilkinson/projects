@@ -1,55 +1,40 @@
-# ESP32
-CONFIG_ESP32_DEFAULT_CPU_FREQ_240=y
-CONFIG_ESP32_DEFAULT_CPU_FREQ_MHZ=240
+# Settings shared by every chip. Chip-specific settings live in
+# sdkconfig.defaults.esp32s3 / sdkconfig.defaults.esp32 (esp-idf-sys picks the
+# one matching $MCU automatically).
 
-# ── Memory ──────────────────────────────────────────────────────────────────
-CONFIG_SPIRAM_SPEED_80M=y
+# ── CPU / RTOS ───────────────────────────────────────────────────────────────
+CONFIG_ESP_DEFAULT_CPU_FREQ_MHZ_240=y
+# 1 ms ticks so thread::sleep(Duration::from_millis(n)) means what it says.
+CONFIG_FREERTOS_HZ=1000
+# The main task only brings up WiFi + HTTP; inference runs on its own pinned
+# thread whose stack size is set in Rust. Stacks live in internal SRAM, so
+# don't make this bigger than it needs to be.
+CONFIG_ESP_MAIN_TASK_STACK_SIZE=16384
+CONFIG_PTHREAD_TASK_STACK_SIZE_DEFAULT=8192
 
-# Grow the main task stack — Rust async + std needs more than the default.
-CONFIG_ESP_MAIN_TASK_STACK_SIZE=65536
+# ── PSRAM ────────────────────────────────────────────────────────────────────
+CONFIG_SPIRAM=y
+CONFIG_SPIRAM_USE_MALLOC=y
+# malloc() of <= 4 KiB stays in fast internal SRAM; bigger blocks go to PSRAM.
+CONFIG_SPIRAM_MALLOC_ALWAYSINTERNAL=4096
+# Keep 32 KiB of internal SRAM back for DMA descriptors and drivers that can't
+# use PSRAM.
+CONFIG_SPIRAM_MALLOC_RESERVE_INTERNAL=32768
+# Put WiFi/lwIP buffers in PSRAM. This frees internal SRAM that the tensor
+# arena can use instead.
+CONFIG_SPIRAM_TRY_ALLOCATE_WIFI_LWIP=y
 
 # ── WiFi ─────────────────────────────────────────────────────────────────────
 CONFIG_ESP_WIFI_STATIC_RX_BUFFER_NUM=10
 CONFIG_ESP_WIFI_DYNAMIC_RX_BUFFER_NUM=32
-CONFIG_ESP_WIFI_STATIC_TX_BUFFER=y
-CONFIG_ESP_WIFI_TX_BUFFER_TYPE=0
-CONFIG_ESP_WIFI_STATIC_TX_BUFFER_NUM=10
-CONFIG_ESP_WIFI_CACHE_TX_BUFFER_NUM=32
 
-# ── TCP/IP (lwIP) ────────────────────────────────────────────────────────────
-# Increase the number of simultaneous TCP sockets for the WS server.
+# ── HTTP server ──────────────────────────────────────────────────────────────
 CONFIG_LWIP_MAX_SOCKETS=16
-
-# ── HTTP server (esp_http_server) ────────────────────────────────────────────
-# Maximum number of open HTTP/WebSocket connections.
 CONFIG_HTTPD_MAX_REQ_HDR_LEN=1024
 CONFIG_HTTPD_MAX_URI_LEN=512
-CONFIG_HTTPD_ERR_RESP_NO_DELAY=y
-CONFIG_HTTPD_WS_SUPPORT=y          # MUST be enabled for WebSocket support
+
+# ── Speed ────────────────────────────────────────────────────────────────────
+CONFIG_COMPILER_OPTIMIZATION_PERF=y
 
 # ── Logging ──────────────────────────────────────────────────────────────────
 CONFIG_LOG_DEFAULT_LEVEL_INFO=y
-
-# ── Watchdog ─────────────────────────────────────────────────────────────────
-# Disable the task watchdog during development so long builds don't reboot.
-# Re-enable for production.
-CONFIG_ESP_TASK_WDT_EN=n
-
-# CONFIG_ESP_SYSTEM_EVENT_TASK_STACK_SIZE=4096
-
-# Enable PSRAM
-CONFIG_SPIRAM=y
-CONFIG_SPIRAM_MALLOC_ALWAYSINTERNAL=4096
-
-# Camera
-CONFIG_CAMERA_SUPPORT=y
-
-# Stack sizes (inference needs more stack)
-CONFIG_PTHREAD_TASK_STACK_SIZE_DEFAULT=8192
-
-# Optimisation for inference speed
-CONFIG_COMPILER_OPTIMIZATION_PERF=y
-
-CONFIG_ESP32_SPIRAM_SUPPORT=y
-CONFIG_SPIRAM_USE_MALLOC=y
-CONFIG_SPIRAM_MALLOC_ALLFREE=y

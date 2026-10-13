@@ -1,0 +1,18 @@
+# Freenove ESP32-S3 WROOM CAM: ESP32-S3-WROOM-1 N8R8 module
+# (8 MB quad flash, 8 MB octal PSRAM).
+
+# Octal PSRAM. If boot logs "PSRAM ID read error", your module has quad PSRAM:
+# swap this for CONFIG_SPIRAM_MODE_QUAD=y.
+CONFIG_SPIRAM_MODE_OCT=y
+CONFIG_SPIRAM_SPEED_80M=y
+
+CONFIG_ESPTOOLPY_FLASHMODE_QIO=y
+CONFIG_ESPTOOLPY_FLASHFREQ_80M=y
+CONFIG_ESPTOOLPY_FLASHSIZE_8MB=y
+
+# Flash (model weights) and PSRAM (frames, arena if it spills) are both read
+# through this cache. A bigger data cache means fewer stalls while TFLM walks
+# the weights. Costs internal SRAM, but it is the best SRAM you can spend.
+CONFIG_ESP32S3_DATA_CACHE_64KB=y
+CONFIG_ESP32S3_DATA_CACHE_LINE_64B=y
+CONFIG_ESP32S3_INSTRUCTION_CACHE_32KB=y

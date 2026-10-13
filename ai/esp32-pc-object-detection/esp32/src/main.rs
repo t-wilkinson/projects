@@ -1,123 +1,48 @@
-#![allow(unused_variables)]
 // ─────────────────────────────────────────────────────────────────────────────
-// ESP32-CAM FOMO Object Detection + WebSocket Server
+// FOMO object detection on the ESP32-S3 (and ESP32-CAM), viewed in a browser
 //
-// Architecture:
-//   C/C++ side  → camera capture, preprocessing, TFLite Micro inference
-//   Rust side   → WiFi, HTTP server, WebSocket broadcast
-//
-// The FFI surface is two functions: fomo_init() and fomo_detect().
+//   C++  components/fomo  camera capture, preprocessing, TFLite Micro
+//   Rust detect.rs        output tensor → scores → detections (host-testable)
+//        inference.rs     the capture → infer → decode loop, on core 1
+//        server.rs        HTTP API + web page, on core 0 with WiFi
 // ─────────────────────────────────────────────────────────────────────────────
 
+mod detect;
+mod inference;
 mod model;
 mod server;
+mod state;
+mod wifi;
 
-use std::{
-    collections::HashMap,
-    sync::{Arc, Mutex},
-    thread,
-    time::{Duration, Instant},
-};
+use std::{sync::Arc, thread, time::Duration};
 
 use anyhow::Result;
-use log::{error, info};
-use esp_idf_svc::sys::httpd_handle_t;
-use esp_idf_hal::task::thread::ThreadSpawnConfiguration;
+use esp_idf_hal::peripherals::Peripherals;
+use esp_idf_svc::{eventloop::EspSystemEventLoop, nvs::EspDefaultNvsPartition};
+use log::info;
 
-use crate::model::{Detection, FomoResultC};
-
-// ── Configuration ────────────────────────────────────────────────────────────
-
-pub const WIFI_SSID: &str = env!("WIFI_SSID");
-pub const WIFI_PASSWORD: &str = env!("WIFI_PASSWORD");
-pub const HTTP_PORT: u16 = 80;
-
-const INFERENCE_INTERVAL_MS: u64 = 300; // ~3 FPS
-
-// ── Shared state ─────────────────────────────────────────────────────────────
-
-pub struct SendableHandle(pub httpd_handle_t);
-unsafe impl Send for SendableHandle {}
-unsafe impl Sync for SendableHandle {}
-
-pub struct SharedState {
-    server_handle: Option<SendableHandle>,
-    pub sessions: HashMap<i32, ()>,
-    pub detections: Vec<Detection>,
-    pub frame_count: u32,
-    pub inference_ms: u32,
-}
-
-pub type SharedStateHandle = Arc<Mutex<SharedState>>;
-
-
-// ── Main ─────────────────────────────────────────────────────────────────────
-
-fn run() -> Result<()> {
+fn main() -> Result<()> {
     esp_idf_svc::sys::link_patches();
     esp_idf_svc::log::EspLogger::initialize_default();
 
-    info!("═══════════════════════════════════════════════════");
-    info!("  ESP32-CAM FOMO Object Detection Server");
-    info!("═══════════════════════════════════════════════════");
+    info!("FOMO object detection: {} byte model", model::model_bytes());
 
-    let shared_state: SharedStateHandle = Arc::new(Mutex::new(SharedState {
-        server_handle: None,
-        sessions: HashMap::new(),
-        detections: Vec::new(),
-        frame_count: 0,
-        inference_ms: 0,
-    }));
+    let peripherals = Peripherals::take()?;
+    let _wifi = wifi::connect(
+        peripherals.modem,
+        EspSystemEventLoop::take()?,
+        EspDefaultNvsPartition::take()?,
+    )?;
 
-    let _server = server::init(Arc::clone(&shared_state))?;
+    let shared = Arc::new(state::Shared::new());
+    let _server = server::start(shared.clone())?;
 
-    // Initialise camera + ML
-    model::setup()?;
+    // WiFi first, then the model: by the time the pipeline decides whether
+    // the tensor arena fits in internal SRAM, WiFi has already taken its share.
+    inference::spawn(shared)?;
 
-    // ── Inference loop ───────────────────────────────────────────────────
-    info!(
-        "[MAIN] Starting inference loop (~{} FPS)...",
-        1000 / INFERENCE_INTERVAL_MS
-    );
-
-    let mut frame_count: u32 = 0;
-    let mut raw_result = unsafe { core::mem::zeroed::<FomoResultC>() };
-
+    // `_wifi` and `_server` shut down when dropped, so main never returns.
     loop {
-        let t_start = Instant::now();
-
-        // let detections = match model::inference(&mut raw_result, frame_count) {
-        //     Ok(v) => v,
-        //     Err(_) => continue,
-        // };
-
-        frame_count += 1;
-
-        // Update shared state for WS clients
-        // {
-        //     let mut guard = shared_state.lock().unwrap();
-        //     guard.detections = detections;
-        //     guard.frame_count = frame_count;
-        //     guard.inference_ms = raw_result.inference_ms;
-        // }
-
-        // server::broadcast_detections(&shared_state);
-
-        // Rate limit
-        let elapsed = t_start.elapsed();
-        let target = Duration::from_millis(INFERENCE_INTERVAL_MS);
-        if elapsed < target {
-            thread::sleep(target - elapsed);
-        }
-    }
-}
-
-fn main() {
-    if let Err(e) = run() {
-        error!("Fatal error: {:?}", e);
-        // Let the watchdog reset us
-        loop {
-            thread::sleep(Duration::from_secs(1));
-        }
+        thread::sleep(Duration::from_secs(60));
     }
 }
