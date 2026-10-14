@@ -1,4 +1,10 @@
-// fomo.cpp — Camera + preprocess + TFLite Micro + output parsing
+// ─────────────────────────────────────────────────────────────────────────────
+// fomo.cpp — camera capture → preprocess → TFLite Micro inference
+//
+// Nothing in here hard-codes the model's input size, channel count or class
+// count: they are read from the .tflite tensors in fomo_init(), so a model
+// re-exported from the notebook at a new resolution drops straight in.
+// ─────────────────────────────────────────────────────────────────────────────
 
 #include "fomo.h"
 
@@ -6,47 +12,56 @@
 #include "esp_heap_caps.h"
 #include "esp_log.h"
 #include "esp_timer.h"
-#include "img_converters.h"
-
-#include "freertos/FreeRTOS.h"
-#include "freertos/task.h"
+#include "sdkconfig.h"
 
 #include "tensorflow/lite/micro/micro_interpreter.h"
-#include "tensorflow/lite/micro/micro_log.h"
 #include "tensorflow/lite/micro/micro_mutable_op_resolver.h"
 #include "tensorflow/lite/schema/schema_generated.h"
 
 #include <cmath>
 #include <cstdlib>
 #include <cstring>
+#include <new>
 
 static const char *TAG = "fomo";
 
-// Scratch buffer for the decoded 160×120 RGB888 frame (57600 bytes)
-static uint8_t *s_decode_buf = nullptr;
-#define DECODE_W 160
-#define DECODE_H 120
-#define DECODE_SIZE (DECODE_W * DECODE_H * 3)
+// ── Error codes returned to Rust ─────────────────────────────────────────────
+enum {
+  FOMO_ERR_ARGS = -1,
+  FOMO_ERR_CAMERA_INIT = -2,
+  FOMO_ERR_MODEL_VERSION = -3,
+  FOMO_ERR_ARENA_ALLOC = -4,
+  FOMO_ERR_ALLOCATE_TENSORS = -5,
+  FOMO_ERR_TENSOR_LAYOUT = -6,
+  FOMO_ERR_CAPTURE = -7,
+  FOMO_ERR_FRAME_FORMAT = -8,
+  FOMO_ERR_INVOKE = -9,
+};
 
-// Model constants
-#define INPUT_W 96
-#define INPUT_H 96
-#define INPUT_CH 3
-#define INPUT_SIZE (INPUT_W * INPUT_H * INPUT_CH)
-#define NUM_CLASSES 6
-#define CONF_THRESH 0.45f
-
-// ImageNet normalisation (baked into training pipeline)
-static const float IMAGENET_MEAN[3] = {0.485f, 0.456f, 0.406f};
-static const float IMAGENET_STD[3] = {0.229f, 0.224f, 0.225f};
-
-#define BMP_HEADER_SIZE 54
-#define BMP_DATA_SIZE (INPUT_W * INPUT_H * 3)
-#define BMP_TOTAL_SIZE (BMP_HEADER_SIZE + BMP_DATA_SIZE)
-
-static uint8_t s_bmp_buf[BMP_TOTAL_SIZE];
-
-// ── AI-Thinker ESP32-CAM GPIO pin assignments ────────────────────────────────
+// ── Camera pins ──────────────────────────────────────────────────────────────
+// Note for later: the camera's XCLK uses LEDC timer 0 / channel 0. Use other
+// LEDC timers/channels for motor PWM.
+#if CONFIG_IDF_TARGET_ESP32S3
+// Freenove ESP32-S3 WROOM CAM (same wiring as Espressif's ESP32-S3-EYE)
+#define CAM_PIN_PWDN (-1)
+#define CAM_PIN_RESET (-1)
+#define CAM_PIN_XCLK 15
+#define CAM_PIN_SIOD 4
+#define CAM_PIN_SIOC 5
+#define CAM_PIN_D7 16
+#define CAM_PIN_D6 17
+#define CAM_PIN_D5 18
+#define CAM_PIN_D4 12
+#define CAM_PIN_D3 10
+#define CAM_PIN_D2 8
+#define CAM_PIN_D1 9
+#define CAM_PIN_D0 11
+#define CAM_PIN_VSYNC 6
+#define CAM_PIN_HREF 7
+#define CAM_PIN_PCLK 13
+#define CAM_XCLK_HZ 20000000
+#else
+// AI-Thinker ESP32-CAM
 #define CAM_PIN_PWDN 32
 #define CAM_PIN_RESET (-1)
 #define CAM_PIN_XCLK 0
@@ -63,72 +78,69 @@ static uint8_t s_bmp_buf[BMP_TOTAL_SIZE];
 #define CAM_PIN_VSYNC 25
 #define CAM_PIN_HREF 23
 #define CAM_PIN_PCLK 22
+#define CAM_XCLK_HZ 10000000
+#endif
 
-// ── Static state (lives for the whole program) ───────────────────────────────
-static tflite::MicroInterpreter *s_interpreter = nullptr;
+// ── State that lives for the whole program ──────────────────────────────────
+// Every op any of the notebook's exports has used, plus the usual suspects.
+// Unused ops only cost flash, which the S3 has plenty of.
 static tflite::MicroMutableOpResolver<20> s_resolver;
+static const tflite::Model *s_model = nullptr;
+static tflite::MicroInterpreter *s_interpreter = nullptr;
 static uint8_t *s_arena = nullptr;
 
-// Quantisation parameters read from the model's input tensor
-static float s_input_scale = 0.0f;
-static int32_t s_input_zero_point = 0;
-static float s_output_scale = 0.0f;
-static int32_t s_output_zero_point = 0;
-static int64_t t_log;
+static fomo_info_t s_info = {};
+static uint8_t *s_image = nullptr; // pixels the model saw (for the web view)
 
-// Scratch buffers (allocated once in fomo_init)
-static uint8_t *s_rgb_buf = nullptr;  // INPUT_SIZE bytes: 96×96×3 RGB888
-static int8_t *s_input_buf = nullptr; // INPUT_SIZE bytes: quantised int8
+// Quantisation lookup table: input byte value → int8 tensor value, per
+// channel. A pixel can only be 0–255, so the float maths
+//   round(((v/255 - mean) / std) / scale + zero_point)
+// is done 256 × channels times at start-up instead of once per pixel.
+static int8_t s_lut[3][256];
 
-static int camera_capture_rgb96(uint8_t *out) {
-  camera_fb_t *fb = esp_camera_fb_get();
-  if (!fb) {
-    ESP_LOGE(TAG, "Camera capture failed");
-    return -1;
-  }
+// Centred crop of the camera frame with the model input's aspect ratio.
+static int s_crop_x0, s_crop_y0, s_crop_w, s_crop_h;
 
-  /*
-  // DEBUG: raw frame buffer info + first bytes
-  ESP_LOGI(TAG, "fb: %p len=%d w=%d h=%d fmt=%d", fb->buf, fb->len, fb->width,
-           fb->height, fb->format);
-  ESP_LOGI(TAG, "Raw hex: %02x %02x %02x %02x  %02x %02x %02x %02x  %02x %02x",
-           fb->buf[0], fb->buf[1], fb->buf[2], fb->buf[3], fb->buf[4],
-           fb->buf[5], fb->buf[6], fb->buf[7], fb->buf[8], fb->buf[9]);
+static inline uint32_t elapsed_us(int64_t since) {
+  return (uint32_t)(esp_timer_get_time() - since);
+}
 
-  // DEBUG: check if adjacent pixels are similar (they should be in a real
-  // image) Pixel 0 vs Pixel 1 (bytes 0-1 vs bytes 2-3)
-  uint16_t px0 = (fb->buf[0] << 8) | fb->buf[1];
-  uint16_t px1 = (fb->buf[2] << 8) | fb->buf[3];
-  uint16_t px0_swap = (fb->buf[1] << 8) | fb->buf[0];
-  uint16_t px1_swap = (fb->buf[3] << 8) | fb->buf[2];
-  ESP_LOGI(TAG, "BigEnd px0=0x%04x px1=0x%04x  LitEnd px0=0x%04x px1=0x%04x",
-           px0, px1, px0_swap, px1_swap);
-*/
-
-  const uint8_t *src = fb->buf;
-  for (int i = 0; i < INPUT_W * INPUT_H; i++) {
-    uint16_t pixel = (src[i * 2] << 8) | src[i * 2 + 1]; // swapped
-
-    uint8_t r = (uint8_t)((pixel >> 11) & 0x1F);
-    uint8_t g = (uint8_t)((pixel >> 5) & 0x3F);
-    uint8_t b = (uint8_t)(pixel & 0x1F);
-
-    out[i * 3 + 0] = (r << 3) | (r >> 2);
-    out[i * 3 + 1] = (g << 2) | (g >> 4);
-    out[i * 3 + 2] = (b << 3) | (b >> 2);
-  }
-
-  esp_camera_fb_return(fb);
-  return 0;
+static void log_heap(const char *stage) {
+  ESP_LOGI(TAG,
+           "[mem] %-22s internal free %6u B (largest block %6u)  "
+           "psram free %7u B",
+           stage, (unsigned)heap_caps_get_free_size(MALLOC_CAP_INTERNAL),
+           (unsigned)heap_caps_get_largest_free_block(MALLOC_CAP_INTERNAL |
+                                                      MALLOC_CAP_8BIT),
+           (unsigned)heap_caps_get_free_size(MALLOC_CAP_SPIRAM));
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
 // Camera
 // ─────────────────────────────────────────────────────────────────────────────
 
-static int camera_init(void) {
-  camera_config_t config = {};
+// Smallest sensor frame that covers the model input in both directions, so
+// the centre crop needs as little resampling as possible. A 120×120 or 160×96
+// model on a 160×120 frame is a pure 1:1 crop.
+static framesize_t pick_frame_size(int w, int h) {
+  struct {
+    framesize_t size;
+    int w, h;
+  } sizes[] = { // ordered by area
+      {FRAMESIZE_96X96, 96, 96},    {FRAMESIZE_128X128, 128, 128},
+      {FRAMESIZE_QQVGA, 160, 120},  {FRAMESIZE_QCIF, 176, 144},
+      {FRAMESIZE_HQVGA, 240, 176},  {FRAMESIZE_240X240, 240, 240},
+      {FRAMESIZE_QVGA, 320, 240},   {FRAMESIZE_VGA, 640, 480},
+  };
+  for (auto &s : sizes) {
+    if (s.w >= w && s.h >= h)
+      return s.size;
+  }
+  return FRAMESIZE_VGA;
+}
 
+static int camera_init(int w, int h, bool vflip, bool hmirror) {
+  camera_config_t config = {};
   config.pin_pwdn = CAM_PIN_PWDN;
   config.pin_reset = CAM_PIN_RESET;
   config.pin_xclk = CAM_PIN_XCLK;
@@ -145,431 +157,384 @@ static int camera_init(void) {
   config.pin_vsync = CAM_PIN_VSYNC;
   config.pin_href = CAM_PIN_HREF;
   config.pin_pclk = CAM_PIN_PCLK;
-
-  config.xclk_freq_hz = 10000000;
+  config.xclk_freq_hz = CAM_XCLK_HZ;
   config.ledc_timer = LEDC_TIMER_0;
   config.ledc_channel = LEDC_CHANNEL_0;
 
+  // RGB565 straight from the sensor: no JPEG decode on the CPU.
   config.pixel_format = PIXFORMAT_RGB565;
-  config.frame_size = FRAMESIZE_96X96;
+  config.frame_size = pick_frame_size(w, h);
+  // Two frame buffers in PSRAM: the camera DMA fills one while we read the
+  // other. GRAB_LATEST hands us the newest frame, not a stale queued one.
   config.fb_count = 2;
-  // config.fb_location = CAMERA_FB_IN_DRAM;
   config.fb_location = CAMERA_FB_IN_PSRAM;
   config.grab_mode = CAMERA_GRAB_LATEST;
 
-  ESP_LOGE(TAG, "initialising camera");
   esp_err_t err = esp_camera_init(&config);
   if (err != ESP_OK) {
     ESP_LOGE(TAG, "esp_camera_init failed: 0x%x", err);
-    return -1;
+    return FOMO_ERR_CAMERA_INIT;
   }
 
-  ESP_LOGI(TAG, "Camera initialised (QVGA RGB565)");
+  sensor_t *s = esp_camera_sensor_get();
+  s_info.camera_pid = s->id.PID;
+  s->set_vflip(s, vflip);
+  s->set_hmirror(s, hmirror);
+
+  // The sensor's auto exposure/white balance needs a few frames to settle,
+  // and the first frame tells us the real frame size.
+  camera_fb_t *fb = nullptr;
+  for (int i = 0; i < 3; i++) {
+    if (fb)
+      esp_camera_fb_return(fb);
+    fb = esp_camera_fb_get();
+  }
+  if (!fb) {
+    ESP_LOGE(TAG, "camera gave no frame");
+    return FOMO_ERR_CAPTURE;
+  }
+  s_info.camera_w = fb->width;
+  s_info.camera_h = fb->height;
+  esp_camera_fb_return(fb);
+
+  ESP_LOGI(TAG, "camera PID=0x%04x, frames %dx%d RGB565", s_info.camera_pid,
+           (int)s_info.camera_w, (int)s_info.camera_h);
   return 0;
 }
 
-// ─────────────────────────────────────────────────────────────────────────────
-// Preprocessing: RGB888 uint8 → quantised int8 (NCHW)
-// ─────────────────────────────────────────────────────────────────────────────
-
-static void preprocess(const uint8_t *rgb, int8_t *out, float scale,
-                       int32_t zero_point) {
-  const int total = INPUT_W * INPUT_H;
-
-  for (int i = 0; i < total; i++) {
-    for (int ch = 0; ch < 3; ch++) {
-      float pixel_f = rgb[i * 3 + ch] / 255.0f;
-      float normalised = (pixel_f - IMAGENET_MEAN[ch]) / IMAGENET_STD[ch];
-      int32_t quantised =
-          (int32_t)roundf(normalised / scale + (float)zero_point);
-
-      if (quantised < -128)
-        quantised = -128;
-      if (quantised > 127)
-        quantised = 127;
-
-      // NHWC layout — change to `out[ch * total + i]` if your model is NCHW
-      out[i * 3 + ch] = (int8_t)quantised;
-    }
-  }
+extern "C" void fomo_set_orientation(bool vflip, bool hmirror) {
+  sensor_t *s = esp_camera_sensor_get();
+  if (!s)
+    return;
+  s->set_vflip(s, vflip);
+  s->set_hmirror(s, hmirror);
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
-// Output parsing: int8 grid → detections
+// Interpreter + tensor arena
 // ─────────────────────────────────────────────────────────────────────────────
 
-static int parse_output(const int8_t *data, const int *shape, int ndims,
-                        fomo_detection_t *dets, int max_dets) {
-  if (ndims != 4) {
-    ESP_LOGE(TAG, "Expected 4-D output, got %d-D", ndims);
+static void register_ops(void) {
+  s_resolver.AddConv2D();
+  s_resolver.AddDepthwiseConv2D();
+  s_resolver.AddAdd();
+  s_resolver.AddMul();
+  s_resolver.AddPad();
+  s_resolver.AddPadV2();
+  s_resolver.AddReshape();
+  s_resolver.AddTranspose();
+  s_resolver.AddConcatenation();
+  s_resolver.AddStridedSlice();
+  s_resolver.AddMean();
+  s_resolver.AddMaxPool2D();
+  s_resolver.AddAveragePool2D();
+  s_resolver.AddRelu();
+  s_resolver.AddRelu6();
+  s_resolver.AddHardSwish();
+  s_resolver.AddLogistic();
+  s_resolver.AddSoftmax();
+  s_resolver.AddQuantize();
+  s_resolver.AddDequantize();
+}
+
+static bool build_interpreter(uint8_t *arena, size_t size) {
+  delete s_interpreter;
+  s_interpreter = new (std::nothrow)
+      tflite::MicroInterpreter(s_model, s_resolver, arena, size);
+  if (!s_interpreter) {
+    ESP_LOGE(TAG, "out of memory creating MicroInterpreter");
+    return false;
+  }
+  if (s_interpreter->AllocateTensors() != kTfLiteOk) {
+    ESP_LOGE(TAG, "AllocateTensors() failed with a %u byte arena",
+             (unsigned)size);
+    delete s_interpreter;
+    s_interpreter = nullptr;
+    return false;
+  }
+  return true;
+}
+
+// "Measure, then place", step 1: build the interpreter in a generous PSRAM
+// arena and ask TFLM how much it actually used (activations + kernel
+// scratch, planned so tensors that are never alive at the same time share
+// memory).
+static int probe_arena(size_t probe_bytes) {
+  uint8_t *probe = (uint8_t *)heap_caps_aligned_alloc(
+      16, probe_bytes, MALLOC_CAP_SPIRAM | MALLOC_CAP_8BIT);
+  bool in_psram = probe != nullptr;
+  if (!probe) // no PSRAM: try internal SRAM directly
+    probe = (uint8_t *)heap_caps_aligned_alloc(
+        16, probe_bytes, MALLOC_CAP_INTERNAL | MALLOC_CAP_8BIT);
+  if (!probe) {
+    ESP_LOGE(TAG, "can't allocate a %u byte probe arena", (unsigned)probe_bytes);
+    return FOMO_ERR_ARENA_ALLOC;
+  }
+  if (!build_interpreter(probe, probe_bytes)) {
+    heap_caps_free(probe);
+    return FOMO_ERR_ALLOCATE_TENSORS;
+  }
+
+  s_arena = probe;
+  s_info.arena_bytes = probe_bytes;
+  s_info.arena_in_psram = in_psram;
+  s_info.arena_used_bytes = s_interpreter->arena_used_bytes();
+  ESP_LOGI(TAG, "model needs %u B of tensor arena",
+           (unsigned)s_info.arena_used_bytes);
+  return 0;
+}
+
+// Step 2, once everything else that needs internal SRAM (camera DMA
+// descriptors, WiFi) has allocated: if the arena fits in internal SRAM with
+// room to spare, rebuild the interpreter there. Internal SRAM is
+// single-cycle; PSRAM goes through the same cache as the model weights in
+// flash, so an arena in PSRAM means cache misses on every layer's
+// activations.
+static int place_arena(size_t internal_reserve) {
+  if (!s_info.arena_in_psram)
+    return 0;
+
+  // Small slack for alignment padding.
+  size_t need = ((s_info.arena_used_bytes + 15) & ~(size_t)15) + 1024;
+  size_t internal_free = heap_caps_get_free_size(MALLOC_CAP_INTERNAL);
+  size_t internal_block = heap_caps_get_largest_free_block(
+      MALLOC_CAP_INTERNAL | MALLOC_CAP_8BIT);
+
+  if (internal_block < need || internal_free < need + internal_reserve) {
+    ESP_LOGW(TAG,
+             "arena stays in PSRAM: needs %u B, internal SRAM has %u B free "
+             "(largest block %u B) and %u B must stay free",
+             (unsigned)need, (unsigned)internal_free, (unsigned)internal_block,
+             (unsigned)internal_reserve);
     return 0;
   }
 
-  int is_nchw, c, h, w;
-  if (shape[1] == NUM_CLASSES) {
-    is_nchw = 1;
-    c = shape[1];
-    h = shape[2];
-    w = shape[3];
-  } else {
-    is_nchw = 0;
-    c = shape[3];
-    h = shape[1];
-    w = shape[2];
+  uint8_t *internal = (uint8_t *)heap_caps_aligned_alloc(
+      16, need, MALLOC_CAP_INTERNAL | MALLOC_CAP_8BIT);
+  if (internal && build_interpreter(internal, need)) {
+    heap_caps_free(s_arena);
+    s_arena = internal;
+    s_info.arena_bytes = need;
+    s_info.arena_in_psram = false;
+    ESP_LOGI(TAG, "arena moved to internal SRAM (%u B)", (unsigned)need);
+    return 0;
   }
 
-  float cell_w = (float)INPUT_W / (float)w;
-  float cell_h = (float)INPUT_H / (float)h;
-  int count = 0;
+  // Fall back to the PSRAM arena we know works.
+  ESP_LOGW(TAG, "couldn't move arena to internal SRAM; staying in PSRAM");
+  if (internal)
+    heap_caps_free(internal);
+  return build_interpreter(s_arena, s_info.arena_bytes)
+             ? 0
+             : FOMO_ERR_ALLOCATE_TENSORS;
+}
 
-  for (int gy = 0; gy < h && count < max_dets; gy++) {
-    for (int gx = 0; gx < w && count < max_dets; gx++) {
+static float tensor_scale(const TfLiteTensor *t) {
+  return t->params.scale;
+}
 
-      // Dequantize all classes and compute softmax
-      float logits[NUM_CLASSES];
-      float max_logit = -1e9f;
+static int read_tensor_layout(void) {
+  TfLiteTensor *in = s_interpreter->input(0);
+  TfLiteTensor *out = s_interpreter->output(0);
 
-      for (int cls = 0; cls < c; cls++) {
-        int8_t raw = is_nchw ? data[cls * h * w + gy * w + gx]
-                             : data[gy * w * c + gx * c + cls];
-        logits[cls] =
-            ((float)raw - (float)s_output_zero_point) * s_output_scale;
-        if (logits[cls] > max_logit)
-          max_logit = logits[cls];
-      }
+  if (in->type != kTfLiteInt8 || out->type != kTfLiteInt8) {
+    ESP_LOGE(TAG, "expected int8 input and output (got types %d / %d); "
+                  "export with inference_input_type/output_type = tf.int8",
+             in->type, out->type);
+    return FOMO_ERR_TENSOR_LAYOUT;
+  }
+  if (in->dims->size != 4 || out->dims->size != 4) {
+    ESP_LOGE(TAG, "expected 4-D NHWC tensors (got %d-D / %d-D)", in->dims->size,
+             out->dims->size);
+    return FOMO_ERR_TENSOR_LAYOUT;
+  }
 
-      // Softmax + argmax (skip background for best-class search)
-      float sum_exp = 0.0f;
-      for (int cls = 0; cls < c; cls++) {
-        logits[cls] = expf(logits[cls] - max_logit); // stable exp
-        sum_exp += logits[cls];
-      }
+  s_info.input_h = in->dims->data[1];
+  s_info.input_w = in->dims->data[2];
+  s_info.input_c = in->dims->data[3];
+  s_info.input_scale = tensor_scale(in);
+  s_info.input_zero_point = in->params.zero_point;
 
-      int best_cls = 0;
-      float best_prob = 0.0f;
-      for (int cls = 1; cls < c; cls++) { // skip background (cls 0)
-        float prob = logits[cls] / sum_exp;
-        if (prob > best_prob) {
-          best_prob = prob;
-          best_cls = cls;
-        }
-      }
+  s_info.grid_h = out->dims->data[1];
+  s_info.grid_w = out->dims->data[2];
+  s_info.output_c = out->dims->data[3];
+  s_info.output_scale = tensor_scale(out);
+  s_info.output_zero_point = out->params.zero_point;
 
-      if (best_cls == 0 || best_prob < CONF_THRESH)
-        continue;
+  if (s_info.input_c != 1 && s_info.input_c != 3) {
+    ESP_LOGE(TAG, "input has %d channels; only 1 (gray) or 3 (RGB) supported. "
+                  "Is the model NCHW? onnx2tf should produce NHWC.",
+             (int)s_info.input_c);
+    return FOMO_ERR_TENSOR_LAYOUT;
+  }
 
-      fomo_detection_t *d = &dets[count++];
-      d->class_id = (uint8_t)best_cls;
-      d->grid_x = (uint8_t)gx;
-      d->grid_y = (uint8_t)gy;
-      d->_pad = 0;
-      d->pixel_x = (uint16_t)(((float)gx + 0.5f) * cell_w);
-      d->pixel_y = (uint16_t)(((float)gy + 0.5f) * cell_h);
-      d->confidence = best_prob;
+  ESP_LOGI(TAG, "input  %dx%dx%d int8 scale=%.6f zp=%d", (int)s_info.input_w,
+           (int)s_info.input_h, (int)s_info.input_c, s_info.input_scale,
+           (int)s_info.input_zero_point);
+  ESP_LOGI(TAG, "output %dx%dx%d int8 scale=%.6f zp=%d", (int)s_info.grid_w,
+           (int)s_info.grid_h, (int)s_info.output_c, s_info.output_scale,
+           (int)s_info.output_zero_point);
+  return 0;
+}
+
+static void build_lut(const fomo_config_t *cfg) {
+  for (int c = 0; c < s_info.input_c; c++) {
+    float mean = cfg->norm_mean[c];
+    float std = cfg->norm_std[c];
+    for (int v = 0; v < 256; v++) {
+      float x = ((float)v / 255.0f - mean) / std;
+      int32_t q = (int32_t)lroundf(x / s_info.input_scale) + s_info.input_zero_point;
+      s_lut[c][v] = (int8_t)(q < -128 ? -128 : (q > 127 ? 127 : q));
     }
   }
-  return count;
 }
 
-void log_time(const char *msg) {
-  int64_t t_now = esp_timer_get_time();
-  int64_t elapsed_us = t_now - t_log;
-  uint32_t t_diff = (uint32_t)(elapsed_us / 1000);
-  ESP_LOGI(TAG, "time: %s took %lu ms", msg, t_diff);
-  t_log = t_now;
-}
+// ─────────────────────────────────────────────────────────────────────────────
+// Preprocessing: RGB565 frame → centre crop → resize → int8 input
+// ─────────────────────────────────────────────────────────────────────────────
 
-/// Call AFTER camera_capture_rgb96 has filled s_rgb_buf
-extern "C" const uint8_t *fomo_get_bmp(int *out_len) {
-  camera_capture_rgb96(s_rgb_buf);
+static void preprocess(const camera_fb_t *fb, int8_t *input) {
+  const int W = s_info.input_w, H = s_info.input_h, C = s_info.input_c;
+  const int fw = fb->width;
+  const uint8_t *src = fb->buf;
 
-  // BMP header (54 bytes)
-  uint8_t *h = s_bmp_buf;
-  memset(h, 0, BMP_HEADER_SIZE);
+  for (int y = 0; y < H; y++) {
+    // Nearest-neighbour: which source row/column lands on this pixel.
+    const int sy = s_crop_y0 + (y * s_crop_h) / H;
+    for (int x = 0; x < W; x++) {
+      const int sx = s_crop_x0 + (x * s_crop_w) / W;
+      const uint8_t *p = src + 2 * (sy * fw + sx);
 
-  int w = INPUT_W, ht = INPUT_H;
-  int file_size = BMP_TOTAL_SIZE;
-  int data_size = BMP_DATA_SIZE;
+      // esp32-camera stores RGB565 big-endian: RRRRRGGG GGGBBBBB
+      const uint16_t px = (uint16_t)((p[0] << 8) | p[1]);
+      const uint8_t r5 = px >> 11, g6 = (px >> 5) & 0x3F, b5 = px & 0x1F;
+      // Expand to 8 bits by repeating the top bits (so 0x1F → 0xFF, not 0xF8)
+      const uint8_t r = (r5 << 3) | (r5 >> 2);
+      const uint8_t g = (g6 << 2) | (g6 >> 4);
+      const uint8_t b = (b5 << 3) | (b5 >> 2);
 
-  // Signature
-  h[0] = 'B';
-  h[1] = 'M';
-  // File size
-  h[2] = file_size;
-  h[3] = file_size >> 8;
-  h[4] = file_size >> 16;
-  h[5] = file_size >> 24;
-  // Data offset
-  h[10] = BMP_HEADER_SIZE;
-  // DIB header size (BITMAPINFOHEADER = 40)
-  h[14] = 40;
-  // Width
-  h[18] = w;
-  h[19] = w >> 8;
-  // Height (negative = top-down, so we don't have to flip rows)
-  int neg_h = -ht;
-  h[22] = neg_h;
-  h[23] = neg_h >> 8;
-  h[24] = neg_h >> 16;
-  h[25] = neg_h >> 24;
-  // Planes
-  h[26] = 1;
-  // Bits per pixel
-  h[28] = 24;
-  // Image data size
-  h[34] = data_size;
-  h[35] = data_size >> 8;
-  h[36] = data_size >> 16;
-  h[37] = data_size >> 24;
-
-  // Copy RGB888 → BGR888 (BMP pixel order)
-  uint8_t *dst = s_bmp_buf + BMP_HEADER_SIZE;
-  for (int i = 0; i < w * ht; i++) {
-    dst[i * 3 + 0] = s_rgb_buf[i * 3 + 2]; // B
-    dst[i * 3 + 1] = s_rgb_buf[i * 3 + 1]; // G
-    dst[i * 3 + 2] = s_rgb_buf[i * 3 + 0]; // R
+      const int i = (y * W + x) * C;
+      if (C == 3) {
+        s_image[i + 0] = r;
+        s_image[i + 1] = g;
+        s_image[i + 2] = b;
+        input[i + 0] = s_lut[0][r];
+        input[i + 1] = s_lut[1][g];
+        input[i + 2] = s_lut[2][b];
+      } else {
+        // ITU-R BT.601 luma in fixed point (weights sum to 256)
+        const uint8_t l = (uint8_t)((77 * r + 150 * g + 29 * b) >> 8);
+        s_image[i] = l;
+        input[i] = s_lut[0][l];
+      }
+    }
   }
-
-  *out_len = BMP_TOTAL_SIZE;
-  return s_bmp_buf;
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
 // Public API
 // ─────────────────────────────────────────────────────────────────────────────
 
-extern "C" int fomo_init(const uint8_t *model_data, size_t model_data_len,
-                         size_t arena_size_bytes) {
-  // ── Camera ───────────────────────────────────────────────────────────
-  if (camera_init() != 0) {
-    return -1;
+extern "C" int fomo_init(const fomo_config_t *cfg, fomo_info_t *info) {
+  if (!cfg || !info || !cfg->model_data || !cfg->norm_mean || !cfg->norm_std)
+    return FOMO_ERR_ARGS;
+  if (((uintptr_t)cfg->model_data & 15) != 0) {
+    ESP_LOGE(TAG, "model data is not 16-byte aligned");
+    return FOMO_ERR_ARGS;
   }
 
-  // ── Allocate scratch buffers ─────────────────────────────────────────
-  // s_rgb_buf = (uint8_t *)malloc(INPUT_SIZE);
-  // s_input_buf = (int8_t *)malloc(INPUT_SIZE);
-  s_rgb_buf = (uint8_t *)heap_caps_malloc(INPUT_SIZE, MALLOC_CAP_SPIRAM);
-  s_input_buf = (int8_t *)heap_caps_malloc(INPUT_SIZE, MALLOC_CAP_SPIRAM);
-  if (!s_rgb_buf || !s_input_buf) {
-    ESP_LOGE(TAG, "Failed to allocate scratch buffers (%d bytes each)",
-             INPUT_SIZE);
-    return -2;
+  log_heap("before model");
+
+  s_model = tflite::GetModel(cfg->model_data);
+  if (s_model->version() != TFLITE_SCHEMA_VERSION) {
+    ESP_LOGE(TAG, "model schema v%lu, firmware expects v%d",
+             (unsigned long)s_model->version(), TFLITE_SCHEMA_VERSION);
+    return FOMO_ERR_MODEL_VERSION;
   }
 
-  // s_decode_buf = (uint8_t *)malloc(DECODE_SIZE);
-  // s_decode_buf = (uint8_t *)heap_caps_malloc(DECODE_SIZE, MALLOC_CAP_INTERNAL
-  // |
-  //                                                             MALLOC_CAP_8BIT);
-  // if (!s_decode_buf) {
-  //   ESP_LOGE(TAG, "Failed to allocate JPEG decode buffer (%d bytes)",
-  //            DECODE_SIZE);
-  //   return -2;
-  // }
-  ESP_LOGI(TAG, "Allocated scratch buffers");
+  register_ops();
+  int err = probe_arena(cfg->arena_probe_bytes);
+  if (err)
+    return err;
 
-  /*
-  // ── Parse model ──────────────────────────────────────────────────────
-  const tflite::Model *model = tflite::GetModel(model_data);
-  if (!model || model->version() != TFLITE_SCHEMA_VERSION) {
-    ESP_LOGE(TAG, "Invalid model (version=%lu, expected=%d)",
-             model ? (unsigned long)model->version() : 0,
-             TFLITE_SCHEMA_VERSION);
-    return -3;
+  if ((err = read_tensor_layout()))
+    return err;
+  if (cfg->norm_len < (size_t)s_info.input_c) {
+    ESP_LOGE(TAG, "metadata has %u normalisation values, model has %d channels",
+             (unsigned)cfg->norm_len, (int)s_info.input_c);
+    return FOMO_ERR_ARGS;
   }
+  build_lut(cfg);
 
-  ESP_LOGI(TAG, "Parsed model");
+  // Copy of the model input for the web view. Big, rarely read: PSRAM.
+  size_t image_bytes = s_info.input_w * s_info.input_h * s_info.input_c;
+  s_image = (uint8_t *)heap_caps_malloc(image_bytes, MALLOC_CAP_SPIRAM);
+  if (!s_image)
+    s_image = (uint8_t *)malloc(image_bytes);
+  if (!s_image)
+    return FOMO_ERR_ARENA_ALLOC;
 
-  // ── Allocate arena & build interpreter ────────────────────────────────
-  s_arena = (uint8_t *)heap_caps_malloc(arena_size_bytes, MALLOC_CAP_SPIRAM);
-  // s_arena = (uint8_t *)malloc(arena_size_bytes);
-  if (!s_arena) {
-    ESP_LOGE(TAG, "Failed to allocate tensor arena (%u bytes)",
-             (unsigned)arena_size_bytes);
-    return -4;
+  if ((err = camera_init(s_info.input_w, s_info.input_h, cfg->vflip, cfg->hmirror)))
+    return err;
+  log_heap("after camera");
+
+  if ((err = place_arena(cfg->internal_reserve_bytes)))
+    return err;
+  log_heap("after arena");
+
+  // Centre crop with the model's aspect ratio (square for 120×120, 5:3 for
+  // 160×96). Squashing the whole 4:3 frame into the input instead would
+  // stretch objects in a way the model never saw in training.
+  const int fw = s_info.camera_w, fh = s_info.camera_h;
+  const int W = s_info.input_w, H = s_info.input_h;
+  if (fw * H >= fh * W) { // frame is wider than the model: trim the sides
+    s_crop_h = fh;
+    s_crop_w = fh * W / H;
+  } else { // frame is taller: trim top and bottom
+    s_crop_w = fw;
+    s_crop_h = fw * H / W;
   }
+  s_crop_x0 = (fw - s_crop_w) / 2;
+  s_crop_y0 = (fh - s_crop_h) / 2;
+  ESP_LOGI(TAG, "using a %dx%d crop at (%d,%d) of each %dx%d frame", s_crop_w,
+           s_crop_h, s_crop_x0, s_crop_y0, fw, fh);
 
-  ESP_LOGI(TAG, "Allocated arena");
-
-  s_resolver.AddConv2D();
-  s_resolver.AddDepthwiseConv2D();
-  s_resolver.AddReshape();
-  s_resolver.AddSoftmax();
-  s_resolver.AddPad();
-  s_resolver.AddPadV2();
-  s_resolver.AddAdd();
-  s_resolver.AddMul();
-  s_resolver.AddMean();
-  s_resolver.AddRelu6();
-  s_resolver.AddQuantize();
-  s_resolver.AddDequantize();
-  s_resolver.AddFullyConnected();
-  s_resolver.AddLogistic();
-  s_resolver.AddExpandDims();
-  s_resolver.AddConcatenation();
-  s_resolver.AddStridedSlice();
-  s_interpreter = new (std::nothrow)
-      tflite::MicroInterpreter(model, s_resolver, s_arena, arena_size_bytes);
-
-  if (!s_interpreter) {
-    ESP_LOGE(TAG, "Failed to create MicroInterpreter");
-    return -5;
-  }
-
-  ESP_LOGI(TAG, "Allocated interpreter");
-
-  TfLiteStatus status = s_interpreter->AllocateTensors();
-  if (status != kTfLiteOk) {
-    ESP_LOGE(TAG, "AllocateTensors() failed (status=%d)", status);
-    return -6;
-  }
-
-  ESP_LOGI(TAG, "Allocated tensors");
-
-  // ── Read quantisation parameters ─────────────────────────────────────
-  TfLiteTensor *input_tensor = s_interpreter->input(0);
-  if (input_tensor && input_tensor->quantization.params) {
-    auto *qp = static_cast<TfLiteAffineQuantization *>(
-        input_tensor->quantization.params);
-    if (qp->scale && qp->scale->size > 0)
-      s_input_scale = qp->scale->data[0];
-    if (qp->zero_point && qp->zero_point->size > 0)
-      s_input_zero_point = qp->zero_point->data[0];
-  }
-
-  TfLiteTensor *output_tensor = s_interpreter->output(0);
-  if (output_tensor && output_tensor->quantization.params) {
-    auto *qp = static_cast<TfLiteAffineQuantization *>(
-        output_tensor->quantization.params);
-    if (qp->scale && qp->scale->size > 0)
-      s_output_scale = qp->scale->data[0];
-    if (qp->zero_point && qp->zero_point->size > 0)
-      s_output_zero_point = qp->zero_point->data[0];
-  }
-
-  ESP_LOGI(TAG, "Read quantisation parameters");
-
-  // Fallback for common uint8→int8 mapping
-  if (s_input_scale == 0.0f) {
-    s_input_scale = 0.003921568859368563f; // 1/255
-    s_input_zero_point = -128;
-  }
-
-  ESP_LOGI(TAG, "Model loaded: arena %u/%u bytes, input quant scale=%.6f zp=%d",
-           (unsigned)s_interpreter->arena_used_bytes(),
-           (unsigned)arena_size_bytes, s_input_scale, (int)s_input_zero_point);
-  */
-
+  *info = s_info;
   return 0;
 }
-static bool tested = false;
 
-extern "C" int fomo_detect(fomo_result_t *out) {
-  if (!s_interpreter || !out)
-    return -1;
+extern "C" int fomo_run(fomo_timing_t *timing) {
+  if (!s_interpreter || !timing)
+    return FOMO_ERR_ARGS;
 
-  int64_t t_start = esp_timer_get_time();
-  t_log = t_start;
+  int64_t t = esp_timer_get_time();
+  camera_fb_t *fb = esp_camera_fb_get();
+  if (!fb)
+    return FOMO_ERR_CAPTURE;
+  timing->capture_us = elapsed_us(t);
 
-  // 1. Capture + downscale → 96×96 RGB888
-  if (camera_capture_rgb96(s_rgb_buf) != 0) {
-    return -2;
+  if (fb->format != PIXFORMAT_RGB565 || fb->width != (size_t)s_info.camera_w ||
+      fb->height != (size_t)s_info.camera_h) {
+    esp_camera_fb_return(fb);
+    return FOMO_ERR_FRAME_FORMAT;
   }
-  log_time("camera_capture_rgb96");
 
-  /*
-  // DEBUG: check raw RGB888 pixel values
-  ESP_LOGI(TAG, "RGB sample: [0]=%d,%d,%d [100]=%d,%d,%d [4600]=%d,%d,%d",
-           s_rgb_buf[0], s_rgb_buf[1], s_rgb_buf[2], s_rgb_buf[300],
-           s_rgb_buf[301], s_rgb_buf[302], s_rgb_buf[13800], s_rgb_buf[13801],
-           s_rgb_buf[13802]);
+  t = esp_timer_get_time();
+  preprocess(fb, s_interpreter->input(0)->data.int8);
+  // Give the buffer back as soon as we're done so the DMA can refill it.
+  esp_camera_fb_return(fb);
+  timing->preprocess_us = elapsed_us(t);
 
-  // 2. Preprocess → quantised int8
-  preprocess(s_rgb_buf, s_input_buf, s_input_scale, s_input_zero_point);
-
-  log_time("preprocess");
-
-  // DEBUG: check quantised input values
-  ESP_LOGI(TAG, "Input sample: [0]=%d,%d,%d [100]=%d,%d,%d", s_input_buf[0],
-           s_input_buf[1], s_input_buf[2], s_input_buf[300], s_input_buf[301],
-           s_input_buf[302]);
-
-  // 3. Copy into input tensor
-  TfLiteTensor *input_tensor = s_interpreter->input(0);
-  memcpy(input_tensor->data.raw, s_input_buf, INPUT_SIZE);
-  log_time("copy into input tensor");
-
-  // DEBUG: dump raw output tensor for cell (0,0) and (6,6)
-  const TfLiteTensor *output_tensor = s_interpreter->output(0);
-  const int8_t *odata = (const int8_t *)output_tensor->data.raw;
-  // NHWC: index = (gy * 12 + gx) * 6 + cls
-  ESP_LOGI(TAG, "Output cell(0,0): %d %d %d %d %d %d", odata[0], odata[1],
-           odata[2], odata[3], odata[4], odata[5]);
-  ESP_LOGI(TAG, "Output cell(6,6): %d %d %d %d %d %d",
-           odata[(6 * 12 + 6) * 6 + 0], odata[(6 * 12 + 6) * 6 + 1],
-           odata[(6 * 12 + 6) * 6 + 2], odata[(6 * 12 + 6) * 6 + 3],
-           odata[(6 * 12 + 6) * 6 + 4], odata[(6 * 12 + 6) * 6 + 5]);
-
-  // 4. Invoke
+  t = esp_timer_get_time();
   TfLiteStatus status = s_interpreter->Invoke();
-  if (status != kTfLiteOk) {
-    ESP_LOGE(TAG, "Invoke failed (status=%d)", status);
-    return -3;
-  }
-  log_time("tflite invoke()");
-
-  if (!tested) {
-    tested = true;
-
-    // Fill with uniform mid-grey RGB888 (128,128,128)
-    uint8_t *test_rgb = s_rgb_buf;
-    memset(test_rgb, 128, INPUT_SIZE);
-
-    preprocess(test_rgb, s_input_buf, s_input_scale, s_input_zero_point);
-    memcpy(input_tensor->data.raw, s_input_buf, INPUT_SIZE);
-
-    s_interpreter->Invoke();
-
-    const int8_t *tdata = (const int8_t *)output_tensor->data.raw;
-    // NHWC: dump a few cells
-    ESP_LOGI(TAG, "GREY TEST cell(0,0): %d %d %d %d %d %d", tdata[0], tdata[1],
-             tdata[2], tdata[3], tdata[4], tdata[5]);
-    ESP_LOGI(TAG, "GREY TEST cell(6,6): %d %d %d %d %d %d",
-             tdata[(6 * 12 + 6) * 6 + 0], tdata[(6 * 12 + 6) * 6 + 1],
-             tdata[(6 * 12 + 6) * 6 + 2], tdata[(6 * 12 + 6) * 6 + 3],
-             tdata[(6 * 12 + 6) * 6 + 4], tdata[(6 * 12 + 6) * 6 + 5]);
-
-    // Count how many cells have bg as argmax
-    int bg_wins = 0;
-    for (int i = 0; i < 144; i++) {
-      int best = 0;
-      int8_t best_val = tdata[i * 6];
-      for (int c = 1; c < 6; c++) {
-        if (tdata[i * 6 + c] > best_val) {
-          best_val = tdata[i * 6 + c];
-          best = c;
-        }
-      }
-      if (best == 0)
-        bg_wins++;
-    }
-    ESP_LOGI(TAG, "GREY TEST: bg wins %d/144 cells", bg_wins);
-  }
-
-  // 5. Parse output
-  // const TfLiteTensor *output_tensor = s_interpreter->output(0);
-  int ndims = output_tensor->dims->size;
-  int shape[4] = {0};
-  for (int i = 0; i < ndims && i < 4; i++) {
-    shape[i] = output_tensor->dims->data[i];
-  }
-
-  out->count = parse_output((const int8_t *)output_tensor->data.raw, shape,
-                            ndims, out->detections, FOMO_MAX_DETECTIONS);
-  log_time("parse output");
-
-  int64_t elapsed_us = esp_timer_get_time() - t_start;
-  out->inference_ms = (uint32_t)(elapsed_us / 1000);
-  */
-
+  timing->invoke_us = elapsed_us(t);
+  if (status != kTfLiteOk)
+    return FOMO_ERR_INVOKE;
   return 0;
+}
+
+extern "C" const uint8_t *fomo_image(void) { return s_image; }
+
+extern "C" const int8_t *fomo_output(void) {
+  return s_interpreter ? s_interpreter->output(0)->data.int8 : nullptr;
 }

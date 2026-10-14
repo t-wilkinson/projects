@@ -1,0 +1,233 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Mr. Robot camera</title>
+<style>
+  :root {
+    --bg: #101214; --panel: #1a1d21; --line: #2b3036; --text: #e6e8eb;
+    --muted: #8b939c; --accent: #4cc38a; --warn: #e5a50a; --bad: #e5484d;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; background: var(--bg); color: var(--text);
+    font: 14px/1.45 system-ui, -apple-system, "Segoe UI", sans-serif;
+  }
+  header { display: flex; align-items: center; gap: 10px; padding: 12px 16px; border-bottom: 1px solid var(--line); }
+  header h1 { font-size: 16px; margin: 0; font-weight: 600; }
+  #dot { width: 10px; height: 10px; border-radius: 50%; background: var(--muted); }
+  #status { color: var(--muted); }
+  main { display: grid; grid-template-columns: minmax(0, 1fr) 320px; gap: 16px; padding: 16px; max-width: 1100px; margin: 0 auto; }
+  @media (max-width: 760px) { main { grid-template-columns: 1fr; } }
+  #view { position: relative; width: 100%; aspect-ratio: 1; background: #000; border-radius: 8px; overflow: hidden; }
+  #view canvas { width: 100%; height: 100%; display: block; }
+  section { background: var(--panel); border: 1px solid var(--line); border-radius: 8px; padding: 12px; margin-bottom: 12px; }
+  section h2 { font-size: 12px; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); margin: 0 0 8px; font-weight: 600; }
+  .row { display: flex; justify-content: space-between; gap: 8px; padding: 2px 0; }
+  .row span:first-child { color: var(--muted); }
+  .num { font-variant-numeric: tabular-nums; }
+  .bar { height: 8px; border-radius: 4px; background: var(--line); overflow: hidden; display: flex; margin: 6px 0 4px; }
+  .bar i { display: block; height: 100%; }
+  label { display: flex; align-items: center; gap: 8px; padding: 3px 0; }
+  input[type=range] { flex: 1; }
+  .controls { display: flex; flex-wrap: wrap; gap: 4px 16px; }
+  #dets { list-style: none; margin: 0; padding: 0; }
+  #dets li { display: flex; justify-content: space-between; padding: 2px 0; }
+  .swatch { display: inline-block; width: 10px; height: 10px; border-radius: 2px; margin-right: 6px; }
+  #error { display: none; background: #3a1d1f; border-color: var(--bad); }
+  button { background: var(--line); color: var(--text); border: 0; border-radius: 6px; padding: 6px 12px; font: inherit; cursor: pointer; }
+</style>
+</head>
+<body>
+<header>
+  <div id="dot"></div><h1>Mr. Robot camera</h1><span id="status">connecting…</span>
+</header>
+<main>
+  <div>
+    <div id="view"><canvas id="canvas" width="720" height="720"></canvas></div>
+    <section style="margin-top:12px">
+      <div class="controls">
+        <label><input type="checkbox" id="showHeat" checked> heatmap</label>
+        <label><input type="checkbox" id="showGrid"> grid</label>
+        <label><input type="checkbox" id="vflip"> flip vertical</label>
+        <label><input type="checkbox" id="hmirror"> mirror</label>
+        <button id="pause">Pause</button>
+      </div>
+      <label>threshold <input type="range" id="threshold" min="0.05" max="0.95" step="0.05"> <span id="thresholdVal" class="num"></span></label>
+    </section>
+  </div>
+  <div>
+    <section id="error"><h2>Pipeline error</h2><div id="errorText"></div></section>
+    <section>
+      <h2>Detections</h2>
+      <ul id="dets"><li><span style="color:var(--muted)">none</span></li></ul>
+    </section>
+    <section>
+      <h2>Frame time</h2>
+      <div class="row"><span>rate</span><span class="num" id="fps">–</span></div>
+      <div class="bar" id="timeBar"></div>
+      <div id="timeRows"></div>
+    </section>
+    <section>
+      <h2>Memory</h2>
+      <div class="row"><span>tensor arena</span><span class="num" id="arena">–</span></div>
+      <div class="row"><span>internal SRAM free</span><span class="num" id="intFree">–</span></div>
+      <div class="row"><span>internal low-water</span><span class="num" id="intMin">–</span></div>
+      <div class="row"><span>PSRAM free</span><span class="num" id="psFree">–</span></div>
+    </section>
+    <section>
+      <h2>Model</h2>
+      <div id="model" style="color:var(--muted)">waiting for /api/info…</div>
+    </section>
+  </div>
+</main>
+<script>
+// Open this file from your PC with ?device=http://<esp32-ip> to work on the
+// page without reflashing; served from the ESP32 it uses its own address.
+const BASE = new URLSearchParams(location.search).get("device") || "";
+const COLORS = ["#4cc38a", "#e5a50a", "#3e9bff", "#e5484d", "#b07cff", "#2ec8c8", "#ff7eb6"];
+const STAGES = [["capture", "#3e9bff"], ["preprocess", "#b07cff"], ["invoke", "#e5a50a"], ["decode", "#4cc38a"]];
+
+const $ = (id) => document.getElementById(id);
+const canvas = $("canvas"), ctx = canvas.getContext("2d");
+const imgCanvas = document.createElement("canvas"), imgCtx = imgCanvas.getContext("2d");
+const heatCanvas = document.createElement("canvas"), heatCtx = heatCanvas.getContext("2d");
+let info = null, paused = false;
+
+const kb = (b) => (b / 1024).toFixed(1) + " KB";
+const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
+const hexToRgb = (h) => [1, 3, 5].map((i) => parseInt(h.slice(i, i + 2), 16));
+
+function setStatus(text, color) { $("status").textContent = text; $("dot").style.background = color; }
+
+async function loadInfo() {
+  for (;;) {
+    try {
+      const r = await fetch(BASE + "/api/info", { cache: "no-store" });
+      const j = await r.json();
+      if (j.error) { $("error").style.display = "block"; $("errorText").textContent = j.error; setStatus("pipeline error", "var(--bad)"); }
+      else if (!j.status) return j;
+      else setStatus("starting model…", "var(--warn)");
+    } catch (e) { setStatus("offline", "var(--bad)"); }
+    await sleep(1000);
+  }
+}
+
+function showInfo(i) {
+  const rows = [
+    ["chip", i.chip],
+    ["input", `${i.input.w}×${i.input.h}×${i.input.c} int8`],
+    ["grid", `${i.grid.w}×${i.grid.h} (${(i.input.w / i.grid.w).toFixed(0)}×${(i.input.h / i.grid.h).toFixed(0)} px cells)`],
+    ["output", `${i.grid.channels} ch, ${i.activation}`],
+    ["classes", i.classes.join(", ")],
+    ["model", kb(i.model_bytes) + " in flash"],
+    ["camera", `${i.camera.w}×${i.camera.h} (sensor ${i.camera.pid})`],
+  ];
+  $("model").innerHTML = rows.map(([k, v]) => `<div class="row"><span>${k}</span><span>${v}</span></div>`).join("");
+  $("arena").textContent = `${kb(i.arena.used)} in ${i.arena.in === "psram" ? "PSRAM" : "internal SRAM"}`;
+  imgCanvas.width = i.input.w; imgCanvas.height = i.input.h;
+  // Match the model's aspect ratio (e.g. 160×96 is not square).
+  canvas.width = 720; canvas.height = Math.round((720 * i.input.h) / i.input.w);
+  $("view").style.aspectRatio = `${i.input.w} / ${i.input.h}`;
+  heatCanvas.width = i.grid.w; heatCanvas.height = i.grid.h;
+}
+
+async function loadSettings(query = "") {
+  const s = await (await fetch(BASE + "/api/settings" + query, { cache: "no-store" })).json();
+  $("threshold").value = s.threshold; $("thresholdVal").textContent = s.threshold.toFixed(2);
+  $("vflip").checked = s.vflip; $("hmirror").checked = s.hmirror;
+}
+
+function render(buf) {
+  const view = new DataView(buf);
+  const jsonLen = view.getUint32(0, true);
+  const meta = JSON.parse(new TextDecoder().decode(new Uint8Array(buf, 4, jsonLen)));
+  const { w, h, c } = info.input, g = info.grid, k = info.classes.length;
+  const pixels = new Uint8Array(buf, 4 + jsonLen, w * h * c);
+  const scores = new Uint8Array(buf, 4 + jsonLen + w * h * c, g.w * g.h * k);
+
+  // The exact pixels the model saw, upscaled without smoothing.
+  const img = imgCtx.createImageData(w, h);
+  for (let p = 0; p < w * h; p++) {
+    const r = pixels[p * c], gg = c === 3 ? pixels[p * c + 1] : r, b = c === 3 ? pixels[p * c + 2] : r;
+    img.data.set([r, gg, b, 255], p * 4);
+  }
+  imgCtx.putImageData(img, 0, 0);
+  ctx.imageSmoothingEnabled = false;
+  ctx.drawImage(imgCanvas, 0, 0, canvas.width, canvas.height);
+
+  // Heatmap: each cell tinted by its strongest class, opacity = score.
+  if ($("showHeat").checked) {
+    const heat = heatCtx.createImageData(g.w, g.h);
+    for (let cell = 0; cell < g.w * g.h; cell++) {
+      let best = 0, cls = 0;
+      for (let j = 0; j < k; j++) if (scores[cell * k + j] > best) { best = scores[cell * k + j]; cls = j; }
+      heat.data.set([...hexToRgb(COLORS[cls % COLORS.length]), best * 0.6], cell * 4);
+    }
+    heatCtx.putImageData(heat, 0, 0);
+    ctx.drawImage(heatCanvas, 0, 0, canvas.width, canvas.height);
+  }
+
+  const cw = canvas.width / g.w, ch = canvas.height / g.h;
+  if ($("showGrid").checked) {
+    ctx.strokeStyle = "rgba(255,255,255,0.15)"; ctx.lineWidth = 1;
+    for (let x = 1; x < g.w; x++) { ctx.beginPath(); ctx.moveTo(x * cw, 0); ctx.lineTo(x * cw, canvas.height); ctx.stroke(); }
+    for (let y = 1; y < g.h; y++) { ctx.beginPath(); ctx.moveTo(0, y * ch); ctx.lineTo(canvas.width, y * ch); ctx.stroke(); }
+  }
+
+  ctx.font = "600 18px system-ui, sans-serif"; ctx.lineWidth = 3;
+  for (const d of meta.detections) {
+    const color = COLORS[(d.cls - 1) % COLORS.length];
+    const x = d.x * canvas.width, y = d.y * canvas.height;
+    ctx.strokeStyle = color; ctx.beginPath(); ctx.arc(x, y, Math.max(cw, ch) * 0.8, 0, 2 * Math.PI); ctx.stroke();
+    const label = `${d.name} ${(d.score * 100).toFixed(0)}%`;
+    ctx.fillStyle = "rgba(0,0,0,0.6)"; ctx.fillRect(x + 12, y - 30, ctx.measureText(label).width + 10, 24);
+    ctx.fillStyle = color; ctx.fillText(label, x + 17, y - 12);
+  }
+
+  $("dets").innerHTML = meta.detections.length
+    ? meta.detections.map((d) => `<li><span><i class="swatch" style="background:${COLORS[(d.cls - 1) % COLORS.length]}"></i>${d.name}</span>
+        <span class="num">${(d.score * 100).toFixed(0)}% at (${d.x.toFixed(2)}, ${d.y.toFixed(2)})</span></li>`).join("")
+    : `<li><span style="color:var(--muted)">none above ${meta.threshold.toFixed(2)}</span></li>`;
+
+  const t = meta.timing_us, total = STAGES.reduce((s, [n]) => s + t[n], 0);
+  $("fps").textContent = `${meta.fps.toFixed(1)} fps · ${(total / 1000).toFixed(1)} ms/frame`;
+  $("timeBar").innerHTML = STAGES.map(([n, col]) => `<i style="width:${(100 * t[n]) / total}%;background:${col}"></i>`).join("");
+  $("timeRows").innerHTML = STAGES.map(([n, col]) =>
+    `<div class="row"><span><i class="swatch" style="background:${col}"></i>${n}</span><span class="num">${(t[n] / 1000).toFixed(1)} ms</span></div>`).join("");
+
+  $("intFree").textContent = `${kb(meta.heap.internal_free)} (largest ${kb(meta.heap.internal_largest)})`;
+  $("intMin").textContent = kb(meta.heap.internal_min);
+  $("psFree").textContent = kb(meta.heap.psram_free);
+  setStatus(`frame ${meta.frame}`, "var(--accent)");
+}
+
+async function pollFrames() {
+  for (;;) {
+    if (paused) { await sleep(200); continue; }
+    try {
+      const r = await fetch(BASE + "/api/frame", { cache: "no-store" });
+      if (r.status === 503) { await sleep(300); continue; }
+      render(await r.arrayBuffer());
+    } catch (e) {
+      setStatus("offline, retrying", "var(--bad)");
+      await sleep(1000);
+    }
+  }
+}
+
+$("threshold").addEventListener("change", (e) => loadSettings("?threshold=" + e.target.value));
+$("threshold").addEventListener("input", (e) => ($("thresholdVal").textContent = (+e.target.value).toFixed(2)));
+for (const id of ["vflip", "hmirror"]) $(id).addEventListener("change", (e) => loadSettings(`?${id}=${e.target.checked ? 1 : 0}`));
+$("pause").addEventListener("click", () => { paused = !paused; $("pause").textContent = paused ? "Resume" : "Pause"; });
+
+(async () => {
+  info = await loadInfo();
+  showInfo(info);
+  await loadSettings();
+  pollFrames();
+})();
+</script>
+</body>
+</html>
