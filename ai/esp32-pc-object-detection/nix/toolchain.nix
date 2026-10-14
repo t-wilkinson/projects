@@ -121,6 +121,7 @@ rec {
     buildInputs = with pkgs; [
       stdenv.cc.cc.lib
       zlib
+      libxml2
     ];
 
     dontConfigure = true;
