@@ -75,8 +75,10 @@
   export CARGO="${espTools.xtensaRust}/bin/cargo"
   export RUSTUP_TOOLCHAIN="esp"
   export RUST_SRC_PATH="${espTools.xtensaRustSrc}/lib/rustlib/src/rust/library"
-  export CARGO_BUILD_TARGET="xtensa-esp32-espidf"
-  export MCU="esp32"
+  # Default to the ESP32-S3 board. For the AI-Thinker ESP32-CAM run
+  # `MCU=esp32 nix develop` (or export MCU=esp32 before direnv loads).
+  export MCU="''${MCU:-esp32s3}"
+  export CARGO_BUILD_TARGET="xtensa-$MCU-espidf"
 
   # ── OpenSSL / pkg-config ────────────────────────────────
   export PKG_CONFIG_PATH="${pkgs.openssl.dev}/lib/pkgconfig''${PKG_CONFIG_PATH:+:$PKG_CONFIG_PATH}"
@@ -88,11 +90,9 @@
   export IDF_COMPONENT_MANAGER_SKIP_UPDATE_CHECK="1"
 
   # ── libclang for bindgen ─────────────────────────────
-  # The esp-rs toolchain's build script overrides LIBCLANG_PATH
-  # to use its bundled esp-clang from ~/.rustup/toolchains/esp/.
-  # We can't easily prevent that, so instead ensure all shared
-  # libraries that libclang.so needs are on LD_LIBRARY_PATH.
-  export LIBCLANG_PATH="${pkgs.llvmPackages.libclang.lib}/lib"
+  # esp-idf-sys runs bindgen with `-target xtensa`, which only
+  # Espressif's libclang understands (see espClang in toolchain.nix).
+  export LIBCLANG_PATH="${espTools.espClang}/lib"
   export LD_LIBRARY_PATH="/run/opengl-driver/lib:/run/opengl-driver-32/lib:${
     lib.makeLibraryPath (
       with pkgs;
@@ -139,6 +139,6 @@
   echo "  Jupyter : jupyter notebook (uses 'ESP32 ML' kernel)"
   echo "  Build : cargo build --release"
   echo "  Flash : cargo run --release"
-  echo "       or espflash flash --monitor target/xtensa-esp32-espidf/debug/<bin>"
+  echo "       or espflash flash --monitor target/$CARGO_BUILD_TARGET/release/esp32"
   echo ""
 ''
