@@ -139,6 +139,6 @@
   echo "  Jupyter : jupyter notebook (uses 'ESP32 ML' kernel)"
   echo "  Build : cargo build --release"
   echo "  Flash : cargo run --release"
-  echo "       or espflash flash --monitor target/$CARGO_BUILD_TARGET/release/esp32"
+  echo "       or espflash flash --monitor --partition-table partitions.csv target/$CARGO_BUILD_TARGET/release/esp32"
   echo ""
 ''

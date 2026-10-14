@@ -8,7 +8,7 @@ CONFIG_SPIRAM_SPEED_80M=y
 
 CONFIG_ESPTOOLPY_FLASHMODE_QIO=y
 CONFIG_ESPTOOLPY_FLASHFREQ_80M=y
-CONFIG_ESPTOOLPY_FLASHSIZE_8MB=y
+CONFIG_ESPTOOLPY_FLASHSIZE_16MB=y
 
 # Flash (model weights) and PSRAM (frames, arena if it spills) are both read
 # through this cache. A bigger data cache means fewer stalls while TFLM walks

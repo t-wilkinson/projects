@@ -4,7 +4,7 @@ Runs the int8 FOMO model exported by `../fomo.ipynb` on camera frames and
 serves the result to a web page: the exact pixels the model saw, a per-cell
 heatmap, the detections, per-stage timings and live memory use.
 
-Default target: **Freenove ESP32-S3 WROOM CAM** (ESP32-S3, 8 MB flash, 8 MB
+Default target: **Freenove ESP32-S3 WROOM CAM** (ESP32-S3, 16 MB flash, 8 MB
 octal PSRAM). The AI-Thinker **ESP32-CAM** still builds too.
 
 ## Build and flash
@@ -16,6 +16,15 @@ cargo run --release            # builds, flashes, opens the serial monitor
 ```
 
 The log prints `Open http://<ip>/ in a browser`.
+
+Run it from this directory: the runner passes `partitions.csv` to espflash,
+which gives the app 3 MB. Without it espflash uses a default table with a
+1 MB app slot and refuses the ~1.5 MB firmware (`espflash::image_too_big`).
+To flash by hand, pass the same flag:
+
+```sh
+espflash flash --monitor --partition-table partitions.csv target/xtensa-esp32s3-espidf/release/esp32
+```
 
 The dev shell targets the S3 (`MCU=esp32s3`) and points bindgen at
 Espressif's libclang; upstream clang fails with

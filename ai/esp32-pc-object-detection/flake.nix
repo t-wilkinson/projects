@@ -16,7 +16,7 @@
 # USAGE:
 #   nix develop          # enter the dev shell (first run creates Python venv)
 #   cargo build          # build your ESP32 project
-#   espflash flash --monitor target/xtensa-esp32-espidf/debug/<bin>
+#   espflash flash --monitor --partition-table partitions.csv target/xtensa-esp32s3-espidf/release/esp32
 {
   description = "ESP32 Rust/Xtensa/ESP-IDF development environment";
 

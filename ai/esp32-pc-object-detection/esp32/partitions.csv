@@ -1,0 +1,8 @@
+# ESP-IDF partition table, passed to espflash by the runner in .cargo/config.toml.
+# espflash's default table only gives the app 1 MB; this firmware (TFLite Micro,
+# WiFi, HTTP server, camera driver) is about 1.5 MB. 3 MB still fits the
+# 4 MB flash on the original ESP32-CAM.
+# Name,   Type, SubType, Offset,  Size
+nvs,      data, nvs,     0x9000,  0x6000
+phy_init, data, phy,     0xf000,  0x1000
+factory,  app,  factory, 0x10000, 0x300000
