@@ -17,7 +17,9 @@ cargo run --release            # builds, flashes, opens the serial monitor
 
 The log prints `Open http://<ip>/ in a browser`.
 
-For the original ESP32-CAM:
+The dev shell targets the S3 (`MCU=esp32s3`) and points bindgen at
+Espressif's libclang; upstream clang fails with
+`unknown target triple 'xtensa'`. For the original ESP32-CAM:
 
 ```sh
 MCU=esp32 cargo run --release --target xtensa-esp32-espidf

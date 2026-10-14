@@ -1,4 +1,4 @@
-# nix/toolchain.nix - Toolchain components: xtensaEspElf, xtensaRustSrc, xtensaRustSrc
+# nix/toolchain.nix - Toolchain components: xtensaEspElf, xtensaRust, xtensaRustSrc, espClang
 { pkgs, versions }:
 rec {
   # ════════════════════════════════════════════════════════════════
@@ -98,6 +98,40 @@ rec {
     postFixup = ''
       wrapProgram "$out/bin/rustc" \
         --set-default RUSTUP_TOOLCHAIN esp
+    '';
+  };
+
+  # ════════════════════════════════════════════════════════════════
+  # LIBCLANG FOR BINDGEN  (Espressif LLVM fork)
+  # ════════════════════════════════════════════════════════════════
+  # esp-idf-sys runs bindgen with `-target xtensa`. Upstream clang
+  # rejects that triple ("unknown target triple 'xtensa'"), so bindgen
+  # must load Espressif's libclang. This is the same archive espup
+  # installs for the 1.85 toolchain.
+  espClang = pkgs.stdenv.mkDerivation {
+    pname = "esp-clang-libs";
+    version = versions.espClang;
+
+    src = pkgs.fetchurl {
+      url = "https://github.com/espressif/llvm-project/releases/download/esp-${versions.espClang}/libs-clang-esp-${versions.espClang}-x86_64-linux-gnu.tar.xz";
+      hash = "sha256-2JxLg9co9f8/Lp7/OGI+XG5mI70vHuOhPWrhEL++4Qs=";
+    };
+
+    nativeBuildInputs = [ pkgs.autoPatchelfHook ];
+    buildInputs = with pkgs; [
+      stdenv.cc.cc.lib
+      zlib
+    ];
+
+    dontConfigure = true;
+    dontBuild = true;
+    dontStrip = true;
+
+    installPhase = ''
+      runHook preInstall
+      mkdir -p "$out"
+      cp -a . "$out/"
+      runHook postInstall
     '';
   };
 }

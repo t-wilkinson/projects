@@ -83,7 +83,7 @@
                 espflash
               ];
 
-              LIBCLANG_PATH = "${pkgs.llvmPackages.libclang.lib}/lib";
+              LIBCLANG_PATH = "${espTools.espClang}/lib";
 
               shellHook = pkgs.callPackage ./nix/devshell.nix { inherit versions espTools; };
             }
