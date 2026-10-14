@@ -6,16 +6,18 @@ target = "xtensa-esp32s3-espidf"
 
 [target.xtensa-esp32s3-espidf]
 linker = "ldproxy"
-runner = "espflash flash --monitor"
+# partitions.csv gives the app 3 MB; espflash's default table only has 1 MB.
+# cargo runs this from the directory you ran `cargo run` in, so run it here.
+runner = "espflash flash --monitor --partition-table partitions.csv"
 rustflags = ["--cfg", "espidf_time64"]
 
 [target.xtensa-esp32-espidf]
 linker = "ldproxy"
-runner = "espflash flash --monitor"
+runner = "espflash flash --monitor --partition-table partitions.csv"
 rustflags = ["--cfg", "espidf_time64"]
 
-# Cargo.lock is not committed, so pick dependency versions that still build
-# with the pinned esp toolchain (see rust-version in Cargo.toml).
+# Pick dependency versions that still build with the pinned esp toolchain
+# when Cargo.lock is regenerated (see rust-version in Cargo.toml).
 [resolver]
 incompatible-rust-versions = "fallback"
 
