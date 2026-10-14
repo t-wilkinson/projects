@@ -2,8 +2,9 @@
 // fomo.cpp — camera capture → preprocess → TFLite Micro inference
 //
 // Nothing in here hard-codes the model's input size, channel count or class
-// count: they are read from the .tflite tensors in fomo_init(), so a model
-// re-exported from the notebook at a new resolution drops straight in.
+// count: they are read from the .tflite tensors in fomo_init(). The camera
+// frame size comes from Rust, where build.rs picked it from
+// model/model_metadata.json, and Rust checks the tensors against that file.
 // ─────────────────────────────────────────────────────────────────────────────
 
 #include "fomo.h"
@@ -36,6 +37,7 @@ enum {
   FOMO_ERR_CAPTURE = -7,
   FOMO_ERR_FRAME_FORMAT = -8,
   FOMO_ERR_INVOKE = -9,
+  FOMO_ERR_FRAME_SIZE = -10,
 };
 
 // ── Camera pins ──────────────────────────────────────────────────────────────
@@ -119,27 +121,22 @@ static void log_heap(const char *stage) {
 // Camera
 // ─────────────────────────────────────────────────────────────────────────────
 
-// Smallest sensor frame that covers the model input in both directions, so
-// the centre crop needs as little resampling as possible. A 120×120 or 160×96
-// model on a 160×120 frame is a pure 1:1 crop.
-static framesize_t pick_frame_size(int w, int h) {
-  struct {
-    framesize_t size;
-    int w, h;
-  } sizes[] = { // ordered by area
-      {FRAMESIZE_96X96, 96, 96},    {FRAMESIZE_128X128, 128, 128},
-      {FRAMESIZE_QQVGA, 160, 120},  {FRAMESIZE_QCIF, 176, 144},
-      {FRAMESIZE_HQVGA, 240, 176},  {FRAMESIZE_240X240, 240, 240},
-      {FRAMESIZE_QVGA, 320, 240},   {FRAMESIZE_VGA, 640, 480},
-  };
-  for (auto &s : sizes) {
-    if (s.w >= w && s.h >= h)
-      return s.size;
+// esp32-camera's own table maps each framesize_t to its width and height.
+static int frame_size_for(int w, int h) {
+  for (int i = 0; i < FRAMESIZE_INVALID; i++) {
+    if (resolution[i].width == w && resolution[i].height == h)
+      return i;
   }
-  return FRAMESIZE_VGA;
+  return -1;
 }
 
 static int camera_init(int w, int h, bool vflip, bool hmirror) {
+  int frame_size = frame_size_for(w, h);
+  if (frame_size < 0) {
+    ESP_LOGE(TAG, "esp32-camera has no %dx%d frame size", w, h);
+    return FOMO_ERR_FRAME_SIZE;
+  }
+
   camera_config_t config = {};
   config.pin_pwdn = CAM_PIN_PWDN;
   config.pin_reset = CAM_PIN_RESET;
@@ -163,7 +160,7 @@ static int camera_init(int w, int h, bool vflip, bool hmirror) {
 
   // RGB565 straight from the sensor: no JPEG decode on the CPU.
   config.pixel_format = PIXFORMAT_RGB565;
-  config.frame_size = pick_frame_size(w, h);
+  config.frame_size = (framesize_t)frame_size;
   // Two frame buffers in PSRAM: the camera DMA fills one while we read the
   // other. GRAB_LATEST hands us the newest frame, not a stale queued one.
   config.fb_count = 2;
@@ -196,6 +193,11 @@ static int camera_init(int w, int h, bool vflip, bool hmirror) {
   s_info.camera_w = fb->width;
   s_info.camera_h = fb->height;
   esp_camera_fb_return(fb);
+  if (s_info.camera_w != w || s_info.camera_h != h) {
+    ESP_LOGE(TAG, "asked the camera for %dx%d frames, got %dx%d", w, h,
+             (int)s_info.camera_w, (int)s_info.camera_h);
+    return FOMO_ERR_FRAME_FORMAT;
+  }
 
   ESP_LOGI(TAG, "camera PID=0x%04x, frames %dx%d RGB565", s_info.camera_pid,
            (int)s_info.camera_w, (int)s_info.camera_h);
@@ -474,7 +476,13 @@ extern "C" int fomo_init(const fomo_config_t *cfg, fomo_info_t *info) {
   if (!s_image)
     return FOMO_ERR_ARENA_ALLOC;
 
-  if ((err = camera_init(s_info.input_w, s_info.input_h, cfg->vflip, cfg->hmirror)))
+  if (cfg->camera_w < s_info.input_w || cfg->camera_h < s_info.input_h) {
+    ESP_LOGE(TAG, "camera frame %dx%d is smaller than the %dx%d model input",
+             (int)cfg->camera_w, (int)cfg->camera_h, (int)s_info.input_w,
+             (int)s_info.input_h);
+    return FOMO_ERR_ARGS;
+  }
+  if ((err = camera_init(cfg->camera_w, cfg->camera_h, cfg->vflip, cfg->hmirror)))
     return err;
   log_heap("after camera");
 

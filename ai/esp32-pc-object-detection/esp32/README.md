@@ -43,15 +43,46 @@ change `CONFIG_SPIRAM_MODE_OCT` to `CONFIG_SPIRAM_MODE_QUAD` in
 The notebook's export cell copies two files into `model/`:
 
 - `fomo_model_int8.tflite`: int8 input and output, NHWC.
-- `model_metadata.json`: needs `class_names` (background first) and
-  `normalization.mean` / `normalization.std` (one value per input channel).
-  Optional: `output_activation` (`"sigmoid"`, `"softmax"` or `"none"`) and
-  `conf_threshold`.
+- `model_metadata.json`: what the firmware is built around. The notebook reads
+  the tensor shapes and quantisation back from the `.tflite`, and the training
+  settings from the checkpoint the weights came from.
 
-Input width and height (square or not), channel count (gray or RGB) and grid
-size are read from the model at boot, so nothing in the firmware changes when you retrain at a new
-resolution. Without `output_activation` the decoder guesses: a background
-channel means softmax, no background channel means sigmoid heatmaps.
+```jsonc
+{
+  "format_version": 2,
+  "model_size_bytes": 114408,
+  "input":  { "width": 120, "height": 120, "channels": 3, "dtype": "int8", "layout": "NHWC",
+              "scale": 0.0187, "zero_point": -14 },
+  "output": { "width": 15, "height": 15, "channels": 1, "dtype": "int8", "layout": "NHWC",
+              "scale": 0.068, "zero_point": 27 },     // width x height is the grid
+  "grid_stride": 8,                                   // input pixels per grid cell
+  "class_names": ["background", "sports_ball"],       // background first
+  "output_activation": "sigmoid",                     // or "softmax", "none"
+  "normalization": { "mean": [0.485, 0.456, 0.406], "std": [0.229, 0.224, 0.225] },
+  "conf_threshold": 0.3,                              // starting value; the page can change it
+  "training": { "INPUT_SIZE": 120, "LEARNING_RATE": 0.002, "epoch": 143, "f1": 0.61, ... }
+}
+```
+
+`build.rs` parses the `.tflite` as well and fails the build with a list of
+mismatches if the JSON describes a different model (for example a `.tflite`
+converted from a stale ONNX file, or one copied in without re-running the
+export cell). Then it generates Rust constants (`src/model.rs` re-exports
+them):
+
+| Constant | From | Used for |
+|---|---|---|
+| `INPUT_W/H/C`, `GRID_W/H`, `OUTPUT_C`, scales, zero points | `input`, `output` | checked against the interpreter's tensors at boot |
+| `CAMERA_W/H`, `CAMERA_FRAME` | smallest camera frame covering the input | camera capture size |
+| `NORM_MEAN`, `NORM_STD` | `normalization` | pixel → int8 lookup table |
+| `CLASS_NAMES`, `OUTPUT_ACTIVATION` | `class_names`, `output_activation` | decoding, labels |
+| `CONF_THRESHOLD` | `conf_threshold` | initial detection threshold |
+| `METADATA_JSON` | the whole file | `GET /api/model` |
+
+So retraining at a new resolution, in grayscale or with other classes only
+needs the export cell and a rebuild. At boot the firmware checks the
+interpreter's tensors against the constants and stops with both shapes in the
+log if they differ.
 
 ## Layout
 
@@ -61,7 +92,7 @@ channel means softmax, no background channel means sigmoid heatmaps.
 | `src/detect.rs` | core 1 | output tensor → probabilities → 3×3 peak detections |
 | `src/inference.rs` | core 1 | the capture → infer → decode loop |
 | `src/server.rs` | core 0 | HTTP API and the page in `web/index.html` |
-| `build.rs` | your PC | turns `model/model_metadata.json` into Rust constants |
+| `build.rs` | your PC | checks `model/model_metadata.json` against the `.tflite`, turns it into Rust constants |
 
 `src/detect.rs` has unit tests that run on your PC:
 
@@ -75,6 +106,7 @@ rustc --edition 2021 --test src/detect.rs -o /tmp/detect && /tmp/detect
 |---|---|
 | `GET /` | the web page |
 | `GET /api/info` | model shapes, quantisation, arena size and placement, camera |
+| `GET /api/model` | the `model_metadata.json` the firmware was built with, training settings included |
 | `GET /api/frame` | `[u32 LE json length][json][image H×W×C][scores gridH×gridW×classes]` |
 | `GET /api/settings?threshold=0.4&vflip=1&hmirror=0` | current settings |
 
