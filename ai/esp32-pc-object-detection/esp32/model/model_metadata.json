@@ -1,7 +1,26 @@
 {
-  "input_size": 96,
-  "grid_size": 12,
-  "num_classes": 6,
+  "format_version": 2,
+  "model_file": "fomo_model_int8.tflite",
+  "model_size_bytes": 114408,
+  "input": {
+    "width": 96,
+    "height": 96,
+    "channels": 3,
+    "dtype": "int8",
+    "layout": "NHWC",
+    "scale": 0.01865844801068306,
+    "zero_point": -14
+  },
+  "output": {
+    "width": 12,
+    "height": 12,
+    "channels": 6,
+    "dtype": "int8",
+    "layout": "NHWC",
+    "scale": 0.06796614080667496,
+    "zero_point": 27
+  },
+  "grid_stride": 8,
   "class_names": [
     "background",
     "person",
@@ -10,6 +29,7 @@
     "couch",
     "dining_table"
   ],
+  "output_activation": "softmax",
   "normalization": {
     "mean": [
       0.485,
@@ -22,5 +42,6 @@
       0.225
     ]
   },
-  "model_size_bytes": 114408
+  "conf_threshold": 0.5,
+  "training": null
 }

@@ -5,7 +5,14 @@
 use anyhow::{bail, Result};
 use esp_idf_svc::sys::fomo;
 
-include!(concat!(env!("OUT_DIR"), "/model_meta.rs"));
+// Constants build.rs generated from model/model_metadata.json after checking
+// it against the .tflite: input/grid shapes, quantisation, class names,
+// normalisation, threshold and the camera frame size.
+#[allow(dead_code)]
+mod meta {
+    include!(concat!(env!("OUT_DIR"), "/model_meta.rs"));
+}
+pub use meta::*;
 
 // ── Embedded model ───────────────────────────────────────────────────────────
 // include_bytes! only guarantees 1-byte alignment. TFLM reads int32 biases
@@ -47,6 +54,8 @@ impl Pipeline {
             norm_mean: NORM_MEAN.as_ptr(),
             norm_std: NORM_STD.as_ptr(),
             norm_len: NORM_MEAN.len(),
+            camera_w: CAMERA_W as i32,
+            camera_h: CAMERA_H as i32,
             vflip,
             hmirror,
         };
@@ -58,6 +67,7 @@ impl Pipeline {
                 describe(ret)
             );
         }
+        check_tensors(&info)?;
         Ok(Self { info })
     }
 
@@ -90,6 +100,33 @@ impl Pipeline {
     }
 }
 
+/// build.rs checked model_metadata.json against the .tflite, so this only
+/// fails if the two readers of the flatbuffer disagree. Cheap insurance:
+/// the decoder and the web view size their buffers from these.
+fn check_tensors(i: &Info) -> Result<()> {
+    let got = format!(
+        "input {}x{}x{} (scale {}, zero point {}) -> grid {}x{}x{} (scale {}, zero point {})",
+        i.input_w,
+        i.input_h,
+        i.input_c,
+        i.input_scale,
+        i.input_zero_point,
+        i.grid_w,
+        i.grid_h,
+        i.output_c,
+        i.output_scale,
+        i.output_zero_point,
+    );
+    let want = format!(
+        "input {INPUT_W}x{INPUT_H}x{INPUT_C} (scale {INPUT_SCALE}, zero point {INPUT_ZERO_POINT}) \
+         -> grid {GRID_W}x{GRID_H}x{OUTPUT_C} (scale {OUTPUT_SCALE}, zero point {OUTPUT_ZERO_POINT})"
+    );
+    if got != want {
+        bail!("the model's tensors are {got}, but the firmware was built for {want}");
+    }
+    Ok(())
+}
+
 fn describe(code: i32) -> &'static str {
     match code {
         -1 => "bad arguments (is the model 16-byte aligned?)",
@@ -101,6 +138,7 @@ fn describe(code: i32) -> &'static str {
         -7 => "camera capture failed",
         -8 => "camera frame has the wrong format or size",
         -9 => "Invoke failed",
+        -10 => "camera frame size from build.rs isn't in esp32-camera's table",
         _ => "unknown error",
     }
 }

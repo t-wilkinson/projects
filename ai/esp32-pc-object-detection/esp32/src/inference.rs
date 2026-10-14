@@ -62,7 +62,7 @@ fn run(shared: &Shared) -> Result<()> {
             zero_point: i.output_zero_point,
         },
         CLASS_NAMES,
-        OUTPUT_ACTIVATION.and_then(Activation::parse),
+        Activation::parse(OUTPUT_ACTIVATION),
     )
     .map_err(anyhow::Error::msg)?;
 
@@ -186,7 +186,7 @@ fn describe(p: &Pipeline, d: &Decoder) -> String {
          \"grid\":{{\"w\":{},\"h\":{},\"channels\":{},\"scale\":{},\"zero_point\":{}}},\
          \"classes\":{:?},\"activation\":{:?},\
          \"arena\":{{\"used\":{},\"allocated\":{},\"in\":{:?}}},\
-         \"camera\":{{\"w\":{},\"h\":{},\"pid\":\"0x{:04x}\"}},\
+         \"camera\":{{\"w\":{},\"h\":{},\"frame\":{:?},\"pid\":\"0x{:04x}\"}},\
          \"heap\":{}}}",
         env!("MCU"),
         model::model_bytes(),
@@ -211,6 +211,7 @@ fn describe(p: &Pipeline, d: &Decoder) -> String {
         },
         i.camera_w,
         i.camera_h,
+        model::CAMERA_FRAME,
         i.camera_pid,
         heap_json(),
     )

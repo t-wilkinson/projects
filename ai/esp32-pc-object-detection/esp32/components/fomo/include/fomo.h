@@ -43,6 +43,12 @@ typedef struct {
   const float *norm_std;
   size_t norm_len;
 
+  /// Camera frame size, chosen by build.rs as the smallest esp32-camera frame
+  /// that covers the model input. Must be an entry of the driver's
+  /// resolution table.
+  int32_t camera_w;
+  int32_t camera_h;
+
   bool vflip;
   bool hmirror;
 } fomo_config_t;
@@ -68,7 +74,7 @@ typedef struct {
   size_t arena_bytes;       // what is allocated now
   bool arena_in_psram;
 
-  // Camera frame size chosen to cover the model input
+  // Camera frame size from fomo_config_t, as the sensor delivered it
   int32_t camera_w;
   int32_t camera_h;
   uint16_t camera_pid;      // sensor id, e.g. 0x26 = OV2640, 0x3660 = OV3660

@@ -3,6 +3,8 @@
 //
 //   GET /               the web page (web/index.html, baked into the firmware)
 //   GET /api/info       model, tensor arena and camera details (JSON)
+//   GET /api/model      model_metadata.json the firmware was built with,
+//                       training hyperparameters included
 //   GET /api/frame      latest frame: [u32 LE json len][json][image][scores]
 //   GET /api/settings   ?threshold=0.4&vflip=1&hmirror=0 → current settings
 //
@@ -22,6 +24,7 @@ use esp_idf_svc::{
     io::Write,
 };
 
+use crate::model::METADATA_JSON;
 use crate::state::Shared;
 
 const INDEX_HTML: &str = include_str!("../web/index.html");
@@ -49,6 +52,10 @@ pub fn start(shared: Arc<Shared>) -> Result<EspHttpServer<'static>> {
     server.fn_handler("/api/info", Method::Get, move |req| {
         let body = s.info_json.lock().unwrap().clone();
         send_json(req, &body)
+    })?;
+
+    server.fn_handler("/api/model", Method::Get, |req| {
+        send_json(req, METADATA_JSON)
     })?;
 
     let s = shared.clone();
