@@ -9,11 +9,13 @@ jupyter
 matplotlib
 numpy
 onnx
-onnx2tf
+onnx2tf[tensorflow]
 onnxscript
+onnxsim
 opencv-python-headless
 pandas
 pycocotools
+sng4onnx
 tensorflow
 timm
 torch==2.6.0+cu124

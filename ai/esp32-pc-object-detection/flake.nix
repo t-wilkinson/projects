@@ -38,6 +38,7 @@
           inherit system;
           config.allowUnfree = true;
         };
+        prjGitPath = "ai/esp32-pc-object-detection";
         isLinux = pkgs.stdenv.isLinux;
         # isDarwin = pkgs.stdenv.isDarwin;
         versions = import ./nix/versions.nix;
@@ -47,29 +48,53 @@
         toolchain = pkgs.callPackage ./nix/toolchain.nix { inherit versions; };
         tools = pkgs.callPackage ./nix/tools.nix { };
         espTools = { } // espIdf // toolchain // tools;
-      in
-      {
-        packages = { } // espTools;
 
+        commonLibs = with pkgs; [
+          zlib
+          stdenv.cc.cc.lib
+          libxml2
+          ncurses
+
+          # OpenCV dependencies
+          xorg.libxcb
+          xorg.libX11
+          xorg.libXext
+          xorg.libXrender
+          libGL
+          glib
+        ];
+
+        # DevShells
         devShells = {
           ml = pkgs.callPackage ./nix/devshell-ml.nix {
             inherit
-              versions
               pkgs
               isLinux
               tools
+              prjGitPath
+              commonLibs
               ;
           };
-        }
-        // pkgs.lib.optionalAttrs isLinux {
+
           esp = pkgs.callPackage ./nix/devshell-rust.nix {
             inherit
               versions
               pkgs
               espTools
+              prjGitPath
+              commonLibs
               ;
           };
+        };
+      in
+      {
+        packages = { } // espTools;
 
+        devShells = {
+          ml = devShells.ml;
+        }
+        // pkgs.lib.optionalAttrs isLinux {
+          esp = devShells.esp;
         };
       }
     );

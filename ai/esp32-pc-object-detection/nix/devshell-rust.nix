@@ -3,6 +3,7 @@
   espTools,
   pkgs,
   versions,
+  commonLibs,
   ...
 }:
 pkgs.mkShell {
@@ -126,25 +127,7 @@ pkgs.mkShell {
     # esp-idf-sys runs bindgen with `-target xtensa`, which only
     # Espressif's libclang understands (see espClang in toolchain.nix).
     export LIBCLANG_PATH="${espTools.espClang}/lib"
-    export LD_LIBRARY_PATH="/run/opengl-driver/lib:/run/opengl-driver-32/lib:${
-      lib.makeLibraryPath (
-        with pkgs;
-        [
-          zlib
-          stdenv.cc.cc.lib
-          libxml2
-          ncurses
-
-          # OpenCV dependencies
-          xorg.libxcb
-          xorg.libX11
-          xorg.libXext
-          xorg.libXrender
-          libGL
-          glib
-        ]
-      )
-    }''${LD_LIBRARY_PATH:+:$LD_LIBRARY_PATH}"
+    export LD_LIBRARY_PATH="/run/opengl-driver/lib:/run/opengl-driver-32/lib:${lib.makeLibraryPath (commonLibs)}''${LD_LIBRARY_PATH:+:$LD_LIBRARY_PATH}"
     export BINDGEN_EXTRA_CLANG_ARGS="-fsigned-char"
     echo $LD_LIBRARY_PATH
 
