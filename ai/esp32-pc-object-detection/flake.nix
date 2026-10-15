@@ -51,81 +51,26 @@
       {
         packages = { } // espTools;
 
-        devShells.default =
-          if isLinux then
-            pkgs.mkShell {
-              name = "esp32-rust";
+        devShells = {
+          ml = pkgs.callPackage ./nix/devshell-ml.nix {
+            inherit
+              versions
+              pkgs
+              isLinux
+              tools
+              ;
+          };
+        }
+        // pkgs.lib.optionalAttrs isLinux {
+          esp = pkgs.callPackage ./nix/devshell-rust.nix {
+            inherit
+              versions
+              pkgs
+              espTools
+              ;
+          };
 
-              buildInputs = with pkgs; [
-                cmake
-                ninja
-                git
-                wget
-                curl
-                websocat
-                flex
-                bison
-                gperf
-                ccache
-                dfu-util
-                libusb1
-                pkg-config
-                openssl
-                openssl.dev
-                clang
-                llvmPackages.libclang
-
-                espTools.basePython
-                espTools.xtensaEspElf
-                espTools.xtensaRust
-                espTools.xtensaRustSrc
-                espTools.ldproxy
-                espflash
-              ];
-
-              LIBCLANG_PATH = "${espTools.espClang}/lib";
-
-              shellHook = pkgs.callPackage ./nix/devshell.nix { inherit versions espTools; };
-            }
-          else
-            pkgs.mkShell {
-              name = "esp32-ml";
-
-              buildInputs = with pkgs; [
-                tools.basePython
-                git
-                curl
-              ];
-
-              shellHook = ''
-                # ── Python venv for extra pip deps ─────────────
-                _ML_VENV="''${ML_VENV_PATH:-$PWD/.venv}"
-
-                if [ ! -f "$_ML_VENV/pyvenv.cfg" ]; then
-                  echo ""
-                  echo "  [flake] Creating Python venv for ML/Jupyter..."
-                  python3 -m venv "$_ML_VENV"
-                  source "$_ML_VENV/bin/activate"
-                  pip install --upgrade pip setuptools -q
-                  if [ -f requirements.txt ]; then
-                    pip install -r requirements.txt 2>&1 | grep -v 'already satisfied'
-                  fi
-                  echo "  [flake] venv ready."
-                else
-                  source "$_ML_VENV/bin/activate"
-                fi
-
-                # Register venv as a Jupyter kernel so we don't use nix's python
-                python -m ipykernel install --user --name esp32-ml --display-name "ESP32 ML" --overwrite
-
-                echo ""
-                echo "  ESP32 ML shell (macOS — Jupyter only)"
-                echo "  ────────────────────────────────────────"
-                echo "  Python : $(python --version 2>/dev/null)"
-                echo "  Jupyter: jupyter notebook (uses 'ESP32 ML' kernel)"
-                echo ""
-              '';
-            };
+        };
       }
     );
 }
