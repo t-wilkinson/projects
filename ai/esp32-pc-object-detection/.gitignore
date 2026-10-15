@@ -3,5 +3,6 @@ datasets
 .envrc
 camera_example
 esp32/debug
+firmware/debug
 .venv-ml
 .venv-rust
