@@ -86,7 +86,7 @@ enum {
 // ── State that lives for the whole program ──────────────────────────────────
 // Every op any of the notebook's exports has used, plus the usual suspects.
 // Unused ops only cost flash, which the S3 has plenty of.
-static tflite::MicroMutableOpResolver<20> s_resolver;
+static tflite::MicroMutableOpResolver<21> s_resolver;
 static const tflite::Model *s_model = nullptr;
 static tflite::MicroInterpreter *s_interpreter = nullptr;
 static uint8_t *s_arena = nullptr;
@@ -237,6 +237,7 @@ static void register_ops(void) {
   s_resolver.AddSoftmax();
   s_resolver.AddQuantize();
   s_resolver.AddDequantize();
+  s_resolver.AddResizeNearestNeighbor();  // model.context: upsampled stride-16 features
 }
 
 static bool build_interpreter(uint8_t *arena, size_t size) {

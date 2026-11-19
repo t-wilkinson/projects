@@ -1,0 +1,565 @@
+{
+  "name": "ball-v1",
+  "description": "Single-class sports_ball centroid detector for the ESP32-S3 car. Edit priors, budgets and 'fixed' between groups; the search re-reads this file before every planning step.",
+  "objective": {
+    "terms": [
+      {
+        "metric": "val_zoom/ap",
+        "weight": 1.0
+      },
+      {
+        "metric": "val_dev/ap",
+        "weight": 0.5
+      },
+      {
+        "metric": "val_full/ap",
+        "weight": 0.25
+      },
+      {
+        "metric": "val_neg/fp_per_img",
+        "weight": -0.05
+      },
+      {
+        "metric": "val_zoom/ece_cal",
+        "weight": -0.5
+      }
+    ],
+    "comment": "val_zoom = balls at 6-40 px (the car's working range). val_dev = half of those windows through a fixed simulated ESP32 camera (a proxy until real frames exist; it favours models trained with a similar simulation, so keep its weight modest). val_full = whole COCO frames. val_neg = confuser-rich frames with no balls. ece_cal = calibration error after Platt scaling, which is folded into the exported model: SLAM reads the score as a probability, so a ranking-good but miscalibrated model is penalised. Edit freely: objectives are recomputed from stored metrics, so the whole history is re-scored."
+  },
+  "report_threshold": 0.3,
+  "constraints": {
+    "max_pred_ms": 200,
+    "max_peak_kb": 320,
+    "max_params": 400000,
+    "comment": "3 fps leaves 333 ms per frame for capture, inference, SLAM and control. 200 ms of invoke() is the ceiling until latency_model is calibrated."
+  },
+  "latency_model": {
+    "ms_per_mmac": 7.5,
+    "intercept_ms": 0.0,
+    "calibrated": false,
+    "measurements": [],
+    "comment": "Add {\"mmacs\": .., \"ms\": ..} rows from the firmware's invoke timing, then call tinydet.models.fit_latency(measurements) and paste the result here."
+  },
+  "schedule": {
+    "rungs": [
+      15,
+      40,
+      120
+    ],
+    "eta": 3,
+    "group_size": 4,
+    "eval_every": 5,
+    "comment": "Each rung also runs a decay branch of optim.decay_frac x rung epochs before it is scored. eta=3: the top third of a rung moves on."
+  },
+  "base": {
+    "data.coco_root": "~/datasets/coco"
+  },
+  "fixed": {},
+  "params": {
+    "model.pretrained": {
+      "type": "categorical",
+      "choices": [
+        true,
+        false
+      ],
+      "prior": [
+        0.5,
+        0.5
+      ],
+      "impact": 0.8,
+      "confidence": 0.2,
+      "stage": "structure",
+      "evidence": "Scratch MNV2-0.5 reached F1 0.556 after 600 epochs (0b4db56); pretrained timm only trained to epoch 19 (0.382). Never compared at equal budget."
+    },
+    "model.width": {
+      "type": "categorical",
+      "choices": [
+        0.35,
+        0.5,
+        0.75,
+        1.0
+      ],
+      "prior": [
+        0.2,
+        0.45,
+        0.25,
+        0.1
+      ],
+      "impact": 0.7,
+      "confidence": 0.3,
+      "stage": "structure",
+      "evidence": "Scratch <=0.35 collapsed under CE in March; 0.75+ doubles MMACs and the arena. Pretrained weights only exist for 0.5 and 1.0."
+    },
+    "model.tap": {
+      "type": "categorical",
+      "choices": [
+        true,
+        false
+      ],
+      "prior": [
+        0.6,
+        0.4
+      ],
+      "impact": 0.4,
+      "confidence": 0.2,
+      "stage": "structure",
+      "evidence": "Edge Impulse FOMO's cut point; +1.7 MMACs; never tested in isolation."
+    },
+    "model.head": {
+      "type": "categorical",
+      "choices": [
+        "basic",
+        "dw1",
+        "dwsep",
+        "bottleneck",
+        "dilated"
+      ],
+      "prior": [
+        0.1,
+        0.2,
+        0.25,
+        0.3,
+        0.15
+      ],
+      "impact": 0.5,
+      "confidence": 0.2,
+      "stage": "structure",
+      "evidence": "dw1 was the head of the best run (0b4db56); dwsep is current; bottleneck argued INT8-friendlier (Doc A); dilated adds a 7x7 receptive field."
+    },
+    "data.input_size": {
+      "type": "categorical",
+      "choices": [
+        96,
+        120,
+        160
+      ],
+      "prior": [
+        0.25,
+        0.5,
+        0.25
+      ],
+      "impact": 0.7,
+      "confidence": 0.4,
+      "stage": "structure",
+      "evidence": "68% of full-frame val balls are under 4 px at 120. 160 px costs ~1.8x MMACs and a 375 KB arena (likely PSRAM)."
+    },
+    "model.context": {
+      "type": "categorical",
+      "choices": [
+        false,
+        true
+      ],
+      "prior": [
+        0.7,
+        0.3
+      ],
+      "impact": 0.3,
+      "confidence": 0.3,
+      "stage": "structure",
+      "evidence": "New. Gives tiny balls scene context; needs RESIZE_NEAREST_NEIGHBOR in the firmware resolver."
+    },
+    "target.form": {
+      "type": "categorical",
+      "choices": [
+        "gauss_peak",
+        "gauss_cell",
+        "onehot",
+        "onehot_nbr_ignore"
+      ],
+      "prior": [
+        0.25,
+        0.4,
+        0.15,
+        0.2
+      ],
+      "impact": 0.5,
+      "confidence": 0.3,
+      "stage": "targets_loss",
+      "evidence": "Heatmap + focal beat one-hot CE in July, but form and loss changed together."
+    },
+    "target.sigma": {
+      "type": "float",
+      "low": 0.35,
+      "high": 1.2,
+      "prior": {
+        "mode": 0.6,
+        "spread": 0.25
+      },
+      "impact": 0.5,
+      "confidence": 0.3,
+      "stage": "targets_loss",
+      "evidence": "Effectively fixed at 0.7 so far; 0.7 puts 4-neighbours at 0.36, above the 0.3 threshold."
+    },
+    "target.ignore_px": {
+      "type": "float",
+      "low": 2.5,
+      "high": 6.0,
+      "prior": {
+        "mode": 3.5,
+        "spread": 0.3
+      },
+      "impact": 0.4,
+      "confidence": 0.3,
+      "stage": "targets_loss",
+      "evidence": "3.5 px current; Doc B suggests 5.5 px. Evaluation always uses 3.5, so this only changes training."
+    },
+    "loss.alpha": {
+      "type": "float",
+      "low": 1.0,
+      "high": 3.0,
+      "prior": {
+        "mode": 2.0,
+        "spread": 0.2
+      },
+      "impact": 0.3,
+      "confidence": 0.5,
+      "stage": "targets_loss",
+      "evidence": "CenterNet default 2.0; lower keeps logits more compact for INT8."
+    },
+    "loss.beta": {
+      "type": "float",
+      "low": 2.0,
+      "high": 6.0,
+      "prior": {
+        "mode": 4.0,
+        "spread": 0.2
+      },
+      "impact": 0.2,
+      "confidence": 0.5,
+      "stage": "targets_loss",
+      "evidence": "CenterNet default 4.0."
+    },
+    "data.zoom_prob": {
+      "type": "categorical",
+      "choices": [
+        0.0,
+        0.25,
+        0.5,
+        0.75
+      ],
+      "prior": [
+        0.15,
+        0.3,
+        0.35,
+        0.2
+      ],
+      "impact": 0.6,
+      "confidence": 0.3,
+      "stage": "targets_loss",
+      "evidence": "Added Oct 14, never trained to completion. Directly targets the 6-32 px balls the car sees."
+    },
+    "data.bg_ratio": {
+      "type": "categorical",
+      "choices": [
+        0.2,
+        0.4,
+        0.6
+      ],
+      "prior": [
+        0.25,
+        0.5,
+        0.25
+      ],
+      "impact": 0.3,
+      "confidence": 0.3,
+      "stage": "targets_loss",
+      "evidence": "Only 0.4 tried."
+    },
+    "optim.lr": {
+      "type": "float",
+      "low": 0.0005,
+      "high": 0.006,
+      "log": true,
+      "prior": {
+        "mode": 0.002,
+        "spread": 0.25
+      },
+      "impact": 0.5,
+      "confidence": 0.4,
+      "stage": "optim",
+      "evidence": "1e-3 and 2e-3 both used; no controlled comparison."
+    },
+    "optim.wd": {
+      "type": "float",
+      "low": 1e-05,
+      "high": 0.001,
+      "log": true,
+      "prior": {
+        "mode": 0.0001,
+        "spread": 0.3
+      },
+      "impact": 0.2,
+      "confidence": 0.3,
+      "stage": "optim",
+      "evidence": "1e-4 everywhere; Doc B suggests up to 5e-4 to tame INT8 outliers."
+    },
+    "optim.ema": {
+      "type": "categorical",
+      "choices": [
+        0.0,
+        0.995,
+        0.998,
+        0.999
+      ],
+      "prior": [
+        0.1,
+        0.3,
+        0.4,
+        0.2
+      ],
+      "impact": 0.3,
+      "confidence": 0.4,
+      "stage": "optim",
+      "evidence": "Implemented in the old notebook but never enabled."
+    },
+    "model.freeze": {
+      "type": "categorical",
+      "choices": [
+        "early",
+        "none"
+      ],
+      "prior": [
+        0.5,
+        0.5
+      ],
+      "impact": 0.3,
+      "confidence": 0.2,
+      "stage": "optim",
+      "evidence": "Early layers frozen for all epochs so far (pretrained runs only)."
+    },
+    "model.backbone_lr_mult": {
+      "type": "categorical",
+      "choices": [
+        0.1,
+        0.3,
+        1.0
+      ],
+      "prior": [
+        0.3,
+        0.3,
+        0.4
+      ],
+      "impact": 0.3,
+      "confidence": 0.2,
+      "stage": "optim",
+      "evidence": "Doc A suggests 0.1x on the backbone after warmup."
+    },
+    "data.aug": {
+      "type": "categorical",
+      "choices": [
+        "light",
+        "strong"
+      ],
+      "prior": [
+        0.6,
+        0.4
+      ],
+      "impact": 0.4,
+      "confidence": 0.2,
+      "stage": "domain",
+      "evidence": "Generic photometric augmentation. The ESP32 camera model is now separate (data.device_*)."
+    },
+    "data.device_strength": {
+      "type": "categorical",
+      "choices": [
+        0.0,
+        0.3,
+        0.6,
+        0.9
+      ],
+      "prior": [
+        0.15,
+        0.3,
+        0.35,
+        0.2
+      ],
+      "impact": 0.5,
+      "confidence": 0.2,
+      "stage": "domain",
+      "evidence": "Simulated OV2640 pipeline: low-light shot/read noise amplified by AGC, AEC errors with clipping, AWB casts, ISP denoise+sharpen halos, chroma noise, row banding, lens shading, unfiltered DSP downscaling, RGB565. Real gain only measurable on real frames."
+    },
+    "data.device_motion": {
+      "type": "categorical",
+      "choices": [
+        0.0,
+        0.3,
+        0.6
+      ],
+      "prior": [
+        0.3,
+        0.45,
+        0.25
+      ],
+      "impact": 0.3,
+      "confidence": 0.2,
+      "stage": "domain",
+      "evidence": "Car motion: mostly-horizontal motion blur from long indoor exposures, rolling-shutter shear when turning, vibration wobble."
+    },
+    "data.device_lens": {
+      "type": "categorical",
+      "choices": [
+        "none",
+        "mild",
+        "wide"
+      ],
+      "prior": [
+        0.3,
+        0.5,
+        0.2
+      ],
+      "impact": 0.2,
+      "confidence": 0.2,
+      "stage": "domain",
+      "evidence": "Barrel distortion + extra vignetting (+ chromatic aberration for wide). Set to the car's actual lens once known: stock OV2640 ~66 deg = mild; 120-160 deg modules = wide."
+    },
+    "data.paste_prob": {
+      "type": "categorical",
+      "choices": [
+        0.0,
+        0.25,
+        0.5,
+        0.75
+      ],
+      "prior": [
+        0.15,
+        0.3,
+        0.35,
+        0.2
+      ],
+      "impact": 0.5,
+      "confidence": 0.3,
+      "stage": "domain",
+      "evidence": "Crisp COCO-mask cutouts (balls >= 20 px in their source, training images only) pasted at 6-36 px. Doc B rated it the highest-ROI data change."
+    },
+    "data.paste_max": {
+      "type": "categorical",
+      "choices": [
+        1,
+        2,
+        3
+      ],
+      "prior": [
+        0.35,
+        0.4,
+        0.25
+      ],
+      "impact": 0.15,
+      "confidence": 0.3,
+      "stage": "domain",
+      "evidence": "More pasted balls = more positives per batch, but crowded scenes are unlike the car's view."
+    },
+    "data.paste_floor_bias": {
+      "type": "categorical",
+      "choices": [
+        0.0,
+        0.5,
+        1.0
+      ],
+      "prior": [
+        0.25,
+        0.45,
+        0.3
+      ],
+      "impact": 0.2,
+      "confidence": 0.2,
+      "stage": "domain",
+      "evidence": "From a camera a few cm high, balls sit in the lower part of the frame; >0 also draws contact shadows."
+    },
+    "data.bg_source": {
+      "type": "categorical",
+      "choices": [
+        "random",
+        "confusers",
+        "indoor",
+        "mixed"
+      ],
+      "prior": [
+        0.2,
+        0.25,
+        0.35,
+        0.2
+      ],
+      "impact": 0.3,
+      "confidence": 0.2,
+      "stage": "domain",
+      "evidence": "Only random backgrounds tried. 'indoor' = COCO images with chairs, couches, tables, beds etc.: closest stand-in for the car's rooms until your own frames go in data.extra_bg_dir."
+    },
+    "model.grayscale": {
+      "type": "categorical",
+      "choices": [
+        false,
+        true
+      ],
+      "prior": [
+        0.7,
+        0.3
+      ],
+      "impact": 0.3,
+      "confidence": 0.4,
+      "stage": "domain",
+      "evidence": "Grayscale only tried with tiny widths and CE. Tennis balls are strongly coloured."
+    },
+    "model.norm": {
+      "type": "categorical",
+      "choices": [
+        "imagenet",
+        "symmetric"
+      ],
+      "prior": [
+        0.5,
+        0.5
+      ],
+      "impact": 0.1,
+      "confidence": 0.5,
+      "stage": "domain",
+      "evidence": "Firmware uses a LUT either way; only INT8 input precision differs. Pretrained stems are re-parameterised exactly."
+    }
+  },
+  "stages": [
+    {
+      "name": "baseline",
+      "trials": 3,
+      "eta": 1,
+      "comment": "Reproduce history with today's fixes. 1: the current notebook config with the half-cell offset fixed. 2: the July 0b4db56 recipe (scratch, no TAP, dw1 head, no zoom). 3: seed 1 with the old offset bug, to measure what the fix is worth. eta=1 trains all three to the last rung, which also shows how well 15-epoch scores predict 120-epoch ones.",
+      "seeds": [
+        {
+          "target.form": "gauss_peak"
+        },
+        {
+          "model.pretrained": false,
+          "model.tap": false,
+          "model.head": "dw1",
+          "model.freeze": "none",
+          "data.zoom_prob": 0.0,
+          "target.form": "gauss_peak"
+        },
+        {
+          "target.form": "gauss_peak",
+          "target.legacy_offset": true
+        }
+      ]
+    },
+    {
+      "name": "structure",
+      "trials": 24,
+      "startup": 10
+    },
+    {
+      "name": "targets_loss",
+      "trials": 24,
+      "startup": 10
+    },
+    {
+      "name": "domain",
+      "trials": 24,
+      "startup": 10,
+      "group_size": 2,
+      "comment": "Almost every parameter here changes the data pipeline, so lockstep groups can only share 2 trials (grayscale / norm differ). 24 trials = ~12 data configurations."
+    },
+    {
+      "name": "optim",
+      "trials": 16,
+      "startup": 6
+    }
+  ]
+}

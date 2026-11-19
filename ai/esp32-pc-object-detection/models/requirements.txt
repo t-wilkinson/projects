@@ -21,3 +21,8 @@ timm
 torch==2.6.0+cu124
 torchvision==0.21.0+cu124
 ultralytics # YOLO26-M
+# tinydet search + dashboard
+optuna>=4.0
+plotly>=5.20
+pandas
+# mlflow  # optional: Search(..., mlflow=True) mirrors trials to a local MLflow store
