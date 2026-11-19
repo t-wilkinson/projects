@@ -6,3 +6,6 @@ esp32/debug
 firmware/debug
 .venv-ml
 .venv-rust
+models/cache
+models/experiments
+models/tests/_smoke

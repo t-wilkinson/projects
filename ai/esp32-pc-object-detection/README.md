@@ -38,3 +38,10 @@ App/part. size:    1,052,080/4,128,768 bytes, 25.48%
 - The loss seems to take a hit whenever the LR resets
 - The class weights might not accurately represent the class imbalance
 - Perhaps change optimizer to T_0=30, T_mult=1, eta_min=1e-6
+
+## Model experiments
+
+`models/tinydet/` is the training and hyperparameter-search package; `models/experiments.ipynb`
+drives it and `models/search/space.json` holds the search space. See
+[`models/tinydet/README.md`](models/tinydet/README.md). Run `python tests/smoke_test.py` from
+`models/` to check the setup before training on COCO.
